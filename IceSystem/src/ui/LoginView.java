@@ -2,7 +2,6 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -46,7 +45,6 @@ public class LoginView extends JPanel{
 	private JMenu mnFornecedor;
 	private JMenu mnFinancas;
 	private LoginBO bo;
-	private JLabel labelWelcome;
 	private JMenuItem mntmLogout;
 	private JMenuItem mntmSair;
 	private JMenuItem mntmLogin;
@@ -106,15 +104,10 @@ public class LoginView extends JPanel{
 				//adiciona menus que todos users podem usar
 				criarMenu();
 				
-				//remove todo o conteudo que estava no frame (campos de login)
 				LoginView.this.frmHome.getContentPane().removeAll();
-				
-				//adiciona texto de bem-vindo
-				labelWelcome = new JLabel();
-				labelWelcome.setText("Bem-Vindo!");
-				labelWelcome.setFont(new Font(Font.DIALOG, Font.BOLD, 40));
-				labelWelcome.setBounds(100,100,250,50);
-				LoginView.this.frmHome.add(labelWelcome);
+				LogadoView logado = new LogadoView(LoginView.this.frmHome);
+				LoginView.this.frmHome.getContentPane().add(logado, BorderLayout.CENTER);
+				LoginView.this.frmHome.getContentPane().revalidate();
 				
 				//atualiza o frame
 				LoginView.this.frmHome.revalidate();				
