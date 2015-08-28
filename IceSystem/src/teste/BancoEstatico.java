@@ -20,6 +20,8 @@ public class BancoEstatico {
 	
 	static List<CidadeVO> listaCidades;
 	static CidadeVO cidade;
+	
+	static List<CargoVO> listaCargos;
 
 	public static List<FuncionarioVO> consultaFuncionarios(){
 		
@@ -133,4 +135,27 @@ public class BancoEstatico {
 		
 		return listaCidadesAux;
 	}
+	
+	public static List<CargoVO> consultaCargo(){
+		
+		listaCargos = new ArrayList<CargoVO>();
+		
+		cargo = new CargoVO();
+		cargo.setIdCargo((byte) 1);
+		cargo.setFuncao("ADM");
+		listaCargos.add(cargo);
+		
+		cargo = new CargoVO();
+		cargo.setIdCargo((byte) 2);
+		cargo.setFuncao("Gerente");
+		listaCargos.add(cargo);
+		
+		cargo = new CargoVO();
+		cargo.setIdCargo((byte) 3);
+		cargo.setFuncao("Cozinheiro");
+		listaCargos.add(cargo);	
+		
+		return listaCargos;
+	}
+	
 }
