@@ -19,10 +19,10 @@ import bo.CadastrarFuncionarioBO;
 public class CadastrarFornecedorView extends JPanel{
 
 	private static final long serialVersionUID = 1L;
-	private JLabel labelCnpj;
-	private JTextField txtCnpj;
 	private JLabel labelRazaoSocial;
 	private JTextField txtRazaoSocial;
+	private JLabel labelCnpj;
+	private JTextField txtCnpj;
 	private JLabel labelTelefone;
 	private JTextField txtTelefone;
 	private JLabel labelEmail;
@@ -57,23 +57,23 @@ public class CadastrarFornecedorView extends JPanel{
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
 		
-		labelCnpj = new JLabel();
-		labelCnpj.setText("CNPJ:");
-		labelCnpj.setBounds(20,5,120,20);
-		this.add(labelCnpj);
-		
-		txtCnpj = new JTextField();
-		txtCnpj.setBounds(300,7,200,20);
-		this.add(txtCnpj);
-		
 		labelRazaoSocial = new JLabel();
 		labelRazaoSocial.setText("Razão Social:");
-		labelRazaoSocial.setBounds(20,30,120,20);
+		labelRazaoSocial.setBounds(20,5,120,20);
 		this.add(labelRazaoSocial);
 		
 		txtRazaoSocial = new JTextField();
-		txtRazaoSocial.setBounds(300,32,200,20);
+		txtRazaoSocial.setBounds(300,7,200,20);
 		this.add(txtRazaoSocial);
+		
+		labelCnpj = new JLabel();
+		labelCnpj.setText("CNPJ:");
+		labelCnpj.setBounds(20,30,120,20);
+		this.add(labelCnpj);
+		
+		txtCnpj = new JTextField();
+		txtCnpj.setBounds(300,32,200,20);
+		this.add(txtCnpj);
 		
 		labelTelefone = new JLabel();
 		labelTelefone.setText("Telefone:");
