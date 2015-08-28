@@ -6,7 +6,7 @@ import teste.BancoEstatico;
 import vo.CidadeVO;
 import vo.EstadoVO;
 
-public class CadastarClienteBO {
+public class CadastrarFornecedorBO {
 
 	public List<EstadoVO> buscaEstados(){
 		
