@@ -3,10 +3,13 @@ package ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -18,6 +21,8 @@ public class HomeView {
 	private JMenu mnArquivo;
 	private JMenuItem mntmLogin;
 	private JMenuItem mntmSobre;
+	private ImageIcon img;
+	private JLabel labelImg;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -45,6 +50,11 @@ public class HomeView {
 		frmHome.setResizable(false);
 		frmHome.getContentPane().setBackground(Color.decode("#F0F8FF"));
 		frmHome.setLocationRelativeTo(null);
+		
+		img = new ImageIcon(getClass().getResource("/img/img.jpg"));
+		labelImg = new JLabel(img);
+		labelImg.setSize(200, 200);
+		frmHome.add(labelImg);
 		
 		menuBar = new JMenuBar();
 		frmHome.setJMenuBar(menuBar);
@@ -74,5 +84,8 @@ public class HomeView {
 		});
 		mnArquivo.add(mntmSobre);
 		
+		
+		
 	}
+	
 }
