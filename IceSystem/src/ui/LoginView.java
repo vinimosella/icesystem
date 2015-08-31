@@ -76,13 +76,20 @@ public class LoginView extends JPanel{
 		txtUser = new JTextField();
 		txtUser.setBounds(120,60,200,30);
 		
+		//ficar com foco no txtUser ao abrir a janela
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {  
+		    public void run() {  
+		    	txtUser.requestFocusInWindow();  
+		    }  
+		});  
+		
 		labelPassword = new JLabel();
 		labelPassword.setText("Senha:  ");
 		labelPassword.setBounds(50,110,60,50);
 		
 		txtPassword = new JPasswordField();
 		txtPassword.setBounds(120,120,200,30);
-		
+				
 		btnLogin = new JButton();
 		btnLogin.setText("Login");
 		btnLogin.setBounds(170, 200, 100, 30);
@@ -120,6 +127,8 @@ public class LoginView extends JPanel{
 		this.frmHome.add(labelPassword);
 		this.frmHome.add(txtPassword);
 		this.frmHome.add(btnLogin);
+		this.frmHome.getRootPane().setDefaultButton(btnLogin); //logar quando apertar enter
+
 	}
 	
 	private void criarMenu(){
