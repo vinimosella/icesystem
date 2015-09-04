@@ -98,8 +98,8 @@ public class LoginView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
-				/*txtUser.setText("admin");
-				txtPassword.setText("admin");*/
+				txtUser.setText("admin");
+				txtPassword.setText("admin");
 				
 				codUser = bo.verificaLogin(txtUser.getText(), txtPassword.getPassword());
 				

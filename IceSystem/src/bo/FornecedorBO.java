@@ -3,11 +3,10 @@ package bo;
 import java.util.List;
 
 import teste.BancoEstatico;
-import vo.CargoVO;
 import vo.CidadeVO;
 import vo.EstadoVO;
 
-public class CadastrarFuncionarioBO {
+public class FornecedorBO {
 
 	public List<EstadoVO> buscaEstados(){
 		
@@ -17,11 +16,6 @@ public class CadastrarFuncionarioBO {
 	public List<CidadeVO> buscaCidadesPorEstado(Integer idEstado){
 		
 		return BancoEstatico.consultaCidadesPorEstado(idEstado);
-	}
-	
-	public List<CargoVO> buscaCargos(){
-		
-		return BancoEstatico.consultaCargo();
 	}
 	
 }

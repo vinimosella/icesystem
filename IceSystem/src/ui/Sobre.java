@@ -15,9 +15,9 @@ public class Sobre extends JFrame {
 		setTitle("Sobre");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(600, 100, 460, 100);
-		this.setBackground(Color.decode("#F0F8FF"));
 		contentPane = new JPanel();
 		setContentPane(contentPane);
+		contentPane.setBackground(Color.decode("#F0F8FF"));
 		contentPane.setLayout(null);
 		this.setLocationRelativeTo(null);
 		

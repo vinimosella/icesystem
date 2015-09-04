@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 
 import vo.CidadeVO;
 import vo.EstadoVO;
-import bo.CadastrarClienteBO;
+import bo.ClienteBO;
 
 public class CadastrarClienteView extends JPanel{
 
@@ -43,13 +43,13 @@ public class CadastrarClienteView extends JPanel{
 	private JTextField txtCep;
 
 	
-	private CadastrarClienteBO bo;
+	private ClienteBO bo;
 	
 	private List<EstadoVO> listaEstados;
 	private List<CidadeVO> listaCidades;
 	
 	{
-		bo = new CadastrarClienteBO();
+		bo = new ClienteBO();
 	}
 	
 	public CadastrarClienteView(JFrame frame){

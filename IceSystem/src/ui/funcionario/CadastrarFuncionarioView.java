@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import vo.CargoVO;
 import vo.CidadeVO;
 import vo.EstadoVO;
-import bo.CadastrarFuncionarioBO;
+import bo.FuncionarioBO;
 
 public class CadastrarFuncionarioView extends JPanel{
 
@@ -47,14 +47,14 @@ public class CadastrarFuncionarioView extends JPanel{
 	private JLabel labelCargo;
 	private JComboBox<String> comboCargo;
 	
-	private CadastrarFuncionarioBO bo;
+	private FuncionarioBO bo;
 	
 	private List<EstadoVO> listaEstados;
 	private List<CidadeVO> listaCidades;
 	private List<CargoVO> listaCargos;
 	
 	{
-		bo = new CadastrarFuncionarioBO();
+		bo = new FuncionarioBO();
 	}
 	
 	public CadastrarFuncionarioView(JFrame frmHome){

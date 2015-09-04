@@ -81,9 +81,7 @@ public class HomeView {
 				sobre.setVisible(true);
 			}
 		});
-		mnArquivo.add(mntmSobre);
-		
-		
+		mnArquivo.add(mntmSobre);		
 		
 	}
 	

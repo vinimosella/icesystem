@@ -6,34 +6,20 @@ public class FuncionarioVO{
 		
 	}
 	
-	private Integer idCliente;
-	private CargoVO cargo;
-	private char[] senha;
-	private String login;
-	private TelefoneVO telefone;
-	private EmailVO email;
-	private EnderecoVO endereco;
+	private Integer idFuncionario;
 	private String nome;
 	private String cpf;
 	private String rg;
+	private CargoVO cargo;
+	private char[] senha;
+	private String login;
+	private EnderecoVO endereco;
 	
-	public Integer getIdCliente() {
-		return idCliente;
+	public Integer getIdFuncionario() {
+		return idFuncionario;
 	}
-	public void setIdCliente(Integer idCliente) {
-		this.idCliente = idCliente;
-	}
-	public TelefoneVO getTelefone() {
-		return telefone;
-	}
-	public void setTelefone(TelefoneVO telefone) {
-		this.telefone = telefone;
-	}
-	public EmailVO getEmail() {
-		return email;
-	}
-	public void setEmail(EmailVO email) {
-		this.email = email;
+	public void setIdFuncionario(Integer idFuncionario) {
+		this.idFuncionario = idFuncionario;
 	}
 	public EnderecoVO getEndereco() {
 		return endereco;
