@@ -52,6 +52,9 @@ public class BancoEstatico {
 		funcionario.setLogin("admin");
 		funcionario.setSenha(senha);
 		
+		funcionario.setListaEmails(consultaEmails());
+		funcionario.setListaTelefones(consultaTelefones());
+		
 		endereco = new EnderecoVO();
 		cidade = new CidadeVO();
 		cidade.setNome("Pederneiras");
@@ -84,11 +87,14 @@ public class BancoEstatico {
 		funcionario.setLogin("user");
 		funcionario.setSenha(senha2);
 		
+		funcionario.setListaEmails(consultaEmails());
+		funcionario.setListaTelefones(consultaTelefones());
+		
 		endereco = new EnderecoVO();
 		cidade = new CidadeVO();
-		cidade.setNome("Onde tem bomba");
+		cidade.setNome("Belo Horizonte");
 		estado= new EstadoVO();
-		estado.setNome("Islâmico");
+		estado.setNome("Minas Gerais");
 		cidade.setEstado(estado);
 		endereco.setCidade(cidade);
 		endereco.setCep("66.288-888");
@@ -115,11 +121,14 @@ public class BancoEstatico {
 		funcionario.setLogin("123");
 		funcionario.setSenha(senha3);
 		
+		funcionario.setListaEmails(consultaEmails());
+		funcionario.setListaTelefones(consultaTelefones());
+		
 		endereco = new EnderecoVO();
 		cidade = new CidadeVO();
-		cidade.setNome("Bariri");
+		cidade.setNome("Rio de Janeiro");
 		estado= new EstadoVO();
-		estado.setNome("São Paulo");
+		estado.setNome("Rio de Janeiro");
 		cidade.setEstado(estado);
 		endereco.setCidade(cidade);
 		endereco.setCep("24.111-111");

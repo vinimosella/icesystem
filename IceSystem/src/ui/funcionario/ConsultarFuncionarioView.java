@@ -1,5 +1,6 @@
 package ui.funcionario;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +17,6 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
-import ui.LoginView;
 import vo.FuncionarioVO;
 import bo.FuncionarioBO;
 
@@ -24,7 +24,6 @@ public class ConsultarFuncionarioView extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private JFrame frmHome;
 	private JTable table;
 	private JLabel lblConsultar;
 	private JScrollPane scrollPane;
@@ -43,20 +42,18 @@ public class ConsultarFuncionarioView extends JPanel{
 	
 	//é necessario o codUser pra criar o botao da tela de alterar/delete apenas se for userAdmin
 	public ConsultarFuncionarioView(final JFrame frmHome, final Byte codUser){
-		
-		this.frmHome = frmHome;
-		
+				
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
 		
-		lblConsultar = new JLabel("Consultar");
+		lblConsultar = new JLabel("Consulta - Funcionários");
 		lblConsultar.setBounds(10, 11, 430, 14);
 		this.add(lblConsultar);
 		
 		tabelaFuncionarios();
 				
 		btnDetalhar = new JButton("Detalhar");
-		btnDetalhar.setBounds(130, 211, 91, 23);
+		btnDetalhar.setBounds(130, 480, 91, 23);
 		btnDetalhar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -72,13 +69,18 @@ public class ConsultarFuncionarioView extends JPanel{
 		this.add(btnDetalhar);
 		
 		btnAtualizar = new JButton("Atualizar");
-		btnAtualizar.setBounds(231, 211, 91, 23);
+		btnAtualizar.setBounds(231, 480, 91, 23);
 		btnAtualizar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
 				if(table.getSelectedRow() != -1){
+					
+					frmHome.getContentPane().removeAll();
+					AtualizarFuncionarioView atualizar = new AtualizarFuncionarioView(frmHome, listaFuncionarios.get(table.getSelectedRow()));
+					frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
+					frmHome.getContentPane().revalidate();
 					
 				}
 				
@@ -88,7 +90,7 @@ public class ConsultarFuncionarioView extends JPanel{
 		this.add(btnAtualizar);
 		
 		btnRemover = new JButton("Remover");
-		btnRemover.setBounds(332, 211, 91, 23);
+		btnRemover.setBounds(332, 480, 91, 23);
 		btnRemover.addActionListener(new ActionListener() {
 			
 			@Override
@@ -125,19 +127,30 @@ public class ConsultarFuncionarioView extends JPanel{
 	public void tabelaFuncionarios(){
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 31, 550, 169);
+		scrollPane.setBounds(20, 50, 550, 400);
 		this.add(scrollPane);
 		
 		table = new JTable();
 		
 		dtm = new DefaultTableModel(
+				
 				new Object[][] {
 						
 				},
 				new String[] {
 					"ID", "Nome", "CPF", "RG", "Cargo",
 				}				
-		);
+		){
+		
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				
+			   return false;
+			}
+			
+		};
 		
 		listaFuncionarios = bo.consultarFuncionarios();
 

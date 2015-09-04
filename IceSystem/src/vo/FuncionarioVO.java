@@ -1,5 +1,7 @@
 package vo;
 
+import java.util.List;
+
 public class FuncionarioVO{
 	
 	public FuncionarioVO(){
@@ -14,7 +16,21 @@ public class FuncionarioVO{
 	private char[] senha;
 	private String login;
 	private EnderecoVO endereco;
+	private List<EmailVO> listaEmails;
+	private List<TelefoneVO> listaTelefones;
 	
+	public List<EmailVO> getListaEmails() {
+		return listaEmails;
+	}
+	public void setListaEmails(List<EmailVO> listaEmails) {
+		this.listaEmails = listaEmails;
+	}
+	public List<TelefoneVO> getListaTelefones() {
+		return listaTelefones;
+	}
+	public void setListaTelefones(List<TelefoneVO> listaTelefones) {
+		this.listaTelefones = listaTelefones;
+	}
 	public Integer getIdFuncionario() {
 		return idFuncionario;
 	}

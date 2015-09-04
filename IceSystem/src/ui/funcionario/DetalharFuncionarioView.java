@@ -34,9 +34,6 @@ public class DetalharFuncionarioView extends JFrame{
 	private JLabel lblCep;
 	private JLabel lblBairro;
 	private JLabel lblLogradouro;
-	private JLabel lblNumero;
-	private JLabel lblComplemento;
-
 	
 	private FuncionarioBO bo;
 	
@@ -82,7 +79,17 @@ public class DetalharFuncionarioView extends JFrame{
 				new String[] {
 					"E-mail"
 				}
-		);
+		){
+			
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+			
+			   return false;
+			}
+			
+		};
 		
 		Iterator<EmailVO> it = listaEmails.iterator();
 		EmailVO email;
@@ -117,7 +124,17 @@ public class DetalharFuncionarioView extends JFrame{
 				new String[] {
 					"Telefone"
 				}
-		);
+		){
+			
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+			
+			   return false;
+			}
+			
+		};
 		
 		Iterator<TelefoneVO> it = listaTelefones.iterator();
 		TelefoneVO telefone;
@@ -144,28 +161,20 @@ public class DetalharFuncionarioView extends JFrame{
 		contentPane.add(lblEstado);
 			
 		lblCidade = new JLabel("Cidade: "+ funcionario.getEndereco().getCidade().getNome());
-		lblCidade.setBounds(230,200,150,60);
+		lblCidade.setBounds(40,240,150,60);
 		contentPane.add(lblCidade);
 			
 		lblCep = new JLabel("CEP: " + funcionario.getEndereco().getCep());
-		lblCep.setBounds(40, 240, 300, 60);
+		lblCep.setBounds(40, 280, 300, 60);
 		contentPane.add(lblCep);
 			
 		lblBairro = new JLabel("Bairro: " + funcionario.getEndereco().getBairro());
-		lblBairro.setBounds(40, 280, 300, 60);
+		lblBairro.setBounds(40, 320, 300, 60);
 		contentPane.add(lblBairro);
 			
-		lblLogradouro = new JLabel("Logradouro: " + funcionario.getEndereco().getLogradouro());
-		lblLogradouro.setBounds(40, 320, 300, 60);
-		contentPane.add(lblLogradouro);
-			
-		lblComplemento = new JLabel("Complemento: " + funcionario.getEndereco().getComplemento());
-		lblComplemento.setBounds(40, 360, 150, 60);
-		contentPane.add(lblComplemento);
-		
-		lblNumero = new JLabel("Número: " + funcionario.getEndereco().getNumero());
-		lblNumero.setBounds(230, 360, 150, 60);
-		contentPane.add(lblNumero);
+		lblLogradouro = new JLabel("Logradouro: " + funcionario.getEndereco().getLogradouro() + ", " + funcionario.getEndereco().getComplemento() + " - " + funcionario.getEndereco().getNumero());
+		lblLogradouro.setBounds(40, 360, 300, 60);
+		contentPane.add(lblLogradouro);			
 		
 	}
 	

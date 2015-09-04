@@ -51,6 +51,7 @@ public class AtualizarFuncionarioView extends JPanel{
 	private JComboBox<String> comboCargo;
 	
 	private FuncionarioBO bo;
+	private FuncionarioVO funcionario;
 	private Iterator<?> it;
 	
 	private List<EstadoVO> listaEstados;
@@ -63,7 +64,9 @@ public class AtualizarFuncionarioView extends JPanel{
 	}
 	
 	public AtualizarFuncionarioView(JFrame frmHome, FuncionarioVO funcionario){
-				
+		
+		this.funcionario = funcionario;
+		
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
 		
@@ -102,18 +105,33 @@ public class AtualizarFuncionarioView extends JPanel{
 		labelTelefone.setBounds(20,80,120,20);
 		this.add(labelTelefone);
 		
+		//armazena a quantidade de telefones que tem, alterará o valor do label de telefone para o numero corrente
 		comboTelefone = new JComboBox<Integer>();
 		it = funcionario.getListaTelefones().iterator();
 		Integer contadorTelefones = 0;
 		
 		while(it.hasNext()){
 			comboTelefone.addItem(++contadorTelefones);
+			it.next();
 		}
-		comboTelefone.setBounds(250,80,40,20);
+		comboTelefone.setBounds(250,82,40,20);
+		//Muda o valor do textField quando muda o 'id' do telefone do combobox
+		comboTelefone.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+				txtTelefone.setText("");
+				txtTelefone.setText(AtualizarFuncionarioView.this.funcionario.getListaTelefones().get(comboTelefone.getSelectedIndex()).getDdd()
+						+ AtualizarFuncionarioView.this.funcionario.getListaTelefones().get(comboTelefone.getSelectedIndex()).getNumero());
+				
+			}
+		});
 		this.add(comboTelefone);
 		
 		txtTelefone = new JTextField();
 		txtTelefone.setBounds(300,82,200,20);
+		txtTelefone.setText(funcionario.getListaTelefones().get(0).getNumero());
 		this.add(txtTelefone);
 		
 		labelEmail = new JLabel();
@@ -121,18 +139,31 @@ public class AtualizarFuncionarioView extends JPanel{
 		labelEmail.setBounds(20,105,120,20);
 		this.add(labelEmail);
 		
+		//armazena a quantidade de emails que tem, alterará o valor do label de email para o numero corrente
 		comboEmail = new JComboBox<Integer>();
 		it = funcionario.getListaEmails().iterator();
 		Integer contadorEmails = 0;
 		
 		while(it.hasNext()){
 			comboEmail.addItem(++contadorEmails);
+			it.next();
 		}
 		comboEmail.setBounds(250,107,40,20);
+		//Muda o valor do textField quando muda o 'id' do email do combobox
+		comboEmail.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				txtEmail.setText("");
+				txtEmail.setText(AtualizarFuncionarioView.this.funcionario.getListaEmails().get(comboEmail.getSelectedIndex()).getEmail());
+			}
+		});
 		this.add(comboEmail);
 		
 		txtEmail = new JTextField();
-		txtEmail.setBounds(300,107,200,20);		
+		txtEmail.setBounds(300,107,200,20);
+		txtEmail.setText(funcionario.getListaEmails().get(0).getEmail());
 		this.add(txtEmail);
 		
 		labelEstado = new JLabel();
@@ -214,6 +245,7 @@ public class AtualizarFuncionarioView extends JPanel{
 		
 		txtLogradouro = new JTextField();
 		txtLogradouro.setBounds(300,182,200,20);
+		txtLogradouro.setText(funcionario.getEndereco().getLogradouro());
 		this.add(txtLogradouro);
 		
 		labelNumero = new JLabel();
@@ -223,6 +255,7 @@ public class AtualizarFuncionarioView extends JPanel{
 		
 		txtNumero = new JTextField();
 		txtNumero.setBounds(300,207,200,20);
+		txtNumero.setText(funcionario.getEndereco().getNumero().toString());
 		this.add(txtNumero);
 		
 		labelComplemento = new JLabel();
@@ -232,6 +265,7 @@ public class AtualizarFuncionarioView extends JPanel{
 		
 		txtComplemento = new JTextField();
 		txtComplemento.setBounds(300,232,200,20);
+		txtComplemento.setText(funcionario.getEndereco().getComplemento());
 		this.add(txtComplemento);
 		
 		labelBairro = new JLabel();
@@ -241,6 +275,7 @@ public class AtualizarFuncionarioView extends JPanel{
 		
 		txtBairro = new JTextField();
 		txtBairro.setBounds(300,257,200,20);
+		txtBairro.setText(funcionario.getEndereco().getBairro());
 		this.add(txtBairro);
 		
 		labelCep = new JLabel();
@@ -250,6 +285,7 @@ public class AtualizarFuncionarioView extends JPanel{
 		
 		txtCep = new JTextField();
 		txtCep.setBounds(300,282,200,20);
+		txtCep.setText(funcionario.getEndereco().getCep());
 		this.add(txtCep);
 		
 		labelCargo = new JLabel();
@@ -270,7 +306,7 @@ public class AtualizarFuncionarioView extends JPanel{
 			comboCargo.addItem(cargo.getFuncao());
 			
 		}
-		
+		comboCargo.setSelectedItem(funcionario.getCargo().getFuncao());
 		this.add(comboCargo);
 		
 	}
