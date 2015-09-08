@@ -6,16 +6,21 @@ import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import vo.CargoVO;
 import vo.CidadeVO;
+import vo.EmailVO;
 import vo.EstadoVO;
 import vo.FuncionarioVO;
+import vo.TelefoneVO;
 import bo.FuncionarioBO;
 
 public class AtualizarFuncionarioView extends JPanel{
@@ -30,9 +35,15 @@ public class AtualizarFuncionarioView extends JPanel{
 	private JLabel labelTelefone;
 	private JComboBox<Integer> comboTelefone;
 	private JTextField txtTelefone;
+	private JButton btnAtualizarTelefone;
+	private JButton btnAdicionarTelefone;
+	private JButton btnRemoverTelefone;
 	private JLabel labelEmail;
 	private JComboBox<Integer> comboEmail; 
 	private JTextField txtEmail;
+	private JButton btnAtualizarEmail;
+	private JButton btnAdicionarEmail;
+	private JButton btnRemoverEmail;
 	private JLabel labelEstado;
 	private JComboBox<String> comboEstado;
 	private JLabel labelCidade;
@@ -49,15 +60,19 @@ public class AtualizarFuncionarioView extends JPanel{
 	private JTextField txtCep;
 	private JLabel labelCargo;
 	private JComboBox<String> comboCargo;
+	private List<TelefoneVO> listaTelefones;
+	private List<EmailVO> listaEmails;
+	private Integer contadorTelefones;
+	private Integer contadorEmails;
 	
+	private JFrame frmHome;
 	private FuncionarioBO bo;
-	private FuncionarioVO funcionario;
 	private Iterator<?> it;
 	
 	private List<EstadoVO> listaEstados;
 	private List<CidadeVO> listaCidades;
 	private List<CargoVO> listaCargos;
-	
+		
 	{
 		bo = new FuncionarioBO();
 		comboCidade = new JComboBox<String>();
@@ -65,7 +80,10 @@ public class AtualizarFuncionarioView extends JPanel{
 	
 	public AtualizarFuncionarioView(JFrame frmHome, FuncionarioVO funcionario){
 		
-		this.funcionario = funcionario;
+		this.frmHome = frmHome;
+				
+		listaEmails = funcionario.getListaEmails();
+		listaTelefones = funcionario.getListaTelefones();
 		
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
@@ -107,13 +125,9 @@ public class AtualizarFuncionarioView extends JPanel{
 		
 		//armazena a quantidade de telefones que tem, alterará o valor do label de telefone para o numero corrente
 		comboTelefone = new JComboBox<Integer>();
-		it = funcionario.getListaTelefones().iterator();
-		Integer contadorTelefones = 0;
 		
-		while(it.hasNext()){
-			comboTelefone.addItem(++contadorTelefones);
-			it.next();
-		}
+		carregaTelefone();
+		
 		comboTelefone.setBounds(250,82,40,20);
 		//Muda o valor do textField quando muda o 'id' do telefone do combobox
 		comboTelefone.addActionListener(new ActionListener() {
@@ -122,8 +136,11 @@ public class AtualizarFuncionarioView extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 
 				txtTelefone.setText("");
-				txtTelefone.setText(AtualizarFuncionarioView.this.funcionario.getListaTelefones().get(comboTelefone.getSelectedIndex()).getDdd()
-						+ AtualizarFuncionarioView.this.funcionario.getListaTelefones().get(comboTelefone.getSelectedIndex()).getNumero());
+				
+				if(comboTelefone.getSelectedIndex()!=-1){
+					txtTelefone.setText(listaTelefones.get(comboTelefone.getSelectedIndex()).getDdd()
+						+ listaTelefones.get(comboTelefone.getSelectedIndex()).getNumero());
+				}
 				
 			}
 		});
@@ -131,8 +148,102 @@ public class AtualizarFuncionarioView extends JPanel{
 		
 		txtTelefone = new JTextField();
 		txtTelefone.setBounds(300,82,200,20);
-		txtTelefone.setText(funcionario.getListaTelefones().get(0).getNumero());
+		txtTelefone.setText(listaTelefones.get(0).getDdd()+listaTelefones.get(0).getNumero());
 		this.add(txtTelefone);
+		
+		btnAtualizarTelefone = new JButton(new ImageIcon(getClass().getResource("/img/update.png")));
+		btnAtualizarTelefone.setBounds(502,83,17,17);
+		btnAtualizarTelefone.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				if(listaTelefones.size()==0){
+					return;
+				}
+				
+				if(!bo.isTelefoneExistente(txtTelefone.getText(), listaTelefones)){
+				
+					listaTelefones.get(comboTelefone.getSelectedIndex()).setDdd(txtTelefone.getText().substring(0,2));
+					listaTelefones.get(comboTelefone.getSelectedIndex()).setNumero(txtTelefone.getText().substring(2));
+					
+					comboTelefone.removeAllItems();
+					carregaTelefone();
+					comboTelefone.setSelectedIndex(listaTelefones.size()-1);
+				}				
+				else{
+					
+					JOptionPane.showMessageDialog(AtualizarFuncionarioView.this.frmHome, "   Telefone não modificado ou já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
+		this.add(btnAtualizarTelefone);
+
+		btnAdicionarTelefone = new JButton(new ImageIcon(getClass().getResource("/img/confirm.png")));
+		btnAdicionarTelefone.setBounds(521,83,17,17);
+		btnAdicionarTelefone.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				//verifica se ja é existente, se não, adiciona
+				if(!bo.isTelefoneExistente(txtTelefone.getText(), listaTelefones)){
+					
+					TelefoneVO telefone = new TelefoneVO();
+					telefone.setDdd(txtTelefone.getText().substring(0, 2));
+					telefone.setNumero(txtTelefone.getText().substring(2));
+					listaTelefones.add(telefone);
+					comboTelefone.addItem(++contadorTelefones);
+					comboTelefone.setSelectedItem(contadorTelefones);
+					
+					if(listaTelefones.size()==5){
+						
+						btnAdicionarTelefone.setEnabled(false);
+					}
+					
+				}
+				else{
+					
+					JOptionPane.showMessageDialog(AtualizarFuncionarioView.this.frmHome, "   Telefone já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
+		this.add(btnAdicionarTelefone);
+		
+		btnRemoverTelefone = new JButton(new ImageIcon(getClass().getResource("/img/delete.png")));
+		btnRemoverTelefone.setBounds(540,83,17,17);
+		btnRemoverTelefone.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+								
+				//se ja não houver telefones pra remover...
+				if(listaTelefones.size() == 0){
+					
+					return;
+				}
+				
+				listaTelefones.remove(comboTelefone.getSelectedIndex());
+				comboTelefone.removeAllItems();
+				carregaTelefone();
+				
+				if(!btnAdicionarTelefone.isEnabled() && listaTelefones.size()<5){
+					
+					btnAdicionarTelefone.setEnabled(true);
+				}
+								
+				//se não for o ultimo a ser removido
+				if(listaTelefones.size() != 0){
+					
+					comboTelefone.setSelectedIndex(0);
+					
+				}
+
+			}
+		});
+		this.add(btnRemoverTelefone);
 		
 		labelEmail = new JLabel();
 		labelEmail.setText("Email:");
@@ -141,13 +252,9 @@ public class AtualizarFuncionarioView extends JPanel{
 		
 		//armazena a quantidade de emails que tem, alterará o valor do label de email para o numero corrente
 		comboEmail = new JComboBox<Integer>();
-		it = funcionario.getListaEmails().iterator();
-		Integer contadorEmails = 0;
 		
-		while(it.hasNext()){
-			comboEmail.addItem(++contadorEmails);
-			it.next();
-		}
+		carregaEmail();
+		
 		comboEmail.setBounds(250,107,40,20);
 		//Muda o valor do textField quando muda o 'id' do email do combobox
 		comboEmail.addActionListener(new ActionListener() {
@@ -156,15 +263,110 @@ public class AtualizarFuncionarioView extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 
 				txtEmail.setText("");
-				txtEmail.setText(AtualizarFuncionarioView.this.funcionario.getListaEmails().get(comboEmail.getSelectedIndex()).getEmail());
+				
+				if(comboEmail.getSelectedIndex()!=-1){
+					txtEmail.setText(listaEmails.get(comboEmail.getSelectedIndex()).getEmail());
+				}
+				
 			}
 		});
 		this.add(comboEmail);
 		
 		txtEmail = new JTextField();
 		txtEmail.setBounds(300,107,200,20);
-		txtEmail.setText(funcionario.getListaEmails().get(0).getEmail());
+		txtEmail.setText(listaEmails.get(0).getEmail());
 		this.add(txtEmail);
+		
+		btnAtualizarEmail = new JButton(new ImageIcon(getClass().getResource("/img/update.png")));
+		btnAtualizarEmail.setBounds(502,108,17,17);
+		btnAtualizarEmail.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				if(listaEmails.size()==0){
+					return;
+				}
+				
+				if(!bo.isEmailExistente(txtEmail.getText(), listaEmails)){
+				
+					listaEmails.get(comboEmail.getSelectedIndex()).setEmail(txtEmail.getText());;
+					
+					comboEmail.removeAllItems();
+					carregaEmail();
+					comboEmail.setSelectedIndex(listaEmails.size()-1);
+				}				
+				else{
+					
+					JOptionPane.showMessageDialog(AtualizarFuncionarioView.this.frmHome, "   Email não modificado ou já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
+		this.add(btnAtualizarEmail);
+		
+		btnAdicionarEmail = new JButton(new ImageIcon(getClass().getResource("/img/confirm.png")));
+		btnAdicionarEmail.setBounds(521,108,17,17);
+		btnAdicionarEmail.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				//verifica se ja é existente, se não, adiciona
+				if(!bo.isEmailExistente(txtEmail.getText(), listaEmails)){
+					
+					EmailVO email = new EmailVO();
+					email.setEmail(txtEmail.getText());
+					listaEmails.add(email);
+					comboEmail.addItem(++contadorEmails);
+					comboEmail.setSelectedItem(contadorEmails);
+					
+					if(listaEmails.size()==5){
+						btnAdicionarEmail.setEnabled(false);
+					}
+					
+				}
+				else{
+					
+					JOptionPane.showMessageDialog(AtualizarFuncionarioView.this.frmHome, "   Email já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
+		this.add(btnAdicionarEmail);
+		
+		btnRemoverEmail = new JButton(new ImageIcon(getClass().getResource("/img/delete.png")));
+		btnRemoverEmail.setBounds(540,108,17,17);
+		btnRemoverEmail.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+								
+				//se ja não houver emails pra remover...
+				if(listaEmails.size()==0){
+					
+					return;
+				}
+				
+				listaEmails.remove(comboEmail.getSelectedIndex());
+				comboEmail.removeAllItems();
+				carregaEmail();
+				
+				if(!btnAdicionarEmail.isEnabled() && listaEmails.size()<5){
+					
+					btnAdicionarEmail.setEnabled(true);
+				}
+				
+				//se não for o ultimo a ser removido
+				if(listaEmails.size() != 0){
+									
+					comboEmail.setSelectedIndex(0);
+					
+				}
+
+			}
+		});
+		this.add(btnRemoverEmail);
 		
 		labelEstado = new JLabel();
 		labelEstado.setText("Estado:");
@@ -308,6 +510,30 @@ public class AtualizarFuncionarioView extends JPanel{
 		}
 		comboCargo.setSelectedItem(funcionario.getCargo().getFuncao());
 		this.add(comboCargo);
+		
+	}
+	
+	private void carregaTelefone(){
+		
+		it = listaTelefones.iterator();
+		contadorTelefones = 0;
+
+		while (it.hasNext()) {
+			comboTelefone.addItem(++contadorTelefones);
+			it.next();
+		}
+		
+	}
+	
+	private void carregaEmail(){
+		
+		it = listaEmails.iterator();
+		contadorEmails = 0;
+		
+		while(it.hasNext()){
+			comboEmail.addItem(++contadorEmails);
+			it.next();
+		}
 		
 	}
 	
