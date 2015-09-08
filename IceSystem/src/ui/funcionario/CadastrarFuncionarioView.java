@@ -19,7 +19,9 @@ import javax.swing.JTextField;
 import vo.CargoVO;
 import vo.CidadeVO;
 import vo.EmailVO;
+import vo.EnderecoVO;
 import vo.EstadoVO;
+import vo.FuncionarioVO;
 import vo.TelefoneVO;
 import bo.FuncionarioBO;
 
@@ -64,7 +66,15 @@ public class CadastrarFuncionarioView extends JPanel{
 	private List<EmailVO> listaEmails;
 	private Integer contadorTelefones;
 	private Integer contadorEmails;
+	private JButton btnCadastrar;
 	
+	private FuncionarioVO funcionario;
+	private TelefoneVO telefone;
+	private EmailVO email;
+	private EnderecoVO endereco;
+	private CidadeVO cidade;
+	private EstadoVO estado;
+	private CargoVO cargo;
 	private JFrame frmHome;
 	private FuncionarioBO bo;
 	private Iterator<?> it;
@@ -182,7 +192,7 @@ public class CadastrarFuncionarioView extends JPanel{
 				//verifica se ja é existente, se não, adiciona
 				if(!bo.isTelefoneExistenteLista(txtTelefone.getText(), listaTelefones)){
 					
-					TelefoneVO telefone = new TelefoneVO();
+					telefone = new TelefoneVO();
 					telefone.setDdd(txtTelefone.getText().substring(0, 2));
 					telefone.setNumero(txtTelefone.getText().substring(2));
 					listaTelefones.add(telefone);
@@ -246,7 +256,6 @@ public class CadastrarFuncionarioView extends JPanel{
 		
 		txtEmail = new JTextField();
 		txtEmail.setBounds(300,107,200,20);
-		txtEmail.setText("alalallalaa");
 		this.add(txtEmail);
 		
 		//armazena a quantidade de emails que tem, alterará o valor do label de email para o numero corrente
@@ -307,7 +316,7 @@ public class CadastrarFuncionarioView extends JPanel{
 				//verifica se ja é existente, se não, adiciona
 				if(!bo.isEmailExistenteLista(txtEmail.getText(), listaEmails)){
 					
-					EmailVO email = new EmailVO();
+					email = new EmailVO();
 					email.setEmail(txtEmail.getText());
 					listaEmails.add(email);
 					comboEmail.addItem(++contadorEmails);
@@ -372,7 +381,6 @@ public class CadastrarFuncionarioView extends JPanel{
 		comboEstado.addItem("Selecione");
 		listaEstados = bo.buscaEstados();
 		Iterator<EstadoVO> it = (Iterator<EstadoVO>) listaEstados.iterator();
-		EstadoVO estado;
 		
 		while(it.hasNext()){
 			estado = (EstadoVO) it.next();
@@ -487,6 +495,27 @@ public class CadastrarFuncionarioView extends JPanel{
 		
 		this.add(comboCargo);
 		
+		btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.setBounds(280, 380, 120, 20);
+		btnCadastrar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				if(bo.cadastrarFuncionario(validaFuncionario())){
+					
+					JOptionPane.showMessageDialog(CadastrarFuncionarioView.this.frmHome, "   Funcionário cadastrado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+					
+				}
+				else{
+					
+					JOptionPane.showMessageDialog(CadastrarFuncionarioView.this.frmHome, "   Não foi possível cadastrar!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+
+				}
+			}
+		});
+		this.add(btnCadastrar);
+		
 	}
 	
 	private void carregaTelefone(){
@@ -511,6 +540,40 @@ public class CadastrarFuncionarioView extends JPanel{
 			it.next();
 		}
 		
+	}
+	
+	private FuncionarioVO validaFuncionario(){
+		
+		funcionario = new FuncionarioVO();
+		
+		funcionario.setNome(txtNome.getText());
+		funcionario.setCpf(txtCpf.getText());
+		funcionario.setRg(txtRg.getText());
+		funcionario.setListaTelefones(listaTelefones);
+		funcionario.setListaEmails(listaEmails);
+		
+		endereco = new EnderecoVO();
+		
+		endereco.setLogradouro(txtLogradouro.getText());
+		endereco.setNumero(Integer.parseInt(txtNumero.getText()));
+		endereco.setComplemento(txtComplemento.getText());
+		endereco.setBairro(txtBairro.getText());
+		endereco.setCep(txtCep.getText());
+		
+		cidade = bo.buscaCidadePorNomeNaLista(comboCidade.getSelectedItem().toString(), listaCidades);	
+		
+		estado = bo.buscaEstadoPorNomeNaLista(comboEstado.getSelectedItem().toString(), listaEstados);
+		
+		cidade.setEstado(estado);
+		endereco.setCidade(cidade);
+		
+		funcionario.setEndereco(endereco);
+		
+		cargo = bo.buscaCargoPorFuncaoNaLista(comboCargo.getSelectedItem().toString(), listaCargos);
+				
+		funcionario.setCargo(cargo);
+		
+		return funcionario;
 	}
 	
 }

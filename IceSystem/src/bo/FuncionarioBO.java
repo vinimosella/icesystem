@@ -3,6 +3,7 @@ package bo;
 import java.util.Iterator;
 import java.util.List;
 
+import dao.FuncionarioDAO;
 import teste.BancoEstatico;
 import vo.CargoVO;
 import vo.CidadeVO;
@@ -84,6 +85,71 @@ public class FuncionarioBO {
 		}
 		
 		return false;
+	}
+	
+	public boolean cadastrarFuncionario(FuncionarioVO funcionario){
+		
+		return FuncionarioDAO.cadastrarFuncionario(funcionario);
+	}
+	
+	public CidadeVO buscaCidadePorNomeNaLista(String nomeCidade, List<CidadeVO> listaCidades){
+		
+		Iterator<CidadeVO> it = listaCidades.iterator();
+		
+		CidadeVO cidade;
+		
+		while(it.hasNext()){
+			
+			cidade = it.next();
+			
+			if(cidade.getNome().equals(nomeCidade)){
+				
+				return cidade;
+			}
+			
+		}
+		
+		return null;
+	}
+	
+	public EstadoVO buscaEstadoPorNomeNaLista(String nomeEstado, List<EstadoVO> listaEstados){
+		
+		Iterator<EstadoVO> it = listaEstados.iterator();
+		
+		EstadoVO estado;
+		
+		while(it.hasNext()){
+			
+			estado = it.next();
+			
+			if(estado.getNome().equals(nomeEstado)){
+				
+				return estado;
+			}
+			
+		}
+		
+		return null;
+	}
+	
+	public CargoVO buscaCargoPorFuncaoNaLista(String funcaoCargo, List<CargoVO> listaCargos){
+		
+		Iterator<CargoVO> it = listaCargos.iterator();
+		
+		CargoVO cargo;
+		
+		while(it.hasNext()){
+			
+			cargo = it.next();
+			
+			if(cargo.getFuncao().equals(funcaoCargo)){
+				
+				return cargo;
+			}
+			
+		}
+		
+		return null;
 	}
 	
 }
