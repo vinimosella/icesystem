@@ -48,7 +48,7 @@ public class FuncionarioBO {
 		return true;
 	}
 	
-	public boolean isTelefoneExistente(String txtTelefone, List<TelefoneVO> listaTelefones){
+	public boolean isTelefoneExistenteLista(String txtTelefone, List<TelefoneVO> listaTelefones){
 		
 		Iterator<TelefoneVO> it = listaTelefones.iterator();
 		
@@ -66,7 +66,9 @@ public class FuncionarioBO {
 		return false;
 	}
 	
-	public boolean isEmailExistente(String txtEmail, List<EmailVO> listaEmails){
+	public boolean isEmailExistenteLista(String txtEmail, List<EmailVO> listaEmails){
+		
+		System.out.println("txtEmail: " + txtEmail);
 		
 		Iterator<EmailVO> it = listaEmails.iterator();
 		

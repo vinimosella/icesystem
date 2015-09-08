@@ -162,7 +162,7 @@ public class AtualizarFuncionarioView extends JPanel{
 					return;
 				}
 				
-				if(!bo.isTelefoneExistente(txtTelefone.getText(), listaTelefones)){
+				if(!bo.isTelefoneExistenteLista(txtTelefone.getText(), listaTelefones)){
 				
 					listaTelefones.get(comboTelefone.getSelectedIndex()).setDdd(txtTelefone.getText().substring(0,2));
 					listaTelefones.get(comboTelefone.getSelectedIndex()).setNumero(txtTelefone.getText().substring(2));
@@ -188,7 +188,7 @@ public class AtualizarFuncionarioView extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				
 				//verifica se ja é existente, se não, adiciona
-				if(!bo.isTelefoneExistente(txtTelefone.getText(), listaTelefones)){
+				if(!bo.isTelefoneExistenteLista(txtTelefone.getText(), listaTelefones)){
 					
 					TelefoneVO telefone = new TelefoneVO();
 					telefone.setDdd(txtTelefone.getText().substring(0, 2));
@@ -197,6 +197,7 @@ public class AtualizarFuncionarioView extends JPanel{
 					comboTelefone.addItem(++contadorTelefones);
 					comboTelefone.setSelectedItem(contadorTelefones);
 					
+					//bloqueia pra não passar de 5
 					if(listaTelefones.size()==5){
 						
 						btnAdicionarTelefone.setEnabled(false);
@@ -229,6 +230,7 @@ public class AtualizarFuncionarioView extends JPanel{
 				comboTelefone.removeAllItems();
 				carregaTelefone();
 				
+				//se o botao estava bloqueado e agora é possivel adicionar mais, o botão é habilitado
 				if(!btnAdicionarTelefone.isEnabled() && listaTelefones.size()<5){
 					
 					btnAdicionarTelefone.setEnabled(true);
@@ -288,7 +290,7 @@ public class AtualizarFuncionarioView extends JPanel{
 					return;
 				}
 				
-				if(!bo.isEmailExistente(txtEmail.getText(), listaEmails)){
+				if(!bo.isEmailExistenteLista(txtEmail.getText(), listaEmails)){
 				
 					listaEmails.get(comboEmail.getSelectedIndex()).setEmail(txtEmail.getText());;
 					
@@ -313,7 +315,7 @@ public class AtualizarFuncionarioView extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				
 				//verifica se ja é existente, se não, adiciona
-				if(!bo.isEmailExistente(txtEmail.getText(), listaEmails)){
+				if(!bo.isEmailExistenteLista(txtEmail.getText(), listaEmails)){
 					
 					EmailVO email = new EmailVO();
 					email.setEmail(txtEmail.getText());
@@ -321,6 +323,7 @@ public class AtualizarFuncionarioView extends JPanel{
 					comboEmail.addItem(++contadorEmails);
 					comboEmail.setSelectedItem(contadorEmails);
 					
+					//bloqueia pra não passar de 5
 					if(listaEmails.size()==5){
 						btnAdicionarEmail.setEnabled(false);
 					}
@@ -352,6 +355,7 @@ public class AtualizarFuncionarioView extends JPanel{
 				comboEmail.removeAllItems();
 				carregaEmail();
 				
+				//se o botao estava bloqueado e agora é possivel adicionar mais, o botão é habilitado
 				if(!btnAdicionarEmail.isEnabled() && listaEmails.size()<5){
 					
 					btnAdicionarEmail.setEnabled(true);
