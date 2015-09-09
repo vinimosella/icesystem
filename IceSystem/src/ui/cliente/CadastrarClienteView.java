@@ -35,6 +35,8 @@ public class CadastrarClienteView extends CadastrarPessoaJuridicaView{
 		cliente.setListaTelefones(pj.getListaTelefones());
 		cliente.setEndereco(pj.getEndereco());
 		
+		System.out.println(cliente.getRazaoSocial());
+		
 		if(bo.cadastrarCliente(cliente)){
 			
 			JOptionPane.showMessageDialog(CadastrarClienteView.this.frmHome, "   Cliente cadastrado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
