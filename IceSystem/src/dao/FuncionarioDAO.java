@@ -4,7 +4,7 @@ import vo.FuncionarioVO;
 
 public class FuncionarioDAO {
 	
-	public static boolean consultarFuncionario(FuncionarioVO funcionario){
+	public static boolean consultarFuncionario(){
 		
 		return true;
 	}
@@ -20,6 +20,11 @@ public class FuncionarioDAO {
 	}
 	
 	public static boolean excluirFuncionario(FuncionarioVO funcionario){
+		
+		return true;
+	}
+	
+	public static boolean detalharFuncionario(FuncionarioVO funcionario){
 		
 		return true;
 	}
