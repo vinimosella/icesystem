@@ -111,7 +111,7 @@ public class ConsultarFornecedorView extends ConsultaGenericaView{
 			if(bo.excluirFornecedor(listaFornecedores.get(linhaSelecionada))){
 						
 				//remove da lista e da tabela
-				listaFornecedores.remove(linhaSelecionada);						
+				listaFornecedores.remove(linhaSelecionada);
 				dtm.removeRow(linhaSelecionada);
 						
 			}

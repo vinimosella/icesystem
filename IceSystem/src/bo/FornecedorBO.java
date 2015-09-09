@@ -20,6 +20,11 @@ public class FornecedorBO {
 		return FornecedorDAO.excluirFornecedor(fornecedor);
 	}
 	
+	public boolean atualizarFornecedor(FornecedorVO fornecedor){
+		
+		return FornecedorDAO.atualizarFornecedor(fornecedor);
+	}
+	
 	//########################################################################
 	
 	public List<EstadoVO> buscaEstados(){
