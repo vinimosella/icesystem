@@ -9,6 +9,7 @@ import vo.CidadeVO;
 import vo.EmailVO;
 import vo.EnderecoVO;
 import vo.EstadoVO;
+import vo.FornecedorVO;
 import vo.FuncionarioVO;
 import vo.TelefoneVO;
 
@@ -32,6 +33,9 @@ public class BancoEstatico {
 	
 	static List<TelefoneVO> listaTelefones;
 	static TelefoneVO telefone;
+	
+	static List<FornecedorVO> listaFornecedores;
+	static FornecedorVO fornecedor;
 
 	public static List<FuncionarioVO> consultaFuncionarios(){
 		
@@ -286,6 +290,61 @@ public class BancoEstatico {
 		listaTelefones.add(telefone);
 		
 		return listaTelefones;
+	}
+
+	public static List<FornecedorVO> consultaFornecedores() {
+		
+		listaFornecedores = new ArrayList<FornecedorVO>();
+		
+		fornecedor = new FornecedorVO();
+		
+		fornecedor.setRazaoSocial("Fabrica de pó");
+		fornecedor.setCnpj("566.5667.708-7776");
+
+		fornecedor.setListaEmails(consultaEmails());
+		fornecedor.setListaTelefones(consultaTelefones());
+		
+		endereco = new EnderecoVO();
+		cidade = new CidadeVO();
+		cidade.setNome("Bauru");
+		estado= new EstadoVO();
+		estado.setNome("São Paulo");
+		cidade.setEstado(estado);
+		endereco.setCidade(cidade);
+		endereco.setCep("17.280-000");
+		endereco.setBairro("Centro");
+		endereco.setLogradouro("Rua Lala");
+		endereco.setNumero(268);
+		endereco.setComplemento("Oeste");
+		fornecedor.setEndereco(endereco);
+		
+		listaFornecedores.add(fornecedor);
+		
+		fornecedor = new FornecedorVO();
+		
+		fornecedor.setRazaoSocial("Pó de Fabrica");
+		fornecedor.setCnpj("1234321567");
+
+		fornecedor.setListaEmails(consultaEmails());
+		fornecedor.setListaTelefones(consultaTelefones());
+		
+		endereco = new EnderecoVO();
+		cidade = new CidadeVO();
+		cidade.setNome("Rio Branco");
+		estado= new EstadoVO();
+		estado.setNome("Acre");
+		cidade.setEstado(estado);
+		endereco.setCidade(cidade);
+		endereco.setCep("22.222-111");
+		endereco.setBairro("Centro");
+		endereco.setLogradouro("Rua Sem Saida");
+		endereco.setNumero(268);
+		endereco.setComplemento("Leste");
+		fornecedor.setEndereco(endereco);
+		
+		listaFornecedores.add(fornecedor);
+		
+		return listaFornecedores;
 	}
 	
 }

@@ -26,6 +26,7 @@ import ui.fornecedor.CadastrarFornecedorView;
 import ui.fornecedor.ConsultarFornecedorView;
 import ui.funcionario.CadastrarFuncionarioView;
 import ui.funcionario.ConsultarFuncionarioView;
+import util.Utilidades;
 import bo.LoginBO;
 
 public class LoginView extends JPanel{
@@ -179,7 +180,7 @@ public class LoginView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				LoginView.this.frmHome.getContentPane().removeAll();
-				ConsultarFuncionarioView consultarFuncionario = new ConsultarFuncionarioView(frmHome,codUser);
+				ConsultarFuncionarioView consultarFuncionario = new ConsultarFuncionarioView(frmHome,codUser,Utilidades.CONSULTA_FUNCIONARIO);
 				LoginView.this.frmHome.getContentPane().add(consultarFuncionario, BorderLayout.CENTER);
 				LoginView.this.frmHome.getContentPane().revalidate();				
 			}
@@ -241,7 +242,7 @@ public class LoginView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				LoginView.this.frmHome.getContentPane().removeAll();
-				ConsultarFornecedorView consultarFornecedor = new ConsultarFornecedorView(frmHome);
+				ConsultarFornecedorView consultarFornecedor = new ConsultarFornecedorView(frmHome, codUser, Utilidades.CONSULTA_FORNECEDORES);
 				LoginView.this.frmHome.getContentPane().add(consultarFornecedor, BorderLayout.CENTER);
 				LoginView.this.frmHome.getContentPane().revalidate();
 			}

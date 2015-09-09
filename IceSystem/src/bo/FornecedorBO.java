@@ -2,14 +2,26 @@ package bo;
 
 import java.util.List;
 
-import dao.FornecedorDAO;
 import teste.BancoEstatico;
 import vo.CidadeVO;
 import vo.EstadoVO;
 import vo.FornecedorVO;
+import dao.FornecedorDAO;
 
 public class FornecedorBO {
+	
+	public boolean cadastrarFornecedor(FornecedorVO fornecedor) {
 
+		return FornecedorDAO.cadastrarFornecedor(fornecedor);
+	}
+	
+	public boolean excluirFornecedor(FornecedorVO fornecedor){
+		
+		return FornecedorDAO.excluirFornecedor(fornecedor);
+	}
+	
+	//########################################################################
+	
 	public List<EstadoVO> buscaEstados(){
 		
 		return BancoEstatico.consultaEstados();
@@ -20,9 +32,9 @@ public class FornecedorBO {
 		return BancoEstatico.consultaCidadesPorEstado(idEstado);
 	}
 
-	public boolean cadastrarFornecedor(FornecedorVO fornecedor) {
-
-		return FornecedorDAO.cadastrarFornecedor(fornecedor);
+	public List<FornecedorVO> consultarFornecedores(){
+		
+		return BancoEstatico.consultaFornecedores();
 	}
 	
 }

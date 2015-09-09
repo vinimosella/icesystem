@@ -1,144 +1,46 @@
 package ui.funcionario;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
+import ui.ConsultaGenericaView;
 import vo.FuncionarioVO;
 import bo.FuncionarioBO;
 
-public class ConsultarFuncionarioView extends JPanel{
+public class ConsultarFuncionarioView extends ConsultaGenericaView{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private JTable table;
-	private JLabel lblConsultar;
-	private JScrollPane scrollPane;
-	private FuncionarioVO funcionario;
-	private List<FuncionarioVO> listaFuncionarios;
-	private DefaultTableModel dtm;
-	private JButton btnDetalhar;
-	private JButton btnAtualizar;
-	private JButton btnRemover;
-	
 	private JFrame frmHome;
 	private Byte codUser;
+	private JScrollPane scrollPane;
+	private DefaultTableModel dtm;
+	private FuncionarioVO funcionario;
+	private List<FuncionarioVO> listaFuncionarios;
 	
 	private FuncionarioBO bo;
-	
-	{
-		bo = new FuncionarioBO();
-	}
-	
-	
-	//é necessario o codUser pra criar o botao da tela de alterar/delete apenas se for userAdmin
-	public ConsultarFuncionarioView(JFrame frmHome, Byte codUser){
-				
+
+	public ConsultarFuncionarioView(JFrame frmHome, Byte codUser, String lblConsulta) {
+		super(frmHome, codUser, lblConsulta);
+
 		this.frmHome = frmHome;
 		this.codUser = codUser;
-		
-		this.setLayout(null);
-		this.setBackground(Color.decode("#F0F8FF"));
-		
-		lblConsultar = new JLabel("Consulta - Funcionários");
-		lblConsultar.setBounds(10, 11, 430, 14);
-		this.add(lblConsultar);
-		
-		tabelaFuncionarios();
-				
-		btnDetalhar = new JButton("Detalhar");
-		btnDetalhar.setBounds(130, 480, 91, 23);
-		btnDetalhar.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				if(table.getSelectedRow() != -1){
-					DetalharFuncionarioView detalhe = new DetalharFuncionarioView(listaFuncionarios.get(table.getSelectedRow()));
-					detalhe.setVisible(true);
-				}		
-				
-			}
-		});
-		this.add(btnDetalhar);
-		
-		btnAtualizar = new JButton("Atualizar");
-		btnAtualizar.setBounds(231, 480, 91, 23);
-		btnAtualizar.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				if(table.getSelectedRow() != -1){
-					
-					ConsultarFuncionarioView.this.frmHome.getContentPane().removeAll();
-					AtualizarFuncionarioView atualizar = new AtualizarFuncionarioView(ConsultarFuncionarioView.this.frmHome, listaFuncionarios.get(table.getSelectedRow()),ConsultarFuncionarioView.this.codUser);
-					ConsultarFuncionarioView.this.frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
-					ConsultarFuncionarioView.this.frmHome.getContentPane().revalidate();
-					
-				}
-				
-			}
-			
-		});
-		this.add(btnAtualizar);
-		
-		btnRemover = new JButton("Remover");
-		btnRemover.setBounds(332, 480, 91, 23);
-		btnRemover.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				if(table.getSelectedRow() != -1){ // se tiver algo selecionado
-						
-					//mudar texto dos botões "yes" e "no"
-					UIManager.put("OptionPane.noButtonText", "Não");  
-					UIManager.put("OptionPane.yesButtonText", "Sim"); 
-					
-					//se clicar em sim, vai excluir
-					if(JOptionPane.showConfirmDialog(null, "Deseja realmente excluir o funcionário "+listaFuncionarios.get(table.getSelectedRow()).getNome()+" ?", "Exclusão", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-						
-						//se excluir com sucesso...
-						if(bo.excluirFuncionario(listaFuncionarios.get(table.getSelectedRow()).getIdFuncionario())){
-							
-							//remove da lista e da tabela
-							listaFuncionarios.remove(table.getSelectedRow());						
-							dtm.removeRow(table.getSelectedRow());
-							
-						}
-						
-					}
-					
-				}
-				
-			}
-		});
-		this.add(btnRemover);
-		
 	}
-	
-	public void tabelaFuncionarios(){
-		
+
+	@Override
+	public void montaTabela(JTable table) {
+
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(20, 50, 550, 400);
 		this.add(scrollPane);
-		
-		table = new JTable();
-		
+				
 		dtm = new DefaultTableModel(
 				
 				new Object[][] {
@@ -158,6 +60,8 @@ public class ConsultarFuncionarioView extends JPanel{
 			}
 			
 		};
+		
+		bo = new FuncionarioBO();
 		
 		listaFuncionarios = bo.consultarFuncionarios();
 
@@ -179,6 +83,43 @@ public class ConsultarFuncionarioView extends JPanel{
 		
 		table.setModel(dtm);
 		scrollPane.setViewportView(table);
+		
+	}
+
+	@Override
+	public void btnDetalhar(Integer linhaSelecionada) {
+		
+		DetalharFuncionarioView detalhe = new DetalharFuncionarioView(listaFuncionarios.get(linhaSelecionada));
+		detalhe.setVisible(true);
+		
+	}
+
+	@Override
+	public void btnAtualizar(Integer linhaSelecionada) {
+
+		ConsultarFuncionarioView.this.frmHome.getContentPane().removeAll();
+		AtualizarFuncionarioView atualizar = new AtualizarFuncionarioView(ConsultarFuncionarioView.this.frmHome, listaFuncionarios.get(linhaSelecionada),ConsultarFuncionarioView.this.codUser);
+		ConsultarFuncionarioView.this.frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
+		ConsultarFuncionarioView.this.frmHome.getContentPane().revalidate();
+		
+	}
+
+	@Override
+	public void btnRemover(Integer linhaSelecionada) {
+
+		//se clicar em sim, vai excluir
+		if(JOptionPane.showConfirmDialog(null, "Deseja realmente excluir o funcionário "+listaFuncionarios.get(linhaSelecionada).getNome()+" ?", "Exclusão", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+			
+			//se excluir com sucesso...
+			if(bo.excluirFuncionario(listaFuncionarios.get(linhaSelecionada).getIdFuncionario())){
+				
+				//remove da lista e da tabela
+				listaFuncionarios.remove(linhaSelecionada);						
+				dtm.removeRow(linhaSelecionada);
+				
+			}
+			
+		}
 		
 	}
 	
