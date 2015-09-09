@@ -4,7 +4,7 @@ import vo.FornecedorVO;
 
 public class FornecedorDAO {
 
-	public static boolean consultarFornecedor(FornecedorVO fornecedor){
+	public static boolean consultarFornecedor(){
 		
 		return true;
 	}
@@ -20,6 +20,11 @@ public class FornecedorDAO {
 	}
 	
 	public static boolean excluirFornecedor(FornecedorVO fornecedor){
+		
+		return true;
+	}
+	
+	public static boolean detalharFornecedor(FornecedorVO fornecedor){
 		
 		return true;
 	}
