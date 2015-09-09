@@ -9,4 +9,9 @@ public class ClienteDAO {
 		return true;
 	}
 	
+	public static boolean cadastrarCliente(ClienteVO cliente){
+		
+		return true;
+	}
+	
 }
