@@ -9,4 +9,9 @@ public class CompraDAO {
 		return true;
 	}
 	
+	public static boolean cadastrarCompra(CompraVO compra){
+		
+		return true;
+	}
+	
 }
