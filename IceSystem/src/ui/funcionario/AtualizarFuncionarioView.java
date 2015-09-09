@@ -1,5 +1,6 @@
 package ui.funcionario;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +19,7 @@ import javax.swing.JTextField;
 import vo.CargoVO;
 import vo.CidadeVO;
 import vo.EmailVO;
+import vo.EnderecoVO;
 import vo.EstadoVO;
 import vo.FuncionarioVO;
 import vo.TelefoneVO;
@@ -64,10 +66,21 @@ public class AtualizarFuncionarioView extends JPanel{
 	private List<EmailVO> listaEmails;
 	private Integer contadorTelefones;
 	private Integer contadorEmails;
+	private JButton btnCancelar;
+	private JButton btnAtualizar;
 	
+	private Byte codUser;
 	private JFrame frmHome;
 	private FuncionarioBO bo;
 	private Iterator<?> it;
+	
+	private FuncionarioVO funcionario;
+	private TelefoneVO telefone;
+	private EmailVO email;
+	private EnderecoVO endereco;
+	private CidadeVO cidade;
+	private EstadoVO estado;
+	private CargoVO cargo;
 	
 	private List<EstadoVO> listaEstados;
 	private List<CidadeVO> listaCidades;
@@ -78,9 +91,10 @@ public class AtualizarFuncionarioView extends JPanel{
 		comboCidade = new JComboBox<String>();
 	}
 	
-	public AtualizarFuncionarioView(JFrame frmHome, FuncionarioVO funcionario){
+	public AtualizarFuncionarioView(JFrame frmHome, FuncionarioVO funcionario, Byte codUser){
 		
 		this.frmHome = frmHome;
+		this.codUser = codUser;
 				
 		listaEmails = funcionario.getListaEmails();
 		listaTelefones = funcionario.getListaTelefones();
@@ -190,7 +204,7 @@ public class AtualizarFuncionarioView extends JPanel{
 				//verifica se ja é existente, se não, adiciona
 				if(!bo.isTelefoneExistenteLista(txtTelefone.getText(), listaTelefones)){
 					
-					TelefoneVO telefone = new TelefoneVO();
+					telefone = new TelefoneVO();
 					telefone.setDdd(txtTelefone.getText().substring(0, 2));
 					telefone.setNumero(txtTelefone.getText().substring(2));
 					listaTelefones.add(telefone);
@@ -317,7 +331,7 @@ public class AtualizarFuncionarioView extends JPanel{
 				//verifica se ja é existente, se não, adiciona
 				if(!bo.isEmailExistenteLista(txtEmail.getText(), listaEmails)){
 					
-					EmailVO email = new EmailVO();
+					email = new EmailVO();
 					email.setEmail(txtEmail.getText());
 					listaEmails.add(email);
 					comboEmail.addItem(++contadorEmails);
@@ -515,6 +529,44 @@ public class AtualizarFuncionarioView extends JPanel{
 		comboCargo.setSelectedItem(funcionario.getCargo().getFuncao());
 		this.add(comboCargo);
 		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(100, 450, 120, 20);
+		btnCancelar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				AtualizarFuncionarioView.this.frmHome.getContentPane().removeAll();
+				ConsultarFuncionarioView consulta = new ConsultarFuncionarioView(AtualizarFuncionarioView.this.frmHome, AtualizarFuncionarioView.this.codUser);
+				AtualizarFuncionarioView.this.frmHome.getContentPane().add(consulta, BorderLayout.CENTER);
+				AtualizarFuncionarioView.this.frmHome.getContentPane().revalidate();
+				
+			}
+		});
+		this.add(btnCancelar);
+		
+		btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.setBounds(300, 450, 120, 20);
+		btnAtualizar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				if(bo.atualizarFuncionario(validaFuncionario())){
+					
+					JOptionPane.showMessageDialog(AtualizarFuncionarioView.this.frmHome, "   Funcionário atualizado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+					
+				}
+				else{
+					
+					JOptionPane.showMessageDialog(AtualizarFuncionarioView.this.frmHome, "   Não foi possível atualizar!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+
+				}
+				
+			}
+		});
+		this.add(btnAtualizar);
+		
 	}
 	
 	private void carregaTelefone(){
@@ -539,6 +591,40 @@ public class AtualizarFuncionarioView extends JPanel{
 			it.next();
 		}
 		
+	}
+	
+private FuncionarioVO validaFuncionario(){
+		
+		funcionario = new FuncionarioVO();
+		
+		funcionario.setNome(txtNome.getText());
+		funcionario.setCpf(txtCpf.getText());
+		funcionario.setRg(txtRg.getText());
+		funcionario.setListaTelefones(listaTelefones);
+		funcionario.setListaEmails(listaEmails);
+		
+		endereco = new EnderecoVO();
+		
+		endereco.setLogradouro(txtLogradouro.getText());
+		endereco.setNumero(Integer.parseInt(txtNumero.getText()));
+		endereco.setComplemento(txtComplemento.getText());
+		endereco.setBairro(txtBairro.getText());
+		endereco.setCep(txtCep.getText());
+		
+		cidade = bo.buscaCidadePorNomeNaLista(comboCidade.getSelectedItem().toString(), listaCidades);	
+		
+		estado = bo.buscaEstadoPorNomeNaLista(comboEstado.getSelectedItem().toString(), listaEstados);
+		
+		cidade.setEstado(estado);
+		endereco.setCidade(cidade);
+		
+		funcionario.setEndereco(endereco);
+		
+		cargo = bo.buscaCargoPorFuncaoNaLista(comboCargo.getSelectedItem().toString(), listaCargos);
+				
+		funcionario.setCargo(cargo);
+		
+		return funcionario;
 	}
 	
 }

@@ -9,4 +9,9 @@ public class FuncionarioDAO {
 		return true;
 	}
 	
+	public static boolean atualizarFuncionario(FuncionarioVO funcionario){
+		
+		return true;
+	}
+	
 }

@@ -13,6 +13,18 @@ import vo.FuncionarioVO;
 import vo.TelefoneVO;
 
 public class FuncionarioBO {
+	
+	public boolean cadastrarFuncionario(FuncionarioVO funcionario){
+		
+		return FuncionarioDAO.cadastrarFuncionario(funcionario);
+	}
+	
+	public boolean atualizarFuncionario(FuncionarioVO funcionario){
+		
+		return FuncionarioDAO.atualizarFuncionario(funcionario);
+	}
+	
+	// ##########################################################################################################
 
 	public List<EstadoVO> buscaEstados(){
 		
@@ -85,11 +97,6 @@ public class FuncionarioBO {
 		}
 		
 		return false;
-	}
-	
-	public boolean cadastrarFuncionario(FuncionarioVO funcionario){
-		
-		return FuncionarioDAO.cadastrarFuncionario(funcionario);
 	}
 	
 	public CidadeVO buscaCidadePorNomeNaLista(String nomeCidade, List<CidadeVO> listaCidades){

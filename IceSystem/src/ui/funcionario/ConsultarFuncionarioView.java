@@ -34,15 +34,22 @@ public class ConsultarFuncionarioView extends JPanel{
 	private JButton btnAtualizar;
 	private JButton btnRemover;
 	
+	private JFrame frmHome;
+	private Byte codUser;
+	
 	private FuncionarioBO bo;
 	
 	{
 		bo = new FuncionarioBO();
 	}
 	
+	
 	//é necessario o codUser pra criar o botao da tela de alterar/delete apenas se for userAdmin
-	public ConsultarFuncionarioView(final JFrame frmHome, final Byte codUser){
+	public ConsultarFuncionarioView(JFrame frmHome, Byte codUser){
 				
+		this.frmHome = frmHome;
+		this.codUser = codUser;
+		
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
 		
@@ -77,10 +84,10 @@ public class ConsultarFuncionarioView extends JPanel{
 				
 				if(table.getSelectedRow() != -1){
 					
-					frmHome.getContentPane().removeAll();
-					AtualizarFuncionarioView atualizar = new AtualizarFuncionarioView(frmHome, listaFuncionarios.get(table.getSelectedRow()));
-					frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
-					frmHome.getContentPane().revalidate();
+					ConsultarFuncionarioView.this.frmHome.getContentPane().removeAll();
+					AtualizarFuncionarioView atualizar = new AtualizarFuncionarioView(ConsultarFuncionarioView.this.frmHome, listaFuncionarios.get(table.getSelectedRow()),ConsultarFuncionarioView.this.codUser);
+					ConsultarFuncionarioView.this.frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
+					ConsultarFuncionarioView.this.frmHome.getContentPane().revalidate();
 					
 				}
 				
