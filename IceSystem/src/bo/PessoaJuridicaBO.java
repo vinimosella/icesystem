@@ -40,9 +40,7 @@ public class PessoaJuridicaBO {
 	}
 	
 	public boolean isEmailExistenteLista(String txtEmail, List<EmailVO> listaEmails){
-		
-		System.out.println("txtEmail: " + txtEmail);
-		
+				
 		Iterator<EmailVO> it = listaEmails.iterator();
 		
 		while(it.hasNext()){

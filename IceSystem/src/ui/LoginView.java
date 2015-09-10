@@ -180,7 +180,7 @@ public class LoginView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				LoginView.this.frmHome.getContentPane().removeAll();
-				ConsultarFuncionarioView consultarFuncionario = new ConsultarFuncionarioView(frmHome,codUser,Utilidades.CONSULTA_FUNCIONARIO);
+				ConsultarFuncionarioView consultarFuncionario = new ConsultarFuncionarioView(frmHome,codUser,Utilidades.CONSULTA_FUNCIONARIOS);
 				LoginView.this.frmHome.getContentPane().add(consultarFuncionario, BorderLayout.CENTER);
 				LoginView.this.frmHome.getContentPane().revalidate();				
 			}
@@ -210,7 +210,7 @@ public class LoginView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				LoginView.this.frmHome.getContentPane().removeAll();
-				ConsultarClienteView consultarCliente = new ConsultarClienteView(frmHome);
+				ConsultarClienteView consultarCliente = new ConsultarClienteView(frmHome, codUser, Utilidades.CONSULTA_CLIENTES);
 				LoginView.this.frmHome.getContentPane().add(consultarCliente, BorderLayout.CENTER);
 				LoginView.this.frmHome.getContentPane().revalidate();
 			}

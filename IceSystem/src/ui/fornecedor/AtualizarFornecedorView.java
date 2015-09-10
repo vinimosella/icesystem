@@ -5,13 +5,11 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import bo.FornecedorBO;
-import ui.funcionario.AtualizarFuncionarioView;
-import ui.funcionario.ConsultarFuncionarioView;
 import ui.pessoaJuridica.AtualizarPessoaJuridicaView;
 import util.Utilidades;
 import vo.FornecedorVO;
 import vo.PessoaJuridicaVO;
+import bo.FornecedorBO;
 
 public class AtualizarFornecedorView extends AtualizarPessoaJuridicaView{
 
