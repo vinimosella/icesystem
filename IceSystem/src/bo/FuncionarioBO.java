@@ -3,7 +3,6 @@ package bo;
 import java.util.Iterator;
 import java.util.List;
 
-import dao.FuncionarioDAO;
 import teste.BancoEstatico;
 import vo.CargoVO;
 import vo.CidadeVO;
@@ -11,6 +10,7 @@ import vo.EmailVO;
 import vo.EstadoVO;
 import vo.FuncionarioVO;
 import vo.TelefoneVO;
+import dao.FuncionarioDAO;
 
 public class FuncionarioBO {
 	
@@ -22,6 +22,15 @@ public class FuncionarioBO {
 	public boolean atualizarFuncionario(FuncionarioVO funcionario){
 		
 		return FuncionarioDAO.atualizarFuncionario(funcionario);
+	}
+	
+	public FuncionarioVO detalharFuncionario(FuncionarioVO funcionario){
+		
+		funcionario.setListaEmails(BancoEstatico.consultaEmails());
+		funcionario.setListaTelefones(BancoEstatico.consultaTelefones());
+				
+		return funcionario;
+		//return FuncionarioDAO.detalharFuncionario(funcionario);
 	}
 	
 	// ##########################################################################################################
@@ -44,16 +53,6 @@ public class FuncionarioBO {
 	public List<FuncionarioVO> consultarFuncionarios(){
 		
 		return BancoEstatico.consultaFuncionarios();
-	}
-	
-	public List<EmailVO> detalharEmail(Integer idFuncionario){
-				
-		return BancoEstatico.consultaEmails();
-	}
-	
-	public List<TelefoneVO> detalharTelefone(Integer idFuncionario){
-				
-		return BancoEstatico.consultaTelefones();
 	}
 	
 	public boolean excluirFuncionario(Integer idFuncionario){
@@ -80,9 +79,7 @@ public class FuncionarioBO {
 	}
 	
 	public boolean isEmailExistenteLista(String txtEmail, List<EmailVO> listaEmails){
-		
-		System.out.println("txtEmail: " + txtEmail);
-		
+				
 		Iterator<EmailVO> it = listaEmails.iterator();
 		
 		while(it.hasNext()){

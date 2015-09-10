@@ -538,7 +538,7 @@ public class AtualizarFuncionarioView extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 
 				AtualizarFuncionarioView.this.frmHome.getContentPane().removeAll();
-				ConsultarFuncionarioView consulta = new ConsultarFuncionarioView(AtualizarFuncionarioView.this.frmHome, AtualizarFuncionarioView.this.codUser, Utilidades.CONSULTA_FUNCIONARIO);
+				ConsultarFuncionarioView consulta = new ConsultarFuncionarioView(AtualizarFuncionarioView.this.frmHome, AtualizarFuncionarioView.this.codUser, Utilidades.CONSULTA_FUNCIONARIOS);
 				AtualizarFuncionarioView.this.frmHome.getContentPane().add(consulta, BorderLayout.CENTER);
 				AtualizarFuncionarioView.this.frmHome.getContentPane().revalidate();
 				

@@ -1,5 +1,6 @@
 package ui.fornecedor;
 
+import java.awt.BorderLayout;
 import java.util.Iterator;
 import java.util.List;
 
@@ -86,18 +87,18 @@ public class ConsultarFornecedorView extends ConsultaGenericaView{
 	@Override
 	public void btnDetalhar(Integer linhaSelecionada) {
 		
-		/*DetalharFornecedorView detalhe = new DetalharFornecedorView(listaFornecedores.get(linhaSelecionada));
-		detalhe.setVisible(true);*/
+		DetalharFornecedorView detalhe = new DetalharFornecedorView(listaFornecedores.get(linhaSelecionada));
+		detalhe.setVisible(true);
 		
 	}
 
 	@Override
 	public void btnAtualizar(Integer linhaSelecionada) {
 		
-		/*ConsultarFornecedorView.this.frmHome.getContentPane().removeAll();
-		AtualizarFornecedorView atualizar = new AtualizarFornecedorView(ConsultarFornecedorView.this.frmHome, listaFornecedores.get(linhaSelecionada),ConsultarFuncionarioView.this.codUser);
+		ConsultarFornecedorView.this.frmHome.getContentPane().removeAll();
+		AtualizarFornecedorView atualizar = new AtualizarFornecedorView(ConsultarFornecedorView.this.frmHome, listaFornecedores.get(linhaSelecionada),ConsultarFornecedorView.this.codUser);
 		ConsultarFornecedorView.this.frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
-		ConsultarFornecedorView.this.frmHome.getContentPane().revalidate();*/
+		ConsultarFornecedorView.this.frmHome.getContentPane().revalidate();
 		
 	}
 

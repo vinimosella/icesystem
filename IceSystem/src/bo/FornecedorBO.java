@@ -25,6 +25,20 @@ public class FornecedorBO {
 		return FornecedorDAO.atualizarFornecedor(fornecedor);
 	}
 	
+	public List<FornecedorVO> consultarFornecedores(){
+		
+		return BancoEstatico.consultaFornecedores();
+	}
+	
+	public FornecedorVO detalharFornecedor(FornecedorVO fornecedor){
+		
+		fornecedor.setListaEmails(BancoEstatico.consultaEmails());
+		fornecedor.setListaTelefones(BancoEstatico.consultaTelefones());
+				
+		return fornecedor;
+		//return FornecedorDAO.detalharFornecedor(fornecedor);
+	}
+	
 	//########################################################################
 	
 	public List<EstadoVO> buscaEstados(){
@@ -35,11 +49,6 @@ public class FornecedorBO {
 	public List<CidadeVO> buscaCidadesPorEstado(Integer idEstado){
 		
 		return BancoEstatico.consultaCidadesPorEstado(idEstado);
-	}
-
-	public List<FornecedorVO> consultarFornecedores(){
-		
-		return BancoEstatico.consultaFornecedores();
 	}
 	
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import vo.CargoVO;
 import vo.CidadeVO;
+import vo.ClienteVO;
 import vo.EmailVO;
 import vo.EnderecoVO;
 import vo.EstadoVO;
@@ -36,6 +37,9 @@ public class BancoEstatico {
 	
 	static List<FornecedorVO> listaFornecedores;
 	static FornecedorVO fornecedor;
+	
+	static List<ClienteVO> listaClientes;
+	static ClienteVO cliente;
 
 	public static List<FuncionarioVO> consultaFuncionarios(){
 		
@@ -345,6 +349,61 @@ public class BancoEstatico {
 		listaFornecedores.add(fornecedor);
 		
 		return listaFornecedores;
+	}
+	
+	public static List<ClienteVO> consultaClientes() {
+		
+		listaClientes = new ArrayList<ClienteVO>();
+		
+		cliente = new ClienteVO();
+		
+		cliente.setRazaoSocial("Sorveteria Ki-Gelado");
+		cliente.setCnpj("566.5667.708-7776");
+
+		cliente.setListaEmails(consultaEmails());
+		cliente.setListaTelefones(consultaTelefones());
+		
+		endereco = new EnderecoVO();
+		cidade = new CidadeVO();
+		cidade.setNome("Bauru");
+		estado= new EstadoVO();
+		estado.setNome("São Paulo");
+		cidade.setEstado(estado);
+		endereco.setCidade(cidade);
+		endereco.setCep("17.280-000");
+		endereco.setBairro("Centro");
+		endereco.setLogradouro("Rua Lala");
+		endereco.setNumero(268);
+		endereco.setComplemento("Oeste");
+		cliente.setEndereco(endereco);
+		
+		listaClientes.add(cliente);
+		
+		cliente = new ClienteVO();
+		
+		cliente.setRazaoSocial("Sorveteria IceDream");
+		cliente.setCnpj("1234321567");
+
+		cliente.setListaEmails(consultaEmails());
+		cliente.setListaTelefones(consultaTelefones());
+		
+		endereco = new EnderecoVO();
+		cidade = new CidadeVO();
+		cidade.setNome("Rio Branco");
+		estado= new EstadoVO();
+		estado.setNome("Acre");
+		cidade.setEstado(estado);
+		endereco.setCidade(cidade);
+		endereco.setCep("22.222-111");
+		endereco.setBairro("Centro");
+		endereco.setLogradouro("Rua Sem Saida");
+		endereco.setNumero(268);
+		endereco.setComplemento("Leste");
+		cliente.setEndereco(endereco);
+		
+		listaClientes.add(cliente);
+		
+		return listaClientes;
 	}
 	
 }
