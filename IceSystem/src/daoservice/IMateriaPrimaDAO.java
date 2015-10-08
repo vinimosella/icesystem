@@ -1,9 +1,13 @@
 package daoservice;
 
+import java.util.List;
+
 import vo.MateriaPrimaVO;
 
 public interface IMateriaPrimaDAO {
 
-	public boolean consultarMateriaPrima(MateriaPrimaVO materiaPrima);
+	public List<MateriaPrimaVO> consultarMateriaPrima(MateriaPrimaVO materiaPrima);
+	
+	public boolean alterarMateriasPrimas(List<MateriaPrimaVO> materiaPrima);
 	
 }
