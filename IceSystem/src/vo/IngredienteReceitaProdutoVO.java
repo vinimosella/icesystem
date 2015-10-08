@@ -8,7 +8,7 @@ public class IngredienteReceitaProdutoVO {
 
 	private MateriaPrimaVO materiaPrima;
 	private ProdutoVO produto;
-	private Double quantidade;
+	private Double quantidadeMateria;
 	
 	public MateriaPrimaVO getMateriaPrima() {
 		return materiaPrima;
@@ -22,11 +22,11 @@ public class IngredienteReceitaProdutoVO {
 	public void setProduto(ProdutoVO produto) {
 		this.produto = produto;
 	}
-	public Double getQuantidade() {
-		return quantidade;
+	public Double getQuantidadeMateria() {
+		return quantidadeMateria;
 	}
-	public void setQuantidade(Double quantidade) {
-		this.quantidade = quantidade;
+	public void setQuantidadeMateria(Double quantidadeMateria) {
+		this.quantidadeMateria = quantidadeMateria;
 	}
 	
 }
