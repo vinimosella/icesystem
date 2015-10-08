@@ -6,10 +6,11 @@ import java.util.List;
 
 import teste.BancoEstatico;
 import vo.IngredienteReceitaProdutoVO;
+import vo.ProdutoVO;
 
 public class IngredienteReceitaProdutoBO {
 	
-	public List<IngredienteReceitaProdutoVO> consultaReceitasPorProduto(Integer idProduto){
+	public List<IngredienteReceitaProdutoVO> consultaReceitasPorProduto(ProdutoVO produto){
 		
 		List<IngredienteReceitaProdutoVO> aux = new ArrayList<IngredienteReceitaProdutoVO>();
 		
@@ -21,7 +22,7 @@ public class IngredienteReceitaProdutoBO {
 			
 			receita = (IngredienteReceitaProdutoVO) it.next();
 			
-			if(receita.getProduto().getIdProduto()==idProduto){
+			if(receita.getProduto().getIdProduto()==produto.getIdProduto()){
 				aux.add(receita);
 			}			
 			
