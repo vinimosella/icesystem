@@ -1,5 +1,6 @@
 package bo;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,12 +14,25 @@ public class PessoaJuridicaBO {
 
 	public List<EstadoVO> buscaEstados(){
 		
-		return BancoEstatico.consultaEstados();
+		return BancoEstatico.listaEstados;
 	}
 	
 	public List<CidadeVO> buscaCidadesPorEstado(Integer idEstado){
 		
-		return BancoEstatico.consultaCidadesPorEstado(idEstado);
+		Iterator<CidadeVO> it = BancoEstatico.listaCidades.iterator();		
+		List<CidadeVO> listaCidadesAux = new ArrayList<CidadeVO>();
+		CidadeVO cidadeAux;
+		
+		while(it.hasNext()){
+			
+			cidadeAux = it.next();
+			
+			if(cidadeAux.getEstado().getIdEstado() == idEstado){
+				listaCidadesAux.add(cidadeAux);
+			}
+		}
+		
+		return listaCidadesAux;
 	}
 	
 	public boolean isTelefoneExistenteLista(String txtTelefone, List<TelefoneVO> listaTelefones){

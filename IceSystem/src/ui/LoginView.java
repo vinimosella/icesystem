@@ -18,10 +18,12 @@ import javax.swing.JTextField;
 
 import ui.cliente.CadastrarClienteView;
 import ui.cliente.ConsultarClienteView;
-import ui.financas.ComprasView;
+import ui.financas.ConsultarComprasView;
+import ui.financas.ConsultarVendasView;
+import ui.financas.EfetuarCompraView;
+import ui.financas.EfetuarVendaView;
 import ui.financas.MateriaPrimaView;
 import ui.financas.ProdutoView;
-import ui.financas.VendasView;
 import ui.fornecedor.CadastrarFornecedorView;
 import ui.fornecedor.ConsultarFornecedorView;
 import ui.funcionario.CadastrarFuncionarioView;
@@ -56,8 +58,10 @@ public class LoginView extends JPanel{
 	private JMenuItem mntmConsultarCliente;
 	private JMenuItem mntmCadastrarFornecedor;
 	private JMenuItem mntmConsultarFornecedor;
-	private JMenuItem mntmCompra;
-	private JMenuItem mntmVenda;
+	private JMenuItem mntmConsultarCompra;
+	private JMenuItem mntmEfetuarCompra;
+	private JMenuItem mntmConsultarVenda;
+	private JMenuItem mntmEfetuarVenda;
 	private JMenuItem mntmMateriaPrima;
 	private JMenuItem mntmProduto;
 	
@@ -253,33 +257,65 @@ public class LoginView extends JPanel{
 		mnFinancas = new JMenu("Finanças");
 		menuBar.add(mnFinancas);
 		
-		// ITEM COMPRA
-		mntmCompra = new JMenuItem("Compras");
-		mntmCompra.addActionListener(new ActionListener() {
+		// ITEM CONSULTAR COMPRA
+		mntmConsultarCompra = new JMenuItem("Consultar Compras");
+		mntmConsultarCompra.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				LoginView.this.frmHome.getContentPane().removeAll();
-				ComprasView compras = new ComprasView(frmHome);
-				LoginView.this.frmHome.getContentPane().add(compras, BorderLayout.CENTER);
+				ConsultarComprasView consCompras = new ConsultarComprasView(frmHome,Utilidades.CONSULTA_COMPRAS);
+				LoginView.this.frmHome.getContentPane().add(consCompras, BorderLayout.CENTER);
 				LoginView.this.frmHome.getContentPane().revalidate();
 			}
 		});
-		mnFinancas.add(mntmCompra);
+		mnFinancas.add(mntmConsultarCompra);
 		
-		// ITEM VENDA
-		mntmVenda = new JMenuItem("Vendas");
-		mntmVenda.addActionListener(new ActionListener() {
+		// ITEM EFETUAR COMPRA
+		mntmEfetuarCompra = new JMenuItem("Efetuar Compras");
+		mntmEfetuarCompra.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				LoginView.this.frmHome.getContentPane().removeAll();
-				VendasView vendas = new VendasView(frmHome);
-				LoginView.this.frmHome.getContentPane().add(vendas, BorderLayout.CENTER);
+				EfetuarCompraView efetCompras = new EfetuarCompraView(frmHome);
+				LoginView.this.frmHome.getContentPane().add(efetCompras, BorderLayout.CENTER);
 				LoginView.this.frmHome.getContentPane().revalidate();
 			}
 		});
-		mnFinancas.add(mntmVenda);
+		mnFinancas.add(mntmEfetuarCompra);
+		
+		//SEPARADOR
+		mnFinancas.addSeparator();
+		
+		// ITEM CONSULTAR VENDA
+		mntmConsultarVenda = new JMenuItem("Consultar Vendas");
+		mntmConsultarVenda.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				LoginView.this.frmHome.getContentPane().removeAll();
+				ConsultarVendasView consVendas = new ConsultarVendasView(frmHome, Utilidades.CONSULTA_VENDAS);
+				LoginView.this.frmHome.getContentPane().add(consVendas, BorderLayout.CENTER);
+				LoginView.this.frmHome.getContentPane().revalidate();
+			}
+		});
+		mnFinancas.add(mntmConsultarVenda);
+		
+		// ITEM EFETUAR VENDA
+		mntmEfetuarVenda = new JMenuItem("Efetuar Vendas");
+		mntmEfetuarVenda.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				LoginView.this.frmHome.getContentPane().removeAll();
+				EfetuarVendaView efetVendas = new EfetuarVendaView(frmHome);
+				LoginView.this.frmHome.getContentPane().add(efetVendas, BorderLayout.CENTER);
+				LoginView.this.frmHome.getContentPane().revalidate();
+			}
+		});
+		mnFinancas.add(mntmEfetuarVenda);		
+		
 		mnFinancas.addSeparator();
 
 		// ITEM MATERIA PRIMA

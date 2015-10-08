@@ -369,13 +369,14 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 		comboEstado.setBounds(300,132,200,20);
 		comboEstado.addItem("Selecione");
 		listaEstados = bo.buscaEstados();
-		Iterator<EstadoVO> it = (Iterator<EstadoVO>) listaEstados.iterator();
+		it = listaEstados.iterator();
 		
 		while(it.hasNext()){
 			estado = (EstadoVO) it.next();
 			comboEstado.addItem(estado.getNome());
 		}
 		
+		comboEstado.setSelectedItem(pj.getEndereco().getCidade().getEstado().getNome());
 		comboEstado.addActionListener(new ActionListener() {
 			
 			@Override
@@ -414,8 +415,16 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 		comboCidade = new JComboBox<String>();
 		comboCidade.setBounds(300,157,200,20);
 		comboCidade.addItem("Selecione");
-		comboCidade.setEnabled(false);
+		listaCidades = bo.buscaCidadesPorEstado(listaEstados.get(comboEstado.getSelectedIndex()-1).getIdEstado());
+		it = listaCidades.iterator();
+		CidadeVO cidade;
 		
+		while(it.hasNext()){
+			
+			cidade = (CidadeVO) it.next();
+			comboCidade.addItem(cidade.getNome());
+		}
+		comboCidade.setSelectedItem(pj.getEndereco().getCidade().getNome());
 		this.add(comboCidade);
 		
 		labelLogradouro = new JLabel();

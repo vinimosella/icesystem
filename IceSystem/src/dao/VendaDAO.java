@@ -18,5 +18,10 @@ public class VendaDAO {
 		
 		return true;
 	}
+
+	public static boolean atualizarVenda(VendaVO venda) {
+
+		return false;
+	}
 	
 }
