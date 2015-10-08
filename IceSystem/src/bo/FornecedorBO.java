@@ -8,23 +8,22 @@ import teste.BancoEstatico;
 import vo.CidadeVO;
 import vo.EstadoVO;
 import vo.FornecedorVO;
-import dao.FornecedorDAO;
 
 public class FornecedorBO {
 	
 	public boolean cadastrarFornecedor(FornecedorVO fornecedor) {
 
-		return FornecedorDAO.cadastrarFornecedor(fornecedor);
+		return true;
 	}
 	
 	public boolean excluirFornecedor(FornecedorVO fornecedor){
 		
-		return FornecedorDAO.excluirFornecedor(fornecedor);
+		return true;
 	}
 	
 	public boolean atualizarFornecedor(FornecedorVO fornecedor){
 		
-		return FornecedorDAO.atualizarFornecedor(fornecedor);
+		return true;
 	}
 	
 	public List<FornecedorVO> consultarFornecedores(){

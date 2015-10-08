@@ -4,7 +4,6 @@ import java.util.List;
 
 import teste.BancoEstatico;
 import vo.CompraVO;
-import dao.CompraDAO;
 
 public class CompraBO {
 	
@@ -15,7 +14,7 @@ public class CompraBO {
 
 	public boolean AtualizarCompra(CompraVO compra) {
 
-		return CompraDAO.atualizarCompra(compra);
+		return true;
 	}
 	
 }
