@@ -24,6 +24,7 @@ import ui.financas.EfetuarCompraView;
 import ui.financas.EfetuarVendaView;
 import ui.financas.MateriaPrimaView;
 import ui.financas.ProdutoView;
+import ui.financas.ProduzirView;
 import ui.fornecedor.CadastrarFornecedorView;
 import ui.fornecedor.ConsultarFornecedorView;
 import ui.funcionario.CadastrarFuncionarioView;
@@ -64,6 +65,7 @@ public class LoginView extends JPanel{
 	private JMenuItem mntmEfetuarVenda;
 	private JMenuItem mntmMateriaPrima;
 	private JMenuItem mntmProduto;
+	private JMenuItem mntmProduzir;
 	
 	{
 		bo = new LoginBO();
@@ -342,6 +344,21 @@ public class LoginView extends JPanel{
 		});
 
 		mnFinancas.add(mntmProduto);
+		
+		mnFinancas.addSeparator();
+		
+		// ITEM PRODUZIR
+		mntmProduzir = new JMenuItem("Produzir");
+		mntmProduzir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LoginView.this.frmHome.getContentPane().removeAll();
+				ProduzirView produzir = new ProduzirView(frmHome);
+				LoginView.this.frmHome.getContentPane().add(produzir, BorderLayout.CENTER);
+				LoginView.this.frmHome.getContentPane().revalidate();
+			}
+		});
+
+		mnFinancas.add(mntmProduzir);
 		
 		//adiciona menus do administrador
 		if(codUser == 1){

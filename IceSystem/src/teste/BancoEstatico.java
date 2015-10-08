@@ -13,6 +13,9 @@ import vo.EnderecoVO;
 import vo.EstadoVO;
 import vo.FornecedorVO;
 import vo.FuncionarioVO;
+import vo.IngredienteReceitaProdutoVO;
+import vo.MateriaPrimaVO;
+import vo.ProdutoVO;
 import vo.SituacaoVO;
 import vo.TelefoneVO;
 import vo.VendaVO;
@@ -54,6 +57,15 @@ public class BancoEstatico {
 	
 	public static VendaVO venda;
 	public static List<VendaVO> listaVendas;
+	
+	public static ProdutoVO produto;
+	public static List<ProdutoVO> listaProdutos;
+	
+	public static MateriaPrimaVO materiasPrima;
+	public static List<MateriaPrimaVO> listaMateriasPrimas;
+	
+	public static IngredienteReceitaProdutoVO receita;
+	public static List<IngredienteReceitaProdutoVO> listaReceitas;
 
 	public static void carregaBanco(){
 		
@@ -353,6 +365,127 @@ public class BancoEstatico {
 		venda.setSituacao(listasituacoes.get(3));
 		venda.setCliente(listaClientes.get(1));
 		listaVendas.add(venda);
+		
+		//CARREGA PRODUTOS
+		listaProdutos = new ArrayList<ProdutoVO>();
+		
+		produto = new ProdutoVO();
+		produto.setIdProduto(1);
+		produto.setNome("Sorvete de Massa");
+		produto.setSabor("Morango");
+		produto.setQuantidadeEstoque(600);
+		listaProdutos.add(produto);
+		
+		produto = new ProdutoVO();
+		produto.setIdProduto(2);
+		produto.setNome("Sorvete de Palito");
+		produto.setSabor("Abacaxi");
+		produto.setQuantidadeEstoque(88);
+		listaProdutos.add(produto);
+		
+		produto = new ProdutoVO();
+		produto.setIdProduto(3);
+		produto.setNome("Sorvete de Massa");
+		produto.setSabor("Chocolate");
+		produto.setQuantidadeEstoque(22);
+		listaProdutos.add(produto);
+		
+		produto = new ProdutoVO();
+		produto.setIdProduto(4);
+		produto.setNome("Sorvete de Palito");
+		produto.setSabor("Limão");
+		produto.setQuantidadeEstoque(666);
+		listaProdutos.add(produto);
+		
+		//CARREGA MATERIAS PRIMAS
+		listaMateriasPrimas = new ArrayList<MateriaPrimaVO>();
+		
+		materiasPrima = new MateriaPrimaVO();
+		materiasPrima.setIdMateriaPrima(1);
+		materiasPrima.setNome("Pó");
+		materiasPrima.setSabor("Morango");
+		materiasPrima.setQuantidadeDisponivel(44.5);
+		materiasPrima.setFornecedor(listaFornecedores.get(0));
+		listaMateriasPrimas.add(materiasPrima);
+		
+		materiasPrima = new MateriaPrimaVO();
+		materiasPrima.setIdMateriaPrima(2);
+		materiasPrima.setNome("Leite");
+		materiasPrima.setQuantidadeDisponivel(100.7);
+		materiasPrima.setFornecedor(listaFornecedores.get(1));
+		listaMateriasPrimas.add(materiasPrima);
+		
+		materiasPrima = new MateriaPrimaVO();
+		materiasPrima.setIdMateriaPrima(3);
+		materiasPrima.setNome("Fruta");
+		materiasPrima.setSabor("Banana");
+		materiasPrima.setQuantidadeDisponivel(100.5);
+		materiasPrima.setFornecedor(listaFornecedores.get(1));
+		listaMateriasPrimas.add(materiasPrima);
+		
+		materiasPrima = new MateriaPrimaVO();
+		materiasPrima.setIdMateriaPrima(4);
+		materiasPrima.setNome("Açucar");
+		materiasPrima.setQuantidadeDisponivel(12.5);
+		materiasPrima.setFornecedor(listaFornecedores.get(0));
+		listaMateriasPrimas.add(materiasPrima);
+		
+		//CARREGA RECEITAS
+		listaReceitas = new ArrayList<IngredienteReceitaProdutoVO>();
+		
+		receita = new IngredienteReceitaProdutoVO();
+		receita.setProduto(listaProdutos.get(0));
+		receita.setMateriaPrima(listaMateriasPrimas.get(0));
+		receita.setQuantidadeMateria(11.2);
+		listaReceitas.add(receita);
+		
+		receita = new IngredienteReceitaProdutoVO();
+		receita.setProduto(listaProdutos.get(0));
+		receita.setMateriaPrima(listaMateriasPrimas.get(1));
+		receita.setQuantidadeMateria(1.2);
+		listaReceitas.add(receita);
+		
+		receita = new IngredienteReceitaProdutoVO();
+		receita.setProduto(listaProdutos.get(0));
+		receita.setMateriaPrima(listaMateriasPrimas.get(3));
+		receita.setQuantidadeMateria(3.2);
+		listaReceitas.add(receita);
+		
+		receita = new IngredienteReceitaProdutoVO();
+		receita.setProduto(listaProdutos.get(1));
+		receita.setMateriaPrima(listaMateriasPrimas.get(0));
+		receita.setQuantidadeMateria(4.2);
+		listaReceitas.add(receita);
+		
+		receita = new IngredienteReceitaProdutoVO();
+		receita.setProduto(listaProdutos.get(1));
+		receita.setMateriaPrima(listaMateriasPrimas.get(2));
+		receita.setQuantidadeMateria(1.1);
+		listaReceitas.add(receita);
+		
+		receita = new IngredienteReceitaProdutoVO();
+		receita.setProduto(listaProdutos.get(2));
+		receita.setMateriaPrima(listaMateriasPrimas.get(0));
+		receita.setQuantidadeMateria(1.4);
+		listaReceitas.add(receita);
+		
+		receita = new IngredienteReceitaProdutoVO();
+		receita.setProduto(listaProdutos.get(1));
+		receita.setMateriaPrima(listaMateriasPrimas.get(3));
+		receita.setQuantidadeMateria(1.7);
+		listaReceitas.add(receita);
+		
+		receita = new IngredienteReceitaProdutoVO();
+		receita.setProduto(listaProdutos.get(3));
+		receita.setMateriaPrima(listaMateriasPrimas.get(1));
+		receita.setQuantidadeMateria(7.5);
+		listaReceitas.add(receita);
+		
+		receita = new IngredienteReceitaProdutoVO();
+		receita.setProduto(listaProdutos.get(3));
+		receita.setMateriaPrima(listaMateriasPrimas.get(2));
+		receita.setQuantidadeMateria(8.3);
+		listaReceitas.add(receita);
 		
 	}
 	
