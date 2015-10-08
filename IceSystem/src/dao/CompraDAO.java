@@ -13,5 +13,10 @@ public class CompraDAO {
 		
 		return true;
 	}
+
+	public static boolean atualizarCompra(CompraVO compra) {
+
+		return true;
+	}
 	
 }

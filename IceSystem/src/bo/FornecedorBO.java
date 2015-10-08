@@ -1,5 +1,7 @@
 package bo;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import teste.BancoEstatico;
@@ -27,13 +29,13 @@ public class FornecedorBO {
 	
 	public List<FornecedorVO> consultarFornecedores(){
 		
-		return BancoEstatico.consultaFornecedores();
+		return BancoEstatico.listaFornecedores;
 	}
 	
 	public FornecedorVO detalharFornecedor(FornecedorVO fornecedor){
 		
-		fornecedor.setListaEmails(BancoEstatico.consultaEmails());
-		fornecedor.setListaTelefones(BancoEstatico.consultaTelefones());
+		fornecedor.setListaEmails(BancoEstatico.listaEmails);
+		fornecedor.setListaTelefones(BancoEstatico.listaTelefones);
 				
 		return fornecedor;
 		//return FornecedorDAO.detalharFornecedor(fornecedor);
@@ -43,12 +45,25 @@ public class FornecedorBO {
 	
 	public List<EstadoVO> buscaEstados(){
 		
-		return BancoEstatico.consultaEstados();
+		return BancoEstatico.listaEstados;
 	}
 	
 	public List<CidadeVO> buscaCidadesPorEstado(Integer idEstado){
 		
-		return BancoEstatico.consultaCidadesPorEstado(idEstado);
+		Iterator<CidadeVO> it = BancoEstatico.listaCidades.iterator();		
+		List<CidadeVO> listaCidadesAux = new ArrayList<CidadeVO>();
+		CidadeVO cidadeAux;
+		
+		while(it.hasNext()){
+			
+			cidadeAux = it.next();
+			
+			if(cidadeAux.getEstado().getIdEstado() == idEstado){
+				listaCidadesAux.add(cidadeAux);
+			}
+		}
+		
+		return listaCidadesAux;
 	}
 	
 }

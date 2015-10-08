@@ -11,7 +11,7 @@ public class LoginBO {
 	
 	public Byte verificaLogin(String user, char[] password){		
 		
-		List<FuncionarioVO> listaFuncionarios = BancoEstatico.consultaFuncionarios();
+		List<FuncionarioVO> listaFuncionarios = BancoEstatico.listaFuncionarios;
 		
 		Iterator<FuncionarioVO> it = (Iterator<FuncionarioVO>) listaFuncionarios.iterator();
 		FuncionarioVO funcionario;

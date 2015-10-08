@@ -1,5 +1,6 @@
 package bo;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -26,8 +27,8 @@ public class FuncionarioBO {
 	
 	public FuncionarioVO detalharFuncionario(FuncionarioVO funcionario){
 		
-		funcionario.setListaEmails(BancoEstatico.consultaEmails());
-		funcionario.setListaTelefones(BancoEstatico.consultaTelefones());
+		funcionario.setListaEmails(BancoEstatico.listaEmails);
+		funcionario.setListaTelefones(BancoEstatico.listaTelefones);
 				
 		return funcionario;
 		//return FuncionarioDAO.detalharFuncionario(funcionario);
@@ -37,22 +38,35 @@ public class FuncionarioBO {
 
 	public List<EstadoVO> buscaEstados(){
 		
-		return BancoEstatico.consultaEstados();
+		return BancoEstatico.listaEstados;
 	}
 	
 	public List<CidadeVO> buscaCidadesPorEstado(Integer idEstado){
 		
-		return BancoEstatico.consultaCidadesPorEstado(idEstado);
+		Iterator<CidadeVO> it = BancoEstatico.listaCidades.iterator();		
+		List<CidadeVO> listaCidadesAux = new ArrayList<CidadeVO>();
+		CidadeVO cidadeAux;
+		
+		while(it.hasNext()){
+			
+			cidadeAux = it.next();
+			
+			if(cidadeAux.getEstado().getIdEstado() == idEstado){
+				listaCidadesAux.add(cidadeAux);
+			}
+		}
+		
+		return listaCidadesAux;
 	}
 	
 	public List<CargoVO> buscaCargos(){
 		
-		return BancoEstatico.consultaCargo();
+		return BancoEstatico.listaCargos;
 	}
 	
 	public List<FuncionarioVO> consultarFuncionarios(){
 		
-		return BancoEstatico.consultaFuncionarios();
+		return BancoEstatico.listaFuncionarios;
 	}
 	
 	public boolean excluirFuncionario(Integer idFuncionario){

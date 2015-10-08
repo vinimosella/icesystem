@@ -1,5 +1,7 @@
 package bo;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import teste.BancoEstatico;
@@ -17,7 +19,7 @@ public class ClienteBO {
 	
 	public List<ClienteVO> consultarCliente(){
 		
-		return BancoEstatico.consultaClientes();
+		return BancoEstatico.listaClientes;
 	}
 	
 	public boolean excluirCliente(ClienteVO cliente){
@@ -32,8 +34,8 @@ public class ClienteBO {
 	
 	public ClienteVO detalharCliente(ClienteVO cliente){
 		
-		cliente.setListaEmails(BancoEstatico.consultaEmails());
-		cliente.setListaTelefones(BancoEstatico.consultaTelefones());
+		cliente.setListaEmails(BancoEstatico.listaEmails);
+		cliente.setListaTelefones(BancoEstatico.listaTelefones);
 				
 		return cliente;
 		//return ClienteDAO.detalharCliente(cliente);
@@ -43,12 +45,26 @@ public class ClienteBO {
 
 	public List<EstadoVO> buscaEstados(){
 		
-		return BancoEstatico.consultaEstados();
+		return BancoEstatico.listaEstados;
 	}
 	
 	public List<CidadeVO> buscaCidadesPorEstado(Integer idEstado){
+
+		Iterator<CidadeVO> it = BancoEstatico.listaCidades.iterator();		
+		List<CidadeVO> listaCidadesAux = new ArrayList<CidadeVO>();
+		CidadeVO cidadeAux;
 		
-		return BancoEstatico.consultaCidadesPorEstado(idEstado);
+		while(it.hasNext()){
+			
+			cidadeAux = it.next();
+			
+			if(cidadeAux.getEstado().getIdEstado() == idEstado){
+				listaCidadesAux.add(cidadeAux);
+			}
+		}
+		
+		return listaCidadesAux;
+		
 	}	
 	
 }
