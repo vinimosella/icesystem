@@ -128,7 +128,7 @@ public class ProduzirView extends JPanel{
 			
 		};
 				
-		listaProdutos = produtoBo.consultarProdutos();
+		listaProdutos = produtoBo.consultarProdutos(produto);
 
 		Iterator<ProdutoVO> it = listaProdutos.iterator();
 			

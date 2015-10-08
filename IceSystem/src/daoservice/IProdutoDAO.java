@@ -1,10 +1,12 @@
 package daoservice;
 
+import java.util.List;
+
 import vo.ProdutoVO;
 
 public interface IProdutoDAO {
 
-	public boolean consultarProduto(ProdutoVO produto);
+	public List<ProdutoVO> consultarProduto(ProdutoVO produto);
 	
 	public boolean cadastrarProduto(ProdutoVO produto);
 	

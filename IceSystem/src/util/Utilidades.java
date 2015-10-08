@@ -22,4 +22,6 @@ public class Utilidades {
 	//TODO
 	public static final int[] CODIGOS_SITUACAO_COMPRA = {1,2,4};
 	public static final int CODIGO_SITUACAO_COMPRA_DEFAULT = 1;
+	
+	public static final String PATH_LOG = "C:/Desenvolvimento/Logs/log.txt";
 }
