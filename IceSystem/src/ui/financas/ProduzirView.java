@@ -16,11 +16,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import ui.cliente.AtualizarClienteView;
-import util.Utilidades;
 import vo.IngredienteReceitaProdutoVO;
 import vo.ProdutoVO;
 import bo.IngredienteReceitaProdutoBO;
+import bo.MateriaPrimaBO;
 import bo.ProdutoBO;
 
 public class ProduzirView extends JPanel{
@@ -31,12 +30,13 @@ public class ProduzirView extends JPanel{
 	private JLabel lblProduzir;
 	private JLabel lblQuantidade;
 	private JTextField txtQuantidade;
-	private JButton btnDetalhar;
+	private JButton btnVerReceita;
 	private JButton btnProduzir;
 	private JScrollPane scrollPane;
 	private DefaultTableModel dtm;
 	private ProdutoBO produtoBo;
 	private IngredienteReceitaProdutoBO receitaBo;
+	private MateriaPrimaBO materiaBo;
 	private List<ProdutoVO> listaProdutos;
 	private ProdutoVO produto;
 	private List<IngredienteReceitaProdutoVO> listaReceitas;
@@ -45,10 +45,11 @@ public class ProduzirView extends JPanel{
 	{
 		produtoBo = new ProdutoBO();
 		receitaBo = new IngredienteReceitaProdutoBO();
+		materiaBo = new MateriaPrimaBO();
 	}
 	
 	public ProduzirView(JFrame frmHome){
-		
+				
 		this.frmHome=frmHome;
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
@@ -59,7 +60,11 @@ public class ProduzirView extends JPanel{
 		
 		table = new JTable();
 		
-		montaTabela();
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(20, 50, 550, 400);
+		this.add(scrollPane);
+		carregaDtm();
+		scrollPane.setViewportView(table);
 		
 		lblQuantidade = new JLabel("Quantidade");
 		lblQuantidade.setBounds(40, 460, 100, 25);
@@ -69,22 +74,23 @@ public class ProduzirView extends JPanel{
 		txtQuantidade.setBounds(130, 460, 100, 25);
 		this.add(txtQuantidade);
 				
-		btnDetalhar = new JButton("Detalhar");
-		btnDetalhar.setBounds(130, 490, 91, 23);
-		btnDetalhar.addActionListener(new ActionListener() {
+		btnVerReceita = new JButton("Visualizar Receita");
+		btnVerReceita.setBounds(130, 490, 111, 23);
+		btnVerReceita.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
 				if(table.getSelectedRow() != -1){ // se tiver algo selecionado
 					
-					//TODO btnDetalhar(table.getSelectedRow());
+					ReceitaProdutoView receita = new ReceitaProdutoView(listaProdutos.get(table.getSelectedRow()), ProduzirView.this.frmHome);
+					receita.setVisible(true);
 					
 				}		
 				
 			}
 		});
-		this.add(btnDetalhar);
+		this.add(btnVerReceita);
 		
 		btnProduzir = new JButton("Produzir");
 		btnProduzir.setBounds(231, 490, 91, 23);
@@ -102,12 +108,8 @@ public class ProduzirView extends JPanel{
 		
 	}
 	
-	private void montaTabela(){
+	private void carregaDtm(){
 		
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 50, 550, 400);
-		this.add(scrollPane);
-				
 		dtm = new DefaultTableModel(
 				
 				new Object[][] {
@@ -128,7 +130,7 @@ public class ProduzirView extends JPanel{
 			
 		};
 				
-		listaProdutos = produtoBo.consultarProdutos(produto);
+		listaProdutos = produtoBo.consultarProdutos();
 
 		Iterator<ProdutoVO> it = listaProdutos.iterator();
 			
@@ -146,7 +148,6 @@ public class ProduzirView extends JPanel{
 		}			
 		
 		table.setModel(dtm);
-		scrollPane.setViewportView(table);
 		
 	}
 	
@@ -159,7 +160,7 @@ public class ProduzirView extends JPanel{
 			Integer qtdProduto = new Integer(txtQuantidade.getText());
 			
 			//consulta todos os itens da receita do produto
-			listaReceitas = receitaBo.consultaReceitasPorProduto(listaProdutos.get(table.getSelectedRow()).getIdProduto());
+			listaReceitas = receitaBo.consultaReceitasPorProduto(listaProdutos.get(table.getSelectedRow()));
 			
 			Iterator<IngredienteReceitaProdutoVO> it = listaReceitas.iterator();
 			
@@ -173,28 +174,43 @@ public class ProduzirView extends JPanel{
 				
 				//se a quantidade total de materia prima necessária não estiver disponível no estoque
 				if(!(receita.getQuantidadeMateria()*qtdProduto <= receita.getMateriaPrima().getQuantidadeDisponivel())){
-					
-					msgErro.append("Quantidade necessária de ");
+										
+					msgErro.append("Quantidade total necessária de ");
 					msgErro.append(receita.getMateriaPrima().getNome());
-					msgErro.append(" - ");
-					msgErro.append(receita.getMateriaPrima().getSabor());
-					msgErro.append(" :");
+					
+					//se tiver sabor, informo o sabor da materia também
+					if(receita.getMateriaPrima().getSabor()!= null){
+						msgErro.append(" - ");
+						msgErro.append(receita.getMateriaPrima().getSabor());
+					}
+					msgErro.append(": ");
+					msgErro.append(receita.getQuantidadeMateria()*qtdProduto);
+					msgErro.append(" / Quantidade disponível: ");
+					msgErro.append(receita.getMateriaPrima().getQuantidadeDisponivel());
+					msgErro.append("\n");
 				}
 				
 			}
 			
 			//se possuir todas materias primas necessarias
-			if(msgErro.equals("")){
+			if(msgErro.toString().trim().equals("")){
 				
 				//soma a quantidade que possuia antes com o valor produzido
 				produto.setQuantidadeEstoque(produto.getQuantidadeEstoque()+qtdProduto);
-				produtoBo.alterarProduto(produto);
+				produtoBo.atualizarProduto(produto);
 				
-				//atualiza a tela
-				frmHome.getContentPane().removeAll();
-				ProduzirView produzir = new ProduzirView(frmHome);
-				frmHome.add(produzir);
-				frmHome.revalidate();
+				//diminui a quantidade de estoque de materia prima
+				materiaBo.alterarMateriaPrimaReceita(listaReceitas, qtdProduto, produto);
+				
+				//atualiza conteudo da tabela
+				carregaDtm();
+				//limpa campo de quantidade
+				txtQuantidade.setText("");
+				
+			}
+			else{
+				
+				JOptionPane.showMessageDialog(frmHome, msgErro.toString(), "Não foi possível produzir!", JOptionPane.ERROR_MESSAGE);
 				
 			}
 			
