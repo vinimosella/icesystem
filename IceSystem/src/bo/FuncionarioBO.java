@@ -11,18 +11,17 @@ import vo.EmailVO;
 import vo.EstadoVO;
 import vo.FuncionarioVO;
 import vo.TelefoneVO;
-import dao.FuncionarioDAO;
 
 public class FuncionarioBO {
 	
 	public boolean cadastrarFuncionario(FuncionarioVO funcionario){
 		
-		return FuncionarioDAO.cadastrarFuncionario(funcionario);
+		return true;
 	}
 	
 	public boolean atualizarFuncionario(FuncionarioVO funcionario){
 		
-		return FuncionarioDAO.atualizarFuncionario(funcionario);
+		return true;
 	}
 	
 	public FuncionarioVO detalharFuncionario(FuncionarioVO funcionario){

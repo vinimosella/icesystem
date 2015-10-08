@@ -8,13 +8,12 @@ import teste.BancoEstatico;
 import vo.CidadeVO;
 import vo.ClienteVO;
 import vo.EstadoVO;
-import dao.ClienteDAO;
 
 public class ClienteBO {
 	
 	public boolean cadastrarCliente(ClienteVO cliente){
 		
-		return ClienteDAO.cadastrarCliente(cliente);
+		return true;
 	}
 	
 	public List<ClienteVO> consultarCliente(){
@@ -24,12 +23,12 @@ public class ClienteBO {
 	
 	public boolean excluirCliente(ClienteVO cliente){
 		
-		return ClienteDAO.excluirCliente(cliente);
+		return true;
 	}
 	
 	public boolean atualizarCliente(ClienteVO cliente){
 		
-		return ClienteDAO.atualizarCliente(cliente);
+		return true;
 	}
 	
 	public ClienteVO detalharCliente(ClienteVO cliente){
