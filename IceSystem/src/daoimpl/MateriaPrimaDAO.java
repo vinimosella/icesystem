@@ -23,8 +23,9 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 		fabrica = ConnectionFactory.getInstance();
 		
 	}
+	
 	@Override
-	public List<MateriaPrimaVO> consultarMateriaPrima(MateriaPrimaVO materiaPrima){
+	public List<MateriaPrimaVO> consultarMateriaPrimaFornecedor(FornecedorVO fornecedor){
 		
 		List<MateriaPrimaVO> listaMP = null;
 		
@@ -35,9 +36,9 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			conexao = fabrica.getConexao();
 			
 			pstm = conexao.prepareStatement("select id_materia_prima, id_fornecedor, quantidade_disponivel, nome, sabor"
-				                            + " from MateriaPrima mp where mp.id_materia_prima = ?");
+				                            + " from MateriaPrima mp where mp.id_fornecedor = ?");
 			
-			pstm.setLong(1, materiaPrima.getIdMateriaPrima());
+			pstm.setLong(1, fornecedor.getIdPessoaJuridica());
 		
 			rs = pstm.executeQuery();
 			
@@ -47,12 +48,12 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 				
 				mp = new MateriaPrimaVO();
 				
-				materiaPrima.setIdMateriaPrima(rs.getInt("id_materia_prima"));
-				materiaPrima.setFornecedor(new FornecedorVO());
-				materiaPrima.getFornecedor().setIdPessoaJuridica(rs.getInt("id_fornecedor"));
-				materiaPrima.setNome(rs.getString("nome"));
-				materiaPrima.setQuantidadeDisponivel(rs.getDouble("quantidade"));
-				materiaPrima.setSabor(rs.getString("sabor"));
+				mp.setIdMateriaPrima(rs.getInt("id_materia_prima"));
+				mp.setFornecedor(new FornecedorVO());
+				mp.getFornecedor().setIdPessoaJuridica(rs.getInt("id_fornecedor"));
+				mp.setNome(rs.getString("nome"));
+				mp.setQuantidadeDisponivel(rs.getDouble("quantidade"));
+				mp.setSabor(rs.getString("sabor"));
 				
 				listaMP.add(mp);
 			}
@@ -66,6 +67,27 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
 			listaMP = null;
+			
+		} finally {
+			
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+				if(rs != null){
+					
+					rs.close();
+				}
+				
+			} catch (SQLException e) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+
+				listaMP = null;
+				
+			}			
+		
 		}
 		
 		return listaMP;
@@ -73,9 +95,8 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 	
 	@Override
 	public boolean alterarMateriasPrimas(List<MateriaPrimaVO> materiaPrima) {
-		
+				
 		return false;
 	}
-	
-	
+		
 }
