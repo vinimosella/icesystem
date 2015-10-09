@@ -18,9 +18,9 @@ import javax.swing.JTextField;
 
 import ui.cliente.CadastrarClienteView;
 import ui.cliente.ConsultarClienteView;
+import ui.financas.CompraMateriaPrimaView;
 import ui.financas.ConsultarComprasView;
 import ui.financas.ConsultarVendasView;
-import ui.financas.EfetuarCompraView;
 import ui.financas.EfetuarVendaView;
 import ui.financas.MateriaPrimaView;
 import ui.financas.ProdutoView;
@@ -274,13 +274,13 @@ public class LoginView extends JPanel{
 		mnFinancas.add(mntmConsultarCompra);
 		
 		// ITEM EFETUAR COMPRA
-		mntmEfetuarCompra = new JMenuItem("Efetuar Compras");
+		mntmEfetuarCompra = new JMenuItem("Adicionar Compras");
 		mntmEfetuarCompra.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				LoginView.this.frmHome.getContentPane().removeAll();
-				EfetuarCompraView efetCompras = new EfetuarCompraView(frmHome);
+				CompraMateriaPrimaView efetCompras = new CompraMateriaPrimaView(frmHome,null);
 				LoginView.this.frmHome.getContentPane().add(efetCompras, BorderLayout.CENTER);
 				LoginView.this.frmHome.getContentPane().revalidate();
 			}
@@ -305,7 +305,7 @@ public class LoginView extends JPanel{
 		mnFinancas.add(mntmConsultarVenda);
 		
 		// ITEM EFETUAR VENDA
-		mntmEfetuarVenda = new JMenuItem("Efetuar Vendas");
+		mntmEfetuarVenda = new JMenuItem("Adicionar Vendas");
 		mntmEfetuarVenda.addActionListener(new ActionListener() {
 			
 			@Override

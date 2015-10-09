@@ -77,7 +77,7 @@ public class ReceitaProdutoView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				ComprarMateriaPrimaView comprar = new ComprarMateriaPrimaView(ReceitaProdutoView.this.frmHome, listaIngredientes.get(table.getSelectedRow()).getMateriaPrima());
+				CompraMateriaPrimaView comprar = new CompraMateriaPrimaView(ReceitaProdutoView.this.frmHome, listaIngredientes.get(table.getSelectedRow()).getMateriaPrima());
 				ReceitaProdutoView.this.frmHome.getContentPane().removeAll();
 				ReceitaProdutoView.this.frmHome.add(comprar);
 				ReceitaProdutoView.this.frmHome.revalidate();
@@ -120,34 +120,17 @@ public class ReceitaProdutoView extends JFrame {
 		while(it.hasNext()){
 				
 			ingrediente = (IngredienteReceitaProdutoVO) it.next();
-			
-			if(ingrediente.getMateriaPrima().getSabor()!=null){
-				
+							
 				dtm.addRow(new Object[] {
 						
 					ingrediente.getMateriaPrima().getIdMateriaPrima(),
 					ingrediente.getMateriaPrima().getNome(),
-					ingrediente.getMateriaPrima().getSabor(),
+					(ingrediente.getMateriaPrima().getSabor()!=null) ? ingrediente.getMateriaPrima().getSabor() : "-",
 					ingrediente.getMateriaPrima().getQuantidadeDisponivel(),
 					ingrediente.getMateriaPrima().getFornecedor().getRazaoSocial()
 						
 				});
-				
-			}
-			else{
-				
-				dtm.addRow(new Object[] {
-
-					ingrediente.getMateriaPrima().getIdMateriaPrima(),
-					ingrediente.getMateriaPrima().getNome(),
-					"-",
-					ingrediente.getMateriaPrima().getQuantidadeDisponivel(),
-					ingrediente.getMateriaPrima().getFornecedor().getRazaoSocial()
-
-				});
-				
-			}
-			
+							
 		}			
 		
 		table.setModel(dtm);

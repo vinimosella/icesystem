@@ -5,13 +5,14 @@ import java.util.Iterator;
 import java.util.List;
 
 import teste.BancoEstatico;
+import vo.FornecedorVO;
 import vo.IngredienteReceitaProdutoVO;
 import vo.MateriaPrimaVO;
 import vo.ProdutoVO;
 
 public class MateriaPrimaBO {
 
-	public List<MateriaPrimaVO> consultarMateriasPrimas(){
+	public List<MateriaPrimaVO> consultarMateriasPrimas(FornecedorVO fornecedor){
 		
 		return BancoEstatico.listaMateriasPrimas;
 	}
