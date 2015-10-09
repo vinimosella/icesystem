@@ -3,6 +3,7 @@ package ui.financas;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,11 +23,18 @@ import vo.CompraVO;
 import vo.FornecedorVO;
 import vo.ItemCompraVO;
 import vo.MateriaPrimaVO;
-import vo.ProdutoVO;
 import bo.FornecedorBO;
 import bo.MateriaPrimaBO;
 
 public class CompraMateriaPrimaView extends JPanel{
+	
+	/*
+	 * TODO
+	 * se o item da compra ja estiver na compra, somar a quantia colocada na 2ªvez na 1ªvez
+	 * label para exibir o total da compra
+	 * btn pra remover um item selecionado na tabela da lista de itens
+	 * btn para cadastrar compra
+	 */
 
 	private static final long serialVersionUID = 1L;
 	private JFrame frmHome;
@@ -48,7 +56,8 @@ public class CompraMateriaPrimaView extends JPanel{
 	private CompraVO compra;
 	private Iterator<?> it;
 	private StringBuilder msg;
-	private JTable tabela; //TODO montar a tabela carregando a lista de itensVenda
+	private JLabel lblItensCompra;
+	private JTable tabela;
 	private JScrollPane scrollPane;
 	private DefaultTableModel dtm;
 	
@@ -56,6 +65,7 @@ public class CompraMateriaPrimaView extends JPanel{
 		fornecedorBo = new FornecedorBO();
 		materiaPrimaBo = new MateriaPrimaBO();
 		compra = new CompraVO();
+		listaItensCompra = new ArrayList<ItemCompraVO>();
 	}
 	
 	public CompraMateriaPrimaView(JFrame frmHome, MateriaPrimaVO materiaPrima){
@@ -160,16 +170,21 @@ public class CompraMateriaPrimaView extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				
 				adicionarItemCompra();
+				carregaDtm();
 				
 			}
 		});
 		this.add(btnAdicionar);
 		
 		//TABELA ITENS COMPRA
+		lblItensCompra = new JLabel("Itens da compra:");
+		lblItensCompra.setBounds(20,175,100,25);
+		this.add(lblItensCompra);
+		
 		tabela = new JTable();
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 50, 550, 400);
+		scrollPane.setBounds(20, 200, 550, 300);
 		this.add(scrollPane);
 		carregaDtm();
 		scrollPane.setViewportView(tabela);
@@ -198,7 +213,9 @@ public class CompraMateriaPrimaView extends JPanel{
 			
 		};
 				
-		if(null != listaItensCompra | listaItensCompra.size()!=0){ //TODO
+		if(listaItensCompra.size()==0){
+			return;
+		}
 
 			it = listaItensCompra.iterator();
 				
@@ -216,7 +233,6 @@ public class CompraMateriaPrimaView extends JPanel{
 				});
 				
 			}
-		}
 		
 		tabela.setModel(dtm);
 		
