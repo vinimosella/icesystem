@@ -6,7 +6,9 @@ import vo.ProdutoVO;
 
 public interface IProdutoDAO {
 
-	public List<ProdutoVO> consultarProduto(ProdutoVO produto);
+	public List<ProdutoVO> consultarTodosProdutos();
+	
+	public ProdutoVO consultarProduto(ProdutoVO produto);
 	
 	public boolean cadastrarProduto(ProdutoVO produto);
 	
