@@ -97,7 +97,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 				
 			conexao = fabrica.getConexao();
 			
-			pstm = conexao.prepareStatement("select id_produto, quantidade_estoque, nome, sabor from Produto p where p.id_produto = ?");
+			pstm = conexao.prepareStatement("select p.id_produto, p.quantidade_estoque, p.nome, p.sabor from Produto p where p.id_produto = ?");
 			
 			pstm.setLong(1, produto.getIdProduto());
 		

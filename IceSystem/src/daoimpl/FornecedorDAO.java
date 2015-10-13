@@ -36,7 +36,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 				
 			conexao = fabrica.getConexao();
 			
-			pstm = conexao.prepareStatement("select id_produto, quantidade_estoque, nome, sabor from Produto");
+			pstm = conexao.prepareStatement("select id_fornecedor, cnpj, id_endereco, razao_social, from Fornecedor");
 			
 			rs = pstm.executeQuery();
 			
