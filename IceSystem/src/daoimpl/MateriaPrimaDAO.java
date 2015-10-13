@@ -35,7 +35,7 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			
 			conexao = fabrica.getConexao();
 			
-			pstm = conexao.prepareStatement("select id_materia_prima, id_fornecedor, quantidade_disponivel, nome, sabor"
+			pstm = conexao.prepareStatement("select mp.id_materia_prima, mp.id_fornecedor, mp.quantidade_disponivel, mp.nome, mp.sabor"
 				                            + " from MateriaPrima mp where mp.id_fornecedor = ?");
 			
 			pstm.setLong(1, fornecedor.getIdPessoaJuridica());
