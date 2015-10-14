@@ -5,11 +5,11 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class MateriaPrimaView extends JPanel{
+public class ConsultaProdutoView extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
-	public MateriaPrimaView(JFrame frmHome){
+	public ConsultaProdutoView(JFrame frmHome){
 		
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));

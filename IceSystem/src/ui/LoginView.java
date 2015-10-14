@@ -18,13 +18,13 @@ import javax.swing.JTextField;
 
 import ui.cliente.CadastrarClienteView;
 import ui.cliente.ConsultarClienteView;
-import ui.estoque.MateriaPrimaView;
-import ui.estoque.ProdutoView;
+import ui.estoque.ConsultaMateriaPrimaView;
+import ui.estoque.ConsultaProdutoView;
 import ui.estoque.ProduzirView;
 import ui.financas.CompraMateriaPrimaView;
 import ui.financas.ConsultarComprasView;
 import ui.financas.ConsultarVendasView;
-import ui.financas.EfetuarVendaView;
+import ui.financas.VendaProdutoView;
 import ui.fornecedor.CadastrarFornecedorView;
 import ui.fornecedor.ConsultarFornecedorView;
 import ui.funcionario.CadastrarFuncionarioView;
@@ -261,11 +261,11 @@ public class LoginView extends JPanel{
 		menuBar.add(mnEstoque);
 		
 		// ITEM MATERIA PRIMA
-		mntmMateriaPrima = new JMenuItem("Materia Prima");
+		mntmMateriaPrima = new JMenuItem("Consulta Materias Primas");
 		mntmMateriaPrima.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoginView.this.frmHome.getContentPane().removeAll();
-				MateriaPrimaView materiaPrima = new MateriaPrimaView(frmHome);
+				ConsultaMateriaPrimaView materiaPrima = new ConsultaMateriaPrimaView(frmHome);
 				LoginView.this.frmHome.getContentPane().add(materiaPrima,BorderLayout.CENTER);
 				LoginView.this.frmHome.getContentPane().revalidate();
 			}
@@ -273,11 +273,11 @@ public class LoginView extends JPanel{
 		mnEstoque.add(mntmMateriaPrima);
 
 		// ITEM PRODUTO
-		mntmProduto = new JMenuItem("Produto");
+		mntmProduto = new JMenuItem("Consulta Produtos");
 		mntmProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoginView.this.frmHome.getContentPane().removeAll();
-				ProdutoView produto = new ProdutoView(frmHome);
+				ConsultaProdutoView produto = new ConsultaProdutoView(frmHome);
 				LoginView.this.frmHome.getContentPane().add(produto,BorderLayout.CENTER);
 				LoginView.this.frmHome.getContentPane().revalidate();
 			}
@@ -356,7 +356,7 @@ public class LoginView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				LoginView.this.frmHome.getContentPane().removeAll();
-				EfetuarVendaView efetVendas = new EfetuarVendaView(frmHome);
+				VendaProdutoView efetVendas = new VendaProdutoView(frmHome);
 				LoginView.this.frmHome.getContentPane().add(efetVendas, BorderLayout.CENTER);
 				LoginView.this.frmHome.getContentPane().revalidate();
 			}

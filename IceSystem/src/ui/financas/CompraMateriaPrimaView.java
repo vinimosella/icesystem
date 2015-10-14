@@ -19,6 +19,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import util.Utilidades;
 import vo.CompraVO;
 import vo.FornecedorVO;
 import vo.ItemCompraVO;
@@ -170,6 +171,9 @@ public class CompraMateriaPrimaView extends JPanel{
 				
 				//o combo de fornecedor é desabilitado para nao ter itens de fornecedores diferentes na mesma compra
 				comboFornecedor.setEnabled(false);
+				//agora que tem item da compra, é possivel cadastrar compra
+				btnCadastrar.setEnabled(true);
+				
 				adicionarItemCompra();
 				carregaDtm();
 				somaTotal();
@@ -197,9 +201,10 @@ public class CompraMateriaPrimaView extends JPanel{
 					carregaDtm();
 					somaTotal();
 				}
-				//se a lista de itens estiver vazia, a troca de fornecedores é habilitada
+				//se a lista de itens estiver vazia, a troca de fornecedores é habilitada e nao e possivel cadastrar
 				if(listaItensCompra.size()==0){
 					comboFornecedor.setEnabled(true);
+					btnCadastrar.setEnabled(false);
 				}
 			}
 			
@@ -228,11 +233,10 @@ public class CompraMateriaPrimaView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if(listaItensCompra.size()!=0){
-					compraBo.cadastrarCompra(listaItensCompra);
-				}
+				compraBo.cadastrarCompra(listaItensCompra);
 			}
 		});
+		btnCadastrar.setEnabled(false);
 		this.add(btnCadastrar);
 
 	}
@@ -275,8 +279,8 @@ public class CompraMateriaPrimaView extends JPanel{
 						itemCompra.getMateriaPrima().getNome(),
 						(itemCompra.getMateriaPrima().getSabor()!=null) ? itemCompra.getMateriaPrima().getSabor() : "-",
 						itemCompra.getQuantidade(),
-						itemCompra.getValor(),
-						itemCompra.getQuantidade()*itemCompra.getValor()
+						Utilidades.FORMAT.format(itemCompra.getValor()),
+						Utilidades.FORMAT.format(itemCompra.getQuantidade()*itemCompra.getValor())
 				});
 				
 			}
@@ -370,7 +374,7 @@ public class CompraMateriaPrimaView extends JPanel{
 			
 		}
 		
-		lblTotal.setText("Total: "+total);
+		lblTotal.setText("Total: "+ Utilidades.FORMAT.format(total));
 		
 	}
 }
