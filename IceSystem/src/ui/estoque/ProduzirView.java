@@ -153,7 +153,7 @@ public class ProduzirView extends JPanel{
 	
 	private void produzir() {
 		
-		if(table.getSelectedRow() != -1){
+		if(table.getSelectedRow() != -1 && !txtQuantidade.getText().trim().equals("")){
 			
 			produto = listaProdutos.get(table.getSelectedRow());
 			
@@ -192,6 +192,10 @@ public class ProduzirView extends JPanel{
 				
 			}
 			
+			if(txtQuantidade.getText().trim().equals("")){
+				msgErro.append("Selecione a quantidade de produto");
+			}
+			
 			//se possuir todas materias primas necessarias
 			if(msgErro.toString().trim().equals("")){
 				
@@ -214,6 +218,10 @@ public class ProduzirView extends JPanel{
 				
 			}
 			
+		}
+		else{
+			
+			JOptionPane.showMessageDialog(frmHome, "Selecione um produto e indique a quantidade a ser produzida!", "Não foi possível produzir!", JOptionPane.ERROR_MESSAGE);
 		}
 
 	}

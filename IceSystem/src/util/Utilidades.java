@@ -1,10 +1,14 @@
 package util;
 
+import java.text.DecimalFormat;
+
 import vo.FuncionarioVO;
 
 public class Utilidades {
 	
 	public static FuncionarioVO funcionarioLogado = null;
+	
+	public static final DecimalFormat FORMAT = new DecimalFormat("#,##0.00");
 
 	public static final String CONSULTA_FUNCIONARIOS = "Consultar Funcionários";
 	public static final String CONSULTA_CLIENTES = "Consultar Clientes";
