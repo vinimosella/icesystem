@@ -22,7 +22,7 @@ public abstract class ConsultaGenericaView extends JPanel{
 	private JButton btnRemover;
 	
 	//é necessario o codUser pra criar o botao da tela de alterar/delete apenas se for userAdmin
-	public ConsultaGenericaView(JFrame frmHome, Byte codUser, String lblConsulta){
+	public ConsultaGenericaView(JFrame frmHome, String lblConsulta){
 		
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));

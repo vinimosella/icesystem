@@ -1,4 +1,4 @@
-package ui.financas;
+package ui.estoque;
 
 import java.awt.Color;
 

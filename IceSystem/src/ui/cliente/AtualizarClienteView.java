@@ -16,22 +16,19 @@ public class AtualizarClienteView extends AtualizarPessoaJuridicaView{
 	private static final long serialVersionUID = 1L;
 
 	private JFrame frmHome;
-	private Byte codUser;
 	private ClienteBO bo;
 	private ClienteVO cliente;
 	
-	public AtualizarClienteView(JFrame frmHome, PessoaJuridicaVO pj, Byte codUser) {
-		super(frmHome, pj, codUser);
+	public AtualizarClienteView(JFrame frmHome, PessoaJuridicaVO pj) {
+		super(frmHome, pj);
 
-		this.frmHome = frmHome;
-		this.codUser = codUser;
 	}
 
 	@Override
 	public void btnCancelar() {
 
 		AtualizarClienteView.this.frmHome.getContentPane().removeAll();
-		ConsultarClienteView consulta = new ConsultarClienteView(AtualizarClienteView.this.frmHome, AtualizarClienteView.this.codUser, Utilidades.CONSULTA_CLIENTES);
+		ConsultarClienteView consulta = new ConsultarClienteView(AtualizarClienteView.this.frmHome, Utilidades.CONSULTA_CLIENTES);
 		AtualizarClienteView.this.frmHome.getContentPane().add(consulta, BorderLayout.CENTER);
 		AtualizarClienteView.this.frmHome.getContentPane().revalidate();
 		

@@ -17,7 +17,6 @@ import bo.FornecedorBO;
 public class ConsultarFornecedorView extends ConsultaGenericaView{
 
 	private JFrame frmHome;
-	private Byte codUser;
 	private JScrollPane scrollPane;
 	private DefaultTableModel dtm;
 	private FornecedorVO fornecedor;
@@ -25,11 +24,9 @@ public class ConsultarFornecedorView extends ConsultaGenericaView{
 	
 	private FornecedorBO bo;
 	
-	public ConsultarFornecedorView(JFrame frmHome, Byte codUser, String lblConsulta) {
-		super(frmHome, codUser, lblConsulta);
+	public ConsultarFornecedorView(JFrame frmHome, String lblConsulta) {
+		super(frmHome, lblConsulta);
 
-		this.frmHome = frmHome;
-		this.codUser = codUser;
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -96,7 +93,7 @@ public class ConsultarFornecedorView extends ConsultaGenericaView{
 	public void btnAtualizar(Integer linhaSelecionada) {
 		
 		ConsultarFornecedorView.this.frmHome.getContentPane().removeAll();
-		AtualizarFornecedorView atualizar = new AtualizarFornecedorView(ConsultarFornecedorView.this.frmHome, listaFornecedores.get(linhaSelecionada),ConsultarFornecedorView.this.codUser);
+		AtualizarFornecedorView atualizar = new AtualizarFornecedorView(ConsultarFornecedorView.this.frmHome, listaFornecedores.get(linhaSelecionada));
 		ConsultarFornecedorView.this.frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
 		ConsultarFornecedorView.this.frmHome.getContentPane().revalidate();
 		

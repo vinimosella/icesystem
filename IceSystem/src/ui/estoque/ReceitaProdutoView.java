@@ -1,4 +1,4 @@
-package ui.financas;
+package ui.estoque;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import ui.financas.CompraMateriaPrimaView;
 import vo.IngredienteReceitaProdutoVO;
 import vo.ProdutoVO;
 import bo.IngredienteReceitaProdutoBO;
