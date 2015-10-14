@@ -1,6 +1,10 @@
 package util;
 
+import vo.FuncionarioVO;
+
 public class Utilidades {
+	
+	public static FuncionarioVO funcionarioLogado = null;
 
 	public static final String CONSULTA_FUNCIONARIOS = "Consultar Funcionários";
 	public static final String CONSULTA_CLIENTES = "Consultar Clientes";

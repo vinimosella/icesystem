@@ -23,23 +23,17 @@ import vo.CompraVO;
 import vo.FornecedorVO;
 import vo.ItemCompraVO;
 import vo.MateriaPrimaVO;
+import bo.CompraBO;
 import bo.FornecedorBO;
 import bo.MateriaPrimaBO;
 
 public class CompraMateriaPrimaView extends JPanel{
-	
-	/*
-	 * TODO
-	 * se o item da compra ja estiver na compra, somar a quantia colocada na 2ªvez na 1ªvez
-	 * label para exibir o total da compra
-	 * btn pra remover um item selecionado na tabela da lista de itens
-	 * btn para cadastrar compra
-	 */
 
 	private static final long serialVersionUID = 1L;
 	private JFrame frmHome;
 	private FornecedorBO fornecedorBo;
 	private MateriaPrimaBO materiaPrimaBo;
+	private CompraBO compraBo;
 	private JComboBox<String> comboFornecedor;
 	private List<FornecedorVO> listaFornecedores;
 	private JComboBox<String> comboMateria;
@@ -60,10 +54,15 @@ public class CompraMateriaPrimaView extends JPanel{
 	private JTable tabela;
 	private JScrollPane scrollPane;
 	private DefaultTableModel dtm;
+	private JLabel lblTotal;
+	private Double total;
+	private JButton btnRemover;
+	private JButton btnCadastrar;
 	
 	{
 		fornecedorBo = new FornecedorBO();
 		materiaPrimaBo = new MateriaPrimaBO();
+		compraBo = new CompraBO();
 		compra = new CompraVO();
 		listaItensCompra = new ArrayList<ItemCompraVO>();
 	}
@@ -169,18 +168,45 @@ public class CompraMateriaPrimaView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				//o combo de fornecedor é desabilitado para nao ter itens de fornecedores diferentes na mesma compra
+				comboFornecedor.setEnabled(false);
 				adicionarItemCompra();
 				carregaDtm();
+				somaTotal();
 				
 			}
 		});
 		this.add(btnAdicionar);
 		
-		//TABELA ITENS COMPRA
+		//LABEL TABELA ITENS COMPRA
 		lblItensCompra = new JLabel("Itens da compra:");
 		lblItensCompra.setBounds(20,175,100,25);
 		this.add(lblItensCompra);
 		
+		//BOTÃO REMOVER ITEM DA COMPRA
+		btnRemover = new JButton("Remover item selecionado");
+		btnRemover.setBounds(340,175,190,25);
+		btnRemover.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				//se tiver algo selecionado
+				if(tabela.getSelectedRow()!=-1){
+					listaItensCompra.remove(tabela.getSelectedRow());
+					carregaDtm();
+					somaTotal();
+				}
+				//se a lista de itens estiver vazia, a troca de fornecedores é habilitada
+				if(listaItensCompra.size()==0){
+					comboFornecedor.setEnabled(true);
+				}
+			}
+			
+		});
+		this.add(btnRemover);
+		
+		//TABELA ITENS COMPRA
 		tabela = new JTable();
 		
 		scrollPane = new JScrollPane();
@@ -188,6 +214,26 @@ public class CompraMateriaPrimaView extends JPanel{
 		this.add(scrollPane);
 		carregaDtm();
 		scrollPane.setViewportView(tabela);
+		
+		//LABEL TOTAL DA COMPRA
+		lblTotal = new JLabel("Total: ");
+		lblTotal.setBounds(20,520, 100, 25);
+		this.add(lblTotal);
+		
+		//BOTÃO CADASTRAR COMPRA
+		btnCadastrar = new JButton("Cadastrar Compra");
+		btnCadastrar.setBounds(200,520,160,25);
+		btnCadastrar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				if(listaItensCompra.size()!=0){
+					compraBo.cadastrarCompra(listaItensCompra);
+				}
+			}
+		});
+		this.add(btnCadastrar);
 
 	}
 
@@ -214,6 +260,7 @@ public class CompraMateriaPrimaView extends JPanel{
 		};
 				
 		if(listaItensCompra.size()==0){
+			tabela.setModel(dtm);
 			return;
 		}
 
@@ -271,16 +318,59 @@ public class CompraMateriaPrimaView extends JPanel{
 		}
 		else{ //SE CAIU AQUI ESTÁ CERTO E PODE SER ADICIONADO Á COMPRA
 			
-			itemCompra = new ItemCompraVO();
+			it = listaItensCompra.iterator();
 			
-			itemCompra.setCompra(compra);
-			itemCompra.setMateriaPrima(listaMaterias.get(comboMateria.getSelectedIndex()-1));
-			itemCompra.setQuantidade(Double.parseDouble(txtQuantidade.getText()));
-			itemCompra.setValor(Double.parseDouble(txtValor.getText()));
+			boolean itemEstaNaTabela = false;
+			//verifica se o item ja esta na lista, se estiver, não será adicionado novamente, apenas somado
+			while(it.hasNext()){
+				
+				itemCompra = (ItemCompraVO) it.next();
+				
+				if(itemCompra.getMateriaPrima().getIdMateriaPrima() == listaMaterias.get(comboMateria.getSelectedIndex()-1).getIdMateriaPrima()){
+					
+					itemCompra.setQuantidade(itemCompra.getQuantidade() + Double.parseDouble(txtQuantidade.getText()));
+					itemCompra.setValor(Double.parseDouble(txtValor.getText()));
+					itemEstaNaTabela = true;
+					
+				}
+				
+			}
 			
-			listaItensCompra.add(itemCompra);
+			//se o item não foi somado no while acima, ele é adicionado na lista aqui
+			if(!itemEstaNaTabela){
+				itemCompra = new ItemCompraVO();
+				
+				itemCompra.setCompra(compra);
+				itemCompra.setMateriaPrima(listaMaterias.get(comboMateria.getSelectedIndex()-1));
+				itemCompra.setQuantidade(Double.parseDouble(txtQuantidade.getText()));
+				itemCompra.setValor(Double.parseDouble(txtValor.getText()));
+				
+				listaItensCompra.add(itemCompra);
+			}
 			
 		}
 	}
 	
+	private void somaTotal(){
+		
+		if(listaItensCompra.size()==0){
+			
+			lblTotal.setText("Total: ");
+			return;
+		}
+		
+		it = listaItensCompra.iterator();
+		
+		total = 0.0;
+		
+		while(it.hasNext()){
+			
+			itemCompra = (ItemCompraVO) it.next();
+			total += itemCompra.getValor()*itemCompra.getQuantidade();
+			
+		}
+		
+		lblTotal.setText("Total: "+total);
+		
+	}
 }

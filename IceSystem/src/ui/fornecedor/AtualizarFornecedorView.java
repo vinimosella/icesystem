@@ -16,22 +16,18 @@ public class AtualizarFornecedorView extends AtualizarPessoaJuridicaView{
 	private static final long serialVersionUID = 1L;
 	
 	private JFrame frmHome;
-	private Byte codUser;
 	private FornecedorBO bo;
 	private FornecedorVO fornecedor;
 
-	public AtualizarFornecedorView(JFrame frmHome, PessoaJuridicaVO pj, Byte codUser) {
-		super(frmHome, pj, codUser);
-		
-		this.frmHome = frmHome;
-		this.codUser = codUser;
+	public AtualizarFornecedorView(JFrame frmHome, PessoaJuridicaVO pj) {
+		super(frmHome, pj);
 	}
 
 	@Override
 	public void btnCancelar() {
 		
 		AtualizarFornecedorView.this.frmHome.getContentPane().removeAll();
-		ConsultarFornecedorView consulta = new ConsultarFornecedorView(AtualizarFornecedorView.this.frmHome, AtualizarFornecedorView.this.codUser, Utilidades.CONSULTA_FORNECEDORES);
+		ConsultarFornecedorView consulta = new ConsultarFornecedorView(AtualizarFornecedorView.this.frmHome, Utilidades.CONSULTA_FORNECEDORES);
 		AtualizarFornecedorView.this.frmHome.getContentPane().add(consulta, BorderLayout.CENTER);
 		AtualizarFornecedorView.this.frmHome.getContentPane().revalidate();
 		

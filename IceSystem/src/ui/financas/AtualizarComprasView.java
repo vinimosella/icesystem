@@ -26,7 +26,7 @@ public class AtualizarComprasView extends AtualizarSituacaoView{
 		
 		compra.setSituacao(situacao);
 		
-		bo.AtualizarCompra(compra);
+		bo.atualizarCompra(compra);
 		
 		frmHome.getContentPane().removeAll();
 		ConsultarComprasView consulta = new ConsultarComprasView(frmHome, Utilidades.CONSULTA_COMPRAS);

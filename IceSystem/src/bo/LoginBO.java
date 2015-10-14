@@ -9,7 +9,7 @@ import vo.FuncionarioVO;
 
 public class LoginBO {
 	
-	public Byte verificaLogin(String user, char[] password){		
+	public FuncionarioVO verificaLogin(String user, char[] password){		
 		
 		List<FuncionarioVO> listaFuncionarios = BancoEstatico.listaFuncionarios;
 		
@@ -21,12 +21,12 @@ public class LoginBO {
 
 			if(funcionario.getLogin().equals(user) && Arrays.equals(funcionario.getSenha(), password)){
 				
-				return funcionario.getCargo().getIdCargo();
+				return funcionario;
 			}
 			
 		}
 		
-		return -1;
+		return null;
 	}
 
 }

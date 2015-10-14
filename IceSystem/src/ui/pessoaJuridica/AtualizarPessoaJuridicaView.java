@@ -86,7 +86,7 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 		listaEmails = new ArrayList<EmailVO>();
 	}
 	
-	public AtualizarPessoaJuridicaView(JFrame frmHome, PessoaJuridicaVO pj, Byte codUser) {
+	public AtualizarPessoaJuridicaView(JFrame frmHome, PessoaJuridicaVO pj) {
 
 
 		this.setLayout(null);

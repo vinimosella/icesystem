@@ -27,11 +27,9 @@ public class ConsultarFuncionarioView extends ConsultaGenericaView{
 	
 	private FuncionarioBO bo;
 
-	public ConsultarFuncionarioView(JFrame frmHome, Byte codUser, String lblConsulta) {
-		super(frmHome, codUser, lblConsulta);
+	public ConsultarFuncionarioView(JFrame frmHome, String lblConsulta) {
+		super(frmHome, lblConsulta);
 
-		this.frmHome = frmHome;
-		this.codUser = codUser;
 	}
 
 	@Override

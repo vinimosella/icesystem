@@ -70,7 +70,6 @@ public class AtualizarFuncionarioView extends JPanel{
 	private JButton btnCancelar;
 	private JButton btnAtualizar;
 	
-	private Byte codUser;
 	private JFrame frmHome;
 	private FuncionarioBO bo;
 	private Iterator<?> it;
@@ -95,7 +94,6 @@ public class AtualizarFuncionarioView extends JPanel{
 	public AtualizarFuncionarioView(JFrame frmHome, FuncionarioVO funcionario, Byte codUser){
 		
 		this.frmHome = frmHome;
-		this.codUser = codUser;
 				
 		listaEmails = funcionario.getListaEmails();
 		listaTelefones = funcionario.getListaTelefones();
@@ -538,7 +536,7 @@ public class AtualizarFuncionarioView extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 
 				AtualizarFuncionarioView.this.frmHome.getContentPane().removeAll();
-				ConsultarFuncionarioView consulta = new ConsultarFuncionarioView(AtualizarFuncionarioView.this.frmHome, AtualizarFuncionarioView.this.codUser, Utilidades.CONSULTA_FUNCIONARIOS);
+				ConsultarFuncionarioView consulta = new ConsultarFuncionarioView(AtualizarFuncionarioView.this.frmHome, Utilidades.CONSULTA_FUNCIONARIOS);
 				AtualizarFuncionarioView.this.frmHome.getContentPane().add(consulta, BorderLayout.CENTER);
 				AtualizarFuncionarioView.this.frmHome.getContentPane().revalidate();
 				

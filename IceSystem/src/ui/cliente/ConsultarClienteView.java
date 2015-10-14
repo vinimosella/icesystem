@@ -19,7 +19,6 @@ public class ConsultarClienteView extends ConsultaGenericaView{
 	private static final long serialVersionUID = 1L;
 
 	private JFrame frmHome;
-	private Byte codUser;
 	private JScrollPane scrollPane;
 	private DefaultTableModel dtm;
 	private ClienteVO cliente;
@@ -27,11 +26,9 @@ public class ConsultarClienteView extends ConsultaGenericaView{
 	
 	private ClienteBO bo;
 	
-	public ConsultarClienteView(JFrame frmHome, Byte codUser, String lblConsulta) {
-		super(frmHome, codUser, lblConsulta);
+	public ConsultarClienteView(JFrame frmHome, String lblConsulta) {
+		super(frmHome,lblConsulta);
 
-		this.frmHome = frmHome;
-		this.codUser = codUser;
 	}
 
 	@Override
@@ -96,7 +93,7 @@ public class ConsultarClienteView extends ConsultaGenericaView{
 	public void btnAtualizar(Integer linhaSelecionada) {
 		
 		ConsultarClienteView.this.frmHome.getContentPane().removeAll();
-		AtualizarClienteView atualizar = new AtualizarClienteView(ConsultarClienteView.this.frmHome, listaClientes.get(linhaSelecionada),ConsultarClienteView.this.codUser);
+		AtualizarClienteView atualizar = new AtualizarClienteView(ConsultarClienteView.this.frmHome, listaClientes.get(linhaSelecionada));
 		ConsultarClienteView.this.frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
 		ConsultarClienteView.this.frmHome.getContentPane().revalidate();
 		
