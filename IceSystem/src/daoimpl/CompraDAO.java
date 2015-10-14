@@ -24,8 +24,7 @@ public class CompraDAO implements ICompraDAO{
 	private ResultSet rs;
 		
 	{
-		fabrica = ConnectionFactory.getInstance();
-		
+		fabrica = ConnectionFactory.getInstance();	
 	}
 	
 	@Override
@@ -176,7 +175,47 @@ public class CompraDAO implements ICompraDAO{
 	}
 	
 	@Override
-	public boolean cadastrarCompra(CompraVO compra){
+	public boolean cadastrarCompra(FuncionarioVO funcionario, List<ItemCompraVO> listaItensCompra){
+				
+		try {
+			
+			conexao = fabrica.getConexao();
+			conexao.setAutoCommit(false); //Inicia uma transação
+			
+			pstm = conexao.prepareStatement("insert into Compra (idFuncionario, idSituacao, dataCompra) values (?, ?, ?)");
+			
+			pstm.setInt(1, funcionario.getIdFuncionario());
+			pstm.setInt(2, 1);
+			pstm.setDate(3, new java.sql.Date(new java.util.Date().getTime()));
+			
+			pstm.executeUpdate();
+			
+			//Recebe o id gerado automaticamente no insert anterior
+			rs = pstm.getGeneratedKeys();
+			int idCompra = rs.getInt("idCompra");
+			
+			pstm = conexao.prepareStatement("insert into ItemCompra (idCompra, idMateriaPrima, quantidade, valor) values (?, ?, ?, ?)");
+						
+			for (ItemCompraVO itemCompra : listaItensCompra) {
+
+				pstm.setInt(1, idCompra);
+				pstm.setInt(2, itemCompra.getMateriaPrima().getIdMateriaPrima());
+				pstm.setDouble(3, itemCompra.getQuantidade());
+				pstm.setDouble(4, itemCompra.getValor());
+				
+				pstm.executeUpdate();
+				
+			}
+			//TODO COMECAR A PARTIR DO COMMIT DO BANCO
+			
+		} catch (ClassNotFoundException c) {
+			
+			c.printStackTrace();
+			
+		} catch (SQLException s) {
+			
+			s.printStackTrace();
+		}
 		
 		return true;
 	}

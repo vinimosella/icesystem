@@ -3,6 +3,7 @@ package daoservice;
 import java.util.List;
 
 import vo.CompraVO;
+import vo.FuncionarioVO;
 import vo.ItemCompraVO;
 
 public interface ICompraDAO {
@@ -11,7 +12,7 @@ public interface ICompraDAO {
 	
 	public List<ItemCompraVO> detalharCompra(CompraVO compra);
 	
-	public boolean cadastrarCompra(CompraVO compra);
+	public boolean cadastrarCompra(FuncionarioVO funcionario, List<ItemCompraVO> listaItensCompra);
 
 	public boolean atualizarCompra(CompraVO compra);
 	
