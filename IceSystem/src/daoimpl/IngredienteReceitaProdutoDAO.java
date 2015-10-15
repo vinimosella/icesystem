@@ -38,7 +38,7 @@ public class IngredienteReceitaProdutoDAO implements IIngredienteReceitaProdutoD
 			conexao = fabrica.getConexao();
 			
 			pstm = conexao.prepareStatement("select mp.id_materia_prima, mp.fornecedor, mp.quantidade_disponivel, mp.nome, mp.sabor, irp.id_produto, irp.quantidade_materia"
-				                            + " from ingrediente_receita_produto irp inner join materia_prima mp on "
+				                            + " from Ingrediente_Receita_Produto irp inner join Materia_Prima mp on "
 				                            + "irp.id_materia_prima = mp.id_materia_prima where irp.id_produto = ?");
 			
 			pstm.setLong(1, produto.getIdProduto());

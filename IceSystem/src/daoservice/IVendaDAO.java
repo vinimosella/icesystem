@@ -1,10 +1,12 @@
 package daoservice;
 
+import java.util.List;
+
 import vo.VendaVO;
 
 public interface IVendaDAO {
 
-	public boolean consultarVenda(VendaVO venda);
+	public List<VendaVO> consultarVendas();
 	
 	public boolean cadastrarVenda(VendaVO venda);
 	
