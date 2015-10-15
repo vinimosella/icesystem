@@ -107,8 +107,8 @@ public class CompraDAO implements ICompraDAO{
 				
 			conexao = fabrica.getConexao();
 			
-			pstm = conexao.prepareStatement("select mp.id_pessoa_juridica, mp.nome, mp.quantidade_disponivel, mp.sabor, i.quantidade, i.valor from ItemCompra i"
-					                       + " inner join MateriaPrima mp on mp.id_materia_prima = i.id_materia_prima where i.id_compra = ?");
+			pstm = conexao.prepareStatement("select mp.id_pessoa_juridica, mp.nome, mp.quantidade_disponivel, mp.sabor, i.quantidade, i.valor from Item_Compra i"
+					                       + " inner join Materia_Prima mp on mp.id_materia_prima = i.id_materia_prima where i.id_compra = ?");
 			
 			pstm.setLong(1, compra.getIdCompra());
 			
@@ -182,7 +182,7 @@ public class CompraDAO implements ICompraDAO{
 			conexao = fabrica.getConexao();
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
-			pstm = conexao.prepareStatement("insert into Compra (idFuncionario, idSituacao, dataCompra) values (?, ?, ?)");
+			pstm = conexao.prepareStatement("insert into Compra (id_funcionario, id_situacao, data_compra) values (?, ?, ?)");
 			
 			pstm.setInt(1, funcionario.getIdFuncionario());
 			pstm.setInt(2, 1);
@@ -194,7 +194,7 @@ public class CompraDAO implements ICompraDAO{
 			rs = pstm.getGeneratedKeys();
 			int idCompra = rs.getInt("idCompra");
 			
-			pstm = conexao.prepareStatement("insert into ItemCompra (idCompra, idMateriaPrima, quantidade, valor) values (?, ?, ?, ?)");
+			pstm = conexao.prepareStatement("insert into Item_Compra (id_compra, id_materia_prima, quantidade, valor) values (?, ?, ?, ?)");
 						
 			for (ItemCompraVO itemCompra : listaItensCompra) {
 
@@ -206,15 +206,43 @@ public class CompraDAO implements ICompraDAO{
 				pstm.executeUpdate();
 				
 			}
-			//TODO COMECAR A PARTIR DO COMMIT DO BANCO
+			
+			conexao.commit();
 			
 		} catch (ClassNotFoundException c) {
 			
-			c.printStackTrace();
+			//Log do ClassNotFoundException
+			LogFactory.getInstance().gerarLog(getClass().getName(),c.getMessage());
+			
+			try {
+				
+				conexao.rollback();
+				
+				return false;
+				
+			} catch (SQLException s) {
+				
+				//Log do rollback do ClassNotFoundException
+				LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+			}
 			
 		} catch (SQLException s) {
 			
-			s.printStackTrace();
+			//Log do SQLException
+			LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+			
+			try {
+				
+				conexao.rollback();
+				
+				return false;
+				
+			} catch (SQLException s1) {
+				
+				//Log do rollback do SQLException
+				LogFactory.getInstance().gerarLog(getClass().getName(),s1.getMessage());
+			}
+
 		}
 		
 		return true;
