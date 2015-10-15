@@ -27,8 +27,8 @@ public class ConnectionFactory {
     public Connection getConexao() throws ClassNotFoundException, SQLException{
 		
   	  Class.forName("net.sourceforge.jtds.jdbc.Driver");
-  	  //TODO ALTERAR O SCHEMA - ID/SENHA
-  	  conexao = DriverManager.getConnection("jdbc:jtds:sqlserver://localhost:1433/NOME_SCHEMA","sa","sql");
+  	 
+  	  conexao = DriverManager.getConnection("jdbc:jtds:sqlserver://localhost:1433/IceSystem","sa","sql2015");
 		
 		return conexao;
 	}	
