@@ -60,7 +60,7 @@ public class ConsultarClienteView extends ConsultaGenericaView{
 		
 		bo = new ClienteBO();
 		
-		listaClientes = bo.consultarCliente();
+		listaClientes = bo.consultarClientes();
 
 		Iterator<ClienteVO> it = listaClientes.iterator();
 			

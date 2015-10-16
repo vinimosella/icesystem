@@ -12,6 +12,7 @@ public class VendaVO {
 	private SituacaoVO situacao;
 	private ClienteVO cliente;
 	private Date dataVenda;
+	private FuncionarioVO funcionario;
 	
 	public Long getIdVenda() {
 		return idVenda;
@@ -36,6 +37,12 @@ public class VendaVO {
 	}
 	public void setDataVenda(Date dataVenda) {
 		this.dataVenda = dataVenda;
+	}
+	public FuncionarioVO getFuncionario() {
+		return funcionario;
+	}
+	public void setFuncionario(FuncionarioVO funcionario) {
+		this.funcionario = funcionario;
 	}
 
 }

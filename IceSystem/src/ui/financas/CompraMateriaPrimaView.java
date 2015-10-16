@@ -221,7 +221,7 @@ public class CompraMateriaPrimaView extends JPanel{
 		scrollPane.setViewportView(tabela);
 		
 		//LABEL TOTAL DA COMPRA
-		lblTotal = new JLabel("Total: ");
+		lblTotal = new JLabel("Total: 0");
 		lblTotal.setBounds(20,520, 100, 25);
 		this.add(lblTotal);
 		
@@ -359,7 +359,7 @@ public class CompraMateriaPrimaView extends JPanel{
 		
 		if(listaItensCompra.size()==0){
 			
-			lblTotal.setText("Total: ");
+			lblTotal.setText("Total: 0");
 			return;
 		}
 		
