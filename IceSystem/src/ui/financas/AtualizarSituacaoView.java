@@ -31,7 +31,7 @@ public abstract class AtualizarSituacaoView extends JFrame {
 		bo = new SituacaoBO();
 	}
 
-	public AtualizarSituacaoView(SituacaoVO situacaoEntrada, String titulo, final Object o, final JFrame frmHome) {
+	public AtualizarSituacaoView(SituacaoVO situacaoEntrada, String titulo, final Object o) {
 		setTitle(titulo);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 259, 146);
@@ -68,7 +68,7 @@ public abstract class AtualizarSituacaoView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				actionBtnSalvar(listaSituacoes.get(comboSituacao.getSelectedIndex()), o, frmHome);
+				actionBtnSalvar(listaSituacoes.get(comboSituacao.getSelectedIndex()), o);
 				
 				AtualizarSituacaoView.this.dispose();
 				
@@ -91,6 +91,6 @@ public abstract class AtualizarSituacaoView extends JFrame {
 		
 	}
 	
-	public abstract void actionBtnSalvar(SituacaoVO situacao, Object o, JFrame frmHome);
+	public abstract void actionBtnSalvar(SituacaoVO situacao, Object o);
 	
 }

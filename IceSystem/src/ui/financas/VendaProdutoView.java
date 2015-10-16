@@ -10,7 +10,6 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -67,8 +66,7 @@ public class VendaProdutoView extends JPanel{
 		listaItensVenda = new ArrayList<ItemVendaVO>();		
 	}
 	
-	public VendaProdutoView(JFrame frmHome){
-		
+	public VendaProdutoView(){
 		
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));

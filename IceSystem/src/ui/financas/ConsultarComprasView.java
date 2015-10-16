@@ -3,7 +3,6 @@ package ui.financas;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -13,8 +12,8 @@ import bo.CompraBO;
 
 public class ConsultarComprasView extends ConsultaFinancasGenericaView{
 
-	public ConsultarComprasView(JFrame frmHome, String lblConsulta) {
-		super(frmHome, lblConsulta);
+	public ConsultarComprasView(String lblConsulta) {
+		super(lblConsulta);
 	}
 	
 	private static final long serialVersionUID = 1L;
@@ -76,10 +75,16 @@ public class ConsultarComprasView extends ConsultaFinancasGenericaView{
 	}
 
 	@Override
-	public void btnAtualizar(Integer linhaSelecionada, JFrame frmHome) {
+	public void btnAtualizar(Integer linhaSelecionada) {
 		
-		AtualizarComprasView atualizarCompras = new AtualizarComprasView(listaCompras.get(linhaSelecionada), frmHome);
+		AtualizarComprasView atualizarCompras = new AtualizarComprasView(listaCompras.get(linhaSelecionada));
 		atualizarCompras.setVisible(true);
+		
+	}
+
+	@Override
+	public void btnDetalhar(int selectedRow) {
+		// TODO Auto-generated method stub
 		
 	}
 

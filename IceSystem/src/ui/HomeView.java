@@ -14,10 +14,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import teste.BancoEstatico;
+import util.Utilidades;
 
 public class HomeView {
 	
-	private JFrame frmHome;
 	private JMenuBar menuBar;
 	private JMenu mnArquivo;
 	private JMenuItem mntmLogin;
@@ -29,8 +29,8 @@ public class HomeView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HomeView window = new HomeView();
-					window.frmHome.setVisible(true);
+					new HomeView();
+					Utilidades.frmHome.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -45,21 +45,21 @@ public class HomeView {
 	
 	private void initialize(){
 		
-		frmHome = new JFrame();
-		frmHome.setTitle("IceSystem");
-		frmHome.setBounds(400, 100, 600, 600);
-		frmHome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmHome.setResizable(false);
-		frmHome.getContentPane().setBackground(Color.decode("#F0F8FF"));
-		frmHome.setLocationRelativeTo(null);
+		Utilidades.frmHome = new JFrame();
+		Utilidades.frmHome.setTitle("IceSystem");
+		Utilidades.frmHome.setBounds(400, 100, 600, 600);
+		Utilidades.frmHome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Utilidades.frmHome.setResizable(false);
+		Utilidades.frmHome.getContentPane().setBackground(Color.decode("#F0F8FF"));
+		Utilidades.frmHome.setLocationRelativeTo(null);
 		
 		img = new ImageIcon(getClass().getResource("/img/img.jpg"));
 		labelImg = new JLabel(img);
 		labelImg.setSize(200, 200);
-		frmHome.add(labelImg);
+		Utilidades.frmHome.add(labelImg);
 		
 		menuBar = new JMenuBar();
-		frmHome.setJMenuBar(menuBar);
+		Utilidades.frmHome.setJMenuBar(menuBar);
 		
 		mnArquivo = new JMenu("Arquivo");
 		menuBar.add(mnArquivo);
@@ -69,10 +69,10 @@ public class HomeView {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frmHome.getContentPane().removeAll();
-				LoginView loginView = new LoginView(frmHome);
-				frmHome.getContentPane().add(loginView,BorderLayout.CENTER);
-				frmHome.getContentPane().revalidate();
+				Utilidades.frmHome.getContentPane().removeAll();
+				LoginView loginView = new LoginView();
+				Utilidades.frmHome.getContentPane().add(loginView,BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
 		mnArquivo.add(mntmLogin);

@@ -4,19 +4,18 @@ import java.awt.BorderLayout;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import ui.ConsultaGenericaView;
+import util.Utilidades;
 import vo.FornecedorVO;
 import bo.FornecedorBO;
 
 public class ConsultarFornecedorView extends ConsultaGenericaView{
 
-	private JFrame frmHome;
 	private JScrollPane scrollPane;
 	private DefaultTableModel dtm;
 	private FornecedorVO fornecedor;
@@ -24,8 +23,8 @@ public class ConsultarFornecedorView extends ConsultaGenericaView{
 	
 	private FornecedorBO bo;
 	
-	public ConsultarFornecedorView(JFrame frmHome, String lblConsulta) {
-		super(frmHome, lblConsulta);
+	public ConsultarFornecedorView(String lblConsulta) {
+		super(lblConsulta);
 
 	}
 
@@ -92,10 +91,10 @@ public class ConsultarFornecedorView extends ConsultaGenericaView{
 	@Override
 	public void btnAtualizar(Integer linhaSelecionada) {
 		
-		ConsultarFornecedorView.this.frmHome.getContentPane().removeAll();
-		AtualizarFornecedorView atualizar = new AtualizarFornecedorView(ConsultarFornecedorView.this.frmHome, listaFornecedores.get(linhaSelecionada));
-		ConsultarFornecedorView.this.frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
-		ConsultarFornecedorView.this.frmHome.getContentPane().revalidate();
+		Utilidades.frmHome.getContentPane().removeAll();
+		AtualizarFornecedorView atualizar = new AtualizarFornecedorView(listaFornecedores.get(linhaSelecionada));
+		Utilidades.frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
+		Utilidades.frmHome.getContentPane().revalidate();
 		
 	}
 

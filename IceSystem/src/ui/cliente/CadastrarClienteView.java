@@ -1,9 +1,9 @@
 package ui.cliente;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import ui.pessoaJuridica.CadastrarPessoaJuridicaView;
+import util.Utilidades;
 import vo.ClienteVO;
 import vo.PessoaJuridicaVO;
 import bo.ClienteBO;
@@ -13,13 +13,10 @@ public class CadastrarClienteView extends CadastrarPessoaJuridicaView{
 	private static final long serialVersionUID = 1L;
 	private ClienteVO cliente;
 	private ClienteBO bo;
-	private JFrame frmHome;
 	
-	public CadastrarClienteView(JFrame frmHome) {
+	public CadastrarClienteView() {
 		
-		super(frmHome);
-		this.frmHome = frmHome;
-		
+		super();		
 	}
 
 	@Override
@@ -37,12 +34,12 @@ public class CadastrarClienteView extends CadastrarPessoaJuridicaView{
 				
 		if(bo.cadastrarCliente(cliente)){
 			
-			JOptionPane.showMessageDialog(CadastrarClienteView.this.frmHome, "   Cliente cadastrado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(Utilidades.frmHome, "   Cliente cadastrado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
 			
 		}
 		else{
 			
-			JOptionPane.showMessageDialog(CadastrarClienteView.this.frmHome, "   Não foi possível cadastrar!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(Utilidades.frmHome, "   Não foi possível cadastrar!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 
 		}
 		

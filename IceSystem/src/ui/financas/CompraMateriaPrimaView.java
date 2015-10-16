@@ -10,7 +10,6 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -31,7 +30,6 @@ import bo.MateriaPrimaBO;
 public class CompraMateriaPrimaView extends JPanel{
 
 	private static final long serialVersionUID = 1L;
-	private JFrame frmHome;
 	private FornecedorBO fornecedorBo;
 	private MateriaPrimaBO materiaPrimaBo;
 	private CompraBO compraBo;
@@ -68,9 +66,8 @@ public class CompraMateriaPrimaView extends JPanel{
 		listaItensCompra = new ArrayList<ItemCompraVO>();
 	}
 	
-	public CompraMateriaPrimaView(JFrame frmHome, MateriaPrimaVO materiaPrima){
+	public CompraMateriaPrimaView(MateriaPrimaVO materiaPrima){
 		
-		this.frmHome=frmHome;
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
 		
@@ -317,7 +314,7 @@ public class CompraMateriaPrimaView extends JPanel{
 		//VERIFICA SE A MENSAGEM NÃO ESTÁ VAZIA PARA EXIBI-LA
 		if(!msg.toString().trim().equals("")){
 			
-			JOptionPane.showMessageDialog(frmHome, msg.toString(), "Não foi possível adicionar item!", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(Utilidades.frmHome, msg.toString(), "Não foi possível adicionar item!", JOptionPane.ERROR_MESSAGE);
 
 		}
 		else{ //SE CAIU AQUI ESTÁ CERTO E PODE SER ADICIONADO Á COMPRA

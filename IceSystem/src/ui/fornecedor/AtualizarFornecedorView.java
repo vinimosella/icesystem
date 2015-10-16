@@ -2,7 +2,6 @@ package ui.fornecedor;
 
 import java.awt.BorderLayout;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import ui.pessoaJuridica.AtualizarPessoaJuridicaView;
@@ -15,21 +14,20 @@ public class AtualizarFornecedorView extends AtualizarPessoaJuridicaView{
 
 	private static final long serialVersionUID = 1L;
 	
-	private JFrame frmHome;
 	private FornecedorBO bo;
 	private FornecedorVO fornecedor;
 
-	public AtualizarFornecedorView(JFrame frmHome, PessoaJuridicaVO pj) {
-		super(frmHome, pj);
+	public AtualizarFornecedorView(PessoaJuridicaVO pj) {
+		super(pj);
 	}
 
 	@Override
 	public void btnCancelar() {
 		
-		AtualizarFornecedorView.this.frmHome.getContentPane().removeAll();
-		ConsultarFornecedorView consulta = new ConsultarFornecedorView(AtualizarFornecedorView.this.frmHome, Utilidades.CONSULTA_FORNECEDORES);
-		AtualizarFornecedorView.this.frmHome.getContentPane().add(consulta, BorderLayout.CENTER);
-		AtualizarFornecedorView.this.frmHome.getContentPane().revalidate();
+		Utilidades.frmHome.getContentPane().removeAll();
+		ConsultarFornecedorView consulta = new ConsultarFornecedorView(Utilidades.CONSULTA_FORNECEDORES);
+		Utilidades.frmHome.getContentPane().add(consulta, BorderLayout.CENTER);
+		Utilidades.frmHome.getContentPane().revalidate();
 		
 	}
 
@@ -48,12 +46,12 @@ public class AtualizarFornecedorView extends AtualizarPessoaJuridicaView{
 		
 		if(bo.atualizarFornecedor(fornecedor)){
 			
-			JOptionPane.showMessageDialog(AtualizarFornecedorView.this.frmHome, "   Fornecedor atualizado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(Utilidades.frmHome, "   Fornecedor atualizado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
 			
 		}
 		else{
 			
-			JOptionPane.showMessageDialog(AtualizarFornecedorView.this.frmHome, "   Não foi possível atualizar!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(Utilidades.frmHome, "   Não foi possível atualizar!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 
 		}
 		

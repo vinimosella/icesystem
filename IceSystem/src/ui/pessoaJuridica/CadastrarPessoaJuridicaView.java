@@ -10,12 +10,12 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import util.Utilidades;
 import vo.CidadeVO;
 import vo.EmailVO;
 import vo.EnderecoVO;
@@ -69,7 +69,6 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 	private EnderecoVO endereco;
 	private CidadeVO cidade;
 	private EstadoVO estado;
-	private JFrame frmHome;
 	private PessoaJuridicaBO bo;
 	private Iterator<?> it;
 	
@@ -84,7 +83,7 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 		listaEmails = new ArrayList<EmailVO>();
 	}
 	
-	public CadastrarPessoaJuridicaView(JFrame frmHome){
+	public CadastrarPessoaJuridicaView(){
 		
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
@@ -159,7 +158,7 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 				}				
 				else{
 					
-					JOptionPane.showMessageDialog(CadastrarPessoaJuridicaView.this.frmHome, "   Telefone não modificado ou já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Telefone não modificado ou já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -192,7 +191,7 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 				}
 				else{
 					
-					JOptionPane.showMessageDialog(CadastrarPessoaJuridicaView.this.frmHome, "   Telefone já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Telefone já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -283,7 +282,7 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 				}				
 				else{
 					
-					JOptionPane.showMessageDialog(CadastrarPessoaJuridicaView.this.frmHome, "   Email não modificado ou já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Email não modificado ou já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -314,7 +313,7 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 				}
 				else{
 					
-					JOptionPane.showMessageDialog(CadastrarPessoaJuridicaView.this.frmHome, "   Email já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Email já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}

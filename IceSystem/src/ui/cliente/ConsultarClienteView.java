@@ -4,13 +4,13 @@ import java.awt.BorderLayout;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import ui.ConsultaGenericaView;
+import util.Utilidades;
 import vo.ClienteVO;
 import bo.ClienteBO;
 
@@ -18,7 +18,6 @@ public class ConsultarClienteView extends ConsultaGenericaView{
 	
 	private static final long serialVersionUID = 1L;
 
-	private JFrame frmHome;
 	private JScrollPane scrollPane;
 	private DefaultTableModel dtm;
 	private ClienteVO cliente;
@@ -26,8 +25,8 @@ public class ConsultarClienteView extends ConsultaGenericaView{
 	
 	private ClienteBO bo;
 	
-	public ConsultarClienteView(JFrame frmHome, String lblConsulta) {
-		super(frmHome,lblConsulta);
+	public ConsultarClienteView(String lblConsulta) {
+		super(lblConsulta);
 
 	}
 
@@ -92,10 +91,10 @@ public class ConsultarClienteView extends ConsultaGenericaView{
 	@Override
 	public void btnAtualizar(Integer linhaSelecionada) {
 		
-		ConsultarClienteView.this.frmHome.getContentPane().removeAll();
-		AtualizarClienteView atualizar = new AtualizarClienteView(ConsultarClienteView.this.frmHome, listaClientes.get(linhaSelecionada));
-		ConsultarClienteView.this.frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
-		ConsultarClienteView.this.frmHome.getContentPane().revalidate();
+		Utilidades.frmHome.getContentPane().removeAll();
+		AtualizarClienteView atualizar = new AtualizarClienteView(listaClientes.get(linhaSelecionada));
+		Utilidades.frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
+		Utilidades.frmHome.getContentPane().revalidate();
 		
 	}
 
