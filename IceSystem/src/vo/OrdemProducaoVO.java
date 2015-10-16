@@ -1,11 +1,14 @@
 package vo;
 
+import java.util.Date;
+
 public class OrdemProducaoVO {
 	
 	private Long idOrdemProducao;
 	private SituacaoVO situacao;
 	private ProdutoVO produto;
 	private Integer quantidade;
+	private Date dataSolicitacao;
 	
 	public Long getIdOrdemProducao() {
 		return idOrdemProducao;
@@ -30,6 +33,12 @@ public class OrdemProducaoVO {
 	}
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
+	}
+	public Date getDataSolicitacao() {
+		return dataSolicitacao;
+	}
+	public void setDataSolicitacao(Date dataSolicitacao) {
+		this.dataSolicitacao = dataSolicitacao;
 	}
 
 }
