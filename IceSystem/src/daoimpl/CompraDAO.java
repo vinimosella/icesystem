@@ -175,7 +175,7 @@ public class CompraDAO implements ICompraDAO{
 	}
 	
 	@Override
-	public boolean cadastrarCompra(FuncionarioVO funcionario, List<ItemCompraVO> listaItensCompra){
+	public boolean cadastrarCompra(CompraVO compra, List<ItemCompraVO> listaItensCompra){
 				
 		try {
 			
@@ -183,9 +183,9 @@ public class CompraDAO implements ICompraDAO{
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			pstm = conexao.prepareStatement("insert into Compra (id_funcionario, id_situacao, data_compra) values (?, ?, ?)");
-			
-			pstm.setInt(1, funcionario.getIdFuncionario());
-			pstm.setInt(2, 1);
+						
+			pstm.setInt(1, compra.getFuncionario().getIdFuncionario());
+			pstm.setInt(2, compra.getSituacao().getIdSituacao());
 			pstm.setDate(3, new java.sql.Date(new java.util.Date().getTime()));
 			
 			pstm.executeUpdate();

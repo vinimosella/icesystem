@@ -64,16 +64,16 @@ public class ProduzirView extends JPanel{
 		carregaDtm();
 		scrollPane.setViewportView(table);
 		
-		lblQuantidade = new JLabel("Quantidade");
-		lblQuantidade.setBounds(40, 460, 100, 25);
+		lblQuantidade = new JLabel("Quantidade: ");
+		lblQuantidade.setBounds(40, 490, 100, 25);
 		this.add(lblQuantidade);
 		
 		txtQuantidade = new JTextField();
-		txtQuantidade.setBounds(130, 460, 100, 25);
+		txtQuantidade.setBounds(110, 490, 100, 25);
 		this.add(txtQuantidade);
 				
 		btnVerReceita = new JButton("Visualizar Receita");
-		btnVerReceita.setBounds(130, 490, 111, 23);
+		btnVerReceita.setBounds(380, 490, 140, 23);
 		btnVerReceita.addActionListener(new ActionListener() {
 			
 			@Override
@@ -91,7 +91,7 @@ public class ProduzirView extends JPanel{
 		this.add(btnVerReceita);
 		
 		btnProduzir = new JButton("Produzir");
-		btnProduzir.setBounds(231, 490, 91, 23);
+		btnProduzir.setBounds(255, 490, 90, 23);
 		btnProduzir.addActionListener(new ActionListener() {
 			
 			@Override
