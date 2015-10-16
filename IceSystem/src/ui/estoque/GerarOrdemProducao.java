@@ -1,5 +1,6 @@
 package ui.estoque;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,16 +14,19 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 import util.Utilidades;
 import vo.IngredienteReceitaProdutoVO;
+import vo.OrdemProducaoVO;
 import vo.ProdutoVO;
 import bo.IngredienteReceitaProdutoBO;
 import bo.MateriaPrimaBO;
+import bo.OrdemProducaoBO;
 import bo.ProdutoBO;
 
-public class ProduzirView extends JPanel{
+public class GerarOrdemProducao extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -37,17 +41,20 @@ public class ProduzirView extends JPanel{
 	private ProdutoBO produtoBo;
 	private IngredienteReceitaProdutoBO receitaBo;
 	private MateriaPrimaBO materiaBo;
+	private OrdemProducaoBO oPBo;
 	private List<ProdutoVO> listaProdutos;
 	private ProdutoVO produto;
 	private List<IngredienteReceitaProdutoVO> listaReceitas;
+	private OrdemProducaoVO op;
 	
 	{
 		produtoBo = new ProdutoBO();
+		oPBo = new OrdemProducaoBO();
 		receitaBo = new IngredienteReceitaProdutoBO();
 		materiaBo = new MateriaPrimaBO();
 	}
 	
-	public ProduzirView(){
+	public GerarOrdemProducao(){
 				
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
@@ -197,18 +204,32 @@ public class ProduzirView extends JPanel{
 			//se possuir todas materias primas necessarias
 			if(msgErro.toString().trim().equals("")){
 				
-				//soma a quantidade que possuia antes com o valor produzido
-				//TODO alterar, pois só será feito isso depois de mudra status da ordem de produção.
-				produto.setQuantidadeEstoque(produto.getQuantidadeEstoque()+qtdProduto);
-				produtoBo.atualizarProduto(produto);
+				//gera a nova ordem de produção
+				op = new OrdemProducaoVO();
+				op.setProduto(produto);
+				op.setQuantidade(qtdProduto);
+				
+				oPBo.incluirOrdemProducao(op);
 				
 				//diminui a quantidade de estoque de materia prima
 				materiaBo.alterarMateriaPrimaReceita(listaReceitas, qtdProduto, produto);
 				
-				//atualiza conteudo da tabela
-				carregaDtm();
 				//limpa campo de quantidade
 				txtQuantidade.setText("");
+				
+				//mudar texto dos botões "yes" e "no"
+				UIManager.put("OptionPane.noButtonText", "Não");  
+				UIManager.put("OptionPane.yesButtonText", "Sim");
+				
+				//se clicar em sim, vai excluir
+				if(JOptionPane.showConfirmDialog(null, "Ordem de produção gerada!\nDeseja abrir a tela de ordens?", "Sucesso", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+					
+					Utilidades.frmHome.getContentPane().removeAll();
+					OrdemDeProducaoView opv = new OrdemDeProducaoView();
+					Utilidades.frmHome.getContentPane().add(opv, BorderLayout.CENTER);
+					Utilidades.frmHome.getContentPane().revalidate();	
+									
+				}
 				
 			}
 			else{

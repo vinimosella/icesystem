@@ -1,5 +1,6 @@
 package ui.financas;
 
+import ui.AtualizarSituacaoView;
 import util.Utilidades;
 import vo.SituacaoVO;
 import vo.VendaVO;

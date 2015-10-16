@@ -20,7 +20,8 @@ import ui.cliente.CadastrarClienteView;
 import ui.cliente.ConsultarClienteView;
 import ui.estoque.ConsultaMateriaPrimaView;
 import ui.estoque.ConsultaProdutoView;
-import ui.estoque.ProduzirView;
+import ui.estoque.GerarOrdemProducao;
+import ui.estoque.OrdemDeProducaoView;
 import ui.financas.CompraMateriaPrimaView;
 import ui.financas.ConsultarComprasView;
 import ui.financas.ConsultarVendasView;
@@ -64,7 +65,8 @@ public class LoginView extends JPanel{
 	private JMenuItem mntmEfetuarVenda;
 	private JMenuItem mntmMateriaPrima;
 	private JMenuItem mntmProduto;
-	private JMenuItem mntmProduzir;
+	private JMenuItem mntmGerarOrdemProducao;
+	private JMenuItem mntmConsultarOrdensProducao;
 	
 	{
 		bo = new LoginBO();
@@ -284,19 +286,32 @@ public class LoginView extends JPanel{
 		mnEstoque.add(mntmProduto);
 
 		mnEstoque.addSeparator();
-
-		// ITEM PRODUZIR
-		mntmProduzir = new JMenuItem("Produzir");
-		mntmProduzir.addActionListener(new ActionListener() {
+		
+		// ITEM CONSULTAR ORDEM PRODUCAO
+		mntmConsultarOrdensProducao = new JMenuItem("Consultar Ordem de Produção");
+		mntmConsultarOrdensProducao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Utilidades.frmHome.getContentPane().removeAll();
-				ProduzirView produzir = new ProduzirView();
-				Utilidades.frmHome.getContentPane().add(produzir,BorderLayout.CENTER);
+				OrdemDeProducaoView op = new OrdemDeProducaoView();
+				Utilidades.frmHome.getContentPane().add(op,BorderLayout.CENTER);
 				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
 
-		mnEstoque.add(mntmProduzir);
+		mnEstoque.add(mntmConsultarOrdensProducao);
+
+		// ITEM GERAR ORDEM PRODUCAO
+		mntmGerarOrdemProducao = new JMenuItem("Gerar Ordem de Produção");
+		mntmGerarOrdemProducao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Utilidades.frmHome.getContentPane().removeAll();
+				GerarOrdemProducao gerarOrdem = new GerarOrdemProducao();
+				Utilidades.frmHome.getContentPane().add(gerarOrdem,BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
+			}
+		});
+
+		mnEstoque.add(mntmGerarOrdemProducao);
 		
 		// * -- MENU FINANÇAS
 		mnFinancas = new JMenu("Finanças");
