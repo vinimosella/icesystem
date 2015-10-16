@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -22,7 +21,7 @@ public abstract class ConsultaGenericaView extends JPanel{
 	private JButton btnRemover;
 	
 	//é necessario o codUser pra criar o botao da tela de alterar/delete apenas se for userAdmin
-	public ConsultaGenericaView(JFrame frmHome, String lblConsulta){
+	public ConsultaGenericaView(String lblConsulta){
 		
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));

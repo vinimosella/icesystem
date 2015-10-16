@@ -4,13 +4,13 @@ import java.awt.BorderLayout;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import ui.ConsultaGenericaView;
+import util.Utilidades;
 import vo.FuncionarioVO;
 import bo.FuncionarioBO;
 
@@ -18,7 +18,6 @@ public class ConsultarFuncionarioView extends ConsultaGenericaView{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private JFrame frmHome;
 	private Byte codUser;
 	private JScrollPane scrollPane;
 	private DefaultTableModel dtm;
@@ -27,8 +26,8 @@ public class ConsultarFuncionarioView extends ConsultaGenericaView{
 	
 	private FuncionarioBO bo;
 
-	public ConsultarFuncionarioView(JFrame frmHome, String lblConsulta) {
-		super(frmHome, lblConsulta);
+	public ConsultarFuncionarioView(String lblConsulta) {
+		super(lblConsulta);
 
 	}
 
@@ -95,10 +94,10 @@ public class ConsultarFuncionarioView extends ConsultaGenericaView{
 	@Override
 	public void btnAtualizar(Integer linhaSelecionada) {
 
-		ConsultarFuncionarioView.this.frmHome.getContentPane().removeAll();
-		AtualizarFuncionarioView atualizar = new AtualizarFuncionarioView(ConsultarFuncionarioView.this.frmHome, listaFuncionarios.get(linhaSelecionada),ConsultarFuncionarioView.this.codUser);
-		ConsultarFuncionarioView.this.frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
-		ConsultarFuncionarioView.this.frmHome.getContentPane().revalidate();
+		Utilidades.frmHome.getContentPane().removeAll();
+		AtualizarFuncionarioView atualizar = new AtualizarFuncionarioView(listaFuncionarios.get(linhaSelecionada),ConsultarFuncionarioView.this.codUser);
+		Utilidades.frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
+		Utilidades.frmHome.getContentPane().revalidate();
 		
 	}
 

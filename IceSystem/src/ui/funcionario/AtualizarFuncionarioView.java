@@ -10,7 +10,6 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -70,7 +69,6 @@ public class AtualizarFuncionarioView extends JPanel{
 	private JButton btnCancelar;
 	private JButton btnAtualizar;
 	
-	private JFrame frmHome;
 	private FuncionarioBO bo;
 	private Iterator<?> it;
 	
@@ -91,10 +89,8 @@ public class AtualizarFuncionarioView extends JPanel{
 		comboCidade = new JComboBox<String>();
 	}
 	
-	public AtualizarFuncionarioView(JFrame frmHome, FuncionarioVO funcionario, Byte codUser){
-		
-		this.frmHome = frmHome;
-				
+	public AtualizarFuncionarioView(FuncionarioVO funcionario, Byte codUser){
+						
 		listaEmails = funcionario.getListaEmails();
 		listaTelefones = funcionario.getListaTelefones();
 		
@@ -186,7 +182,7 @@ public class AtualizarFuncionarioView extends JPanel{
 				}				
 				else{
 					
-					JOptionPane.showMessageDialog(AtualizarFuncionarioView.this.frmHome, "   Telefone não modificado ou já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Telefone não modificado ou já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -219,7 +215,7 @@ public class AtualizarFuncionarioView extends JPanel{
 				}
 				else{
 					
-					JOptionPane.showMessageDialog(AtualizarFuncionarioView.this.frmHome, "   Telefone já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Telefone já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -313,7 +309,7 @@ public class AtualizarFuncionarioView extends JPanel{
 				}				
 				else{
 					
-					JOptionPane.showMessageDialog(AtualizarFuncionarioView.this.frmHome, "   Email não modificado ou já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Email não modificado ou já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -344,7 +340,7 @@ public class AtualizarFuncionarioView extends JPanel{
 				}
 				else{
 					
-					JOptionPane.showMessageDialog(AtualizarFuncionarioView.this.frmHome, "   Email já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Email já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -535,10 +531,10 @@ public class AtualizarFuncionarioView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				AtualizarFuncionarioView.this.frmHome.getContentPane().removeAll();
-				ConsultarFuncionarioView consulta = new ConsultarFuncionarioView(AtualizarFuncionarioView.this.frmHome, Utilidades.CONSULTA_FUNCIONARIOS);
-				AtualizarFuncionarioView.this.frmHome.getContentPane().add(consulta, BorderLayout.CENTER);
-				AtualizarFuncionarioView.this.frmHome.getContentPane().revalidate();
+				Utilidades.frmHome.getContentPane().removeAll();
+				ConsultarFuncionarioView consulta = new ConsultarFuncionarioView(Utilidades.CONSULTA_FUNCIONARIOS);
+				Utilidades.frmHome.getContentPane().add(consulta, BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
 				
 			}
 		});
@@ -553,12 +549,12 @@ public class AtualizarFuncionarioView extends JPanel{
 
 				if(bo.atualizarFuncionario(validaFuncionario())){
 					
-					JOptionPane.showMessageDialog(AtualizarFuncionarioView.this.frmHome, "   Funcionário atualizado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Funcionário atualizado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
 					
 				}
 				else{
 					
-					JOptionPane.showMessageDialog(AtualizarFuncionarioView.this.frmHome, "   Não foi possível atualizar!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Não foi possível atualizar!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 
 				}
 				

@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -35,7 +34,6 @@ import bo.LoginBO;
 public class LoginView extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
-	private JFrame frmHome;
 	private JLabel labelUser;
 	private JTextField txtUser;
 	private JLabel labelPassword;
@@ -71,9 +69,8 @@ public class LoginView extends JPanel{
 		bo = new LoginBO();
 	}
 
-	LoginView(JFrame frmHome){
+	LoginView(){
 		this.setBackground(Color.decode("#F0F8FF"));
-		this.frmHome = frmHome;
 		
 		//criação dos campos da tela de login
 		labelUser = new JLabel();
@@ -111,40 +108,40 @@ public class LoginView extends JPanel{
 				Utilidades.funcionarioLogado = bo.verificaLogin(txtUser.getText(), txtPassword.getPassword());
 				
 				if(Utilidades.funcionarioLogado==null){ //se for inválido
-					JOptionPane.showMessageDialog(LoginView.this.frmHome, "   Usuário Não Cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Usuário Não Cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 				
 				//adiciona menus que todos users podem usar
 				criarMenu();
 				
-				LoginView.this.frmHome.getContentPane().removeAll();
-				LogadoView logado = new LogadoView(LoginView.this.frmHome);
-				LoginView.this.frmHome.getContentPane().add(logado, BorderLayout.CENTER);
-				LoginView.this.frmHome.getContentPane().revalidate();
+				Utilidades.frmHome.getContentPane().removeAll();
+				LogadoView logado = new LogadoView(Utilidades.frmHome);
+				Utilidades.frmHome.getContentPane().add(logado, BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
 				
 				//atualiza o frame
-				LoginView.this.frmHome.revalidate();				
+				Utilidades.frmHome.revalidate();				
 			}
 			
 		});
 		
-		this.frmHome.add(labelUser);
-		this.frmHome.add(txtUser);
-		this.frmHome.add(labelPassword);
-		this.frmHome.add(txtPassword);
-		this.frmHome.add(btnLogin);
-		this.frmHome.getRootPane().setDefaultButton(btnLogin); //logar quando apertar enter
+		Utilidades.frmHome.add(labelUser);
+		Utilidades.frmHome.add(txtUser);
+		Utilidades.frmHome.add(labelPassword);
+		Utilidades.frmHome.add(txtPassword);
+		Utilidades.frmHome.add(btnLogin);
+		Utilidades.frmHome.getRootPane().setDefaultButton(btnLogin); //logar quando apertar enter
 
 	}
 	
 	private void criarMenu(){
 		
 		//a barra de menu criada na HomeView é armazenada no atributo menuBar
-		menuBar = LoginView.this.frmHome.getJMenuBar();
+		menuBar = Utilidades.frmHome.getJMenuBar();
 		
 		//armazena o menu arquivo e remove o primeiro item dele (o item login)
-		mnArquivo = this.frmHome.getJMenuBar().getMenu(0);
+		mnArquivo = Utilidades.frmHome.getJMenuBar().getMenu(0);
 		mnArquivo.remove(0);
 		
 		//o sobre ficou no menu como primeiro item, após ele é adicionado um separador
@@ -156,12 +153,12 @@ public class LoginView extends JPanel{
 		mntmLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Utilidades.funcionarioLogado=null; //remove o funcionario logado
-				LoginView.this.frmHome.setJMenuBar(null); //remover o menubar
-				LoginView.this.frmHome.getContentPane().removeAll(); //remove o conteudo do painel aberto
+				Utilidades.frmHome.setJMenuBar(null); //remover o menubar
+				Utilidades.frmHome.getContentPane().removeAll(); //remove o conteudo do painel aberto
 				AdicionarMenuDeslogado();
-				LoginView loginView = new LoginView(frmHome); //abre a tela de login com o novo menu
-				LoginView.this.frmHome.getContentPane().add(loginView,BorderLayout.CENTER);
-				LoginView.this.frmHome.getContentPane().revalidate();
+				LoginView loginView = new LoginView(); //abre a tela de login com o novo menu
+				Utilidades.frmHome.getContentPane().add(loginView,BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
 		mnArquivo.add(mntmLogout);
@@ -186,10 +183,10 @@ public class LoginView extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				LoginView.this.frmHome.getContentPane().removeAll();
-				ConsultarFuncionarioView consultarFuncionario = new ConsultarFuncionarioView(frmHome,Utilidades.CONSULTA_FUNCIONARIOS);
-				LoginView.this.frmHome.getContentPane().add(consultarFuncionario, BorderLayout.CENTER);
-				LoginView.this.frmHome.getContentPane().revalidate();				
+				Utilidades.frmHome.getContentPane().removeAll();
+				ConsultarFuncionarioView consultarFuncionario = new ConsultarFuncionarioView(Utilidades.CONSULTA_FUNCIONARIOS);
+				Utilidades.frmHome.getContentPane().add(consultarFuncionario, BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();				
 			}
 		});
 		mnFuncionario.add(mntmConsultarFuncionario);
@@ -202,10 +199,10 @@ public class LoginView extends JPanel{
 		mntmCadastrarCliente = new JMenuItem("Cadastrar");
 		mntmCadastrarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginView.this.frmHome.getContentPane().removeAll();
-				CadastrarClienteView cadastrarCliente = new CadastrarClienteView(frmHome);
-				LoginView.this.frmHome.getContentPane().add(cadastrarCliente, BorderLayout.CENTER);
-				LoginView.this.frmHome.getContentPane().revalidate();
+				Utilidades.frmHome.getContentPane().removeAll();
+				CadastrarClienteView cadastrarCliente = new CadastrarClienteView();
+				Utilidades.frmHome.getContentPane().add(cadastrarCliente, BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
 		mnCliente.add(mntmCadastrarCliente);
@@ -216,10 +213,10 @@ public class LoginView extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				LoginView.this.frmHome.getContentPane().removeAll();
-				ConsultarClienteView consultarCliente = new ConsultarClienteView(frmHome, Utilidades.CONSULTA_CLIENTES);
-				LoginView.this.frmHome.getContentPane().add(consultarCliente, BorderLayout.CENTER);
-				LoginView.this.frmHome.getContentPane().revalidate();
+				Utilidades.frmHome.getContentPane().removeAll();
+				ConsultarClienteView consultarCliente = new ConsultarClienteView(Utilidades.CONSULTA_CLIENTES);
+				Utilidades.frmHome.getContentPane().add(consultarCliente, BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
 		mnCliente.add(mntmConsultarCliente);
@@ -234,10 +231,10 @@ public class LoginView extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				LoginView.this.frmHome.getContentPane().removeAll();
-				CadastrarFornecedorView cadastrarFornecedor = new CadastrarFornecedorView(frmHome);
-				LoginView.this.frmHome.getContentPane().add(cadastrarFornecedor, BorderLayout.CENTER);
-				LoginView.this.frmHome.getContentPane().revalidate();				
+				Utilidades.frmHome.getContentPane().removeAll();
+				CadastrarFornecedorView cadastrarFornecedor = new CadastrarFornecedorView();
+				Utilidades.frmHome.getContentPane().add(cadastrarFornecedor, BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();				
 			}
 		});
 		mnFornecedor.add(mntmCadastrarFornecedor);
@@ -248,10 +245,10 @@ public class LoginView extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				LoginView.this.frmHome.getContentPane().removeAll();
-				ConsultarFornecedorView consultarFornecedor = new ConsultarFornecedorView(frmHome, Utilidades.CONSULTA_FORNECEDORES);
-				LoginView.this.frmHome.getContentPane().add(consultarFornecedor, BorderLayout.CENTER);
-				LoginView.this.frmHome.getContentPane().revalidate();
+				Utilidades.frmHome.getContentPane().removeAll();
+				ConsultarFornecedorView consultarFornecedor = new ConsultarFornecedorView(Utilidades.CONSULTA_FORNECEDORES);
+				Utilidades.frmHome.getContentPane().add(consultarFornecedor, BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
 		mnFornecedor.add(mntmConsultarFornecedor);
@@ -264,10 +261,10 @@ public class LoginView extends JPanel{
 		mntmMateriaPrima = new JMenuItem("Consulta Materias Primas");
 		mntmMateriaPrima.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginView.this.frmHome.getContentPane().removeAll();
-				ConsultaMateriaPrimaView materiaPrima = new ConsultaMateriaPrimaView(frmHome);
-				LoginView.this.frmHome.getContentPane().add(materiaPrima,BorderLayout.CENTER);
-				LoginView.this.frmHome.getContentPane().revalidate();
+				Utilidades.frmHome.getContentPane().removeAll();
+				ConsultaMateriaPrimaView materiaPrima = new ConsultaMateriaPrimaView();
+				Utilidades.frmHome.getContentPane().add(materiaPrima,BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
 		mnEstoque.add(mntmMateriaPrima);
@@ -276,10 +273,10 @@ public class LoginView extends JPanel{
 		mntmProduto = new JMenuItem("Consulta Produtos");
 		mntmProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginView.this.frmHome.getContentPane().removeAll();
-				ConsultaProdutoView produto = new ConsultaProdutoView(frmHome);
-				LoginView.this.frmHome.getContentPane().add(produto,BorderLayout.CENTER);
-				LoginView.this.frmHome.getContentPane().revalidate();
+				Utilidades.frmHome.getContentPane().removeAll();
+				ConsultaProdutoView produto = new ConsultaProdutoView();
+				Utilidades.frmHome.getContentPane().add(produto,BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
 
@@ -291,10 +288,10 @@ public class LoginView extends JPanel{
 		mntmProduzir = new JMenuItem("Produzir");
 		mntmProduzir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginView.this.frmHome.getContentPane().removeAll();
-				ProduzirView produzir = new ProduzirView(frmHome);
-				LoginView.this.frmHome.getContentPane().add(produzir,BorderLayout.CENTER);
-				LoginView.this.frmHome.getContentPane().revalidate();
+				Utilidades.frmHome.getContentPane().removeAll();
+				ProduzirView produzir = new ProduzirView();
+				Utilidades.frmHome.getContentPane().add(produzir,BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
 
@@ -310,10 +307,10 @@ public class LoginView extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				LoginView.this.frmHome.getContentPane().removeAll();
-				ConsultarComprasView consCompras = new ConsultarComprasView(frmHome,Utilidades.CONSULTA_COMPRAS);
-				LoginView.this.frmHome.getContentPane().add(consCompras, BorderLayout.CENTER);
-				LoginView.this.frmHome.getContentPane().revalidate();
+				Utilidades.frmHome.getContentPane().removeAll();
+				ConsultarComprasView consCompras = new ConsultarComprasView(Utilidades.CONSULTA_COMPRAS);
+				Utilidades.frmHome.getContentPane().add(consCompras, BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
 		mnFinancas.add(mntmConsultarCompra);
@@ -324,10 +321,10 @@ public class LoginView extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				LoginView.this.frmHome.getContentPane().removeAll();
-				CompraMateriaPrimaView efetCompras = new CompraMateriaPrimaView(frmHome,null);
-				LoginView.this.frmHome.getContentPane().add(efetCompras, BorderLayout.CENTER);
-				LoginView.this.frmHome.getContentPane().revalidate();
+				Utilidades.frmHome.getContentPane().removeAll();
+				CompraMateriaPrimaView efetCompras = new CompraMateriaPrimaView(null);
+				Utilidades.frmHome.getContentPane().add(efetCompras, BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
 		mnFinancas.add(mntmEfetuarCompra);
@@ -341,10 +338,10 @@ public class LoginView extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				LoginView.this.frmHome.getContentPane().removeAll();
-				ConsultarVendasView consVendas = new ConsultarVendasView(frmHome, Utilidades.CONSULTA_VENDAS);
-				LoginView.this.frmHome.getContentPane().add(consVendas, BorderLayout.CENTER);
-				LoginView.this.frmHome.getContentPane().revalidate();
+				Utilidades.frmHome.getContentPane().removeAll();
+				ConsultarVendasView consVendas = new ConsultarVendasView(Utilidades.CONSULTA_VENDAS);
+				Utilidades.frmHome.getContentPane().add(consVendas, BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
 		mnFinancas.add(mntmConsultarVenda);
@@ -355,10 +352,10 @@ public class LoginView extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				LoginView.this.frmHome.getContentPane().removeAll();
-				VendaProdutoView efetVendas = new VendaProdutoView(frmHome);
-				LoginView.this.frmHome.getContentPane().add(efetVendas, BorderLayout.CENTER);
-				LoginView.this.frmHome.getContentPane().revalidate();
+				Utilidades.frmHome.getContentPane().removeAll();
+				VendaProdutoView efetVendas = new VendaProdutoView();
+				Utilidades.frmHome.getContentPane().add(efetVendas, BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
 		mnFinancas.add(mntmEfetuarVenda);		
@@ -378,10 +375,10 @@ public class LoginView extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				LoginView.this.frmHome.getContentPane().removeAll();
-				CadastrarFuncionarioView cadastrarFuncionario = new CadastrarFuncionarioView(frmHome);
-				LoginView.this.frmHome.getContentPane().add(cadastrarFuncionario, BorderLayout.CENTER);
-				LoginView.this.frmHome.getContentPane().revalidate();
+				Utilidades.frmHome.getContentPane().removeAll();
+				CadastrarFuncionarioView cadastrarFuncionario = new CadastrarFuncionarioView();
+				Utilidades.frmHome.getContentPane().add(cadastrarFuncionario, BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
 		mnFuncionario.add(mntmCadastrarFuncionario,0);//adiciona na primeira posição
@@ -391,7 +388,7 @@ public class LoginView extends JPanel{
 	private void AdicionarMenuDeslogado(){
 		
 		menuBar = new JMenuBar();
-		frmHome.setJMenuBar(menuBar);
+		Utilidades.frmHome.setJMenuBar(menuBar);
 		
 		mnArquivo = new JMenu("Arquivo");
 		menuBar.add(mnArquivo);

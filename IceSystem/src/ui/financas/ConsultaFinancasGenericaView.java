@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -16,14 +15,12 @@ public abstract class ConsultaFinancasGenericaView extends JPanel{
 	
 	private JTable table;
 	private JLabel lblConsultar;
+	private JButton btnDetalhar;
 	private JButton btnAtualizar;
-	private JFrame frmHome;
 	
 	//é necessario o codUser pra criar o botao da tela de alterar/delete apenas se for userAdmin
-	public ConsultaFinancasGenericaView(JFrame frmHome, String lblConsulta){
-		
-		this.frmHome = frmHome;
-		
+	public ConsultaFinancasGenericaView(String lblConsulta){
+				
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
 		
@@ -35,6 +32,24 @@ public abstract class ConsultaFinancasGenericaView extends JPanel{
 		
 		montaTabela(table);
 		
+		btnDetalhar = new JButton("Detalhar");
+		btnDetalhar.setBounds(100, 480, 91, 23);
+		btnDetalhar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				if(table.getSelectedRow() != -1){
+					
+					btnDetalhar(table.getSelectedRow());
+					
+				}
+				
+			}
+		});
+		this.add(btnDetalhar);
+		
+		
 		btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.setBounds(231, 480, 91, 23);
 		btnAtualizar.addActionListener(new ActionListener() {
@@ -44,7 +59,7 @@ public abstract class ConsultaFinancasGenericaView extends JPanel{
 				
 				if(table.getSelectedRow() != -1){
 					
-					btnAtualizar(table.getSelectedRow(), ConsultaFinancasGenericaView.this.frmHome);
+					btnAtualizar(table.getSelectedRow());
 					
 				}
 				
@@ -55,8 +70,10 @@ public abstract class ConsultaFinancasGenericaView extends JPanel{
 		
 	}
 	
+	public abstract void btnDetalhar(int selectedRow);
+
 	public abstract void montaTabela(JTable table);
 		
-	public abstract void btnAtualizar(Integer linhaSelecionada, JFrame frmHome);
+	public abstract void btnAtualizar(Integer linhaSelecionada);
 		
 }

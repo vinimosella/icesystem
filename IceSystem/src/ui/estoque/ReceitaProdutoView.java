@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import ui.financas.CompraMateriaPrimaView;
+import util.Utilidades;
 import vo.IngredienteReceitaProdutoVO;
 import vo.ProdutoVO;
 import bo.IngredienteReceitaProdutoBO;
@@ -32,17 +33,15 @@ public class ReceitaProdutoView extends JFrame {
 	private DefaultTableModel dtm;
 	private ProdutoVO produto;
 	private JButton btnComprar;
-	private JFrame frmHome;
 	
 	{
 		bo = new IngredienteReceitaProdutoBO();
 	}
 	
 
-	public ReceitaProdutoView(ProdutoVO produto, JFrame frmHome) {
+	public ReceitaProdutoView(ProdutoVO produto) {
 		
 		this.produto = produto;
-		this.frmHome = frmHome;
 		
 		setTitle("Receita do Produto");		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -78,10 +77,10 @@ public class ReceitaProdutoView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				CompraMateriaPrimaView comprar = new CompraMateriaPrimaView(ReceitaProdutoView.this.frmHome, listaIngredientes.get(table.getSelectedRow()).getMateriaPrima());
-				ReceitaProdutoView.this.frmHome.getContentPane().removeAll();
-				ReceitaProdutoView.this.frmHome.add(comprar);
-				ReceitaProdutoView.this.frmHome.revalidate();
+				CompraMateriaPrimaView comprar = new CompraMateriaPrimaView(listaIngredientes.get(table.getSelectedRow()).getMateriaPrima());
+				Utilidades.frmHome.getContentPane().removeAll();
+				Utilidades.frmHome.add(comprar);
+				Utilidades.frmHome.revalidate();
 				
 				ReceitaProdutoView.this.dispose();
 				

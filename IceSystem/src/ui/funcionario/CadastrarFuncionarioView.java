@@ -10,12 +10,12 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import util.Utilidades;
 import vo.CargoVO;
 import vo.CidadeVO;
 import vo.EmailVO;
@@ -75,7 +75,6 @@ public class CadastrarFuncionarioView extends JPanel{
 	private CidadeVO cidade;
 	private EstadoVO estado;
 	private CargoVO cargo;
-	private JFrame frmHome;
 	private FuncionarioBO bo;
 	private Iterator<?> it;
 	
@@ -91,7 +90,7 @@ public class CadastrarFuncionarioView extends JPanel{
 		listaEmails = new ArrayList<EmailVO>();
 	}
 	
-	public CadastrarFuncionarioView(JFrame frmHome){
+	public CadastrarFuncionarioView(){
 		
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
@@ -175,7 +174,7 @@ public class CadastrarFuncionarioView extends JPanel{
 				}				
 				else{
 					
-					JOptionPane.showMessageDialog(CadastrarFuncionarioView.this.frmHome, "   Telefone não modificado ou já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Telefone não modificado ou já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -208,7 +207,7 @@ public class CadastrarFuncionarioView extends JPanel{
 				}
 				else{
 					
-					JOptionPane.showMessageDialog(CadastrarFuncionarioView.this.frmHome, "   Telefone já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Telefone já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -299,7 +298,7 @@ public class CadastrarFuncionarioView extends JPanel{
 				}				
 				else{
 					
-					JOptionPane.showMessageDialog(CadastrarFuncionarioView.this.frmHome, "   Email não modificado ou já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Email não modificado ou já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -330,7 +329,7 @@ public class CadastrarFuncionarioView extends JPanel{
 				}
 				else{
 					
-					JOptionPane.showMessageDialog(CadastrarFuncionarioView.this.frmHome, "   Email já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Email já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -504,12 +503,12 @@ public class CadastrarFuncionarioView extends JPanel{
 
 				if(bo.cadastrarFuncionario(validaFuncionario())){
 					
-					JOptionPane.showMessageDialog(CadastrarFuncionarioView.this.frmHome, "   Funcionário cadastrado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Funcionário cadastrado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
 					
 				}
 				else{
 					
-					JOptionPane.showMessageDialog(CadastrarFuncionarioView.this.frmHome, "   Não foi possível cadastrar!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Não foi possível cadastrar!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 
 				}
 			}

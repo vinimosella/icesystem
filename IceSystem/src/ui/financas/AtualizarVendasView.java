@@ -1,7 +1,5 @@
 package ui.financas;
 
-import javax.swing.JFrame;
-
 import util.Utilidades;
 import vo.SituacaoVO;
 import vo.VendaVO;
@@ -12,12 +10,12 @@ public class AtualizarVendasView extends AtualizarSituacaoView {
 	private static final long serialVersionUID = 1L;
 	VendaBO bo = new VendaBO();
 	
-	public AtualizarVendasView(VendaVO venda, JFrame frmHome) {
-		super(venda.getSituacao(), Utilidades.ATUALIZAR_VENDAS, venda, frmHome);
+	public AtualizarVendasView(VendaVO venda) {
+		super(venda.getSituacao(), Utilidades.ATUALIZAR_VENDAS, venda);
 	}
 
 	@Override
-	public void actionBtnSalvar(SituacaoVO situacao, Object o, JFrame frmHome) {
+	public void actionBtnSalvar(SituacaoVO situacao, Object o) {
 
 		bo = new VendaBO();
 		
@@ -27,10 +25,10 @@ public class AtualizarVendasView extends AtualizarSituacaoView {
 		
 		bo.AtualizarVenda(venda);
 		
-		frmHome.getContentPane().removeAll();
-		ConsultarVendasView consulta = new ConsultarVendasView(frmHome, Utilidades.CONSULTA_VENDAS);
-		frmHome.add(consulta);
-		frmHome.revalidate();
+		Utilidades.frmHome.getContentPane().removeAll();
+		ConsultarVendasView consulta = new ConsultarVendasView(Utilidades.CONSULTA_VENDAS);
+		Utilidades.frmHome.add(consulta);
+		Utilidades.frmHome.revalidate();
 		
 	}
 

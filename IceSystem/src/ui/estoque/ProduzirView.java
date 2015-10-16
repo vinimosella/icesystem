@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -16,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import util.Utilidades;
 import vo.IngredienteReceitaProdutoVO;
 import vo.ProdutoVO;
 import bo.IngredienteReceitaProdutoBO;
@@ -40,7 +40,6 @@ public class ProduzirView extends JPanel{
 	private List<ProdutoVO> listaProdutos;
 	private ProdutoVO produto;
 	private List<IngredienteReceitaProdutoVO> listaReceitas;
-	private JFrame frmHome;
 	
 	{
 		produtoBo = new ProdutoBO();
@@ -48,9 +47,8 @@ public class ProduzirView extends JPanel{
 		materiaBo = new MateriaPrimaBO();
 	}
 	
-	public ProduzirView(JFrame frmHome){
+	public ProduzirView(){
 				
-		this.frmHome=frmHome;
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
 		
@@ -83,7 +81,7 @@ public class ProduzirView extends JPanel{
 				
 				if(table.getSelectedRow() != -1){ // se tiver algo selecionado
 					
-					ReceitaProdutoView receita = new ReceitaProdutoView(listaProdutos.get(table.getSelectedRow()), ProduzirView.this.frmHome);
+					ReceitaProdutoView receita = new ReceitaProdutoView(listaProdutos.get(table.getSelectedRow()));
 					receita.setVisible(true);
 					
 				}		
@@ -214,14 +212,14 @@ public class ProduzirView extends JPanel{
 			}
 			else{
 				
-				JOptionPane.showMessageDialog(frmHome, msgErro.toString(), "Não foi possível produzir!", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(Utilidades.frmHome, msgErro.toString(), "Não foi possível produzir!", JOptionPane.ERROR_MESSAGE);
 				
 			}
 			
 		}
 		else{
 			
-			JOptionPane.showMessageDialog(frmHome, "Selecione um produto e indique a quantidade a ser produzida!", "Não foi possível produzir!", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(Utilidades.frmHome, "Selecione um produto e indique a quantidade a ser produzida!", "Não foi possível produzir!", JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
