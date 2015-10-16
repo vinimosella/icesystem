@@ -9,6 +9,4 @@ public interface IMateriaPrimaDAO {
 
 	public List<MateriaPrimaVO> consultarMateriaPrimaFornecedor(FornecedorVO fornecedor);
 	
-	public boolean alterarMateriasPrimas(List<MateriaPrimaVO> materiaPrima);
-	
 }

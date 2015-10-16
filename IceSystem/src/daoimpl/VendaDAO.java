@@ -53,8 +53,7 @@ public class VendaDAO implements IVendaDAO{
 				v.setSituacao(new SituacaoVO());
 				v.getSituacao().setDescricao(rs.getString("descricao"));
 				v.setCliente(new ClienteVO());
-				v.getCliente().setRazaoSocial(rs.getString("razao_social"));
-				
+				v.getCliente().setRazaoSocial(rs.getString("razao_social"));				
 				
 				listaVendas.add(v);
 				
@@ -100,17 +99,46 @@ public class VendaDAO implements IVendaDAO{
 		
 		return true;
 	}
-	
-	@Override
-	public boolean excluirVenda(VendaVO venda){
-		
-		return true;
-	}
 
 	@Override
 	public boolean atualizarVenda(VendaVO venda) {
 
-		return false;
+		try {
+			
+			conexao = fabrica.getConexao();
+			
+			pstm = conexao.prepareStatement("alter table Venda set id_situacao=? where id_venda=?");
+			
+			pstm.setInt(1, venda.getSituacao().getIdSituacao());
+			pstm.setLong(2, venda.getIdVenda());
+	
+		} catch (ClassNotFoundException c) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),c.getMessage());
+			
+			return false;
+			
+		} catch (SQLException s) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+			
+			return false;
+			
+		} finally {
+
+			try {
+
+				conexao.close();
+				pstm.close();
+
+			} catch (SQLException s) {
+
+				LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+			}
+
+		}
+		
+		return true;
 	}
 	
 }
