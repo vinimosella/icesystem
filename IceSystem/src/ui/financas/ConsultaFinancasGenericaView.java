@@ -70,7 +70,7 @@ public abstract class ConsultaFinancasGenericaView extends JPanel{
 		
 	}
 	
-	public abstract void btnDetalhar(int selectedRow);
+	public abstract void btnDetalhar(Integer linhaSelecionada);
 
 	public abstract void montaTabela(JTable table);
 		

@@ -19,9 +19,11 @@ public class Utilidades {
 	public static final String CONSULTA_COMPRAS = "Consultar Compras";
 	public static final String CONSULTA_VENDAS = "Consultar Vendas";
 	
-	public static final String DETALHE_FUNCIONARIOS = "Detalhar Funcionários";
-	public static final String DETALHE_CLIENTES = "Detalhar Clientes";
-	public static final String DETALHE_FORNECEDORES = "Detalhar Fornecedores";
+	public static final String DETALHE_FUNCIONARIOS = "Detalhar Funcionário";
+	public static final String DETALHE_CLIENTES = "Detalhar Cliente";
+	public static final String DETALHE_FORNECEDORES = "Detalhar Fornecedor";
+	public static final String DETALHE_COMPRAS = "Detalhar Compra";
+	public static final String DETALHE_VENDAS = "Detalhar Venda";
 	
 	public static final String ATUALIZAR_COMPRAS = "Atualizar Compras";
 	public static final String ATUALIZAR_VENDAS = "Atualizar Vendas";

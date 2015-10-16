@@ -83,7 +83,7 @@ public class ConsultarVendasView extends ConsultaFinancasGenericaView{
 	}
 
 	@Override
-	public void btnDetalhar(int selectedRow) {
+	public void btnDetalhar(Integer linhaSelecionada) {
 		// TODO Auto-generated method stub
 		
 	}
