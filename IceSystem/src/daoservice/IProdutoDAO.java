@@ -10,4 +10,6 @@ public interface IProdutoDAO {
 	
 	public ProdutoVO consultarProduto(ProdutoVO produto);
 	
+	public boolean alterarProduto(ProdutoVO produto);
+	
 }

@@ -39,7 +39,7 @@ public class CompraDAO implements ICompraDAO{
 			conexao = fabrica.getConexao();
 			
 			pstm = conexao.prepareStatement("select c.id_compra, c.data_compra, c.id_funcionario, c.id_situacao, f.nome from Compra c"
-					                       + " inner join Funcionario f where c.id_funcionario = f.id_funcionario");
+					                       + " inner join Funcionario f on c.id_funcionario = f.id_funcionario");
 			
 			rs = pstm.executeQuery();
 			
@@ -182,17 +182,16 @@ public class CompraDAO implements ICompraDAO{
 			conexao = fabrica.getConexao();
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
-			pstm = conexao.prepareStatement("insert into Compra (id_funcionario, id_situacao, data_compra) values (?, ?, ?)");
+			pstm = conexao.prepareStatement("insert into Compra (id_funcionario, id_situacao) values (?, ?)");
 						
 			pstm.setInt(1, compra.getFuncionario().getIdFuncionario());
 			pstm.setInt(2, compra.getSituacao().getIdSituacao());
-			pstm.setDate(3, new java.sql.Date(new java.util.Date().getTime()));
 			
 			pstm.executeUpdate();
 			
 			//Recebe o id gerado automaticamente no insert anterior
 			rs = pstm.getGeneratedKeys();
-			int idCompra = rs.getInt("idCompra");
+			int idCompra = rs.getInt("id_compra");
 			
 			pstm = conexao.prepareStatement("insert into Item_Compra (id_compra, id_materia_prima, quantidade, valor) values (?, ?, ?, ?)");
 						
@@ -241,6 +240,8 @@ public class CompraDAO implements ICompraDAO{
 				
 				//Log do rollback do SQLException
 				LogFactory.getInstance().gerarLog(getClass().getName(),s1.getMessage());
+				
+				return false;
 			}
 
 		}

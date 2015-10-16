@@ -9,6 +9,7 @@ import java.util.List;
 
 import util.LogFactory;
 import vo.ClienteVO;
+import vo.ItemVendaVO;
 import vo.SituacaoVO;
 import vo.VendaVO;
 import daoservice.IVendaDAO;
@@ -95,7 +96,78 @@ public class VendaDAO implements IVendaDAO{
 	}
 	
 	@Override
-	public boolean cadastrarVenda(VendaVO venda){
+	public boolean cadastrarVenda(VendaVO venda, List<ItemVendaVO> listaItensVenda){
+		
+try {
+			
+			conexao = fabrica.getConexao();
+			conexao.setAutoCommit(false); //Inicia uma transação
+			
+			pstm = conexao.prepareStatement("insert into Venda (id_cliente, id_funcionario, id_situacao) "
+					                       + "values (?, ?, ?)");
+			
+			pstm.setInt(1, venda.getCliente().getIdPessoaJuridica());
+			pstm.setInt(2, venda.getFuncionario().getIdFuncionario());
+			pstm.setInt(3, venda.getSituacao().getIdSituacao());
+			
+			pstm.executeUpdate();
+			
+			//Recebe o id gerado automaticamente no insert anterior
+			rs = pstm.getGeneratedKeys();
+			int idVenda = rs.getInt("id_venda");
+			
+			pstm = conexao.prepareStatement("insert into Item_Venda (id_venda, id_produto, quantidade, valor) values (?, ?, ?, ?)");
+						
+			for (ItemVendaVO itemVenda : listaItensVenda) {
+
+				pstm.setInt(1, idVenda);
+				pstm.setInt(2, itemVenda.getProduto().getIdProduto());
+				pstm.setDouble(3, itemVenda.getQuantidade());
+				pstm.setDouble(4, itemVenda.getValor());			
+				
+				pstm.executeUpdate();
+				
+			}
+			
+			conexao.commit();
+			
+		} catch (ClassNotFoundException c) {
+			
+			//Log do ClassNotFoundException
+			LogFactory.getInstance().gerarLog(getClass().getName(),c.getMessage());
+			
+			try {
+				
+				conexao.rollback();
+				
+				return false;
+				
+			} catch (SQLException s) {
+				
+				//Log do rollback do ClassNotFoundException
+				LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+			}
+			
+		} catch (SQLException s) {
+			
+			//Log do SQLException
+			LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+			
+			try {
+				
+				conexao.rollback();
+				
+				return false;
+				
+			} catch (SQLException s1) {
+				
+				//Log do rollback do SQLException
+				LogFactory.getInstance().gerarLog(getClass().getName(),s1.getMessage());
+				
+				return false;
+			}
+
+		}
 		
 		return true;
 	}
