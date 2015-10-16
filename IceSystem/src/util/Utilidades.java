@@ -2,10 +2,13 @@ package util;
 
 import java.text.DecimalFormat;
 
+import javax.swing.JFrame;
+
 import vo.FuncionarioVO;
 
 public class Utilidades {
 	
+	public static JFrame frmHome = null;
 	public static FuncionarioVO funcionarioLogado = null;
 	
 	public static final DecimalFormat FORMAT = new DecimalFormat("#,##0.00");

@@ -16,7 +16,7 @@ public class ClienteBO {
 		return true;
 	}
 	
-	public List<ClienteVO> consultarCliente(){
+	public List<ClienteVO> consultarClientes(){
 		
 		return BancoEstatico.listaClientes;
 	}
