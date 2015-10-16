@@ -144,5 +144,48 @@ public class  ProdutoDAO implements IProdutoDAO{
 		
 		return p;
 	}
+
+	@Override
+	public boolean alterarProduto(ProdutoVO produto) {
+		
+		try {
+			
+			conexao = fabrica.getConexao();
+			
+			pstm = conexao.prepareStatement("alter table Produto set quantidade_estoque=?, nome=?, sabor=? where id_produto=?");
+			
+			pstm.setInt(1, produto.getQuantidadeEstoque());
+			pstm.setString(2, produto.getNome());
+			pstm.setString(3, produto.getSabor());
+			pstm.setInt(4, produto.getIdProduto());
+	
+		} catch (ClassNotFoundException c) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),c.getMessage());
+			
+			return false;
+			
+		} catch (SQLException s) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+			
+			return false;
+			
+		} finally {
+
+			try {
+
+				conexao.close();
+				pstm.close();
+
+			} catch (SQLException s) {
+
+				LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+			}
+
+		}
+		
+		return true;
+	}
 	
 }
