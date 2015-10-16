@@ -251,6 +251,41 @@ public class CompraDAO implements ICompraDAO{
 	@Override
 	public boolean atualizarCompra(CompraVO compra) {
 
+		try {
+			
+			conexao = fabrica.getConexao();
+			
+			pstm = conexao.prepareStatement("alter table Compra set id_situacao=? where id_venda=?");
+			
+			pstm.setInt(1, compra.getSituacao().getIdSituacao());
+			pstm.setLong(2, compra.getIdCompra());
+	
+		} catch (ClassNotFoundException c) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),c.getMessage());
+			
+			return false;
+			
+		} catch (SQLException s) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+			
+			return false;
+			
+		} finally {
+
+			try {
+
+				conexao.close();
+				pstm.close();
+
+			} catch (SQLException s) {
+
+				LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+			}
+
+		}
+		
 		return true;
 	}
 	

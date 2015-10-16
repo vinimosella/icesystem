@@ -92,11 +92,5 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 		
 		return listaMP;
 	}
-	
-	@Override
-	public boolean alterarMateriasPrimas(List<MateriaPrimaVO> materiaPrima) {
-				
-		return false;
-	}
 		
 }
