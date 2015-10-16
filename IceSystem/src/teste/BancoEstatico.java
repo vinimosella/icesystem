@@ -17,6 +17,7 @@ import vo.IngredienteReceitaProdutoVO;
 import vo.ItemCompraVO;
 import vo.ItemVendaVO;
 import vo.MateriaPrimaVO;
+import vo.OrdemProducaoVO;
 import vo.ProdutoVO;
 import vo.SituacaoVO;
 import vo.TelefoneVO;
@@ -74,6 +75,9 @@ public class BancoEstatico {
 	
 	public static ItemVendaVO itemVenda;
 	public static List<ItemVendaVO> listaItensVenda;
+	
+	public static OrdemProducaoVO op;
+	public static List<OrdemProducaoVO> listaOrdensProducao;
 
 	public static void carregaBanco(){
 		
@@ -537,6 +541,40 @@ public class BancoEstatico {
 		itemVenda.setValor(10.10);
 		listaItensVenda.add(itemVenda);
 		
+		//CARREGA ORDENS PRODUCAO
+		listaOrdensProducao = new ArrayList<OrdemProducaoVO>();
+		
+		op = new OrdemProducaoVO();
+		op.setDataSolicitacao(new Date());
+		op.setIdOrdemProducao(1l);
+		op.setProduto(listaProdutos.get(0));
+		op.setQuantidade(20);
+		op.setSituacao(listasituacoes.get(0));
+		listaOrdensProducao.add(op);
+		
+		op = new OrdemProducaoVO();
+		op.setDataSolicitacao(new Date());
+		op.setIdOrdemProducao(2l);
+		op.setProduto(listaProdutos.get(1));
+		op.setQuantidade(30);
+		op.setSituacao(listasituacoes.get(1));
+		listaOrdensProducao.add(op);
+		
+		op = new OrdemProducaoVO();
+		op.setDataSolicitacao(new Date());
+		op.setIdOrdemProducao(3l);
+		op.setProduto(listaProdutos.get(2));
+		op.setQuantidade(40);
+		op.setSituacao(listasituacoes.get(2));
+		listaOrdensProducao.add(op);
+		
+		op = new OrdemProducaoVO();
+		op.setDataSolicitacao(new Date());
+		op.setIdOrdemProducao(4l);
+		op.setProduto(listaProdutos.get(3));
+		op.setQuantidade(50);
+		op.setSituacao(listasituacoes.get(3));
+		listaOrdensProducao.add(op);
 	}
 	
 }

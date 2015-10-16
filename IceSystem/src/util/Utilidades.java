@@ -27,8 +27,10 @@ public class Utilidades {
 	
 	public static final String ATUALIZAR_COMPRAS = "Atualizar Compras";
 	public static final String ATUALIZAR_VENDAS = "Atualizar Vendas";
+	public static final String ATUALIZAR_ORDEM_PRODUCAO = "Atualizar Ordem de Produção";
 	
-	public static final String PRODUZIDO = "Produzido";
+	public static final String FINALIZADO = "Finalizado";
+	public static final String CANCELADO = "Cancelado";
 	
 	//TODO
 	public static final int[] CODIGOS_SITUACAO_VENDA = {1,2,3};
