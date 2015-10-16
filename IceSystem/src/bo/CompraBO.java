@@ -38,5 +38,10 @@ public class CompraBO {
 		
 		return true;
 	}
+
+	public List<ItemCompraVO> consultarComprasPorId(CompraVO compra) {
+
+		return BancoEstatico.listaItensCompra;
+	}
 	
 }

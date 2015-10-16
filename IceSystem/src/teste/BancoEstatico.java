@@ -14,6 +14,8 @@ import vo.EstadoVO;
 import vo.FornecedorVO;
 import vo.FuncionarioVO;
 import vo.IngredienteReceitaProdutoVO;
+import vo.ItemCompraVO;
+import vo.ItemVendaVO;
 import vo.MateriaPrimaVO;
 import vo.ProdutoVO;
 import vo.SituacaoVO;
@@ -66,6 +68,12 @@ public class BancoEstatico {
 	
 	public static IngredienteReceitaProdutoVO receita;
 	public static List<IngredienteReceitaProdutoVO> listaReceitas;
+	
+	public static ItemCompraVO itemCompra;
+	public static List<ItemCompraVO> listaItensCompra;
+	
+	public static ItemVendaVO itemVenda;
+	public static List<ItemVendaVO> listaItensVenda;
 
 	public static void carregaBanco(){
 		
@@ -486,6 +494,48 @@ public class BancoEstatico {
 		receita.setMateriaPrima(listaMateriasPrimas.get(2));
 		receita.setQuantidadeMateria(8.3);
 		listaReceitas.add(receita);
+		
+		//LISTA ITENS COMPRA
+		listaItensCompra = new ArrayList<ItemCompraVO>();
+		
+		itemCompra = new ItemCompraVO();
+		itemCompra.setMateriaPrima(listaMateriasPrimas.get(0));
+		itemCompra.setQuantidade(20.00);
+		itemCompra.setValor(20.00);
+		listaItensCompra.add(itemCompra);
+		
+		itemCompra = new ItemCompraVO();
+		itemCompra.setMateriaPrima(listaMateriasPrimas.get(1));
+		itemCompra.setQuantidade(40.00);
+		itemCompra.setValor(30.00);
+		listaItensCompra.add(itemCompra);
+		
+		itemCompra = new ItemCompraVO();
+		itemCompra.setMateriaPrima(listaMateriasPrimas.get(2));
+		itemCompra.setQuantidade(70.00);
+		itemCompra.setValor(10.00);
+		listaItensCompra.add(itemCompra);
+		
+		//LISTA ITENS VENDA
+		listaItensVenda = new ArrayList<ItemVendaVO>();
+		
+		itemVenda = new ItemVendaVO();
+		itemVenda.setProduto(listaProdutos.get(0));
+		itemVenda.setQuantidade(30);
+		itemVenda.setValor(32.50);
+		listaItensVenda.add(itemVenda);
+		
+		itemVenda = new ItemVendaVO();
+		itemVenda.setProduto(listaProdutos.get(1));
+		itemVenda.setQuantidade(10);
+		itemVenda.setValor(22.50);
+		listaItensVenda.add(itemVenda);
+		
+		itemVenda = new ItemVendaVO();
+		itemVenda.setProduto(listaProdutos.get(2));
+		itemVenda.setQuantidade(40);
+		itemVenda.setValor(10.10);
+		listaItensVenda.add(itemVenda);
 		
 	}
 	

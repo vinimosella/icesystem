@@ -33,4 +33,9 @@ public class VendaBO {
 		return true;
 	}
 
+	public List<ItemVendaVO> consultarVendasPorId(VendaVO venda) {
+
+		return BancoEstatico.listaItensVenda;
+	}
+
 }

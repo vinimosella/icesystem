@@ -83,8 +83,10 @@ public class ConsultarComprasView extends ConsultaFinancasGenericaView{
 	}
 
 	@Override
-	public void btnDetalhar(int selectedRow) {
-		// TODO Auto-generated method stub
+	public void btnDetalhar(Integer linhaSelecionada) {
+
+		DetalharCompraView detalharCompra = new DetalharCompraView(listaCompras.get(linhaSelecionada));
+		detalharCompra.setVisible(true);
 		
 	}
 

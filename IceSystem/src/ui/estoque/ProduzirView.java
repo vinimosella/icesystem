@@ -139,14 +139,14 @@ public class ProduzirView extends JPanel{
 			dtm.addRow(new Object[] {
 					produto.getIdProduto(),
 					produto.getNome(),
-					produto.getSabor(),
+					(produto.getSabor()!=null) ? produto.getSabor() : "-",
 					produto.getQuantidadeEstoque()
 			});
 			
 		}			
 		
 		table.setModel(dtm);
-		
+
 	}
 	
 	private void produzir() {
@@ -198,6 +198,7 @@ public class ProduzirView extends JPanel{
 			if(msgErro.toString().trim().equals("")){
 				
 				//soma a quantidade que possuia antes com o valor produzido
+				//TODO alterar, pois só será feito isso depois de mudra status da ordem de produção.
 				produto.setQuantidadeEstoque(produto.getQuantidadeEstoque()+qtdProduto);
 				produtoBo.atualizarProduto(produto);
 				
