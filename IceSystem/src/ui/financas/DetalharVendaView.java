@@ -59,7 +59,7 @@ public class DetalharVendaView extends DetalharFinancasGenericaView{
 		while(it.hasNext()){
 				
 			itemVenda = (ItemVendaVO) it.next();
-			//	"ID Venda", "ID Produto", "Nome-Produto", "Sabor", "Quantidade", "Valor", "Total"
+
 			dtm.addRow(new Object[] {
 					venda.getIdVenda(),
 					itemVenda.getProduto().getIdProduto(),
