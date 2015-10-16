@@ -97,40 +97,40 @@ public class CadastrarFuncionarioView extends JPanel{
 		
 		labelNome = new JLabel();
 		labelNome.setText("Nome:");
-		labelNome.setBounds(20,5,120,20);
+		labelNome.setBounds(20,30,120,20);
 		this.add(labelNome);
 		
 		txtNome = new JTextField();
-		txtNome.setBounds(300,7,200,20);
+		txtNome.setBounds(300,30,200,20);
 		this.add(txtNome);
 		
 		labelCpf = new JLabel();
 		labelCpf.setText("CPF:");
-		labelCpf.setBounds(20,30,120,20);
+		labelCpf.setBounds(20,60,120,20);
 		this.add(labelCpf);
 		
 		txtCpf = new JTextField();
-		txtCpf.setBounds(300,32,200,20);
+		txtCpf.setBounds(300,60,200,20);
 		this.add(txtCpf);
 		
 		labelRg = new JLabel();
 		labelRg.setText("RG:");
-		labelRg.setBounds(20,55,120,20);
+		labelRg.setBounds(20,90,120,20);
 		this.add(labelRg);
 		
 		txtRg = new JTextField();
-		txtRg.setBounds(300,57,200,20);
+		txtRg.setBounds(300,90,200,20);
 		this.add(txtRg);
 		
 		labelTelefone = new JLabel();
 		labelTelefone.setText("Telefone:");
-		labelTelefone.setBounds(20,80,120,20);
+		labelTelefone.setBounds(20,120,120,20);
 		this.add(labelTelefone);
 		
 		//armazena a quantidade de telefones que tem, alterará o valor do label de telefone para o numero corrente
 		comboTelefone = new JComboBox<Integer>();
 				
-		comboTelefone.setBounds(250,82,40,20);
+		comboTelefone.setBounds(250,120,40,20);
 		//Muda o valor do textField quando muda o 'id' do telefone do combobox
 		comboTelefone.addActionListener(new ActionListener() {
 			
@@ -149,11 +149,11 @@ public class CadastrarFuncionarioView extends JPanel{
 		this.add(comboTelefone);
 		
 		txtTelefone = new JTextField();
-		txtTelefone.setBounds(300,82,200,20);
+		txtTelefone.setBounds(300,120,200,20);
 		this.add(txtTelefone);
 		
 		btnAtualizarTelefone = new JButton(new ImageIcon(getClass().getResource("/img/update.png")));
-		btnAtualizarTelefone.setBounds(502,83,17,17);
+		btnAtualizarTelefone.setBounds(502,120,17,17);
 		btnAtualizarTelefone.addActionListener(new ActionListener() {
 			
 			@Override
@@ -182,7 +182,7 @@ public class CadastrarFuncionarioView extends JPanel{
 		this.add(btnAtualizarTelefone);
 
 		btnAdicionarTelefone = new JButton(new ImageIcon(getClass().getResource("/img/confirm.png")));
-		btnAdicionarTelefone.setBounds(521,83,17,17);
+		btnAdicionarTelefone.setBounds(521,120,17,17);
 		btnAdicionarTelefone.addActionListener(new ActionListener() {
 			
 			@Override
@@ -215,7 +215,7 @@ public class CadastrarFuncionarioView extends JPanel{
 		this.add(btnAdicionarTelefone);
 		
 		btnRemoverTelefone = new JButton(new ImageIcon(getClass().getResource("/img/delete.png")));
-		btnRemoverTelefone.setBounds(540,83,17,17);
+		btnRemoverTelefone.setBounds(540,120,17,17);
 		btnRemoverTelefone.addActionListener(new ActionListener() {
 			
 			@Override
@@ -250,17 +250,17 @@ public class CadastrarFuncionarioView extends JPanel{
 		
 		labelEmail = new JLabel();
 		labelEmail.setText("Email:");
-		labelEmail.setBounds(20,105,120,20);
+		labelEmail.setBounds(20,150,120,20);
 		this.add(labelEmail);
 		
 		txtEmail = new JTextField();
-		txtEmail.setBounds(300,107,200,20);
+		txtEmail.setBounds(300,150,200,20);
 		this.add(txtEmail);
 		
 		//armazena a quantidade de emails que tem, alterará o valor do label de email para o numero corrente
 		comboEmail = new JComboBox<Integer>();
 				
-		comboEmail.setBounds(250,107,40,20);
+		comboEmail.setBounds(250,150,40,20);
 		//Muda o valor do textField quando muda o 'id' do email do combobox
 		comboEmail.addActionListener(new ActionListener() {
 			
@@ -278,7 +278,7 @@ public class CadastrarFuncionarioView extends JPanel{
 		this.add(comboEmail);
 		
 		btnAtualizarEmail = new JButton(new ImageIcon(getClass().getResource("/img/update.png")));
-		btnAtualizarEmail.setBounds(502,108,17,17);
+		btnAtualizarEmail.setBounds(502,150,17,17);
 		btnAtualizarEmail.addActionListener(new ActionListener() {
 			
 			@Override
@@ -306,7 +306,7 @@ public class CadastrarFuncionarioView extends JPanel{
 		this.add(btnAtualizarEmail);
 		
 		btnAdicionarEmail = new JButton(new ImageIcon(getClass().getResource("/img/confirm.png")));
-		btnAdicionarEmail.setBounds(521,108,17,17);
+		btnAdicionarEmail.setBounds(521,150,17,17);
 		btnAdicionarEmail.addActionListener(new ActionListener() {
 			
 			@Override
@@ -337,7 +337,7 @@ public class CadastrarFuncionarioView extends JPanel{
 		this.add(btnAdicionarEmail);
 		
 		btnRemoverEmail = new JButton(new ImageIcon(getClass().getResource("/img/delete.png")));
-		btnRemoverEmail.setBounds(540,108,17,17);
+		btnRemoverEmail.setBounds(540,150,17,17);
 		btnRemoverEmail.addActionListener(new ActionListener() {
 			
 			@Override
@@ -372,11 +372,11 @@ public class CadastrarFuncionarioView extends JPanel{
 		
 		labelEstado = new JLabel();
 		labelEstado.setText("Estado:");
-		labelEstado.setBounds(20,130,120,20);
+		labelEstado.setBounds(20,180,120,20);
 		this.add(labelEstado);
 		
 		comboEstado = new JComboBox<String>();
-		comboEstado.setBounds(300,132,200,20);
+		comboEstado.setBounds(300,180,200,20);
 		comboEstado.addItem("Selecione");
 		listaEstados = bo.buscaEstados();
 		Iterator<EstadoVO> it = (Iterator<EstadoVO>) listaEstados.iterator();
@@ -418,11 +418,11 @@ public class CadastrarFuncionarioView extends JPanel{
 		
 		labelCidade = new JLabel();
 		labelCidade.setText("Cidade:");
-		labelCidade.setBounds(20,155,120,20);
+		labelCidade.setBounds(20,210,120,20);
 		this.add(labelCidade);
 		
 		comboCidade = new JComboBox<String>();
-		comboCidade.setBounds(300,157,200,20);
+		comboCidade.setBounds(300,210,200,20);
 		comboCidade.addItem("Selecione");
 		comboCidade.setEnabled(false);
 		
@@ -430,56 +430,56 @@ public class CadastrarFuncionarioView extends JPanel{
 		
 		labelLogradouro = new JLabel();
 		labelLogradouro.setText("Logradouro:");
-		labelLogradouro.setBounds(20,180,120,20);
+		labelLogradouro.setBounds(20,240,120,20);
 		this.add(labelLogradouro);
 		
 		txtLogradouro = new JTextField();
-		txtLogradouro.setBounds(300,182,200,20);
+		txtLogradouro.setBounds(300,240,200,20);
 		this.add(txtLogradouro);
 		
 		labelNumero = new JLabel();
 		labelNumero.setText("Número:");
-		labelNumero.setBounds(20,205,120,20);
+		labelNumero.setBounds(20,270,120,20);
 		this.add(labelNumero);
 		
 		txtNumero = new JTextField();
-		txtNumero.setBounds(300,207,200,20);
+		txtNumero.setBounds(300,270,200,20);
 		this.add(txtNumero);
 		
 		labelComplemento = new JLabel();
 		labelComplemento.setText("Complemento:");
-		labelComplemento.setBounds(20,230,120,20);
+		labelComplemento.setBounds(20,300,120,20);
 		this.add(labelComplemento);
 		
 		txtComplemento = new JTextField();
-		txtComplemento.setBounds(300,232,200,20);
+		txtComplemento.setBounds(300,300,200,20);
 		this.add(txtComplemento);
 		
 		labelBairro = new JLabel();
 		labelBairro.setText("Bairro:");
-		labelBairro.setBounds(20,255,120,20);
+		labelBairro.setBounds(20,330,120,20);
 		this.add(labelBairro);
 		
 		txtBairro = new JTextField();
-		txtBairro.setBounds(300,257,200,20);
+		txtBairro.setBounds(300,330,200,20);
 		this.add(txtBairro);
 		
 		labelCep = new JLabel();
 		labelCep.setText("CEP:");
-		labelCep.setBounds(20,280,120,20);
+		labelCep.setBounds(20,360,120,20);
 		this.add(labelCep);
 		
 		txtCep = new JTextField();
-		txtCep.setBounds(300,282,200,20);
+		txtCep.setBounds(300,360,200,20);
 		this.add(txtCep);
 		
 		labelCargo = new JLabel();
 		labelCargo.setText("Cargo:");
-		labelCargo.setBounds(20,305,120,20);
+		labelCargo.setBounds(20,390,120,20);
 		this.add(labelCargo);
 		
 		comboCargo = new JComboBox<String>();
-		comboCargo.setBounds(300, 307, 200, 20);
+		comboCargo.setBounds(300,390,200,20);
 		listaCargos = bo.buscaCargos();
 		
 		Iterator<CargoVO> iterador = listaCargos.iterator();
@@ -495,7 +495,7 @@ public class CadastrarFuncionarioView extends JPanel{
 		this.add(comboCargo);
 		
 		btnCadastrar = new JButton("Cadastrar");
-		btnCadastrar.setBounds(280, 380, 120, 20);
+		btnCadastrar.setBounds(280,450,120,20);
 		btnCadastrar.addActionListener(new ActionListener() {
 			
 			@Override

@@ -112,26 +112,26 @@ public class VendaProdutoView extends JPanel{
 		this.add(comboProduto);
 
 		// CAMPO QUANTIDADE
-		lblQuantidade = new JLabel("Quantidade");
-		lblQuantidade.setBounds(30, 110, 100, 25);
+		lblQuantidade = new JLabel("Quantidade: ");
+		lblQuantidade.setBounds(30,120,100,25);
 		this.add(lblQuantidade);
 
 		txtQuantidade = new JTextField();
-		txtQuantidade.setBounds(140, 110, 60, 25);
+		txtQuantidade.setBounds(120,120,60,25);
 		this.add(txtQuantidade);
 
 		// CAMPO VALOR
-		lblValor = new JLabel("Valor Unitário");
-		lblValor.setBounds(220, 110, 100, 25);
+		lblValor = new JLabel("Valor Unitário: ");
+		lblValor.setBounds(220,120,100,25);
 		this.add(lblValor);
 
 		txtValor = new JTextField();
-		txtValor.setBounds(310, 110, 60, 25);
+		txtValor.setBounds(310,120,60,25);
 		this.add(txtValor);
 
 		// BOTAO ADICIONAR
-		btnAdicionar = new JButton(new ImageIcon(getClass().getResource("/img/note.png")));
-		btnAdicionar.setBounds(410, 110, 25, 25);
+		btnAdicionar = new JButton(new ImageIcon(getClass().getResource("/img/addLista.png")));
+		btnAdicionar.setBounds(400,120,26,27);
 		btnAdicionar.addActionListener(new ActionListener() {
 
 			@Override
@@ -156,13 +156,13 @@ public class VendaProdutoView extends JPanel{
 		this.add(btnAdicionar);
 
 		// LABEL TABELA ITENS COMPRA
-		lblItensVenda = new JLabel("Itens da compra:");
-		lblItensVenda.setBounds(20, 175, 100, 25);
+		lblItensVenda = new JLabel("Itens da compra: ");
+		lblItensVenda.setBounds(20,165,100,25);
 		this.add(lblItensVenda);
 
 		// BOTÃO REMOVER ITEM DA COMPRA
-		btnRemover = new JButton("Remover item selecionado");
-		btnRemover.setBounds(340, 175, 190, 25);
+		btnRemover = new JButton("Remover item selecionado", new ImageIcon(getClass().getResource("/img/remover.png")));
+		btnRemover.setBounds(359,165,210,25);
 		btnRemover.addActionListener(new ActionListener() {
 
 			@Override
@@ -195,12 +195,12 @@ public class VendaProdutoView extends JPanel{
 
 		// LABEL TOTAL DA COMPRA
 		lblTotal = new JLabel("Total: 0");
-		lblTotal.setBounds(20, 520, 100, 25);
+		lblTotal.setBounds(20,510, 100, 25);
 		this.add(lblTotal);
 
 		// BOTÃO CADASTRAR COMPRA
 		btnCadastrar = new JButton("Cadastrar Compra");
-		btnCadastrar.setBounds(200, 520, 160, 25);
+		btnCadastrar.setBounds(200,510,160,25);
 		btnCadastrar.addActionListener(new ActionListener() {
 
 			@Override

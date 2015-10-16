@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -75,10 +76,10 @@ public class LoginView extends JPanel{
 		//criação dos campos da tela de login
 		labelUser = new JLabel();
 		labelUser.setText("Usuário:  ");
-		labelUser.setBounds(50,50,60,50);
+		labelUser.setBounds(150,160,60,50);
 		
 		txtUser = new JTextField();
-		txtUser.setBounds(120,60,200,30);
+		txtUser.setBounds(220,170,200,30);
 		
 		//ficar com foco no txtUser ao abrir a janela
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {  
@@ -89,14 +90,14 @@ public class LoginView extends JPanel{
 		
 		labelPassword = new JLabel();
 		labelPassword.setText("Senha:  ");
-		labelPassword.setBounds(50,110,60,50);
+		labelPassword.setBounds(150,220,60,50);
 		
 		txtPassword = new JPasswordField();
-		txtPassword.setBounds(120,120,200,30);
-				
-		btnLogin = new JButton();
+		txtPassword.setBounds(220,230,200,30);
+		
+		btnLogin = new JButton(new ImageIcon(getClass().getResource("/img/login.png")));
 		btnLogin.setText("Login");
-		btnLogin.setBounds(170, 200, 100, 30);
+		btnLogin.setBounds(250, 300, 100, 30);
 		btnLogin.addActionListener(new ActionListener() {
 			
 			@Override
