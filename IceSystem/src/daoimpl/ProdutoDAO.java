@@ -187,5 +187,17 @@ public class  ProdutoDAO implements IProdutoDAO{
 		
 		return true;
 	}
+
+	@Override
+	public boolean cadastrarProduto(ProdutoVO produto) {
+		
+		return false;
+	}
+
+	@Override
+	public boolean excluirProduto(ProdutoVO produto) {
+		
+		return false;
+	}
 	
 }
