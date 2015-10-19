@@ -17,6 +17,11 @@ public class MateriaPrimaBO {
 		return BancoEstatico.listaMateriasPrimas;
 	}
 	
+	public List<MateriaPrimaVO> consultarMateriasPrimas(){
+		
+		return BancoEstatico.listaMateriasPrimas;
+	}
+	
 	public void alterarMateriaPrimaReceita(List<IngredienteReceitaProdutoVO> listaReceitas, Integer qtdProduto, ProdutoVO produto){
 		
 		List<MateriaPrimaVO> listaMateriasAtualizadas = new ArrayList<MateriaPrimaVO>();
@@ -43,6 +48,11 @@ public class MateriaPrimaBO {
 		}
 		
 		//dao.AtualizarMateriasPrimas(listaMateriasAtualizadas);
+	}
+
+	public boolean excluirMateriaPrima(Integer idMateriaPrima) {
+
+		return true;
 	}
 	
 }

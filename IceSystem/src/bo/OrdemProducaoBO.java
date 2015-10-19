@@ -73,6 +73,20 @@ public class OrdemProducaoBO {
 		return BancoEstatico.listaOrdensProducao;
 	}
 	
+	public List<OrdemProducaoVO> consultarFinalizadas() {
+
+		return BancoEstatico.listaOrdensProducaoFinzalizada;
+	}
+	
+	public List<OrdemProducaoVO> consultarCanceladas() {
+
+		return BancoEstatico.listaOrdensProducaoCancelada;
+	}
+	
+	public List<OrdemProducaoVO> consultarSolicitadas() {
+
+		return BancoEstatico.listaOrdensProducaoSolicitada;
+	}
 	
 
 }

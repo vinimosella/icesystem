@@ -17,7 +17,6 @@ import bo.SituacaoBO;
 
 public abstract class AtualizarSituacaoView extends JFrame {
 
-	//TODO melhorar o carregamento do combo de situações
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblSituacao;

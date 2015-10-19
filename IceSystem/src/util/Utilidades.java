@@ -18,6 +18,8 @@ public class Utilidades {
 	public static final String CONSULTA_FORNECEDORES = "Consultar Fornecedores";
 	public static final String CONSULTA_COMPRAS = "Consultar Compras";
 	public static final String CONSULTA_VENDAS = "Consultar Vendas";
+	public static final String CONSULTA_PRODUTOS = "Consultar Produtos";
+	public static final String CONSULTA_MATERIAS_PRIMAS = "Consultar Matérias Primas";
 	
 	public static final String DETALHE_FUNCIONARIOS = "Detalhar Funcionário";
 	public static final String DETALHE_CLIENTES = "Detalhar Cliente";
@@ -32,13 +34,9 @@ public class Utilidades {
 	public static final String FINALIZADO = "Finalizado";
 	public static final String CANCELADO = "Cancelado";
 	
-	//TODO
-	public static final int[] CODIGOS_SITUACAO_VENDA = {1,2,3};
-	public static final int CODIGO_SITUACAO_VENDA_DEFAULT = 1;
-	
-	//TODO
-	public static final int[] CODIGOS_SITUACAO_COMPRA = {1,2,4};
-	public static final int CODIGO_SITUACAO_COMPRA_DEFAULT = 1;
+	public static final int CODIGO_SITUACAO_VENDA_DEFAULT = 0;
+	public static final int CODIGO_SITUACAO_COMPRA_DEFAULT = 0;
+	public static final int CODIGO_SITUACAO_ORDEM_PRODUCAO_DEFAULT = 0;
 	
 	public static final String PATH_LOG = "C:/Desenvolvimento/Logs/log.txt";
 }

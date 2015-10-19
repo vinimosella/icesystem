@@ -16,5 +16,10 @@ public class ProdutoBO {
 
 		return true;
 	}
+
+	public boolean excluirProduto(Integer idProduto) {
+
+		return true;
+	}
 	
 }

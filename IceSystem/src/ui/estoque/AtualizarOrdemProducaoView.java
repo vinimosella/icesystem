@@ -8,7 +8,6 @@ import bo.OrdemProducaoBO;
 
 public class AtualizarOrdemProducaoView extends AtualizarSituacaoView{
 
-	//TODO CARREGAR APENAS SITUAÇÕES DE OPS
 	private static final long serialVersionUID = 1L;
 	
 	private OrdemProducaoBO bo;

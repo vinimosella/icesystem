@@ -3,10 +3,12 @@ package ui.financas;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import util.Utilidades;
 import vo.VendaVO;
 import bo.VendaBO;
 
@@ -77,8 +79,18 @@ public class ConsultarVendasView extends ConsultaFinancasGenericaView{
 	@Override
 	public void btnAtualizar(Integer linhaSelecionada) {
 		
-		AtualizarVendasView atualizarVendas = new AtualizarVendasView(listaVendas.get(linhaSelecionada));
-		atualizarVendas.setVisible(true);
+		//se ja estiver cancelada ou finalizada...
+		if(listaVendas.get(linhaSelecionada).getSituacao().getDescricao().equals(Utilidades.CANCELADO) || listaVendas.get(linhaSelecionada).getSituacao().getDescricao().equals(Utilidades.FINALIZADO)){
+			
+			JOptionPane.showMessageDialog(Utilidades.frmHome, "Não é possível alterar itens finalizados ou cancelados!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+			
+		}
+		else{
+			
+			AtualizarVendasView atualizarVendas = new AtualizarVendasView(listaVendas.get(linhaSelecionada));
+			atualizarVendas.setVisible(true);
+			
+		}
 		
 	}
 

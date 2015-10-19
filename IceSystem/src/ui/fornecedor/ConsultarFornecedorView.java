@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,7 +15,6 @@ import bo.FornecedorBO;
 
 public class ConsultarFornecedorView extends ConsultaGenericaView{
 
-	private JScrollPane scrollPane;
 	private DefaultTableModel dtm;
 	private FornecedorVO fornecedor;
 	private List<FornecedorVO> listaFornecedores;
@@ -31,11 +29,7 @@ public class ConsultarFornecedorView extends ConsultaGenericaView{
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public void montaTabela(JTable table) {
-		
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 50, 550, 400);
-		this.add(scrollPane);
+	public void carregaDtm(JTable table, DefaultTableModel dtm) {
 				
 		dtm = new DefaultTableModel(
 				
@@ -75,9 +69,8 @@ public class ConsultarFornecedorView extends ConsultaGenericaView{
 			
 		}			
 		
-		table.setModel(dtm);
-		scrollPane.setViewportView(table);
-		
+		this.dtm = dtm;
+		table.setModel(dtm);		
 	}
 
 	@Override
