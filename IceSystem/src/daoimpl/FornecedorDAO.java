@@ -25,6 +25,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 		fabrica = ConnectionFactory.getInstance();
 		
 	}
+	
 	@Override
 	public List<FornecedorVO> consultarFornecedores() {
 		
@@ -36,7 +37,8 @@ public class FornecedorDAO implements IFornecedorDAO{
 				
 			conexao = fabrica.getConexao();
 			
-			pstm = conexao.prepareStatement("select id_fornecedor, cnpj, id_endereco, razao_social, from Fornecedor");
+			pstm = conexao.prepareStatement("select f.id_fornecedor_pj, pj.cnpj, pj.id_endereco, pj.razao_social from Fornecedor f"
+					                       + " inner join Pessoa_Juridica pj on f.id_fornecedor_pj = pj.id_pessoa_juridica");
 			
 			rs = pstm.executeQuery();
 			
@@ -44,11 +46,11 @@ public class FornecedorDAO implements IFornecedorDAO{
 						
 			while(rs.next()){
 			
-				int idFornecedor = rs.getInt("id_pessoa_juridica");
+				Integer idFornecedor = rs.getInt("id_fornecedor_pj");
 								
 				fornecedor = new FornecedorVO();
 					
-				fornecedor.setIdPessoaJuridica(idFornecedor);
+				fornecedor.setIdPessoaJuridica(rs.getInt(idFornecedor));
 				fornecedor.setCnpj(rs.getString("cnpj"));
 				fornecedor.setEndereco(new EnderecoVO());
 				fornecedor.getEndereco().setIdEndereco(rs.getInt("id_endereco"));
@@ -110,7 +112,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 			
 			Connection conexaoLocal = conexao;
 			
-			pstm = conexaoLocal.prepareStatement("select id_email, email, id_fornecedor from Email where id_fornecedor = ?");
+			pstm = conexaoLocal.prepareStatement("select id_email, email, id_funcionario from Email where id_funcionario = ?");
 			
 			pstm.setInt(1, idFornecedor);
 			
@@ -160,7 +162,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 			
 			Connection conexaoLocal = conexao;
 			
-			pstm = conexaoLocal.prepareStatement("select id_telefone, ddd, numero, id_fornecedor from Telefone where id_fornecedor = ?");
+			pstm = conexaoLocal.prepareStatement("select id_telefone, ddd, numero, id_funcionario from Telefone where id_funcionario = ?");
 			
 			pstm.setInt(1, idFornecedor);
 			

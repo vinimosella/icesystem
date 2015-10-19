@@ -106,7 +106,7 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			
 			pstm = conexao.prepareStatement("select op.id_produto, op.id_situacao, op.quantidade, op.data_solicitacao, p.nome from Ordem_Producao op"
 					                       + " inner join Produto p on op.id_produto = p.id_produto"
-					                       + " inner join Situacao s on op.id_situacao = s.id_situacao where descricao = Solicitado");
+					                       + " inner join Situacao s on op.id_situacao = s.id_situacao where descricao = 'Solicitado'");
 			
 			rs = pstm.executeQuery();
 			
