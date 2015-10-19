@@ -78,6 +78,9 @@ public class BancoEstatico {
 	
 	public static OrdemProducaoVO op;
 	public static List<OrdemProducaoVO> listaOrdensProducao;
+	public static List<OrdemProducaoVO> listaOrdensProducaoSolicitada;
+	public static List<OrdemProducaoVO> listaOrdensProducaoCancelada;
+	public static List<OrdemProducaoVO> listaOrdensProducaoFinzalizada;
 
 	public static void carregaBanco(){
 		
@@ -323,25 +326,19 @@ public class BancoEstatico {
 		situacao = new SituacaoVO();
 		situacao.setIdSituacao(1);
 		situacao.setCodigo(1);
-		situacao.setDescricao("Encaminhada");
+		situacao.setDescricao("Solicitado");
 		listasituacoes.add(situacao);
 		
 		situacao = new SituacaoVO();
 		situacao.setIdSituacao(2);
 		situacao.setCodigo(2);
-		situacao.setDescricao("Entregue");
+		situacao.setDescricao("Cancelado");
 		listasituacoes.add(situacao);
 		
 		situacao = new SituacaoVO();
 		situacao.setIdSituacao(3);
 		situacao.setCodigo(3);
-		situacao.setDescricao("Solicitada");
-		listasituacoes.add(situacao);
-		
-		situacao = new SituacaoVO();
-		situacao.setIdSituacao(4);
-		situacao.setCodigo(4);
-		situacao.setDescricao("Recebida");
+		situacao.setDescricao("Finalizado");
 		listasituacoes.add(situacao);
 		
 		//CARREGA COMPRAS
@@ -374,7 +371,7 @@ public class BancoEstatico {
 		venda = new VendaVO();
 		venda.setIdVenda(2l);
 		venda.setDataVenda(new Date());
-		venda.setSituacao(listasituacoes.get(3));
+		venda.setSituacao(listasituacoes.get(2));
 		venda.setCliente(listaClientes.get(1));
 		listaVendas.add(venda);
 		
@@ -535,6 +532,7 @@ public class BancoEstatico {
 		itemVenda.setValor(22.50);
 		listaItensVenda.add(itemVenda);
 		
+		
 		itemVenda = new ItemVendaVO();
 		itemVenda.setProduto(listaProdutos.get(2));
 		itemVenda.setQuantidade(40);
@@ -543,6 +541,9 @@ public class BancoEstatico {
 		
 		//CARREGA ORDENS PRODUCAO
 		listaOrdensProducao = new ArrayList<OrdemProducaoVO>();
+		listaOrdensProducaoSolicitada = new ArrayList<OrdemProducaoVO>();
+		listaOrdensProducaoCancelada = new ArrayList<OrdemProducaoVO>();
+		listaOrdensProducaoFinzalizada = new ArrayList<OrdemProducaoVO>();
 		
 		op = new OrdemProducaoVO();
 		op.setDataSolicitacao(new Date());
@@ -551,6 +552,7 @@ public class BancoEstatico {
 		op.setQuantidade(20);
 		op.setSituacao(listasituacoes.get(0));
 		listaOrdensProducao.add(op);
+		listaOrdensProducaoSolicitada.add(op);
 		
 		op = new OrdemProducaoVO();
 		op.setDataSolicitacao(new Date());
@@ -558,6 +560,7 @@ public class BancoEstatico {
 		op.setProduto(listaProdutos.get(1));
 		op.setQuantidade(30);
 		op.setSituacao(listasituacoes.get(1));
+		listaOrdensProducaoCancelada.add(op);
 		listaOrdensProducao.add(op);
 		
 		op = new OrdemProducaoVO();
@@ -567,13 +570,15 @@ public class BancoEstatico {
 		op.setQuantidade(40);
 		op.setSituacao(listasituacoes.get(2));
 		listaOrdensProducao.add(op);
+		listaOrdensProducaoFinzalizada.add(op);
 		
 		op = new OrdemProducaoVO();
 		op.setDataSolicitacao(new Date());
 		op.setIdOrdemProducao(4l);
 		op.setProduto(listaProdutos.get(3));
 		op.setQuantidade(50);
-		op.setSituacao(listasituacoes.get(3));
+		op.setSituacao(listasituacoes.get(0));
+		listaOrdensProducaoSolicitada.add(op);
 		listaOrdensProducao.add(op);
 	}
 	

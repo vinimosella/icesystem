@@ -7,8 +7,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 
 public abstract class ConsultaGenericaView extends JPanel{
 
@@ -19,6 +21,8 @@ public abstract class ConsultaGenericaView extends JPanel{
 	private JButton btnDetalhar;
 	private JButton btnAtualizar;
 	private JButton btnRemover;
+	private JScrollPane scrollPane;
+	private DefaultTableModel dtm;
 	
 	//é necessario o codUser pra criar o botao da tela de alterar/delete apenas se for userAdmin
 	public ConsultaGenericaView(String lblConsulta){
@@ -31,9 +35,12 @@ public abstract class ConsultaGenericaView extends JPanel{
 		this.add(lblConsultar);
 		
 		table = new JTable();
-		
-		montaTabela(table);
-				
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(20, 50, 550, 400);
+		this.add(scrollPane);
+		carregaDtm(table, dtm);
+		scrollPane.setViewportView(table);
+						
 		btnDetalhar = new JButton("Detalhar");
 		btnDetalhar.setBounds(130, 480, 91, 23);
 		btnDetalhar.addActionListener(new ActionListener() {
@@ -92,7 +99,7 @@ public abstract class ConsultaGenericaView extends JPanel{
 		
 	}
 	
-	public abstract void montaTabela(JTable table);
+	public abstract void carregaDtm(JTable table, DefaultTableModel dtm);
 	
 	public abstract void btnDetalhar(Integer linhaSelecionada);
 	

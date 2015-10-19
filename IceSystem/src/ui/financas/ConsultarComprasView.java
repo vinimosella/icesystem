@@ -3,10 +3,12 @@ package ui.financas;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import util.Utilidades;
 import vo.CompraVO;
 import bo.CompraBO;
 
@@ -77,8 +79,18 @@ public class ConsultarComprasView extends ConsultaFinancasGenericaView{
 	@Override
 	public void btnAtualizar(Integer linhaSelecionada) {
 		
-		AtualizarComprasView atualizarCompras = new AtualizarComprasView(listaCompras.get(linhaSelecionada));
-		atualizarCompras.setVisible(true);
+		//se ja estiver cancelada ou finalizada...
+		if(listaCompras.get(linhaSelecionada).getSituacao().getDescricao().equals(Utilidades.CANCELADO) || listaCompras.get(linhaSelecionada).getSituacao().getDescricao().equals(Utilidades.FINALIZADO)){
+			
+			JOptionPane.showMessageDialog(Utilidades.frmHome, "Não é possível alterar itens finalizados ou cancelados!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+			
+		}
+		else{
+			
+			AtualizarComprasView atualizarCompras = new AtualizarComprasView(listaCompras.get(linhaSelecionada));
+			atualizarCompras.setVisible(true);
+			
+		}
 		
 	}
 

@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -21,7 +22,6 @@ import bo.OrdemProducaoBO;
 
 public class OrdemDeProducaoView extends JPanel{
 
-	//TODO ACTION DOS RADIOS
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private JLabel lblOrdemProducao;
@@ -70,6 +70,16 @@ public class OrdemDeProducaoView extends JPanel{
 		radioTodas.setBounds(80, 37, 20, 20);
 		radioTodas.setBackground(Color.decode("#F0F8FF"));
 		radioTodas.setSelected(true);
+		radioTodas.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				listaOps = bo.consultarTodas();
+				carregaDtm();
+
+			}
+		});
 		this.add(radioTodas);
 		grupoRadio.add(radioTodas);
 		
@@ -80,6 +90,16 @@ public class OrdemDeProducaoView extends JPanel{
 		radioSolicitado = new JRadioButton();
 		radioSolicitado.setBounds(180,37, 20, 20);
 		radioSolicitado.setBackground(Color.decode("#F0F8FF"));
+		radioSolicitado.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				listaOps = bo.consultarSolicitadas();
+				carregaDtm();
+
+			}
+		});
 		this.add(radioSolicitado);
 		grupoRadio.add(radioSolicitado);
 		
@@ -90,6 +110,16 @@ public class OrdemDeProducaoView extends JPanel{
 		radioFinalizado = new JRadioButton();
 		radioFinalizado.setBounds(280,37, 20, 20);
 		radioFinalizado.setBackground(Color.decode("#F0F8FF"));
+		radioFinalizado.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				listaOps = bo.consultarFinalizadas();
+				carregaDtm();
+
+			}
+		});
 		this.add(radioFinalizado);
 		grupoRadio.add(radioFinalizado);
 		
@@ -100,6 +130,16 @@ public class OrdemDeProducaoView extends JPanel{
 		radioCancelado = new JRadioButton();
 		radioCancelado.setBounds(380,37, 20, 20);
 		radioCancelado.setBackground(Color.decode("#F0F8FF"));
+		radioCancelado.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				listaOps = bo.consultarCanceladas();
+				carregaDtm();
+
+			}
+		});
 		this.add(radioCancelado);
 		grupoRadio.add(radioCancelado);
 		
@@ -176,12 +216,18 @@ public class OrdemDeProducaoView extends JPanel{
 	
 	private void btnAtualizar() {
 		
-		if(!(listaOps.get(table.getSelectedRow()).getSituacao().equals(Utilidades.CANCELADO) || listaOps.get(table.getSelectedRow()).getSituacao().equals(Utilidades.FINALIZADO))){
+		//se ja estiver cancelada ou finalizada...
+		if(listaOps.get(table.getSelectedRow()).getSituacao().getDescricao().equals(Utilidades.CANCELADO) || listaOps.get(table.getSelectedRow()).getSituacao().getDescricao().equals(Utilidades.FINALIZADO)){
+			
+			JOptionPane.showMessageDialog(Utilidades.frmHome, "Não é possível alterar itens finalizados ou cancelados!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+			
+		}
+		else{
 			
 			AtualizarOrdemProducaoView atualizarOp = new AtualizarOrdemProducaoView(listaOps.get(table.getSelectedRow()));
 			atualizarOp.setVisible(true);	
 			
-		}	
+		}
 		
 	}
 	
