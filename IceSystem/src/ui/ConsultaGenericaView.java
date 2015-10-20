@@ -23,7 +23,7 @@ public abstract class ConsultaGenericaView extends JPanel{
 	private JButton btnRemover;
 	private JScrollPane scrollPane;
 	private DefaultTableModel dtm;
-	
+
 	//é necessario o codUser pra criar o botao da tela de alterar/delete apenas se for userAdmin
 	public ConsultaGenericaView(String lblConsulta){
 		
@@ -106,5 +106,28 @@ public abstract class ConsultaGenericaView extends JPanel{
 	public abstract void btnAtualizar(Integer linhaSelecionada);
 	
 	public abstract void btnRemover(Integer linhaSelecionada);
+	
+	public JButton getBtnDetalhar() {
+		return btnDetalhar;
+	}
+
+	public void setBtnDetalhar(JButton btnDetalhar) {
+		this.btnDetalhar = btnDetalhar;
+	}
+	public JButton getBtnAtualizar() {
+		return btnAtualizar;
+	}
+
+	public void setBtnAtualizar(JButton btnAtualizar) {
+		this.btnAtualizar = btnAtualizar;
+	}
+
+	public JButton getBtnRemover() {
+		return btnRemover;
+	}
+
+	public void setBtnRemover(JButton btnRemover) {
+		this.btnRemover = btnRemover;
+	}
 
 }

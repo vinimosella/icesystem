@@ -2,6 +2,7 @@ package ui.financas;
 
 import java.awt.Color;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -11,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 import util.Utilidades;
 
-public abstract class DetalharFinancasGenericaView extends JFrame{
+public abstract class DetalharFinancasGenericaView extends JDialog{
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -23,6 +24,7 @@ public abstract class DetalharFinancasGenericaView extends JFrame{
 		setTitle(titulo);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 500, 500);
+		setModal(true);
 		setResizable(false);
 		contentPane = new JPanel();
 		setContentPane(contentPane);

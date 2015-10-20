@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,7 +16,7 @@ import vo.EmailVO;
 import vo.EnderecoVO;
 import vo.TelefoneVO;
 
-public abstract class DetalheGenericoView extends JFrame{
+public abstract class DetalheGenericoView extends JDialog{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -40,6 +41,7 @@ public abstract class DetalheGenericoView extends JFrame{
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setBounds(600, 100, 460, 460);
 		this.setLocationRelativeTo(null);
+		this.setModal(true);
 		
 		contentPane = new JPanel();
 		this.setContentPane(contentPane);
