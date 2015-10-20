@@ -26,5 +26,10 @@ public class ProdutoBO {
 
 		return true;
 	}
+
+	public boolean alterarProduto(ProdutoVO produto) {
+
+		return true;
+	}
 	
 }

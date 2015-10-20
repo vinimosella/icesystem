@@ -20,7 +20,7 @@ import vo.MateriaPrimaVO;
 import bo.FornecedorBO;
 import bo.MateriaPrimaBO;
 
-public class CadastrarMateriaPrimaView extends JDialog{
+public class AlterarMateriaPrimaView extends JDialog{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -43,7 +43,8 @@ public class CadastrarMateriaPrimaView extends JDialog{
 		listaFornecedores = fornBo.consultarFornecedores();
 	}
 
-	public CadastrarMateriaPrimaView() {
+	public AlterarMateriaPrimaView(MateriaPrimaVO materiaPrima) {
+		this.materiaPrima = materiaPrima;
 		setTitle(Utilidades.CADASTRAR_MATERIA_PRIMA);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 259, 200);
@@ -61,6 +62,9 @@ public class CadastrarMateriaPrimaView extends JDialog{
 		
 		txtNome = new JTextField();
 		txtNome.setBounds(100,20,130,25);
+		if(materiaPrima.getNome()!=null){
+			txtNome.setText(materiaPrima.getNome());
+		}
 		contentPane.add(txtNome);
 		
 		lblSabor = new JLabel("Sabor:");
@@ -69,6 +73,9 @@ public class CadastrarMateriaPrimaView extends JDialog{
 		
 		txtSabor = new JTextField();
 		txtSabor.setBounds(100,60,130,25);
+		if(materiaPrima.getSabor()!=null){
+			txtSabor.setText(materiaPrima.getSabor());
+		}
 		contentPane.add(txtSabor);
 		
 		comboFornecedor = new JComboBox<String>();
@@ -81,6 +88,10 @@ public class CadastrarMateriaPrimaView extends JDialog{
 			
 			fornecedor = it.next();
 			comboFornecedor.addItem(fornecedor.getRazaoSocial());
+			if(materiaPrima.getFornecedor().getRazaoSocial().equals(fornecedor.getRazaoSocial())){
+				
+				comboFornecedor.setSelectedItem(fornecedor.getRazaoSocial());
+			}
 			
 		}
 		contentPane.add(comboFornecedor);
@@ -92,15 +103,16 @@ public class CadastrarMateriaPrimaView extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				//TODO VALIDAR TAMBEM O FORNECEDOR E EXIBIR MSG INDIVIDUAL PRA CADA UM... TBM ALTERAR NA TELA DE CADASTRO
 				//se não estiver vazio
 				if(!txtNome.getText().trim().equals("")){
 					
-					materiaPrima = new MateriaPrimaVO();
+					AlterarMateriaPrimaView.this.materiaPrima = new MateriaPrimaVO();
 					
-					materiaPrima.setNome(txtNome.getText());
-					materiaPrima.setSabor(txtSabor.getText());
-					materiaPrima.setFornecedor(listaFornecedores.get(comboFornecedor.getSelectedIndex()-1));
-					bo.cadastrarMateriaPrima(materiaPrima);
+					AlterarMateriaPrimaView.this.materiaPrima.setNome(txtNome.getText());
+					AlterarMateriaPrimaView.this.materiaPrima.setSabor(txtSabor.getText());
+					AlterarMateriaPrimaView.this.materiaPrima.setFornecedor(listaFornecedores.get(comboFornecedor.getSelectedIndex()-1));
+					bo.alterarMateriaPrima(AlterarMateriaPrimaView.this.materiaPrima);
 					
 				}
 								
@@ -108,7 +120,7 @@ public class CadastrarMateriaPrimaView extends JDialog{
 				ConsultaMateriaPrimaView consulta = new ConsultaMateriaPrimaView();
 				Utilidades.frmHome.add(consulta);
 				Utilidades.frmHome.revalidate();
-				CadastrarMateriaPrimaView.this.dispose();
+				AlterarMateriaPrimaView.this.dispose();
 				
 			}
 		});
@@ -121,7 +133,7 @@ public class CadastrarMateriaPrimaView extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				CadastrarMateriaPrimaView.this.dispose();
+				AlterarMateriaPrimaView.this.dispose();
 			}
 		});
 		contentPane.add(btnCancelar);

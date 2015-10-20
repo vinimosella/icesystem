@@ -55,7 +55,12 @@ public class MateriaPrimaBO {
 		return true;
 	}
 
-	public boolean cadastrarProduto(MateriaPrimaVO materiaPrima) {
+	public boolean cadastrarMateriaPrima(MateriaPrimaVO materiaPrima) {
+
+		return true;
+	}
+
+	public boolean alterarMateriaPrima(MateriaPrimaVO materiaPrima) {
 
 		return true;
 	}
