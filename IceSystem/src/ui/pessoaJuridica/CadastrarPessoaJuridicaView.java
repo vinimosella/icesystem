@@ -131,6 +131,7 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 			}
 		});
 		this.add(comboTelefone);
+		comboTelefone.setEnabled(false);
 		
 		txtTelefone = new JTextField();
 		txtTelefone.setBounds(300,90,200,20);
@@ -155,6 +156,7 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 					comboTelefone.removeAllItems();
 					carregaTelefone();
 					comboTelefone.setSelectedIndex(listaTelefones.size()-1);
+					txtTelefone.setText("");
 				}				
 				else{
 					
@@ -164,6 +166,7 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 			}
 		});
 		this.add(btnAtualizarTelefone);
+		btnAtualizarTelefone.setEnabled(false);
 
 		btnAdicionarTelefone = new JButton(new ImageIcon(getClass().getResource("/img/confirm.png")));
 		btnAdicionarTelefone.setBounds(521,90,17,17);
@@ -171,6 +174,15 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				//apenas um deles é verificado pois a inativação é feita pra todos ao mesmo tempo
+				if(!comboTelefone.isEnabled()){
+					
+					comboTelefone.setEnabled(true);
+					btnRemoverTelefone.setEnabled(true);
+					btnAtualizarTelefone.setEnabled(true);
+					
+				}
 				
 				//verifica se ja é existente, se não, adiciona
 				if(!bo.isTelefoneExistenteLista(txtTelefone.getText(), listaTelefones)){
@@ -181,6 +193,9 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 					listaTelefones.add(telefone);
 					comboTelefone.addItem(++contadorTelefones);
 					comboTelefone.setSelectedItem(contadorTelefones);
+					
+					//limpa o txt
+					txtTelefone.setText("");
 					
 					//bloqueia pra não passar de 5
 					if(listaTelefones.size()==5){
@@ -227,10 +242,21 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 					comboTelefone.setSelectedIndex(0);
 					
 				}
+				else{
+					
+					comboTelefone.setEnabled(false);
+					btnRemoverTelefone.setEnabled(false);
+					btnAtualizarTelefone.setEnabled(false);
+					txtTelefone.requestFocus();
+					
+				}
+				
+				txtTelefone.setText("");
 
 			}
 		});
 		this.add(btnRemoverTelefone);
+		btnRemoverTelefone.setEnabled(false);
 		
 		labelEmail = new JLabel();
 		labelEmail.setText("Email:");
@@ -260,6 +286,7 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 			}
 		});
 		this.add(comboEmail);
+		comboEmail.setEnabled(false);
 		
 		btnAtualizarEmail = new JButton(new ImageIcon(getClass().getResource("/img/update.png")));
 		btnAtualizarEmail.setBounds(502,120,17,17);
@@ -279,6 +306,7 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 					comboEmail.removeAllItems();
 					carregaEmail();
 					comboEmail.setSelectedIndex(listaEmails.size()-1);
+					txtEmail.setText("");
 				}				
 				else{
 					
@@ -288,6 +316,7 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 			}
 		});
 		this.add(btnAtualizarEmail);
+		btnAtualizarEmail.setEnabled(false);
 		
 		btnAdicionarEmail = new JButton(new ImageIcon(getClass().getResource("/img/confirm.png")));
 		btnAdicionarEmail.setBounds(521,120,17,17);
@@ -295,6 +324,15 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				//apenas um deles é verificado pois a inativação é feita pra todos ao mesmo tempo
+				if(!comboEmail.isEnabled()){
+					
+					comboEmail.setEnabled(true);
+					btnRemoverEmail.setEnabled(true);
+					btnAtualizarEmail.setEnabled(true);
+					
+				}
 				
 				//verifica se ja é existente, se não, adiciona
 				if(!bo.isEmailExistenteLista(txtEmail.getText(), listaEmails)){
@@ -304,6 +342,9 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 					listaEmails.add(email);
 					comboEmail.addItem(++contadorEmails);
 					comboEmail.setSelectedItem(contadorEmails);
+					
+					//limpa o txt
+					txtEmail.setText("");
 					
 					//bloqueia pra não passar de 5
 					if(listaEmails.size()==5){
@@ -349,10 +390,21 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 					comboEmail.setSelectedIndex(0);
 					
 				}
+				else{
+					
+					comboEmail.setEnabled(false);
+					btnRemoverEmail.setEnabled(false);
+					btnAtualizarEmail.setEnabled(false);
+					txtEmail.requestFocus();
+					
+				}
+				
+				txtEmail.setText("");
 
 			}
 		});
 		this.add(btnRemoverEmail);
+		btnRemoverEmail.setEnabled(false);
 		
 		labelEstado = new JLabel();
 		labelEstado.setText("Estado:");
