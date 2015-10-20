@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,7 +16,7 @@ import javax.swing.JPanel;
 import vo.SituacaoVO;
 import bo.SituacaoBO;
 
-public abstract class AtualizarSituacaoView extends JFrame {
+public abstract class AtualizarSituacaoView extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -35,6 +36,7 @@ public abstract class AtualizarSituacaoView extends JFrame {
 		setTitle(titulo);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 259, 146);
+		setModal(true);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setBackground(Color.decode("#F0F8FF"));
@@ -82,9 +84,8 @@ public abstract class AtualizarSituacaoView extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Altura: "+AtualizarSituacaoView.this.getHeight());
-				System.out.println("Largura: "+AtualizarSituacaoView.this.getWidth());
-				//AtualizarSituacaoView.this.dispose();
+
+				AtualizarSituacaoView.this.dispose();
 			}
 		});
 		contentPane.add(btnCancelar);

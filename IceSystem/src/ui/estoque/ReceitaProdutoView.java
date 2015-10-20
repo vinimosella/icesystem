@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,7 +21,7 @@ import vo.IngredienteReceitaProdutoVO;
 import vo.ProdutoVO;
 import bo.IngredienteReceitaProdutoBO;
 
-public class ReceitaProdutoView extends JFrame {
+public class ReceitaProdutoView extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -46,6 +47,7 @@ public class ReceitaProdutoView extends JFrame {
 		setTitle("Receita do Produto");		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 700, 500);
+		setModal(true);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setBackground(Color.decode("#F0F8FF"));

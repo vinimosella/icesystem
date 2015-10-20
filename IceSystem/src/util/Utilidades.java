@@ -31,6 +31,9 @@ public class Utilidades {
 	public static final String ATUALIZAR_VENDAS = "Atualizar Vendas";
 	public static final String ATUALIZAR_ORDEM_PRODUCAO = "Atualizar Ordem de Produção";
 	
+	public static final String CADASTRAR_PRODUTO = "Cadastrar Produto";
+	public static final String CADASTRAR_MATERIA_PRIMA = "Cadastrar Matéria Prima";
+	
 	public static final String FINALIZADO = "Finalizado";
 	public static final String CANCELADO = "Cancelado";
 	

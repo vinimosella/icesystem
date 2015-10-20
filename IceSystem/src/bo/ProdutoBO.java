@@ -21,5 +21,10 @@ public class ProdutoBO {
 
 		return true;
 	}
+
+	public boolean cadastrarProduto(ProdutoVO produto) {
+
+		return true;
+	}
 	
 }

@@ -1,8 +1,11 @@
 package ui.estoque;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -20,11 +23,27 @@ public class ConsultaProdutoView extends ConsultaGenericaView{
 	private List<ProdutoVO> listaProdutos;
 	private ProdutoVO produto;
 	private Iterator<?> it;
+	private JButton btnCadastrar;
 
 	
 	public ConsultaProdutoView() {
 		super(Utilidades.CONSULTA_PRODUTOS);
 
+		super.getBtnDetalhar().setVisible(false);
+		
+		btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.setBounds(130, 480, 94, 23);
+		btnCadastrar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				CadastrarProdutoView cadProduto = new CadastrarProdutoView();
+				cadProduto.setVisible(true);
+				
+			}
+		});
+		this.add(btnCadastrar);
 	}
 
 	@Override
@@ -73,10 +92,11 @@ public class ConsultaProdutoView extends ConsultaGenericaView{
 		this.dtm = dtm;
 	}
 
+
 	@Override
 	public void btnDetalhar(Integer linhaSelecionada) {
-		// TODO Auto-generated method stub
-		
+
+		//não será usado nessa tela.
 	}
 
 	@Override
