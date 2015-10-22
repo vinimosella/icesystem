@@ -68,6 +68,7 @@ public class CadastrarProdutoView extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				//TODO VALIDAR SE SABOR ESTA VAZIO, POIS NAO PODE (NO ALTERAR TB)
 				//se não estiver vazio
 				if(!txtNome.getText().trim().equals("")){
 					
