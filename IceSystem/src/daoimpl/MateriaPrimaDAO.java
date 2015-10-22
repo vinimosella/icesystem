@@ -62,14 +62,14 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 				listaMP.add(mp);
 			}
 			
-		} catch (SQLException e) {
+		} catch (SQLException sql) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			listaMP = null;
 			
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException cnf) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			listaMP = null;
 			
 		} finally {
@@ -85,10 +85,9 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 					rs.close();
 				}
 				
-			} catch (SQLException e) {
+			} catch (SQLException sql) {
 				
-				LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
-
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 				listaMP = null;
 				
 			}			

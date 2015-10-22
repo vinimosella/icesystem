@@ -262,6 +262,24 @@ public class CompraDAO implements ICompraDAO{
 				return false;
 			}
 
+		} finally{
+			
+			//Finalizando recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+				if(rs != null){
+					
+					rs.close();
+				}
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+			}
 		}
 		
 		return true;

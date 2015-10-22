@@ -32,7 +32,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 		
 		try {
 			
-			//Cria a conexao com o banco
+			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
@@ -57,14 +57,14 @@ public class  ProdutoDAO implements IProdutoDAO{
 				
 			}
 			
-		} catch (SQLException e) {
+		} catch (SQLException sql) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			listaProdutos = null;
 			
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException cnf) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			listaProdutos = null;
 			
 		} finally {
@@ -80,9 +80,9 @@ public class  ProdutoDAO implements IProdutoDAO{
 					rs.close();
 				}
 				
-			} catch (SQLException e) {
+			} catch (SQLException sql) {
 				
-				LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 
 				listaProdutos = null;
 				
@@ -98,7 +98,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 				
 		try {
 			
-			//Cria a conexao com o banco
+			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
@@ -109,21 +109,20 @@ public class  ProdutoDAO implements IProdutoDAO{
 			//Executa a pesquisa no banco
 			rs = pstm.executeQuery();
 			
-			//Carrega o produto
-				
+			//Carrega o produto				
 			produto.setIdProduto(rs.getInt("id_produto"));
 			produto.setNome(rs.getString("nome"));
 			produto.setQuantidadeEstoque(rs.getInt("quantidade_estoque"));
 			produto.setSabor(rs.getString("sabor"));
 			
-		} catch (SQLException e) {
+		} catch (SQLException sql) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			produto = null;
 			
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException cnf) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			produto = null;
 			
 		} finally {
@@ -139,9 +138,9 @@ public class  ProdutoDAO implements IProdutoDAO{
 					rs.close();
 				}
 				
-			} catch (SQLException e) {
+			} catch (SQLException sql) {
 				
-				LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 
 				produto = null;
 				
@@ -157,10 +156,10 @@ public class  ProdutoDAO implements IProdutoDAO{
 		
 		try {
 			
-			//Cria a conexao com o banco
+			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
 			
-			//Cria [alter] que sera executado no banco
+			//Cria o [alter] que sera executado no banco
 			pstm = conexao.prepareStatement("alter table Produto set quantidade_estoque=?, nome=?, sabor=? where id_produto=?");
 			
 			pstm.setInt(1, produto.getQuantidadeEstoque());
@@ -171,15 +170,15 @@ public class  ProdutoDAO implements IProdutoDAO{
 			//Executa uma atualização no banco
 			pstm.executeUpdate();
 	
-		} catch (ClassNotFoundException c) {
+		} catch (ClassNotFoundException cnf) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),c.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			
 			return false;
 			
-		} catch (SQLException s) {
+		} catch (SQLException sql) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			
 			return false;
 			
@@ -191,9 +190,9 @@ public class  ProdutoDAO implements IProdutoDAO{
 				conexao.close();
 				pstm.close();
 
-			} catch (SQLException s) {
+			} catch (SQLException sql) {
 
-				LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			}
 
 		}
@@ -206,7 +205,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 					
 			try {
 				
-				//Cria a conexao com o banco
+				//Cria a conexão com o banco
 				conexao = fabrica.getConexao();
 				
 				//Cria o [insert] que sera executado no banco
@@ -219,14 +218,75 @@ public class  ProdutoDAO implements IProdutoDAO{
 				//Executa uma atualização no banco
 				pstm.executeUpdate();
 				
-			} catch (ClassNotFoundException c) {
+			} catch (ClassNotFoundException cnf) {
 				
-				LogFactory.getInstance().gerarLog(getClass().getName(),c.getMessage());
+				LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 				
-			} catch (SQLException s) {
+			} catch (SQLException sql) {
 				
-				LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
-			}	
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+			} finally{
+				
+				//Finalizando os recursos
+				try {
+					
+					conexao.close();
+					pstm.close();					
+					
+				} catch (SQLException sql) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				}
+			}
+		
+		return true;
+	}
+
+	@Override
+	public boolean excluirProduto(ProdutoVO produto) {
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			
+			//Cria o [delete] que sera executado no banco
+			pstm = conexao.prepareStatement("delete from Produto where id_produto = ?");
+			
+			pstm.setInt(1, produto.getIdProduto());
+			
+			//Executa uma atualização no banco
+			pstm.executeQuery();
+						
+		} catch (ClassNotFoundException cnf) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(), cnf.getMessage());
+			
+			return false;
+			
+		} catch (SQLException sql) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+			
+			return false;
+			
+		} finally{
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				return false;
+			}
+			
+		}
 		
 		return true;
 	}

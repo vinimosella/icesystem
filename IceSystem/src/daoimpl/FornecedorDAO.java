@@ -35,7 +35,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 		
 		try {
 			
-			//Cria a conexao com o banco
+			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
@@ -66,14 +66,14 @@ public class FornecedorDAO implements IFornecedorDAO{
 				
 			}
 			
-		} catch (SQLException e) {
+		} catch (SQLException sql) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			listaFornecedores = null;
 			
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException cnf) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			listaFornecedores = null;
 			
 		} finally {
@@ -89,9 +89,9 @@ public class FornecedorDAO implements IFornecedorDAO{
 					rs.close();
 				}
 				
-			} catch (SQLException e) {
+			} catch (SQLException sql) {
 				
-				LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 
 				listaFornecedores = null;
 				
@@ -143,7 +143,8 @@ public class FornecedorDAO implements IFornecedorDAO{
 			
 		} finally {
 			
-			//Finalizando os recursos
+			//Finalizando os recursos 
+			//Obs: A conexão não é finalizada pois faz parte da mesma transação do Fornecedor, então é Finalizada apenas uma vez
 			pstm.close();
 			
 			if(rs != null){
@@ -199,6 +200,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 		} finally {
 			
 			//Finalizando os recursos
+			//Obs: A conexão não é finalizada pois faz parte da mesma transação do Fornecedor, então é Finalizada apenas uma vez
 			pstm.close();
 			
 			if(rs != null){
