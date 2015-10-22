@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -34,7 +35,7 @@ public class AlterarProdutoView extends JDialog{
 
 	public AlterarProdutoView(ProdutoVO produto) {
 		this.produto=produto;
-		setTitle(Utilidades.CADASTRAR_MATERIA_PRIMA);
+		setTitle(Utilidades.ATUALIZAR_PRODUTO);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 259, 200);
 		contentPane = new JPanel();
@@ -83,13 +84,18 @@ public class AlterarProdutoView extends JDialog{
 					AlterarProdutoView.this.produto.setSabor(txtSabor.getText());
 					bo.alterarProduto(AlterarProdutoView.this.produto);
 					
+					Utilidades.frmHome.getContentPane().removeAll();
+					ConsultaProdutoView consulta = new ConsultaProdutoView();
+					Utilidades.frmHome.add(consulta);
+					Utilidades.frmHome.revalidate();
+					AlterarProdutoView.this.dispose();
+					
 				}
-				
-				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultaProdutoView consulta = new ConsultaProdutoView();
-				Utilidades.frmHome.add(consulta);
-				Utilidades.frmHome.revalidate();
-				AlterarProdutoView.this.dispose();
+				else{
+					
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "O campo 'nome' deve estar preenchido", "Alerta!", JOptionPane.ERROR_MESSAGE);
+
+				}
 				
 			}
 		});

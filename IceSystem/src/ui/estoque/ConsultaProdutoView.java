@@ -92,7 +92,9 @@ public class ConsultaProdutoView extends ConsultaGenericaView{
 		this.dtm = dtm;
 	}
 
-
+	/**
+	 * Não será usado nessa tela;
+	 */
 	@Override
 	public void btnDetalhar(Integer linhaSelecionada) {
 
@@ -101,7 +103,9 @@ public class ConsultaProdutoView extends ConsultaGenericaView{
 
 	@Override
 	public void btnAtualizar(Integer linhaSelecionada) {
-		// TODO Auto-generated method stub
+
+		AlterarProdutoView at = new AlterarProdutoView(listaProdutos.get(linhaSelecionada));
+		at.setVisible(true);
 		
 	}
 

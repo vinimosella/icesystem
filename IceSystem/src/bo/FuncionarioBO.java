@@ -20,7 +20,7 @@ public class FuncionarioBO {
 	}
 	
 	public boolean atualizarFuncionario(FuncionarioVO funcionario){
-		
+				
 		return true;
 	}
 	

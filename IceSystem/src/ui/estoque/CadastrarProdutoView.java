@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -76,13 +77,18 @@ public class CadastrarProdutoView extends JDialog{
 					produto.setSabor(txtSabor.getText());
 					bo.cadastrarProduto(produto);
 					
+					Utilidades.frmHome.getContentPane().removeAll();
+					ConsultaProdutoView consulta = new ConsultaProdutoView();
+					Utilidades.frmHome.add(consulta);
+					Utilidades.frmHome.revalidate();
+					CadastrarProdutoView.this.dispose();
+					
 				}
-				
-				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultaProdutoView consulta = new ConsultaProdutoView();
-				Utilidades.frmHome.add(consulta);
-				Utilidades.frmHome.revalidate();
-				CadastrarProdutoView.this.dispose();
+				else{
+					
+					JOptionPane.showMessageDialog(Utilidades.frmHome, "O campo 'nome' deve estar preenchido", "Alerta!", JOptionPane.ERROR_MESSAGE);
+
+				}
 				
 			}
 		});
