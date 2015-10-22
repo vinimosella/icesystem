@@ -19,8 +19,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 	private ResultSet rs;
 		
 	{
-		fabrica = ConnectionFactory.getInstance();
-		
+		fabrica = ConnectionFactory.getInstance();		
 	}
 	
 	@Override
@@ -60,11 +59,17 @@ public class  ProdutoDAO implements IProdutoDAO{
 		} catch (SQLException sql) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
 			listaProdutos = null;
 			
 		} catch (ClassNotFoundException cnf) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
 			listaProdutos = null;
 			
 		} finally {
@@ -83,6 +88,8 @@ public class  ProdutoDAO implements IProdutoDAO{
 			} catch (SQLException sql) {
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
 
 				listaProdutos = null;
 				
@@ -118,11 +125,17 @@ public class  ProdutoDAO implements IProdutoDAO{
 		} catch (SQLException sql) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
 			produto = null;
 			
 		} catch (ClassNotFoundException cnf) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
 			produto = null;
 			
 		} finally {
@@ -141,6 +154,8 @@ public class  ProdutoDAO implements IProdutoDAO{
 			} catch (SQLException sql) {
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
 
 				produto = null;
 				
@@ -174,11 +189,15 @@ public class  ProdutoDAO implements IProdutoDAO{
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			
+			cnf.printStackTrace();
+			
 			return false;
 			
 		} catch (SQLException sql) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
 			
 			return false;
 			
@@ -193,6 +212,10 @@ public class  ProdutoDAO implements IProdutoDAO{
 			} catch (SQLException sql) {
 
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
 			}
 
 		}
@@ -222,11 +245,15 @@ public class  ProdutoDAO implements IProdutoDAO{
 				//Executa uma atualização no banco
 				pstm.executeUpdate();
 				
+				//Em caso de sucesso, executa o commit do cadastro no banco
 				conexao.commit();		
 				
 			} catch (ClassNotFoundException cnf) {
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+				
+				cnf.printStackTrace();
+				
 				cnf.printStackTrace();
 				
 				try {
@@ -235,6 +262,9 @@ public class  ProdutoDAO implements IProdutoDAO{
 					
 				} catch (SQLException sql) {
 					LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+					
+					sql.printStackTrace();
+					
 					sql.printStackTrace();
 					
 				}
@@ -242,6 +272,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 			} catch (SQLException sql) {
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
 				sql.printStackTrace();
 				
 				try {
@@ -249,7 +280,9 @@ public class  ProdutoDAO implements IProdutoDAO{
 					conexao.rollback();
 					
 				} catch (SQLException sql2) {
+					
 					LogFactory.getInstance().gerarLog(getClass().getName(),sql2.getMessage());
+					
 					sql2.printStackTrace();
 					
 				}			
@@ -265,6 +298,10 @@ public class  ProdutoDAO implements IProdutoDAO{
 				} catch (SQLException sql) {
 					
 					LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+					
+					sql.printStackTrace();
+					
+					return false;
 				}
 			}
 		
@@ -291,11 +328,15 @@ public class  ProdutoDAO implements IProdutoDAO{
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(), cnf.getMessage());
 			
+			cnf.printStackTrace();
+						
 			return false;
 			
 		} catch (SQLException sql) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+			
+			sql.printStackTrace();
 			
 			return false;
 			
@@ -310,6 +351,8 @@ public class  ProdutoDAO implements IProdutoDAO{
 			} catch (SQLException sql) {
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
 				
 				return false;
 			}
