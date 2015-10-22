@@ -93,6 +93,9 @@ public class ConsultaMateriaPrimaView extends ConsultaGenericaView{
 		
 	}
 
+	/**
+	 * Não será usado nessa tela;
+	 * */
 	@Override
 	public void btnDetalhar(Integer linhaSelecionada) {
 
@@ -102,7 +105,9 @@ public class ConsultaMateriaPrimaView extends ConsultaGenericaView{
 
 	@Override
 	public void btnAtualizar(Integer linhaSelecionada) {
-		// TODO Auto-generated method stub
+
+		AlterarMateriaPrimaView at = new AlterarMateriaPrimaView(listaMaterias.get(linhaSelecionada));
+		at.setVisible(true);
 		
 	}
 

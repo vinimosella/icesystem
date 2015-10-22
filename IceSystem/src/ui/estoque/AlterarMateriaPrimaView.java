@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -36,6 +37,7 @@ public class AlterarMateriaPrimaView extends JDialog{
 	private FornecedorBO fornBo;
 	private List<FornecedorVO> listaFornecedores;
 	private FornecedorVO fornecedor;
+	private StringBuilder msgErro;
 	
 	{
 		bo = new MateriaPrimaBO();
@@ -45,7 +47,7 @@ public class AlterarMateriaPrimaView extends JDialog{
 
 	public AlterarMateriaPrimaView(MateriaPrimaVO materiaPrima) {
 		this.materiaPrima = materiaPrima;
-		setTitle(Utilidades.CADASTRAR_MATERIA_PRIMA);
+		setTitle(Utilidades.ATUALIZAR_MATERIA_PRIMA);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 259, 200);
 		contentPane = new JPanel();
@@ -103,9 +105,21 @@ public class AlterarMateriaPrimaView extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				//TODO VALIDAR TAMBEM O FORNECEDOR E EXIBIR MSG INDIVIDUAL PRA CADA UM... TBM ALTERAR NA TELA DE CADASTRO
-				//se não estiver vazio
-				if(!txtNome.getText().trim().equals("")){
+				msgErro = new StringBuilder();
+				
+				//verifica erros
+				if(txtNome.getText().trim().equals("")){
+			
+					msgErro.append("O campo 'nome' deve estar preenchido\n");
+				}
+				
+				if(comboFornecedor.getSelectedIndex()==0){
+					
+					msgErro.append("O campo 'fornecedor' deve estar selecionado\n");
+				}
+				
+				//se não estiver com erros
+				if(msgErro.toString().trim().equals("")){
 					
 					AlterarMateriaPrimaView.this.materiaPrima = new MateriaPrimaVO();
 					
@@ -114,13 +128,18 @@ public class AlterarMateriaPrimaView extends JDialog{
 					AlterarMateriaPrimaView.this.materiaPrima.setFornecedor(listaFornecedores.get(comboFornecedor.getSelectedIndex()-1));
 					bo.alterarMateriaPrima(AlterarMateriaPrimaView.this.materiaPrima);
 					
+					Utilidades.frmHome.getContentPane().removeAll();
+					ConsultaMateriaPrimaView consulta = new ConsultaMateriaPrimaView();
+					Utilidades.frmHome.add(consulta);
+					Utilidades.frmHome.revalidate();
+					AlterarMateriaPrimaView.this.dispose();
+					
 				}
-								
-				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultaMateriaPrimaView consulta = new ConsultaMateriaPrimaView();
-				Utilidades.frmHome.add(consulta);
-				Utilidades.frmHome.revalidate();
-				AlterarMateriaPrimaView.this.dispose();
+				else{
+					
+					JOptionPane.showMessageDialog(Utilidades.frmHome, msgErro.toString(), "Alerta!", JOptionPane.ERROR_MESSAGE);
+
+				}
 				
 			}
 		});

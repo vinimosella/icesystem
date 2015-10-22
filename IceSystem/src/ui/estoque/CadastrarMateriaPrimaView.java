@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -36,6 +37,7 @@ public class CadastrarMateriaPrimaView extends JDialog{
 	private FornecedorBO fornBo;
 	private List<FornecedorVO> listaFornecedores;
 	private FornecedorVO fornecedor;
+	private StringBuilder msgErro;
 	
 	{
 		bo = new MateriaPrimaBO();
@@ -92,23 +94,39 @@ public class CadastrarMateriaPrimaView extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				//se não estiver vazio
-				if(!txtNome.getText().trim().equals("")){
+				msgErro = new StringBuilder();
+				
+				//valida campos
+				if(txtNome.getText().trim().equals("")){
+					
+					msgErro.append("O campo 'nome' deve estar preenchido\n");
+				}
+				
+				if(comboFornecedor.getSelectedIndex()==0){
+					
+					msgErro.append("O campo 'fornecedor' deve estar selecionado\n");
+				}
+				
+				if(msgErro.toString().trim().equals("")){
 					
 					materiaPrima = new MateriaPrimaVO();
-					
 					materiaPrima.setNome(txtNome.getText());
 					materiaPrima.setSabor(txtSabor.getText());
 					materiaPrima.setFornecedor(listaFornecedores.get(comboFornecedor.getSelectedIndex()-1));
 					bo.cadastrarMateriaPrima(materiaPrima);
 					
+					Utilidades.frmHome.getContentPane().removeAll();
+					ConsultaMateriaPrimaView consulta = new ConsultaMateriaPrimaView();
+					Utilidades.frmHome.add(consulta);
+					Utilidades.frmHome.revalidate();
+					CadastrarMateriaPrimaView.this.dispose();
+					
 				}
-								
-				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultaMateriaPrimaView consulta = new ConsultaMateriaPrimaView();
-				Utilidades.frmHome.add(consulta);
-				Utilidades.frmHome.revalidate();
-				CadastrarMateriaPrimaView.this.dispose();
+				else{
+					
+					JOptionPane.showMessageDialog(Utilidades.frmHome, msgErro.toString(), "Alerta!", JOptionPane.ERROR_MESSAGE);
+
+				}
 				
 			}
 		});
