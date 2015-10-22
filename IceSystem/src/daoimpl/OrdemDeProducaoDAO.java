@@ -32,16 +32,20 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 		List<OrdemProducaoVO> listaOP = null;
 		
 		try {
-				
+			
+			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
 			
+			//Cria o [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select op.id_produto, op.id_situacao, op.quantidade, op.data_solicitacao, p.nome from Ordem_Producao op"
 					                       + " inner join Produto p on op.id_produto = p.id_produto");
 			
+			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
 			
 			listaOP = new ArrayList<OrdemProducaoVO>();
 			
+			//Carrega a listaOP
 			while(rs.next()){
 				
 				op = new OrdemProducaoVO();
@@ -70,6 +74,7 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			
 		} finally {
 			
+			//Finalizando os recursos
 			try {
 				
 				conexao.close();
@@ -101,17 +106,21 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 		List<OrdemProducaoVO> listaOP = null;
 		
 		try {
-				
+			
+			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
 			
+			//Cria um [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select op.id_produto, op.id_situacao, op.quantidade, op.data_solicitacao, p.nome from Ordem_Producao op"
 					                       + " inner join Produto p on op.id_produto = p.id_produto"
 					                       + " inner join Situacao s on op.id_situacao = s.id_situacao where descricao = 'Solicitado'");
 			
+			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
 			
 			listaOP = new ArrayList<OrdemProducaoVO>();
 			
+			//Carrega a listaOP
 			while(rs.next()){
 				
 				op = new OrdemProducaoVO();
@@ -140,6 +149,7 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			
 		} finally {
 			
+			//Finalizando os recursos
 			try {
 				
 				conexao.close();
@@ -171,17 +181,21 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 		List<OrdemProducaoVO> listaOP = null;
 		
 		try {
-				
+			
+			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
 			
+			//Cria o [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select op.id_produto, op.id_situacao, op.quantidade, op.data_solicitacao, p.nome from Ordem_Producao op"
 					                       + " inner join Produto p on op.id_produto = p.id_produto"
 					                       + " inner join Situacao s on op.id_situacao = s.id_situacao where descricao = Finalizado");
 			
+			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
 			
 			listaOP = new ArrayList<OrdemProducaoVO>();
 			
+			//Carrega a listaOP
 			while(rs.next()){
 				
 				op = new OrdemProducaoVO();
@@ -210,6 +224,7 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			
 		} finally {
 			
+			//Finalizando os recursos
 			try {
 				
 				conexao.close();
@@ -241,17 +256,21 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 		List<OrdemProducaoVO> listaOP = null;
 		
 		try {
-				
+			
+			//Cria a conexao com o banco
 			conexao = fabrica.getConexao();
 			
+			//Cria o [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select op.id_produto, op.id_situacao, op.quantidade, op.data_solicitacao, p.nome from Ordem_Producao op"
 					                       + " inner join Produto p on op.id_produto = p.id_produto"
 					                       + " inner join Situacao s on op.id_situacao = s.id_situacao where descricao = Cancelado");
 			
+			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
 			
 			listaOP = new ArrayList<OrdemProducaoVO>();
 			
+			//Carrega a listaOP
 			while(rs.next()){
 				
 				op = new OrdemProducaoVO();
@@ -280,6 +299,7 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			
 		} finally {
 			
+			//Finalizando os processos
 			try {
 				
 				conexao.close();
@@ -308,14 +328,19 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 		
 		try {
 			
+			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
 			
+			//Cria o [alter] que sera executado no banco
 			pstm = conexao.prepareStatement("alter table Ordem_Producao set id_situacao=?, id_produto=?, quantidade=? where id_ordem_producao=?");
 			
 			pstm.setInt(1, op.getSituacao().getIdSituacao());
 			pstm.setInt(2, op.getProduto().getIdProduto());
 			pstm.setInt(3, op.getQuantidade());
 			pstm.setLong(4, op.getIdOrdemProducao());
+			
+			//Executa uma atualização no banco
+			pstm.executeUpdate();
 	
 		} catch (ClassNotFoundException c) {
 			
@@ -331,6 +356,7 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			
 		} finally {
 
+			//Finalizando os processos
 			try {
 
 				conexao.close();
@@ -351,17 +377,21 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 		
 		try {
 			
+			//Cria a conexao com o banco
 			conexao = fabrica.getConexao();
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
+			//Cria o [insert] que sera executado no banco
 			pstm = conexao.prepareStatement("insert into Ordem_Producao (id_produto, id_situacao, quantidade) values (?, ?, ?)");
 						
 			pstm.setInt(1, op.getProduto().getIdProduto());
 			pstm.setInt(2, op.getSituacao().getIdSituacao());
 			pstm.setInt(3, op.getQuantidade());
 			
+			//Executa uma atualização no banco
 			pstm.executeUpdate();
 			
+			//Em caso de sucesso, executa o commit do cadastro no banco
 			conexao.commit();
 			
 		} catch (ClassNotFoundException c) {
@@ -369,6 +399,7 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			//Log do ClassNotFoundException
 			LogFactory.getInstance().gerarLog(getClass().getName(),c.getMessage());
 			
+			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
 				
 				conexao.rollback();
@@ -381,21 +412,22 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 				LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
 			}
 			
-		} catch (SQLException s) {
+		} catch (SQLException sql) {
 			
 			//Log do SQLException
-			LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			
+			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
 				
 				conexao.rollback();
 				
 				return false;
 				
-			} catch (SQLException s1) {
+			} catch (SQLException sql2) {
 				
 				//Log do rollback do SQLException
-				LogFactory.getInstance().gerarLog(getClass().getName(),s1.getMessage());
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql2.getMessage());
 				
 				return false;
 			}

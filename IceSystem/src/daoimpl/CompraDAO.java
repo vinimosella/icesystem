@@ -35,16 +35,20 @@ public class CompraDAO implements ICompraDAO{
 		List<CompraVO> listaCompras = null;
 		
 		try {
-				
+			
+			//Cria a [conexao] com o banco
 			conexao = fabrica.getConexao();
 			
+			//Cria o select que sera executado no banco
 			pstm = conexao.prepareStatement("select c.id_compra, c.data_compra, c.id_funcionario, c.id_situacao, f.nome from Compra c"
 					                       + " inner join Funcionario f on c.id_funcionario = f.id_funcionario");
 			
+			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
 			
 			listaCompras = new ArrayList<CompraVO>();
 			
+			//Carregando a listaCompras
 			while(rs.next()){
 				
 				c = new CompraVO();
@@ -61,18 +65,19 @@ public class CompraDAO implements ICompraDAO{
 				
 			}
 			
-		} catch (SQLException e) {
+		} catch (SQLException sql) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			listaCompras = null;
 			
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException cnf) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			listaCompras = null;
 			
 		} finally {
 			
+			//Finalizando os recursos
 			try {
 				
 				conexao.close();
@@ -83,9 +88,9 @@ public class CompraDAO implements ICompraDAO{
 					rs.close();
 				}
 				
-			} catch (SQLException e) {
+			} catch (SQLException sql) {
 				
-				LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 
 				listaCompras = null;
 				
@@ -105,19 +110,23 @@ public class CompraDAO implements ICompraDAO{
 		
 		try {
 				
+			//Cria a conexao com o banco
 			conexao = fabrica.getConexao();
 			
+			//Cria o [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select mp.id_pessoa_juridica, mp.nome, mp.quantidade_disponivel, mp.sabor, i.quantidade, i.valor from Item_Compra i"
 					                       + " inner join Materia_Prima mp on mp.id_materia_prima = i.id_materia_prima where i.id_compra = ?");
 			
 			pstm.setLong(1, compra.getIdCompra());
 			
+			//Executa o select no banco
 			rs = pstm.executeQuery();
 			
 			listaItens = new ArrayList<ItemCompraVO>();
 			
 			MateriaPrimaVO mp = null;
 			
+			//Carregando a listaItens
 			while(rs.next()){
 				
 				mp = new MateriaPrimaVO();
@@ -139,18 +148,19 @@ public class CompraDAO implements ICompraDAO{
 				
 			}
 			
-		} catch (SQLException e) {
+		} catch (SQLException sql) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			listaItens = null;
 			
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException cnf) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			listaItens = null;
 			
 		} finally {
 			
+			//Finalizando os recursos
 			try {
 				
 				conexao.close();
@@ -161,9 +171,9 @@ public class CompraDAO implements ICompraDAO{
 					rs.close();
 				}
 				
-			} catch (SQLException e) {
+			} catch (SQLException sql) {
 				
-				LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 
 				listaItens = null;
 				
@@ -179,22 +189,26 @@ public class CompraDAO implements ICompraDAO{
 				
 		try {
 			
+			//Cria a conexao com o banco
 			conexao = fabrica.getConexao();
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
+			//Cria o [insert] que sera executado no banco
 			pstm = conexao.prepareStatement("insert into Compra (id_funcionario, id_situacao) values (?, ?)");
 						
 			pstm.setInt(1, compra.getFuncionario().getIdFuncionario());
 			pstm.setInt(2, compra.getSituacao().getIdSituacao());
 			
+			//Executa uma atualização no banco
 			pstm.executeUpdate();
 			
 			//Recebe o id gerado automaticamente no insert anterior
 			rs = pstm.getGeneratedKeys();
 			int idCompra = rs.getInt("id_compra");
 			
+			//Cria o [insert] que sera executado no banco
 			pstm = conexao.prepareStatement("insert into Item_Compra (id_compra, id_materia_prima, quantidade, valor) values (?, ?, ?, ?)");
-						
+			
 			for (ItemCompraVO itemCompra : listaItensCompra) {
 
 				pstm.setInt(1, idCompra);
@@ -202,44 +216,48 @@ public class CompraDAO implements ICompraDAO{
 				pstm.setDouble(3, itemCompra.getQuantidade());
 				pstm.setDouble(4, itemCompra.getValor());
 				
+				//Executa uma atualização no banco
 				pstm.executeUpdate();
 				
 			}
 			
+			//Em caso de sucesso, executa o commit do cadastro no banco
 			conexao.commit();
 			
-		} catch (ClassNotFoundException c) {
+		} catch (ClassNotFoundException cnf) {
 			
 			//Log do ClassNotFoundException
-			LogFactory.getInstance().gerarLog(getClass().getName(),c.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			
+			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
 				
 				conexao.rollback();
 				
 				return false;
 				
-			} catch (SQLException s) {
+			} catch (SQLException sql) {
 				
 				//Log do rollback do ClassNotFoundException
-				LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			}
 			
-		} catch (SQLException s) {
+		} catch (SQLException sql) {
 			
 			//Log do SQLException
-			LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			
+			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
 				
 				conexao.rollback();
 				
 				return false;
 				
-			} catch (SQLException s1) {
+			} catch (SQLException sql2) {
 				
 				//Log do rollback do SQLException
-				LogFactory.getInstance().gerarLog(getClass().getName(),s1.getMessage());
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql2.getMessage());
 				
 				return false;
 			}
@@ -254,35 +272,41 @@ public class CompraDAO implements ICompraDAO{
 
 		try {
 			
+			//Cria a conexao com o banco
 			conexao = fabrica.getConexao();
 			
+			//Cria o [alter] que sera executado no banco
 			pstm = conexao.prepareStatement("alter table Compra set id_situacao=? where id_venda=?");
 			
 			pstm.setInt(1, compra.getSituacao().getIdSituacao());
 			pstm.setLong(2, compra.getIdCompra());
-	
-		} catch (ClassNotFoundException c) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),c.getMessage());
+			//Executa uma atualização no banco
+			pstm.executeUpdate();
+	
+		} catch (ClassNotFoundException cnf) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			
 			return false;
 			
-		} catch (SQLException s) {
+		} catch (SQLException sql) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			
 			return false;
 			
 		} finally {
 
+			//Finalizando os recursos
 			try {
 
 				conexao.close();
 				pstm.close();
 
-			} catch (SQLException s) {
+			} catch (SQLException sql) {
 
-				LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			}
 
 		}

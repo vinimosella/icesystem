@@ -34,16 +34,20 @@ public class FornecedorDAO implements IFornecedorDAO{
 		List<FornecedorVO> listaFornecedores = null;
 		
 		try {
-				
+			
+			//Cria a conexao com o banco
 			conexao = fabrica.getConexao();
 			
+			//Cria o [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select f.id_fornecedor_pj, pj.cnpj, pj.id_endereco, pj.razao_social from Fornecedor f"
 					                       + " inner join Pessoa_Juridica pj on f.id_fornecedor_pj = pj.id_pessoa_juridica");
 			
+			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
 			
 			listaFornecedores = new ArrayList<FornecedorVO>();
-						
+			
+			//Caregga a listaFornecedores
 			while(rs.next()){
 			
 				Integer idFornecedor = rs.getInt("id_fornecedor_pj");
@@ -74,6 +78,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 			
 		} finally {
 			
+			//Finalizando os recursos
 			try {
 				
 				conexao.close();
@@ -112,14 +117,17 @@ public class FornecedorDAO implements IFornecedorDAO{
 			
 			Connection conexaoLocal = conexao;
 			
+			//Cria o [select] que sera executado no banco
 			pstm = conexaoLocal.prepareStatement("select id_email, email, id_funcionario from Email where id_funcionario = ?");
 			
 			pstm.setInt(1, idFornecedor);
 			
+			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
 			
 			listaEmails = new ArrayList<EmailVO>();
 			
+			//Carrega a listaEmails que sera utilizada no consultarFornecedores
 			while(rs.next()){
 				
 				email = new EmailVO();
@@ -135,6 +143,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 			
 		} finally {
 			
+			//Finalizando os recursos
 			pstm.close();
 			
 			if(rs != null){
@@ -162,14 +171,17 @@ public class FornecedorDAO implements IFornecedorDAO{
 			
 			Connection conexaoLocal = conexao;
 			
+			//Cria o [select] que sera executado no banco
 			pstm = conexaoLocal.prepareStatement("select id_telefone, ddd, numero, id_funcionario from Telefone where id_funcionario = ?");
 			
+			//Executa uma pesquisa no banco
 			pstm.setInt(1, idFornecedor);
 			
 			rs = pstm.executeQuery();
 			
 			listaTelefones = new ArrayList<TelefoneVO>();
 			
+			//Carrega a listaTelefones que sera utilizada no consultarFornecedores
 			while(rs.next()){
 				
 				telefone = new TelefoneVO();
@@ -186,6 +198,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 			
 		} finally {
 			
+			//Finalizando os recursos
 			pstm.close();
 			
 			if(rs != null){
