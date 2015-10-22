@@ -33,17 +33,21 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 		
 		try {
 			
+			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
 			
+			//Cria o [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select mp.id_materia_prima, mp.id_fornecedor, mp.quantidade_disponivel, mp.nome, mp.sabor"
 				                            + " from Materia_Prima mp where mp.id_fornecedor = ?");
 			
 			pstm.setLong(1, fornecedor.getIdPessoaJuridica());
-		
+			
+			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
 			
 			listaMP = new ArrayList<MateriaPrimaVO>();
 			
+			//Carrega a listaMP 
 			while(rs.next()){
 				
 				mp = new MateriaPrimaVO();
@@ -70,6 +74,7 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			
 		} finally {
 			
+			//Finalizando os recursos
 			try {
 				
 				conexao.close();

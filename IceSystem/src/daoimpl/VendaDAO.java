@@ -33,18 +33,22 @@ public class VendaDAO implements IVendaDAO{
 		List<VendaVO> listaVendas = null;
 		
 		try {
-				
+			
+			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
 			
+			//Cria o [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select v.id_venda, v.data_venda, s.descricao, pj.razao_social from Venda v"
 					                       + " inner join Situacao s on v.id_situacao = s.id_situacao"
 					                       + " inner join Cliente c on v.id_cliente = c.id_cliente"
 					                       + " inner join Pessoa_Juridica pj on pj.id_pessoa_juridica = c.id_cliente_pj");
 			
+			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
 			
 			listaVendas = new ArrayList<VendaVO>();
 			
+			//Carrega a listaVendas
 			while(rs.next()){
 				
 				v = new VendaVO();
@@ -72,6 +76,7 @@ public class VendaDAO implements IVendaDAO{
 			
 		} finally {
 			
+			//Finalizando os recursos
 			try {
 				
 				conexao.close();
@@ -98,11 +103,13 @@ public class VendaDAO implements IVendaDAO{
 	@Override
 	public boolean cadastrarVenda(VendaVO venda, List<ItemVendaVO> listaItensVenda){
 		
-try {
+		try {
 			
+			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
+			//Cria o [insert] que sera executado no  banco
 			pstm = conexao.prepareStatement("insert into Venda (id_cliente, id_funcionario, id_situacao) "
 					                       + "values (?, ?, ?)");
 			
@@ -110,6 +117,7 @@ try {
 			pstm.setInt(2, venda.getFuncionario().getIdFuncionario());
 			pstm.setInt(3, venda.getSituacao().getIdSituacao());
 			
+			//Executa uma atualização no banco
 			pstm.executeUpdate();
 			
 			//Recebe o id gerado automaticamente no insert anterior
@@ -128,14 +136,15 @@ try {
 				pstm.executeUpdate();
 				
 			}
-			
+			//Em caso de sucesso, executa o commit do cadastro no banco
 			conexao.commit();
-			
+						
 		} catch (ClassNotFoundException c) {
 			
 			//Log do ClassNotFoundException
 			LogFactory.getInstance().gerarLog(getClass().getName(),c.getMessage());
 			
+			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
 				
 				conexao.rollback();
@@ -148,23 +157,42 @@ try {
 				LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
 			}
 			
-		} catch (SQLException s) {
+		} catch (SQLException sql) {
 			
 			//Log do SQLException
-			LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			
+			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
 				
 				conexao.rollback();
 				
 				return false;
 				
-			} catch (SQLException s1) {
+			} catch (SQLException sql2) {
 				
 				//Log do rollback do SQLException
-				LogFactory.getInstance().gerarLog(getClass().getName(),s1.getMessage());
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql2.getMessage());
 				
 				return false;
+				
+			} finally{
+				
+				//Finalizando os recursos
+				try {
+					
+					conexao.close();
+					
+					pstm.close();
+					
+					if(rs!= null){
+						
+						rs.close();
+					}
+					
+				} catch (SQLException e) {
+					
+				}
 			}
 
 		}
@@ -177,12 +205,17 @@ try {
 
 		try {
 			
+			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
 			
+			//Cria o [alter] que sera executado no banco
 			pstm = conexao.prepareStatement("alter table Venda set id_situacao=? where id_venda=?");
 			
 			pstm.setInt(1, venda.getSituacao().getIdSituacao());
 			pstm.setLong(2, venda.getIdVenda());
+			
+			//Executa uma atualização no banco
+			pstm.executeUpdate();
 	
 		} catch (ClassNotFoundException c) {
 			
@@ -197,7 +230,8 @@ try {
 			return false;
 			
 		} finally {
-
+			
+			//Finalizando os recursos
 			try {
 
 				conexao.close();

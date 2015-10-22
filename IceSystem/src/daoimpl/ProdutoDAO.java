@@ -31,15 +31,19 @@ public class  ProdutoDAO implements IProdutoDAO{
 		List<ProdutoVO> listaProdutos = null;
 		
 		try {
-				
+			
+			//Cria a conexao com o banco
 			conexao = fabrica.getConexao();
 			
+			//Cria o [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select id_produto, quantidade_estoque, nome, sabor from Produto");
 			
+			//Executa a pesquisa no banco
 			rs = pstm.executeQuery();
 			
 			listaProdutos = new ArrayList<ProdutoVO>();
 			
+			//Carrega a listaProdutos
 			while(rs.next()){
 				
 				p = new ProdutoVO();
@@ -65,6 +69,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 			
 		} finally {
 			
+			//Finalizando os recursos
 			try {
 				
 				conexao.close();
@@ -91,37 +96,39 @@ public class  ProdutoDAO implements IProdutoDAO{
 	@Override
 	public ProdutoVO consultarProduto(ProdutoVO produto){
 				
-		ProdutoVO p = null;
-		
 		try {
-				
+			
+			//Cria a conexao com o banco
 			conexao = fabrica.getConexao();
 			
+			//Cria o [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select p.id_produto, p.quantidade_estoque, p.nome, p.sabor from Produto p where p.id_produto = ?");
 			
 			pstm.setLong(1, produto.getIdProduto());
-		
+			
+			//Executa a pesquisa no banco
 			rs = pstm.executeQuery();
+			
+			//Carrega o produto
 				
-			p = new ProdutoVO();
-				
-			p.setIdProduto(rs.getInt("id_produto"));
-			p.setNome(rs.getString("nome"));
-			p.setQuantidadeEstoque(rs.getInt("quantidade_estoque"));
-			p.setSabor(rs.getString("sabor"));
+			produto.setIdProduto(rs.getInt("id_produto"));
+			produto.setNome(rs.getString("nome"));
+			produto.setQuantidadeEstoque(rs.getInt("quantidade_estoque"));
+			produto.setSabor(rs.getString("sabor"));
 			
 		} catch (SQLException e) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
-			p = null;
+			produto = null;
 			
 		} catch (ClassNotFoundException e) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
-			p = null;
+			produto = null;
 			
 		} finally {
 			
+			//Finalizando os processos
 			try {
 				
 				conexao.close();
@@ -136,13 +143,13 @@ public class  ProdutoDAO implements IProdutoDAO{
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
 
-				p = null;
+				produto = null;
 				
 			}			
 		
 		}
 		
-		return p;
+		return produto;
 	}
 
 	@Override
@@ -150,14 +157,19 @@ public class  ProdutoDAO implements IProdutoDAO{
 		
 		try {
 			
+			//Cria a conexao com o banco
 			conexao = fabrica.getConexao();
 			
+			//Cria [alter] que sera executado no banco
 			pstm = conexao.prepareStatement("alter table Produto set quantidade_estoque=?, nome=?, sabor=? where id_produto=?");
 			
 			pstm.setInt(1, produto.getQuantidadeEstoque());
 			pstm.setString(2, produto.getNome());
 			pstm.setString(3, produto.getSabor());
 			pstm.setInt(4, produto.getIdProduto());
+			
+			//Executa uma atualização no banco
+			pstm.executeUpdate();
 	
 		} catch (ClassNotFoundException c) {
 			
@@ -173,6 +185,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 			
 		} finally {
 
+			//Finalizando os recursos
 			try {
 
 				conexao.close();
@@ -193,15 +206,18 @@ public class  ProdutoDAO implements IProdutoDAO{
 					
 			try {
 				
+				//Cria a conexao com o banco
 				conexao = fabrica.getConexao();
 				
+				//Cria o [insert] que sera executado no banco
 				pstm = conexao.prepareStatement("insert into Produto (quantidade_estoque, nome, sabor) values (?, ?, ?)");
 				
 				pstm.setInt(1, produto.getQuantidadeEstoque());
 				pstm.setString(2, produto.getNome());
 				pstm.setString(3, produto.getSabor());
-							
-				pstm.executeQuery();
+				
+				//Executa uma atualização no banco
+				pstm.executeUpdate();
 				
 			} catch (ClassNotFoundException c) {
 				
