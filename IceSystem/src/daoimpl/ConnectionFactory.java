@@ -28,7 +28,7 @@ public class ConnectionFactory {
 		
   	  Class.forName("net.sourceforge.jtds.jdbc.Driver");
   	 
-  	  conexao = DriverManager.getConnection("jdbc:jtds:sqlserver://localhost:1433/IceSystem","sa","sql2015");
+  	  conexao = DriverManager.getConnection("jdbc:jtds:sqlserver://localhost:1433/IceSystem","sa","14789632xt");
 		
 		return conexao;
 	}	

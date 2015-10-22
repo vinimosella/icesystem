@@ -202,29 +202,57 @@ public class  ProdutoDAO implements IProdutoDAO{
 
 	@Override
 	public boolean cadastrarProduto(ProdutoVO produto) {
-					
+		
 			try {
 				
 				//Cria a conexão com o banco
-				conexao = fabrica.getConexao();
+				conexao = fabrica.getConexao(); 
+				
+				conexao.setAutoCommit(false); //Inicia uma transação
 				
 				//Cria o [insert] que sera executado no banco
-				pstm = conexao.prepareStatement("insert into Produto (quantidade_estoque, nome, sabor) values (?, ?, ?)");
+				pstm = conexao.prepareStatement("insert into Produto (nome, sabor, quantidade_estoque) values (?, ?, ?)");
 				
-				pstm.setInt(1, produto.getQuantidadeEstoque());
-				pstm.setString(2, produto.getNome());
-				pstm.setString(3, produto.getSabor());
+				pstm.setString(1, produto.getNome());
+				
+				pstm.setString(2, produto.getSabor());
+			
+				pstm.setInt(3, 0);
 				
 				//Executa uma atualização no banco
 				pstm.executeUpdate();
 				
+				conexao.commit();		
+				
 			} catch (ClassNotFoundException cnf) {
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+				cnf.printStackTrace();
+				
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql) {
+					LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+					sql.printStackTrace();
+					
+				}
 				
 			} catch (SQLException sql) {
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				sql.printStackTrace();
+				
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql2) {
+					LogFactory.getInstance().gerarLog(getClass().getName(),sql2.getMessage());
+					sql2.printStackTrace();
+					
+				}			
 				
 			} finally{
 				
