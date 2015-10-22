@@ -83,7 +83,7 @@ public class OrdemDeProducaoView extends JPanel{
 		this.add(radioTodas);
 		grupoRadio.add(radioTodas);
 		
-		lblSolicitado = new JLabel("Solicitada");
+		lblSolicitado = new JLabel("Solicitadas");
 		lblSolicitado.setBounds(120,37, 70,17);
 		this.add(lblSolicitado);
 		
@@ -103,7 +103,7 @@ public class OrdemDeProducaoView extends JPanel{
 		this.add(radioSolicitado);
 		grupoRadio.add(radioSolicitado);
 		
-		lblFinalizado = new JLabel("Finalizada");
+		lblFinalizado = new JLabel("Finalizadas");
 		lblFinalizado.setBounds(220,37, 70,17);
 		this.add(lblFinalizado);
 		
@@ -123,7 +123,7 @@ public class OrdemDeProducaoView extends JPanel{
 		this.add(radioFinalizado);
 		grupoRadio.add(radioFinalizado);
 		
-		lblCancelado = new JLabel("Cancelada");
+		lblCancelado = new JLabel("Canceladas");
 		lblCancelado.setBounds(320,37, 70,17);
 		this.add(lblCancelado);
 		
