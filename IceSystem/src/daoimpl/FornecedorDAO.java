@@ -68,11 +68,17 @@ public class FornecedorDAO implements IFornecedorDAO{
 		} catch (SQLException sql) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
 			listaFornecedores = null;
 			
 		} catch (ClassNotFoundException cnf) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
 			listaFornecedores = null;
 			
 		} finally {
@@ -91,6 +97,8 @@ public class FornecedorDAO implements IFornecedorDAO{
 			} catch (SQLException sql) {
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
 
 				listaFornecedores = null;
 				

@@ -64,11 +64,17 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 		} catch (SQLException sql) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
 			listaMP = null;
 			
 		} catch (ClassNotFoundException cnf) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
 			listaMP = null;
 			
 		} finally {
@@ -87,6 +93,9 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			} catch (SQLException sql) {
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
+				
 				listaMP = null;
 				
 			}			

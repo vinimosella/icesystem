@@ -240,12 +240,16 @@ public class CompraDAO implements ICompraDAO{
 				
 				//Log do rollback do ClassNotFoundException
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
 			}
 			
 		} catch (SQLException sql) {
 			
 			//Log do SQLException
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
 			
 			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
@@ -258,6 +262,8 @@ public class CompraDAO implements ICompraDAO{
 				
 				//Log do rollback do SQLException
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql2.getMessage());
+				
+				sql2.printStackTrace();
 				
 				return false;
 			}
@@ -278,6 +284,8 @@ public class CompraDAO implements ICompraDAO{
 			} catch (SQLException sql) {
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
 				
 			}
 		}
@@ -306,11 +314,15 @@ public class CompraDAO implements ICompraDAO{
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			
+			cnf.printStackTrace();
+			
 			return false;
 			
 		} catch (SQLException sql) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
 			
 			return false;
 			
@@ -325,6 +337,10 @@ public class CompraDAO implements ICompraDAO{
 			} catch (SQLException sql) {
 
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
 			}
 
 		}

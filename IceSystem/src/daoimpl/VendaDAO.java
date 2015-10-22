@@ -90,6 +90,9 @@ public class VendaDAO implements IVendaDAO{
 			} catch (SQLException sql) {
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
+				
 				listaVendas = null;
 				
 			}			
@@ -141,10 +144,12 @@ public class VendaDAO implements IVendaDAO{
 			//Em caso de sucesso, executa o commit do cadastro no banco
 			conexao.commit();
 						
-		} catch (ClassNotFoundException c) {
+		} catch (ClassNotFoundException cnf) {
 			
 			//Log do ClassNotFoundException
-			LogFactory.getInstance().gerarLog(getClass().getName(),c.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
 			
 			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
@@ -153,10 +158,12 @@ public class VendaDAO implements IVendaDAO{
 				
 				return false;
 				
-			} catch (SQLException s) {
+			} catch (SQLException sql) {
 				
 				//Log do rollback do ClassNotFoundException
-				LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
 				
 				return false;
 			}
@@ -165,6 +172,8 @@ public class VendaDAO implements IVendaDAO{
 			
 			//Log do SQLException
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
 			
 			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
@@ -177,6 +186,8 @@ public class VendaDAO implements IVendaDAO{
 				
 				//Log do rollback do SQLException
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql2.getMessage());
+				
+				sql2.printStackTrace();
 				
 				return false;
 				
@@ -197,6 +208,10 @@ public class VendaDAO implements IVendaDAO{
 				} catch (SQLException sql2) {
 					
 					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+					
+					sql2.printStackTrace();
+					
+					return false;
 					
 				}
 			}
@@ -223,15 +238,19 @@ public class VendaDAO implements IVendaDAO{
 			//Executa uma atualização no banco
 			pstm.executeUpdate();
 	
-		} catch (ClassNotFoundException c) {
+		} catch (ClassNotFoundException cnf) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),c.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
 			
 			return false;
 			
-		} catch (SQLException s) {
+		} catch (SQLException sql) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
 			
 			return false;
 			
@@ -243,9 +262,11 @@ public class VendaDAO implements IVendaDAO{
 				conexao.close();
 				pstm.close();
 
-			} catch (SQLException s) {
+			} catch (SQLException sql) {
 
-				LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
 				
 				return false;
 			}
