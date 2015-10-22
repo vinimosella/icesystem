@@ -65,11 +65,17 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 		} catch (SQLException sql) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
 			listaOP = null;
 			
 		} catch (ClassNotFoundException cnf) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
 			listaOP = null;
 			
 		} finally {
@@ -88,6 +94,8 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			} catch (SQLException sql) {
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
 
 				listaOP = null;
 				
@@ -140,11 +148,17 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 		} catch (SQLException sql) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
 			listaOP = null;
 			
 		} catch (ClassNotFoundException cnf) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
 			listaOP = null;
 			
 		} finally {
@@ -215,11 +229,17 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 		} catch (SQLException sql) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
 			listaOP = null;
 			
 		} catch (ClassNotFoundException cnf) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
 			listaOP = null;
 			
 		} finally {
@@ -238,6 +258,8 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			} catch (SQLException sql) {
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
 
 				listaOP = null;
 				
@@ -290,11 +312,17 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 		} catch (SQLException sql) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
 			listaOP = null;
 			
 		} catch (ClassNotFoundException cnf) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
 			listaOP = null;
 			
 		} finally {
@@ -313,6 +341,8 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			} catch (SQLException sql) {
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
 
 				listaOP = null;
 				
@@ -346,11 +376,15 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			
+			cnf.printStackTrace();
+			
 			return false;
 			
 		} catch (SQLException sql) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
 			
 			return false;
 			
@@ -365,6 +399,10 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			} catch (SQLException sql) {
 
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
 			}
 
 		}
@@ -399,6 +437,8 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			//Log do ClassNotFoundException
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			
+			cnf.printStackTrace();
+			
 			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
 				
@@ -410,12 +450,18 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 				
 				//Log do rollback do ClassNotFoundException
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
 			}
 			
 		} catch (SQLException sql) {
 			
 			//Log do SQLException
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
 			
 			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
@@ -428,6 +474,8 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 				
 				//Log do rollback do SQLException
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql2.getMessage());
+				
+				sql2.printStackTrace();
 				
 				return false;
 			}
@@ -457,11 +505,15 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(), cnf.getMessage());
 			
+			cnf.printStackTrace();
+			
 			return false;
 			
 		} catch (SQLException sql) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+			
+			sql.printStackTrace();
 			
 			return false;
 			
@@ -476,6 +528,8 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			} catch (SQLException sql) {
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
 				
 				return false;
 			}
