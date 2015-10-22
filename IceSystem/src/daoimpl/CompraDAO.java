@@ -36,10 +36,10 @@ public class CompraDAO implements ICompraDAO{
 		
 		try {
 			
-			//Cria a [conexao] com o banco
+			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
 			
-			//Cria o select que sera executado no banco
+			//Cria o [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select c.id_compra, c.data_compra, c.id_funcionario, c.id_situacao, f.nome from Compra c"
 					                       + " inner join Funcionario f on c.id_funcionario = f.id_funcionario");
 			
@@ -110,7 +110,7 @@ public class CompraDAO implements ICompraDAO{
 		
 		try {
 				
-			//Cria a conexao com o banco
+			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
@@ -189,7 +189,7 @@ public class CompraDAO implements ICompraDAO{
 				
 		try {
 			
-			//Cria a conexao com o banco
+			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
