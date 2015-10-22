@@ -14,6 +14,4 @@ public interface IProdutoDAO {
 	
 	public boolean cadastrarProduto(ProdutoVO produto);
 	
-	public boolean excluirProduto(ProdutoVO produto);
-	
 }

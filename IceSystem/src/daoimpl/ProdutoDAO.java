@@ -190,14 +190,29 @@ public class  ProdutoDAO implements IProdutoDAO{
 
 	@Override
 	public boolean cadastrarProduto(ProdutoVO produto) {
+					
+			try {
+				
+				conexao = fabrica.getConexao();
+				
+				pstm = conexao.prepareStatement("insert into Produto (quantidade_estoque, nome, sabor) values (?, ?, ?)");
+				
+				pstm.setInt(1, produto.getQuantidadeEstoque());
+				pstm.setString(2, produto.getNome());
+				pstm.setString(3, produto.getSabor());
+							
+				pstm.executeQuery();
+				
+			} catch (ClassNotFoundException c) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),c.getMessage());
+				
+			} catch (SQLException s) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+			}	
 		
-		return false;
-	}
-
-	@Override
-	public boolean excluirProduto(ProdutoVO produto) {
-		
-		return false;
+		return true;
 	}
 	
 }
