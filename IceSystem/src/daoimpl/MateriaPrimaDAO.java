@@ -20,8 +20,7 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 	private ResultSet rs;
 		
 	{
-		fabrica = ConnectionFactory.getInstance();
-		
+		fabrica = ConnectionFactory.getInstance();		
 	}
 	
 	@Override
