@@ -437,4 +437,52 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 		return true;
 	}
 
+	@Override
+	public boolean excluirOP(OrdemProducaoVO op) {
+
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			
+			//Cria o [delete] que sera executado no banco
+			pstm = conexao.prepareStatement("delete from Ordem_Producao where id_ordem_producao = ?");
+			
+			pstm.setLong(1, op.getIdOrdemProducao());
+			
+			//Executa uma atualização no banco
+			pstm.executeQuery();
+						
+		} catch (ClassNotFoundException cnf) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(), cnf.getMessage());
+			
+			return false;
+			
+		} catch (SQLException sql) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+			
+			return false;
+			
+		} finally{
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				return false;
+			}
+			
+		}
+		
+		return true;
+	}
+
 }

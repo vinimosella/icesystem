@@ -64,14 +64,14 @@ public class VendaDAO implements IVendaDAO{
 				
 			}
 			
-		} catch (SQLException e) {
+		} catch (SQLException sql) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			listaVendas = null;
 			
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException cnf) {
 			
-			LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			listaVendas = null;
 			
 		} finally {
@@ -87,10 +87,9 @@ public class VendaDAO implements IVendaDAO{
 					rs.close();
 				}
 				
-			} catch (SQLException e) {
+			} catch (SQLException sql) {
 				
-				LogFactory.getInstance().gerarLog(getClass().getName(),e.getMessage());
-
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 				listaVendas = null;
 				
 			}			
@@ -124,8 +123,10 @@ public class VendaDAO implements IVendaDAO{
 			rs = pstm.getGeneratedKeys();
 			int idVenda = rs.getInt("id_venda");
 			
+			//Cria o [insert] que sera executado no banco
 			pstm = conexao.prepareStatement("insert into Item_Venda (id_venda, id_produto, quantidade, valor) values (?, ?, ?, ?)");
-						
+			
+			//Foreach para inserir a listaItensVenda na Venda
 			for (ItemVendaVO itemVenda : listaItensVenda) {
 
 				pstm.setInt(1, idVenda);
@@ -133,6 +134,7 @@ public class VendaDAO implements IVendaDAO{
 				pstm.setDouble(3, itemVenda.getQuantidade());
 				pstm.setDouble(4, itemVenda.getValor());			
 				
+				//Executa uma atualização no banco
 				pstm.executeUpdate();
 				
 			}
@@ -155,6 +157,8 @@ public class VendaDAO implements IVendaDAO{
 				
 				//Log do rollback do ClassNotFoundException
 				LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+				
+				return false;
 			}
 			
 		} catch (SQLException sql) {
@@ -190,7 +194,9 @@ public class VendaDAO implements IVendaDAO{
 						rs.close();
 					}
 					
-				} catch (SQLException e) {
+				} catch (SQLException sql2) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
 					
 				}
 			}
@@ -240,6 +246,8 @@ public class VendaDAO implements IVendaDAO{
 			} catch (SQLException s) {
 
 				LogFactory.getInstance().gerarLog(getClass().getName(),s.getMessage());
+				
+				return false;
 			}
 
 		}

@@ -16,6 +16,8 @@ public interface IOrdemDeProducaoDAO {
 	
 	public boolean alterarOrdemProducao(OrdemProducaoVO op);
 	
-	public boolean cadastrarOP(OrdemProducaoVO ordemProducao);
+	public boolean cadastrarOP(OrdemProducaoVO op);
+	
+	public boolean excluirOP(OrdemProducaoVO op);
 	
 }
