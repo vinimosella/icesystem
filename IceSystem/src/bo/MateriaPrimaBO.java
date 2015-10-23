@@ -21,7 +21,7 @@ public class MateriaPrimaBO {
 
 	public List<MateriaPrimaVO> consultarMateriasPrimas(FornecedorVO fornecedor){
 		
-		return dao.consultarMateriaPrimaFornecedor(fornecedor);
+		return dao.consultarMPFornecedor(fornecedor);
 	}
 	
 	public List<MateriaPrimaVO> consultarMateriasPrimas(){
