@@ -226,9 +226,6 @@ public class CompraDAO implements ICompraDAO{
 			
 		} catch (ClassNotFoundException cnf) {
 			
-			//Log do ClassNotFoundException
-			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
-			
 			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
 				
@@ -238,35 +235,38 @@ public class CompraDAO implements ICompraDAO{
 				
 			} catch (SQLException sql) {
 				
-				//Log do rollback do ClassNotFoundException
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 				
 				sql.printStackTrace();
 			}
+						
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			return false;
 			
 		} catch (SQLException sql) {
-			
-			//Log do SQLException
-			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
-			
-			sql.printStackTrace();
-			
+						
 			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
 				
 				conexao.rollback();
 				
-				return false;
-				
 			} catch (SQLException sql2) {
 				
-				//Log do rollback do SQLException
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql2.getMessage());
 				
 				sql2.printStackTrace();
 				
 				return false;
 			}
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			return false;
 
 		} finally{
 			
@@ -283,9 +283,26 @@ public class CompraDAO implements ICompraDAO{
 				
 			} catch (SQLException sql) {
 				
+				//Caso ocorra algum erro, executa o rollback do cadastro no banco
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql2) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+					
+					sql2.printStackTrace();
+					
+					return false;
+					
+				}
+				
 				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
 				
 				sql.printStackTrace();
+				
+				return false;
 				
 			}
 		}
@@ -300,17 +317,34 @@ public class CompraDAO implements ICompraDAO{
 			
 			//Cria a conexao com o banco
 			conexao = fabrica.getConexao();
+			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [alter] que sera executado no banco
-			pstm = conexao.prepareStatement("alter table Compra set id_situacao=? where id_venda=?");
+			pstm = conexao.prepareStatement("update Compra set id_situacao=? where id_venda=?");
 			
 			pstm.setInt(1, compra.getSituacao().getIdSituacao());
 			pstm.setLong(2, compra.getIdCompra());
 			
 			//Executa uma atualização no banco
 			pstm.executeUpdate();
+			
+			//Em caso de sucesso, executa o commit do update no banco
+			conexao.commit();
 	
 		} catch (ClassNotFoundException cnf) {
+			
+			//Caso ocorra algum erro, executa o rollback do update no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+			}
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			
@@ -319,6 +353,21 @@ public class CompraDAO implements ICompraDAO{
 			return false;
 			
 		} catch (SQLException sql) {
+			
+			//Caso ocorra algum erro, executa o rollback do update no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql2) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+				
+				sql2.printStackTrace();
+				
+				return false;
+				
+			}
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			
@@ -336,6 +385,21 @@ public class CompraDAO implements ICompraDAO{
 
 			} catch (SQLException sql) {
 
+				//Caso ocorra algum erro, executa o rollback do update no banco
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql2) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+					
+					sql2.printStackTrace();
+					
+					return false;
+					
+				}
+				
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 				
 				sql.printStackTrace();

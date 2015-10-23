@@ -360,9 +360,10 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			
 			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
+			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [alter] que sera executado no banco
-			pstm = conexao.prepareStatement("alter table Ordem_Producao set id_situacao=?, id_produto=?, quantidade=? where id_ordem_producao=?");
+			pstm = conexao.prepareStatement("update Ordem_Producao set id_situacao=?, id_produto=?, quantidade=? where id_ordem_producao=?");
 			
 			pstm.setInt(1, op.getSituacao().getIdSituacao());
 			pstm.setInt(2, op.getProduto().getIdProduto());
@@ -371,8 +372,26 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			
 			//Executa uma atualização no banco
 			pstm.executeUpdate();
+			
+			//Em caso de sucesso, executa o commit do update no banco
+			conexao.commit();
 	
 		} catch (ClassNotFoundException cnf) {
+			
+			//Caso ocorra algum erro, executa o rollback do update no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+				
+			}
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			
@@ -381,6 +400,21 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			return false;
 			
 		} catch (SQLException sql) {
+			
+			//Caso ocorra algum erro, executa o rollback do update no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql2) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+				
+				sql2.printStackTrace();
+				
+				return false;
+				
+			}
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			
@@ -398,6 +432,21 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 
 			} catch (SQLException sql) {
 
+				//Caso ocorra algum erro, executa o rollback do update no banco
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql2) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+					
+					sql2.printStackTrace();
+					
+					return false;
+					
+				}
+				
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 				
 				sql.printStackTrace();
@@ -434,17 +483,10 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			
 		} catch (ClassNotFoundException cnf) {
 			
-			//Log do ClassNotFoundException
-			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
-			
-			cnf.printStackTrace();
-			
 			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
 				
 				conexao.rollback();
-				
-				return false;
 				
 			} catch (SQLException sql) {
 				
@@ -455,30 +497,34 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 				
 				return false;
 			}
+						
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			
+			cnf.printStackTrace();
+			
+			return false;
+						
 		} catch (SQLException sql) {
-			
-			//Log do SQLException
-			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
-			
-			sql.printStackTrace();
-			
+						
 			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
 				
 				conexao.rollback();
 				
-				return false;
-				
 			} catch (SQLException sql2) {
 				
-				//Log do rollback do SQLException
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql2.getMessage());
 				
 				sql2.printStackTrace();
 				
 				return false;
 			}
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			return false;
 
 		}
 		
@@ -492,6 +538,7 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			
 			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
+			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [delete] que sera executado no banco
 			pstm = conexao.prepareStatement("delete from Ordem_Producao where id_ordem_producao = ?");
@@ -500,8 +547,23 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			
 			//Executa uma atualização no banco
 			pstm.executeQuery();
+			
+			//Em caso de sucesso, executa o commit do delete no banco
+			conexao.commit();
 						
 		} catch (ClassNotFoundException cnf) {
+			
+			//Caso ocorra algum erro, executa o delete do update no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+			}
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(), cnf.getMessage());
 			
@@ -510,6 +572,21 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			return false;
 			
 		} catch (SQLException sql) {
+			
+			//Caso ocorra algum erro, executa o delete do update no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql2) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+				
+				sql2.printStackTrace();
+				
+				return false;
+				
+			}
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
 			
@@ -526,6 +603,21 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 				pstm.close();
 				
 			} catch (SQLException sql) {
+				
+				//Caso ocorra algum erro, executa o delete do update no banco
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql2) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+					
+					sql2.printStackTrace();
+					
+					return false;
+					
+				}
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
 				
