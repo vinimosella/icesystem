@@ -115,7 +115,7 @@ public class CompraDAO implements ICompraDAO{
 			
 			//Cria o [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select mp.id_pessoa_juridica, mp.nome, mp.quantidade_disponivel, mp.sabor, i.quantidade, i.valor from Item_Compra i"
-					                       + " inner join Materia_Prima mp on mp.id_materia_prima = i.id_materia_prima where i.id_compra = ?");
+					                       + " inner join Materia_Prima mp on mp.id_materia_prima = i.id_materia_prima where i.id_compra=?");
 			
 			pstm.setLong(1, compra.getIdCompra());
 			
@@ -231,13 +231,13 @@ public class CompraDAO implements ICompraDAO{
 				
 				conexao.rollback();
 				
-				return false;
-				
 			} catch (SQLException sql) {
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 				
 				sql.printStackTrace();
+				
+				return false;
 			}
 						
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
