@@ -124,6 +124,7 @@ public class AlterarMateriaPrimaView extends JDialog{
 					AlterarMateriaPrimaView.this.materiaPrima.setNome(txtNome.getText());
 					AlterarMateriaPrimaView.this.materiaPrima.setSabor(txtSabor.getText());
 					AlterarMateriaPrimaView.this.materiaPrima.setFornecedor(listaFornecedores.get(comboFornecedor.getSelectedIndex()-1));
+					
 					bo.alterarMateriaPrima(AlterarMateriaPrimaView.this.materiaPrima);
 					
 					Utilidades.frmHome.getContentPane().removeAll();

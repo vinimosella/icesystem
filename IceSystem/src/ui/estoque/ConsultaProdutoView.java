@@ -82,7 +82,7 @@ public class ConsultaProdutoView extends ConsultaGenericaView{
 			dtm.addRow(new Object[] {
 				produto.getIdProduto(),
 				produto.getNome(),
-				(produto.getSabor()!=null) ? produto.getSabor() : "-",
+				produto.getSabor(),
 				produto.getQuantidadeEstoque()
 			});
 			

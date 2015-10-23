@@ -139,6 +139,8 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 				mp.setFornecedor(new FornecedorVO());
 				mp.getFornecedor().setRazaoSocial(rs.getString("razao_social"));
 				
+				System.out.println(mp.getSabor() + "/" + mp.getSabor().length());
+				
 				listaMP.add(mp);
 				
 			}

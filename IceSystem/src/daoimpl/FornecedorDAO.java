@@ -50,10 +50,10 @@ public class FornecedorDAO implements IFornecedorDAO{
 			while(rs.next()){
 			
 				Integer idFornecedor = rs.getInt("id_fornecedor_pj");
-								
+				
 				fornecedor = new FornecedorVO();
 					
-				fornecedor.setIdPessoaJuridica(rs.getInt(idFornecedor));
+				fornecedor.setIdPessoaJuridica(idFornecedor);
 				fornecedor.setCnpj(rs.getString("cnpj"));
 				fornecedor.setEndereco(new EnderecoVO());
 				fornecedor.getEndereco().setIdEndereco(rs.getInt("id_endereco"));

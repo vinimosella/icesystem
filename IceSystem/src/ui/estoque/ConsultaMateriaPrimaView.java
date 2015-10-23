@@ -81,7 +81,7 @@ public class ConsultaMateriaPrimaView extends ConsultaGenericaView{
 			dtm.addRow(new Object[] {
 				materia.getIdMateriaPrima(),
 				materia.getNome(),
-				(materia.getSabor()!=null || !materia.getSabor().trim().equals("")) ? materia.getSabor() : "-",
+				(materia.getSabor()!=null && !materia.getSabor().trim().equals("")) ? materia.getSabor() : "-",
 				materia.getQuantidadeDisponivel(),
 				materia.getFornecedor().getRazaoSocial()
 			});
