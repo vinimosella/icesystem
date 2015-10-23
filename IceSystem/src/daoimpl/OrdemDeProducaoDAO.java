@@ -207,7 +207,7 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexao.prepareStatement("select op.id_produto, op.id_situacao, op.quantidade, op.data_solicitacao, p.nome from Ordem_Producao op"
+			pstm = conexao.prepareStatement("select op.id_ordem_producao, op.id_produto, op.id_situacao, op.quantidade, op.data_solicitacao, p.nome, p.sabor, s.descricao from Ordem_Producao op"
 					                       + " inner join Produto p on op.id_produto = p.id_produto"
 					                       + " inner join Situacao s on op.id_situacao = s.id_situacao where descricao = 'Finalizado'");
 			
@@ -224,10 +224,13 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 				op.setProduto(new ProdutoVO());
 				op.getProduto().setIdProduto(rs.getInt("id_produto"));
 				op.getProduto().setNome(rs.getString("nome"));
+				op.getProduto().setSabor(rs.getString("sabor"));
 				op.setSituacao(new SituacaoVO());
 				op.getSituacao().setIdSituacao(rs.getInt("id_situacao"));
+				op.getSituacao().setDescricao(rs.getString("descricao"));
 				op.setQuantidade(rs.getInt("quantidade"));
 				op.setDataSolicitacao(rs.getDate("data_solicitacao"));
+				op.setIdOrdemProducao(rs.getLong("id_ordem_producao"));
 				
 				listaOP.add(op);
 				
@@ -290,7 +293,7 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexao.prepareStatement("select op.id_produto, op.id_situacao, op.quantidade, op.data_solicitacao, p.nome from Ordem_Producao op"
+			pstm = conexao.prepareStatement("select op.id_ordem_producao, op.id_produto, op.id_situacao, op.quantidade, op.data_solicitacao, p.nome, p.sabor, s.descricao from Ordem_Producao op"
 					                       + " inner join Produto p on op.id_produto = p.id_produto"
 					                       + " inner join Situacao s on op.id_situacao = s.id_situacao where descricao = 'Cancelado'");
 			
@@ -307,10 +310,13 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 				op.setProduto(new ProdutoVO());
 				op.getProduto().setIdProduto(rs.getInt("id_produto"));
 				op.getProduto().setNome(rs.getString("nome"));
+				op.getProduto().setSabor(rs.getString("sabor"));
 				op.setSituacao(new SituacaoVO());
 				op.getSituacao().setIdSituacao(rs.getInt("id_situacao"));
+				op.getSituacao().setDescricao(rs.getString("descricao"));
 				op.setQuantidade(rs.getInt("quantidade"));
 				op.setDataSolicitacao(rs.getDate("data_solicitacao"));
+				op.setIdOrdemProducao(rs.getLong("id_ordem_producao"));
 				
 				listaOP.add(op);
 				
