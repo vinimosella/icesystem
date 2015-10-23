@@ -141,6 +141,7 @@ public class VendaDAO implements IVendaDAO{
 				pstm.executeUpdate();
 				
 			}
+			
 			//Em caso de sucesso, executa o commit do cadastro no banco
 			conexao.commit();
 						
@@ -160,7 +161,6 @@ public class VendaDAO implements IVendaDAO{
 				
 			} catch (SQLException sql) {
 				
-				//Log do rollback do ClassNotFoundException
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 				
 				sql.printStackTrace();
@@ -170,7 +170,6 @@ public class VendaDAO implements IVendaDAO{
 			
 		} catch (SQLException sql) {
 			
-			//Log do SQLException
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			
 			sql.printStackTrace();
@@ -184,7 +183,6 @@ public class VendaDAO implements IVendaDAO{
 				
 			} catch (SQLException sql2) {
 				
-				//Log do rollback do SQLException
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql2.getMessage());
 				
 				sql2.printStackTrace();
@@ -228,6 +226,7 @@ public class VendaDAO implements IVendaDAO{
 			
 			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
+			conexao.setAutoCommit(false); //Inicia uma tranção
 			
 			//Cria o [alter] que sera executado no banco
 			pstm = conexao.prepareStatement("alter table Venda set id_situacao=? where id_venda=?");
@@ -237,8 +236,26 @@ public class VendaDAO implements IVendaDAO{
 			
 			//Executa uma atualização no banco
 			pstm.executeUpdate();
+			
+			//Em caso de sucesso, executa o commit do cadastro no banco
+			conexao.commit();
 	
 		} catch (ClassNotFoundException cnf) {
+			
+			//Caso ocorra algum erro, executa o rollback do update no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+				
+			}
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			
@@ -247,6 +264,20 @@ public class VendaDAO implements IVendaDAO{
 			return false;
 			
 		} catch (SQLException sql) {
+			
+			//Caso ocorra algum erro, executa o rollback do update no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql2) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+				
+				sql2.printStackTrace();
+				
+				return false;
+			}
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			
@@ -263,7 +294,21 @@ public class VendaDAO implements IVendaDAO{
 				pstm.close();
 
 			} catch (SQLException sql) {
-
+				
+				//Caso ocorra algum erro, executa o rollback do update no banco
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql2) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+					
+					sql2.printStackTrace();
+					
+					return false;
+				}
+				
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 				
 				sql.printStackTrace();

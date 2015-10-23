@@ -173,6 +173,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 			
 			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
+			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [alter] que sera executado no banco
 			pstm = conexao.prepareStatement("alter table Produto set quantidade_estoque=?, nome=?, sabor=? where id_produto=?");
@@ -184,8 +185,26 @@ public class  ProdutoDAO implements IProdutoDAO{
 			
 			//Executa uma atualização no banco
 			pstm.executeUpdate();
+			
+			//Em caso de sucesso, executa o commit do update no banco
+			conexao.commit(); 
 	
 		} catch (ClassNotFoundException cnf) {
+			
+			//Caso ocorra algum erro, executa o rollback do update no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+				
+			}
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
 			
@@ -194,6 +213,21 @@ public class  ProdutoDAO implements IProdutoDAO{
 			return false;
 			
 		} catch (SQLException sql) {
+			
+			//Caso ocorra algum erro, executa o rollback do update no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql2) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+				
+				sql2.printStackTrace();
+				
+				return false;
+				
+			}
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 			
@@ -211,6 +245,17 @@ public class  ProdutoDAO implements IProdutoDAO{
 
 			} catch (SQLException sql) {
 
+				//Caso ocorra algum erro, executa o rollback do update no banco
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql2) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+					
+				}
+				
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 				
 				sql.printStackTrace();
@@ -229,8 +274,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 			try {
 				
 				//Cria a conexão com o banco
-				conexao = fabrica.getConexao(); 
-				
+				conexao = fabrica.getConexao(); 				
 				conexao.setAutoCommit(false); //Inicia uma transação
 				
 				//Cria o [insert] que sera executado no banco
@@ -240,7 +284,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 				
 				pstm.setString(2, produto.getSabor());
 			
-				pstm.setInt(3, 0);
+				pstm.setInt(3, produto.getQuantidadeEstoque());
 				
 				//Executa uma atualização no banco
 				pstm.executeUpdate();
@@ -254,18 +298,18 @@ public class  ProdutoDAO implements IProdutoDAO{
 				
 				cnf.printStackTrace();
 				
-				cnf.printStackTrace();
-				
+				//Caso ocorra algum erro, executa o rollback do cadastro no banco
 				try {
 					
 					conexao.rollback();
 					
 				} catch (SQLException sql) {
+					
 					LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 					
 					sql.printStackTrace();
 					
-					sql.printStackTrace();
+					return false;
 					
 				}
 				
@@ -275,6 +319,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 				
 				sql.printStackTrace();
 				
+				//Caso ocorra algum erro, executa o rollback do cadastro no banco
 				try {
 					
 					conexao.rollback();
@@ -315,6 +360,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 			
 			//Cria a conexão com o banco
 			conexao = fabrica.getConexao();
+			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [delete] que sera executado no banco
 			pstm = conexao.prepareStatement("delete from Produto where id_produto = ?");
@@ -322,9 +368,27 @@ public class  ProdutoDAO implements IProdutoDAO{
 			pstm.setInt(1, produto.getIdProduto());
 			
 			//Executa uma atualização no banco
-			pstm.executeQuery();
+			pstm.executeUpdate();
+			
+			//Em caso de sucesso, executa o commit da exclusão no banco
+			conexao.commit();
 						
 		} catch (ClassNotFoundException cnf) {
+			
+			//Caso ocorra algum erro, executa o rollback da exclusão no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+				
+			}
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(), cnf.getMessage());
 			
@@ -333,6 +397,21 @@ public class  ProdutoDAO implements IProdutoDAO{
 			return false;
 			
 		} catch (SQLException sql) {
+			
+			//Caso ocorra algum erro, executa o rollback da exclusão no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql2) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+				
+				sql2.printStackTrace();
+				
+				return false;
+				
+			}
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
 			
@@ -349,6 +428,20 @@ public class  ProdutoDAO implements IProdutoDAO{
 				pstm.close();
 				
 			} catch (SQLException sql) {
+				
+				//Caso ocorra algum erro, executa o rollback da exclusão no banco
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql2) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+					
+					sql2.printStackTrace();
+					
+					return false;
+				}
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
 				
