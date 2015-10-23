@@ -15,7 +15,7 @@ public class CadastrarFornecedorView extends CadastrarPessoaJuridicaView{
 	private FornecedorBO bo;
 	
 	public CadastrarFornecedorView() {
-		super();
+		super(Utilidades.CADASTRAR_FORNECEDOR);
 		
 	}
 

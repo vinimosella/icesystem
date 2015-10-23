@@ -16,7 +16,7 @@ public class CadastrarClienteView extends CadastrarPessoaJuridicaView{
 	
 	public CadastrarClienteView() {
 		
-		super();		
+		super(Utilidades.CADASTRAR_CLIENTE);		
 	}
 
 	@Override

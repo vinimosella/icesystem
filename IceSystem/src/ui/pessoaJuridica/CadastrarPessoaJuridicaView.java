@@ -27,35 +27,36 @@ import bo.PessoaJuridicaBO;
 public abstract class CadastrarPessoaJuridicaView extends JPanel{
 
 	private static final long serialVersionUID = 1L;
-	private JLabel labelRazaoSocial;
+	private JLabel lblNomePagina;
+	private JLabel lblRazaoSocial;
 	private JTextField txtRazaoSocial;
-	private JLabel labelCnpj;
+	private JLabel lblCnpj;
 	private JTextField txtCnpj;
-	private JLabel labelTelefone;
+	private JLabel lblTelefone;
 	private JComboBox<Integer> comboTelefone;
 	private JTextField txtTelefone;
 	private JButton btnAtualizarTelefone;
 	private JButton btnAdicionarTelefone;
 	private JButton btnRemoverTelefone;
-	private JLabel labelEmail;
+	private JLabel lblEmail;
 	private JComboBox<Integer> comboEmail; 
 	private JTextField txtEmail;
 	private JButton btnAtualizarEmail;
 	private JButton btnAdicionarEmail;
 	private JButton btnRemoverEmail;
-	private JLabel labelEstado;
+	private JLabel lblEstado;
 	private JComboBox<String> comboEstado;
-	private JLabel labelCidade;
+	private JLabel lblCidade;
 	private JComboBox<String> comboCidade;
-	private JLabel labelLogradouro;
+	private JLabel lblLogradouro;
 	private JTextField txtLogradouro;
-	private JLabel labelNumero;
+	private JLabel lblNumero;
 	private JTextField txtNumero;
-	private JLabel labelComplemento;
+	private JLabel lblComplemento;
 	private JTextField txtComplemento;
-	private JLabel labelBairro;
+	private JLabel lblBairro;
 	private JTextField txtBairro;
-	private JLabel labelCep;
+	private JLabel lblCep;
 	private JTextField txtCep;
 	private List<TelefoneVO> listaTelefones;
 	private List<EmailVO> listaEmails;
@@ -83,38 +84,36 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 		listaEmails = new ArrayList<EmailVO>();
 	}
 	
-	public CadastrarPessoaJuridicaView(){
+	public CadastrarPessoaJuridicaView(String nomePag){
 		
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
 		
-		labelRazaoSocial = new JLabel();
-		labelRazaoSocial.setText("Razão Social:");
-		labelRazaoSocial.setBounds(20,30,120,20);
-		this.add(labelRazaoSocial);
+		lblNomePagina = new JLabel();
+		lblNomePagina.setText(nomePag);
+		this.add(lblNomePagina);
+		
+		lblRazaoSocial = new JLabel();
+		lblRazaoSocial.setText("Razão Social:");
+		this.add(lblRazaoSocial);
 		
 		txtRazaoSocial = new JTextField();
-		txtRazaoSocial.setBounds(300,30,200,20);
 		this.add(txtRazaoSocial);
 		
-		labelCnpj = new JLabel();
-		labelCnpj.setText("CNPJ:");
-		labelCnpj.setBounds(20,60,120,20);
-		this.add(labelCnpj);
+		lblCnpj = new JLabel();
+		lblCnpj.setText("CNPJ:");
+		this.add(lblCnpj);
 		
 		txtCnpj = new JTextField();
-		txtCnpj.setBounds(300,60,200,20);
 		this.add(txtCnpj);
 		
-		labelTelefone = new JLabel();
-		labelTelefone.setText("Telefone:");
-		labelTelefone.setBounds(20,90,120,20);
-		this.add(labelTelefone);
+		lblTelefone = new JLabel();
+		lblTelefone.setText("Telefone:");
+		this.add(lblTelefone);
 		
 		//armazena a quantidade de telefones que tem, alterará o valor do label de telefone para o numero corrente
 		comboTelefone = new JComboBox<Integer>();
 				
-		comboTelefone.setBounds(250,90,40,20);
 		//Muda o valor do textField quando muda o 'id' do telefone do combobox
 		comboTelefone.addActionListener(new ActionListener() {
 			
@@ -134,11 +133,9 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 		comboTelefone.setEnabled(false);
 		
 		txtTelefone = new JTextField();
-		txtTelefone.setBounds(300,90,200,20);
 		this.add(txtTelefone);
 		
 		btnAtualizarTelefone = new JButton(new ImageIcon(getClass().getResource("/img/update.png")));
-		btnAtualizarTelefone.setBounds(502,90,17,17);
 		btnAtualizarTelefone.addActionListener(new ActionListener() {
 			
 			@Override
@@ -169,7 +166,6 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 		btnAtualizarTelefone.setEnabled(false);
 
 		btnAdicionarTelefone = new JButton(new ImageIcon(getClass().getResource("/img/confirm.png")));
-		btnAdicionarTelefone.setBounds(521,90,17,17);
 		btnAdicionarTelefone.addActionListener(new ActionListener() {
 			
 			@Override
@@ -214,7 +210,6 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 		this.add(btnAdicionarTelefone);
 		
 		btnRemoverTelefone = new JButton(new ImageIcon(getClass().getResource("/img/delete.png")));
-		btnRemoverTelefone.setBounds(540,90,17,17);
 		btnRemoverTelefone.addActionListener(new ActionListener() {
 			
 			@Override
@@ -258,19 +253,16 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 		this.add(btnRemoverTelefone);
 		btnRemoverTelefone.setEnabled(false);
 		
-		labelEmail = new JLabel();
-		labelEmail.setText("Email:");
-		labelEmail.setBounds(20,120,120,20);
-		this.add(labelEmail);
+		lblEmail = new JLabel();
+		lblEmail.setText("Email:");
+		this.add(lblEmail);
 		
 		txtEmail = new JTextField();
-		txtEmail.setBounds(300,120,200,20);
 		this.add(txtEmail);
 		
 		//armazena a quantidade de emails que tem, alterará o valor do label de email para o numero corrente
 		comboEmail = new JComboBox<Integer>();
 				
-		comboEmail.setBounds(250,120,40,20);
 		//Muda o valor do textField quando muda o 'id' do email do combobox
 		comboEmail.addActionListener(new ActionListener() {
 			
@@ -289,7 +281,6 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 		comboEmail.setEnabled(false);
 		
 		btnAtualizarEmail = new JButton(new ImageIcon(getClass().getResource("/img/update.png")));
-		btnAtualizarEmail.setBounds(502,120,17,17);
 		btnAtualizarEmail.addActionListener(new ActionListener() {
 			
 			@Override
@@ -319,7 +310,6 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 		btnAtualizarEmail.setEnabled(false);
 		
 		btnAdicionarEmail = new JButton(new ImageIcon(getClass().getResource("/img/confirm.png")));
-		btnAdicionarEmail.setBounds(521,120,17,17);
 		btnAdicionarEmail.addActionListener(new ActionListener() {
 			
 			@Override
@@ -362,7 +352,6 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 		this.add(btnAdicionarEmail);
 		
 		btnRemoverEmail = new JButton(new ImageIcon(getClass().getResource("/img/delete.png")));
-		btnRemoverEmail.setBounds(540,120,17,17);
 		btnRemoverEmail.addActionListener(new ActionListener() {
 			
 			@Override
@@ -406,13 +395,11 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 		this.add(btnRemoverEmail);
 		btnRemoverEmail.setEnabled(false);
 		
-		labelEstado = new JLabel();
-		labelEstado.setText("Estado:");
-		labelEstado.setBounds(20,150,120,20);
-		this.add(labelEstado);
+		lblEstado = new JLabel();
+		lblEstado.setText("Estado:");
+		this.add(lblEstado);
 		
 		comboEstado = new JComboBox<String>();
-		comboEstado.setBounds(300,150,200,20);
 		comboEstado.addItem("Selecione");
 		listaEstados = bo.buscaEstados();
 		Iterator<EstadoVO> it = (Iterator<EstadoVO>) listaEstados.iterator();
@@ -452,65 +439,52 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 		});
 		this.add(comboEstado);
 		
-		labelCidade = new JLabel();
-		labelCidade.setText("Cidade:");
-		labelCidade.setBounds(20,180,120,20);
-		this.add(labelCidade);
+		lblCidade = new JLabel();
+		lblCidade.setText("Cidade:");
+		this.add(lblCidade);
 		
 		comboCidade = new JComboBox<String>();
-		comboCidade.setBounds(300,180,200,20);
 		comboCidade.addItem("Selecione");
 		comboCidade.setEnabled(false);
 		
 		this.add(comboCidade);
 		
-		labelLogradouro = new JLabel();
-		labelLogradouro.setText("Logradouro:");
-		labelLogradouro.setBounds(20,210,120,20);
-		this.add(labelLogradouro);
+		lblLogradouro = new JLabel();
+		lblLogradouro.setText("Logradouro:");
+		this.add(lblLogradouro);
 		
 		txtLogradouro = new JTextField();
-		txtLogradouro.setBounds(300,210,200,20);
 		this.add(txtLogradouro);
 		
-		labelNumero = new JLabel();
-		labelNumero.setText("Número:");
-		labelNumero.setBounds(20,240,120,20);
-		this.add(labelNumero);
+		lblNumero = new JLabel();
+		lblNumero.setText("Número:");
+		this.add(lblNumero);
 		
 		txtNumero = new JTextField();
-		txtNumero.setBounds(300,240,200,20);
 		this.add(txtNumero);
 		
-		labelComplemento = new JLabel();
-		labelComplemento.setText("Complemento:");
-		labelComplemento.setBounds(20,270,120,20);
-		this.add(labelComplemento);
+		lblComplemento = new JLabel();
+		lblComplemento.setText("Complemento:");
+		this.add(lblComplemento);
 		
 		txtComplemento = new JTextField();
-		txtComplemento.setBounds(300,270,200,20);
 		this.add(txtComplemento);
 		
-		labelBairro = new JLabel();
-		labelBairro.setText("Bairro:");
-		labelBairro.setBounds(20,300,120,20);
-		this.add(labelBairro);
+		lblBairro = new JLabel();
+		lblBairro.setText("Bairro:");
+		this.add(lblBairro);
 		
 		txtBairro = new JTextField();
-		txtBairro.setBounds(300,300,200,20);
 		this.add(txtBairro);
 		
-		labelCep = new JLabel();
-		labelCep.setText("CEP:");
-		labelCep.setBounds(20,330,120,20);
-		this.add(labelCep);
+		lblCep = new JLabel();
+		lblCep.setText("CEP:");
+		this.add(lblCep);
 		
 		txtCep = new JTextField();
-		txtCep.setBounds(300,330,200,20);
 		this.add(txtCep);
 		
 		btnCadastrar = new JButton("Cadastrar");
-		btnCadastrar.setBounds(280, 400, 120, 20);
 		btnCadastrar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -522,6 +496,56 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 
 		});
 		this.add(btnCadastrar);
+		
+		geraBoundsCamposTela();
+		
+	}
+	
+	//TODO
+	private void geraBoundsCamposTela(){
+		
+		int distY = 10;
+		int camposEsqX = 20;
+		int camposDirX = 300;
+		int distEntre = 40;
+		int alturaCampo = 20;
+		
+		lblNomePagina.setBounds(camposEsqX,distY,180,alturaCampo);
+		lblRazaoSocial.setBounds(camposEsqX,distY+distEntre,120,alturaCampo);
+		lblCnpj.setBounds(camposEsqX,distY+distEntre*2,120,alturaCampo);
+		lblTelefone.setBounds(camposEsqX,distY+distEntre*3,120,alturaCampo);		
+		lblEmail.setBounds(camposEsqX,distY+distEntre*4,120,alturaCampo);
+		lblEstado.setBounds(camposEsqX,distY+distEntre*5,120,alturaCampo);
+		lblCidade.setBounds(camposEsqX,distY+distEntre*6,120,alturaCampo);
+		lblLogradouro.setBounds(camposEsqX,distY+distEntre*7,120,alturaCampo);
+		lblNumero.setBounds(camposEsqX,distY+distEntre*8,120,alturaCampo);
+		lblComplemento.setBounds(camposEsqX,distY+distEntre*9,120,alturaCampo);
+		lblBairro.setBounds(camposEsqX,distY+distEntre*10,120,alturaCampo);
+		lblCep.setBounds(camposEsqX,distY+distEntre*11,120,alturaCampo);
+
+		txtRazaoSocial.setBounds(camposDirX,distY+distEntre,200,20);
+		txtCnpj.setBounds(camposDirX,distY+distEntre*2,200,20);
+
+		comboTelefone.setBounds(250,distY+distEntre*3,40,20);
+		txtTelefone.setBounds(camposDirX,distY+distEntre*3,200,20);
+		btnAtualizarTelefone.setBounds(502,distY+distEntre*3,17,17);
+		btnAdicionarTelefone.setBounds(521,distY+distEntre*3,17,17);
+		btnRemoverTelefone.setBounds(540,distY+distEntre*3,17,17);
+		
+		comboEmail.setBounds(250,distY+distEntre*4,40,20);
+		txtEmail.setBounds(camposDirX,distY+distEntre*4,200,20);
+		btnAtualizarEmail.setBounds(502,distY+distEntre*4,17,17);
+		btnAdicionarEmail.setBounds(521,distY+distEntre*4,17,17);
+		btnRemoverEmail.setBounds(540,distY+distEntre*4,17,17);
+		
+		comboEstado.setBounds(camposDirX,distY+distEntre*5,200,20);
+		comboCidade.setBounds(camposDirX,distY+distEntre*6,200,20);
+		txtLogradouro.setBounds(camposDirX,distY+distEntre*7,200,20);
+		txtNumero.setBounds(camposDirX,distY+distEntre*8,200,20);
+		txtComplemento.setBounds(camposDirX,distY+distEntre*9,200,20);
+		txtBairro.setBounds(camposDirX,distY+distEntre*10,200,20);
+		txtCep.setBounds(camposDirX,distY+distEntre*11,200,20);
+		btnCadastrar.setBounds(245, (distY+distEntre*12)+5, 120, 20);
 		
 	}
 	
