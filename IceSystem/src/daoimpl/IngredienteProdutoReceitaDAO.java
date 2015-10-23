@@ -38,7 +38,7 @@ public class IngredienteProdutoReceitaDAO implements IIngredienteProdutoReceitaD
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexao.prepareStatement("select irp.id_materia_prima, mp.nome, mp.sabor, mp.quantidade_disponivel, pj.razao_social, from Ingrediente_Receita_Produto irp"
+			pstm = conexao.prepareStatement("select irp.quantidade_materia, irp.id_produto, irp.id_materia_prima, mp.nome, mp.sabor, mp.quantidade_disponivel, pj.razao_social from Ingrediente_Receita_Produto irp"
 					                        + " inner join Materia_Prima mp on irp.id_materia_prima = mp.id_materia_prima"
 					                        + " inner join Fornecedor f on mp.id_fornecedor_pj = f.id_fornecedor_pj"
 					                        + " inner join Pessoa_Juridica pj on f.id_fornecedor_pj = pj.id_pessoa_juridica"
@@ -64,7 +64,8 @@ public class IngredienteProdutoReceitaDAO implements IIngredienteProdutoReceitaD
 				irp.getMateriaPrima().setFornecedor(new FornecedorVO());
 				irp.getMateriaPrima().getFornecedor().setRazaoSocial(rs.getString("razao_social"));
 				irp.setProduto(produto);
-				irp.getProduto().setIdProduto(rs.getInt("id_produto"));			
+				irp.getProduto().setIdProduto(rs.getInt("id_produto"));
+				irp.setQuantidadeMateria(rs.getDouble("quantidade_materia"));
 				
 				listaIRP.add(irp);
 				
