@@ -115,4 +115,201 @@ public class IngredienteProdutoReceitaDAO implements IIngredienteProdutoReceitaD
 		return listaIRP;
 	}
 
+	@Override
+	public boolean cadastrarIngredientesReceita(IngredienteReceitaProdutoVO irp) {
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao(); 				
+			conexao.setAutoCommit(false); //Inicia uma transação
+			
+			//Cria o [insert] que sera executado no banco
+			pstm = conexao.prepareStatement("insert into Ingrediente_Produto_Receita (id_produto, id_materia_prima, quantidade_materia) values (?, ?, ?)");
+			
+			pstm.setInt(1, irp.getProduto().getIdProduto());
+			pstm.setInt(2, irp.getMateriaPrima().getIdMateriaPrima());
+			pstm.setDouble(3, irp.getQuantidadeMateria());
+			
+			//Executa uma atualização no banco
+			pstm.executeUpdate();
+			
+			//Em caso de sucesso, executa o commit do cadastro no banco
+			conexao.commit();		
+			
+		} catch (ClassNotFoundException cnf) {
+			
+			//Caso ocorra algum erro, executa o rollback do cadastro no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+				
+			}
+			
+		} catch (SQLException sql) {
+			
+			//Caso ocorra algum erro, executa o rollback do cadastro no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql2) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql2.getMessage());
+				
+				sql2.printStackTrace();
+				
+				return false;
+				
+			}			
+			
+		} finally{
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();					
+				
+			} catch (SQLException sql) {
+				
+				//Caso ocorra algum erro, executa o rollback do cadastro no banco
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql2) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+					
+					sql2.printStackTrace();
+					
+					return false;
+					
+				}
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+			}
+		}
+	
+	return true;
+}
+
+	@Override
+	public boolean excluirIngredientesReceita(IngredienteReceitaProdutoVO irp) {
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			conexao.setAutoCommit(false); //Inicia uma transação
+			
+			//Cria o [delete] que sera executado no banco
+			pstm = conexao.prepareStatement("delete from Ingrediente_Produto_Receita where id_produto = ? and id_materia_prima = ?");
+			
+			pstm.setInt(1, irp.getProduto().getIdProduto());
+			
+			pstm.setInt(2, irp.getMateriaPrima().getIdMateriaPrima());
+			
+			
+			//Executa uma atualização no banco
+			pstm.executeUpdate();
+			
+			//Em caso de sucesso, executa o commit da exclusão no banco
+			conexao.commit();
+						
+		} catch (ClassNotFoundException cnf) {
+			
+			//Caso ocorra algum erro, executa o rollback da exclusão no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+				
+			}
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(), cnf.getMessage());
+			
+			cnf.printStackTrace();
+						
+			return false;
+			
+		} catch (SQLException sql) {
+			
+			//Caso ocorra algum erro, executa o rollback da exclusão no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql2) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+				
+				sql2.printStackTrace();
+				
+				return false;
+				
+			}
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			return false;
+			
+		} finally{
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+			} catch (SQLException sql) {
+				
+				//Caso ocorra algum erro, executa o rollback da exclusão no banco
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql2) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+					
+					sql2.printStackTrace();
+					
+					return false;
+				}
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+			}
+			
+		}
+		
+		return true;
+	}
+
 }
