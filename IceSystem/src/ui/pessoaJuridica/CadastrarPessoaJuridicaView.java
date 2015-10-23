@@ -501,7 +501,6 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 		
 	}
 	
-	//TODO
 	private void geraBoundsCamposTela(){
 		
 		int distY = 10;
