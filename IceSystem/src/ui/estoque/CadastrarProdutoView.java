@@ -28,6 +28,7 @@ public class CadastrarProdutoView extends JDialog{
 	private ProdutoVO produto;
 	private JButton btnSalvar;
 	private JButton btnCancelar;
+	private StringBuilder msgErro;
 	
 	{
 		bo = new ProdutoBO();
@@ -64,13 +65,25 @@ public class CadastrarProdutoView extends JDialog{
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(30,120,90,30);
 		btnSalvar.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				//TODO VALIDAR SE SABOR ESTA VAZIO, POIS NAO PODE (NO ALTERAR TB)
-				//se não estiver vazio
-				if(!txtNome.getText().trim().equals("")){
+				msgErro = new StringBuilder();
+				
+				//valida campos
+				if(txtNome.getText().trim().equals("")){
+					
+					msgErro.append("O campo 'nome' deve estar preenchido\n");
+				}
+				
+				if(txtSabor.getText().trim().equals("")){
+					
+					msgErro.append("O campo 'sabor' deve estar preenchido\n");
+				}
+				
+				//se não tiver erros
+				if(msgErro.toString().trim().equals("")){
 					
 					produto = new ProdutoVO();
 					
@@ -87,7 +100,7 @@ public class CadastrarProdutoView extends JDialog{
 				}
 				else{
 					
-					JOptionPane.showMessageDialog(Utilidades.frmHome, "O campo 'nome' deve estar preenchido", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(Utilidades.frmHome, msgErro.toString(), "Alerta!", JOptionPane.ERROR_MESSAGE);
 
 				}
 				
