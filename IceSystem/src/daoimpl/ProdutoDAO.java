@@ -294,10 +294,6 @@ public class  ProdutoDAO implements IProdutoDAO{
 				
 			} catch (ClassNotFoundException cnf) {
 				
-				LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
-				
-				cnf.printStackTrace();
-				
 				//Caso ocorra algum erro, executa o rollback do cadastro no banco
 				try {
 					
@@ -315,10 +311,6 @@ public class  ProdutoDAO implements IProdutoDAO{
 				
 			} catch (SQLException sql) {
 				
-				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
-				
-				sql.printStackTrace();
-				
 				//Caso ocorra algum erro, executa o rollback do cadastro no banco
 				try {
 					
@@ -329,6 +321,8 @@ public class  ProdutoDAO implements IProdutoDAO{
 					LogFactory.getInstance().gerarLog(getClass().getName(),sql2.getMessage());
 					
 					sql2.printStackTrace();
+					
+					return false;
 					
 				}			
 				
