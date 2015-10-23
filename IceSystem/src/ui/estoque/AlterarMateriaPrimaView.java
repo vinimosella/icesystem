@@ -120,9 +120,7 @@ public class AlterarMateriaPrimaView extends JDialog{
 				
 				//se não estiver com erros
 				if(msgErro.toString().trim().equals("")){
-					
-					AlterarMateriaPrimaView.this.materiaPrima = new MateriaPrimaVO();
-					
+										
 					AlterarMateriaPrimaView.this.materiaPrima.setNome(txtNome.getText());
 					AlterarMateriaPrimaView.this.materiaPrima.setSabor(txtSabor.getText());
 					AlterarMateriaPrimaView.this.materiaPrima.setFornecedor(listaFornecedores.get(comboFornecedor.getSelectedIndex()-1));
