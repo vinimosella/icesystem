@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -49,6 +50,7 @@ public class CadastrarProdutoView extends JPanel{
 	private JLabel lblQtd;
 	private JTextField txtQtd;
 	private JButton btnAdicionarItemMateria;
+	private JButton btnRemoverItemMateria;
 	
 	{
 		bo = new ProdutoBO();
@@ -95,8 +97,8 @@ public class CadastrarProdutoView extends JPanel{
 		txtQtd.setBounds(160, 250, 70, 20);
 		this.add(txtQtd);
 		
-		btnAdicionarItemMateria = new JButton("\\/");
-		btnAdicionarItemMateria.setBounds(365, 250, 70, 30);
+		btnAdicionarItemMateria = new JButton(new ImageIcon(getClass().getResource("/img/down.png")));
+		btnAdicionarItemMateria.setBounds(365, 250, 25, 25);
 		btnAdicionarItemMateria.addActionListener(new ActionListener() {
 			
 			@Override
@@ -116,12 +118,33 @@ public class CadastrarProdutoView extends JPanel{
 				//se estiver tudo certo
 				if(msgErro.toString().trim().equals("")){
 					
-					itemReceita = new IngredienteReceitaProdutoVO();
+					it = listaReceita.iterator();
 					
-					itemReceita.setMateriaPrima(listaMaterias.get(tabelaMaterias.getSelectedRow()));
-					itemReceita.setQuantidadeMateria(Double.parseDouble(txtQtd.getText()));
+					boolean flagEstaNaLista = false;
 					
-					listaReceita.add(itemReceita);
+					while (it.hasNext()){
+						
+						itemReceita = (IngredienteReceitaProdutoVO) it.next();
+						
+						//verifica se ja está na lista de receitas
+						if(itemReceita.getMateriaPrima().getIdMateriaPrima() == listaMaterias.get(tabelaMaterias.getSelectedRow()).getIdMateriaPrima()){
+							flagEstaNaLista = true;
+							
+							//soma a qtdd que ele estava tentando add novamente no item da receita que ja esta na lista
+							itemReceita.setQuantidadeMateria(itemReceita.getQuantidadeMateria()+Double.parseDouble(txtQtd.getText()));
+						}
+						
+					}
+					
+					if(!flagEstaNaLista){
+						
+						itemReceita = new IngredienteReceitaProdutoVO();
+						
+						itemReceita.setMateriaPrima(listaMaterias.get(tabelaMaterias.getSelectedRow()));
+						itemReceita.setQuantidadeMateria(Double.parseDouble(txtQtd.getText()));
+						
+						listaReceita.add(itemReceita);
+					}
 					
 					carregaDtmReceita();
 				}
@@ -139,6 +162,24 @@ public class CadastrarProdutoView extends JPanel{
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(20, 290, 550, 150);
 		this.add(scrollPane);
+		
+		btnRemoverItemMateria = new JButton(new ImageIcon(getClass().getResource("/img/delete.png")));
+		btnRemoverItemMateria.setBounds(570, 320, 25, 25);
+		btnRemoverItemMateria.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				if(tabelaReceita.getSelectedRow()!=-1){
+					
+					listaReceita.remove(tabelaReceita.getSelectedRow());
+					carregaDtmReceita();
+					
+				}
+				
+			}
+		});
+		this.add(btnRemoverItemMateria);
 		
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(30,520,90,30);
