@@ -79,13 +79,14 @@ public class ReceitaProdutoView extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				CompraMateriaPrimaView comprar = new CompraMateriaPrimaView(listaIngredientes.get(table.getSelectedRow()).getMateriaPrima());
-				Utilidades.frmHome.getContentPane().removeAll();
-				Utilidades.frmHome.add(comprar);
-				Utilidades.frmHome.revalidate();
-				
-				ReceitaProdutoView.this.dispose();
-				
+				if(table.getSelectedRow()!=-1){
+					CompraMateriaPrimaView comprar = new CompraMateriaPrimaView(listaIngredientes.get(table.getSelectedRow()).getMateriaPrima());
+					Utilidades.frmHome.getContentPane().removeAll();
+					Utilidades.frmHome.add(comprar);
+					Utilidades.frmHome.revalidate();
+					
+					ReceitaProdutoView.this.dispose();
+				}
 			}
 		});
 		contentPane.add(btnComprar);
@@ -129,7 +130,7 @@ public class ReceitaProdutoView extends JDialog {
 					ingrediente.getMateriaPrima().getNome(),
 					(ingrediente.getMateriaPrima().getSabor()!=null) ? ingrediente.getMateriaPrima().getSabor() : "-",
 					Utilidades.FORMAT.format(ingrediente.getQuantidadeMateria()),
-					ingrediente.getMateriaPrima().getQuantidadeDisponivel(),
+					Utilidades.FORMAT.format(ingrediente.getMateriaPrima().getQuantidadeDisponivel()),
 					ingrediente.getMateriaPrima().getFornecedor().getRazaoSocial()
 						
 				});
