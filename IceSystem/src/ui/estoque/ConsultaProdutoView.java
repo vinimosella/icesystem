@@ -1,5 +1,6 @@
 package ui.estoque;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
@@ -38,8 +39,10 @@ public class ConsultaProdutoView extends ConsultaGenericaView{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				Utilidades.frmHome.getContentPane().removeAll();
 				CadastrarProdutoView cadProduto = new CadastrarProdutoView();
-				cadProduto.setVisible(true);
+				Utilidades.frmHome.getContentPane().add(cadProduto, BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
 				
 			}
 		});

@@ -119,7 +119,7 @@ public class LoginView extends JPanel{
 				criarMenu();
 				
 				Utilidades.frmHome.getContentPane().removeAll();
-				LogadoView logado = new LogadoView(Utilidades.frmHome);
+				LogadoView logado = new LogadoView();
 				Utilidades.frmHome.getContentPane().add(logado, BorderLayout.CENTER);
 				Utilidades.frmHome.getContentPane().revalidate();
 				
