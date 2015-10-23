@@ -103,8 +103,6 @@ public class ConsultaProdutoView extends ConsultaGenericaView{
 
 	@Override
 	public void btnAtualizar(Integer linhaSelecionada) {
-		
-		System.out.println(listaProdutos.get(linhaSelecionada).getQuantidadeEstoque());
 
 		AlterarProdutoView at = new AlterarProdutoView(listaProdutos.get(linhaSelecionada));
 		at.setVisible(true);
