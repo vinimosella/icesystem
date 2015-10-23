@@ -56,6 +56,8 @@ public class MateriaPrimaBO {
 	}
 
 	public boolean cadastrarMateriaPrima(MateriaPrimaVO materiaPrima) {
+		
+		materiaPrima.setQuantidadeDisponivel(0.0);
 
 		return true;
 	}

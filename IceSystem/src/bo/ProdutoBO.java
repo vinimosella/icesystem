@@ -31,6 +31,8 @@ public class ProdutoBO {
 
 	public boolean cadastrarProduto(ProdutoVO produto) {
 
+		produto.setQuantidadeEstoque(0);
+		
 		return dao.cadastrarProduto(produto);
 	}
 
