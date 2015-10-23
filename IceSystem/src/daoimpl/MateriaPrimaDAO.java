@@ -24,7 +24,7 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 	}
 	
 	@Override
-	public List<MateriaPrimaVO> consultarMateriaPrimaFornecedor(FornecedorVO fornecedor){
+	public List<MateriaPrimaVO> consultarMPFornecedor(FornecedorVO fornecedor){
 		
 		List<MateriaPrimaVO> listaMP = null;
 		
@@ -55,7 +55,7 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 				mp.setFornecedor(new FornecedorVO());
 				mp.getFornecedor().setIdPessoaJuridica(rs.getInt("id_fornecedor"));
 				mp.setNome(rs.getString("nome"));
-				mp.setQuantidadeDisponivel(rs.getDouble("quantidade"));
+				mp.setQuantidadeDisponivel(rs.getDouble("quantidade_disponivel"));
 				mp.setSabor(rs.getString("sabor"));
 				
 				listaMP.add(mp);
@@ -103,6 +103,295 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 		}
 		
 		return listaMP;
+	}
+
+	@Override
+	public List<MateriaPrimaVO> consultarTodasMP() {
+		
+		MateriaPrimaVO mp = null;
+		
+		List<MateriaPrimaVO> listaMP = null;
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			
+			//Cria o [select] que sera executado no banco
+			pstm = conexao.prepareStatement("select mp.id_materia_prima, mp.quantidade_disponivel, mp.nome, mp.sabor, pj.razao_social from Materia_Prima mp"
+					                       + " inner join Fornecedor f on mp.id_fornecedor_pj = f.id_fornecedor_pj"
+					                       + " inner join Pessoa_Juridica pj on pj.id_pessoa_juridica = f.id_fornecedor_pj");
+			
+			//Executa uma pesquisa no banco
+			rs = pstm.executeQuery();
+			
+			listaMP = new ArrayList<MateriaPrimaVO>();
+			
+			//Carregando a listaCompras
+			while(rs.next()){
+				
+				mp = new MateriaPrimaVO();
+					
+				mp.setIdMateriaPrima(rs.getInt("id_materia_prima"));
+				mp.setQuantidadeDisponivel(rs.getDouble("quantidade_disponivel"));
+				mp.setNome(rs.getString("nome"));
+				mp.setSabor(rs.getString("sabor"));
+				mp.setFornecedor(new FornecedorVO());
+				mp.getFornecedor().setRazaoSocial(rs.getString("razao_social"));
+				
+				listaMP.add(mp);
+				
+			}
+			
+		} catch (SQLException sql) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			listaMP = null;
+			
+		} catch (ClassNotFoundException cnf) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			listaMP = null;
+			
+		} finally {
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+				if(rs != null){
+					
+					rs.close();
+				}
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+
+				sql.printStackTrace();
+				
+				listaMP = null;
+				
+			}			
+		
+		}
+		
+		return listaMP;
+	}
+
+	@Override
+	public boolean alterarMP(MateriaPrimaVO mp) {
+		
+		try {
+			
+			//Cria a conexao com o banco
+			conexao = fabrica.getConexao();
+			conexao.setAutoCommit(false); //Inicia uma transação
+			
+			//Cria o [alter] que sera executado no banco
+			pstm = conexao.prepareStatement("update materia_prima set id_fornecedor_pj=?, quantidade_disponivel=?, sabor=?"
+					                        +" where id_materia_prima=?");
+			
+			pstm.setInt(1, mp.getFornecedor().getIdPessoaJuridica());
+			pstm.setDouble(2, mp.getQuantidadeDisponivel());
+			pstm.setString(3, mp.getSabor());
+			pstm.setInt(4, mp.getIdMateriaPrima());
+			
+			//Executa uma atualização no banco
+			pstm.executeUpdate();
+			
+			//Em caso de sucesso, executa o commit do update no banco
+			conexao.commit();
+	
+		} catch (ClassNotFoundException cnf) {
+			
+			//Caso ocorra algum erro, executa o rollback do update no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+			}
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			return false;
+			
+		} catch (SQLException sql) {
+			
+			//Caso ocorra algum erro, executa o rollback do update no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql2) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+				
+				sql2.printStackTrace();
+				
+				return false;
+				
+			}
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			return false;
+			
+		} finally {
+
+			//Finalizando os recursos
+			try {
+
+				conexao.close();
+				pstm.close();
+
+			} catch (SQLException sql) {
+
+				//Caso ocorra algum erro, executa o rollback do update no banco
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql2) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+					
+					sql2.printStackTrace();
+					
+					return false;
+					
+				}
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+			}
+
+		}
+		
+		return true;
+	}
+
+	@Override
+	public boolean excluirMP(MateriaPrimaVO mp) {
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			conexao.setAutoCommit(false); //Inicia uma transação
+			
+			//Cria o [delete] que sera executado no banco
+			pstm = conexao.prepareStatement("delete from materia_prima where id_materia_prima=?");
+			
+			pstm.setInt(1, mp.getIdMateriaPrima());
+			
+			//Executa uma atualização no banco
+			pstm.executeUpdate();
+			
+			//Em caso de sucesso, executa o commit da exclusão no banco
+			conexao.commit();
+						
+		} catch (ClassNotFoundException cnf) {
+			
+			//Caso ocorra algum erro, executa o rollback da exclusão no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+				
+			}
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(), cnf.getMessage());
+			
+			cnf.printStackTrace();
+						
+			return false;
+			
+		} catch (SQLException sql) {
+			
+			//Caso ocorra algum erro, executa o rollback da exclusão no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql2) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+				
+				sql2.printStackTrace();
+				
+				return false;
+				
+			}
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			return false;
+			
+		} finally{
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+			} catch (SQLException sql) {
+				
+				//Caso ocorra algum erro, executa o rollback da exclusão no banco
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql2) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+					
+					sql2.printStackTrace();
+					
+					return false;
+				}
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+			}
+			
+		}
+		
+		return true;
 	}
 		
 }
