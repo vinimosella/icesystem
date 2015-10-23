@@ -68,11 +68,17 @@ public class CompraDAO implements ICompraDAO{
 		} catch (SQLException sql) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
 			listaCompras = null;
 			
 		} catch (ClassNotFoundException cnf) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
 			listaCompras = null;
 			
 		} finally {
@@ -91,7 +97,9 @@ public class CompraDAO implements ICompraDAO{
 			} catch (SQLException sql) {
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
-
+				
+				sql.printStackTrace();
+				
 				listaCompras = null;
 				
 			}			

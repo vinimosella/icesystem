@@ -254,6 +254,10 @@ public class  ProdutoDAO implements IProdutoDAO{
 					
 					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
 					
+					sql2.printStackTrace();
+					
+					return false;
+					
 				}
 				
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
