@@ -88,6 +88,7 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 	
 	public AtualizarPessoaJuridicaView(PessoaJuridicaVO pj) {
 
+		this.pj = pj;
 
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
@@ -532,9 +533,7 @@ private void carregaTelefone(){
 	}
 	
 	private PessoaJuridicaVO validaPessoaJuridica(){
-		
-		pj = new PessoaJuridicaVO() {};
-		
+				
 		pj.setRazaoSocial(txtRazaoSocial.getText());
 		pj.setCnpj(txtCnpj.getText());
 

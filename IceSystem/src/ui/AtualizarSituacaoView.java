@@ -27,12 +27,15 @@ public abstract class AtualizarSituacaoView extends JDialog {
 	private SituacaoVO situacao;
 	private JButton btnSalvar;
 	private JButton btnCancelar;
+	private Object o;
 	
 	{
 		bo = new SituacaoBO();
 	}
 
-	public AtualizarSituacaoView(SituacaoVO situacaoEntrada, String titulo, final Object o) {
+	public AtualizarSituacaoView(SituacaoVO situacaoEntrada, String titulo, Object o) {
+		this.o = o;
+		
 		setTitle(titulo);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 259, 146);
@@ -70,7 +73,7 @@ public abstract class AtualizarSituacaoView extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				actionBtnSalvar(listaSituacoes.get(comboSituacao.getSelectedIndex()), o);
+				actionBtnSalvar(listaSituacoes.get(comboSituacao.getSelectedIndex()), AtualizarSituacaoView.this.o);
 				
 				AtualizarSituacaoView.this.dispose();
 				

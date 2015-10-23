@@ -90,7 +90,9 @@ public class AtualizarFuncionarioView extends JPanel{
 	}
 	
 	public AtualizarFuncionarioView(FuncionarioVO funcionario, Byte codUser){
-						
+		
+		this.funcionario = funcionario;
+		
 		listaEmails = funcionario.getListaEmails();
 		listaTelefones = funcionario.getListaTelefones();
 		
@@ -588,9 +590,7 @@ public class AtualizarFuncionarioView extends JPanel{
 		
 	}
 	
-private FuncionarioVO validaFuncionario(){
-		
-		funcionario = new FuncionarioVO();
+	private FuncionarioVO validaFuncionario(){
 		
 		funcionario.setNome(txtNome.getText());
 		funcionario.setCpf(txtCpf.getText());
