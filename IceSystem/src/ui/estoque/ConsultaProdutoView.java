@@ -103,10 +103,12 @@ public class ConsultaProdutoView extends ConsultaGenericaView{
 
 	@Override
 	public void btnAtualizar(Integer linhaSelecionada) {
+		
+		System.out.println(listaProdutos.get(linhaSelecionada).getQuantidadeEstoque());
 
 		AlterarProdutoView at = new AlterarProdutoView(listaProdutos.get(linhaSelecionada));
 		at.setVisible(true);
-		
+
 	}
 
 	@Override
@@ -122,7 +124,7 @@ public class ConsultaProdutoView extends ConsultaGenericaView{
 		if (JOptionPane.showConfirmDialog(null,"Deseja realmente excluir o produto "+ listaProdutos.get(linhaSelecionada).getNome()+sabor+ " ?", "Exclusão", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
 			// se excluir com sucesso...
-			if (bo.excluirProduto(listaProdutos.get(linhaSelecionada).getIdProduto())) {
+			if (bo.excluirProduto(listaProdutos.get(linhaSelecionada))) {
 
 				// remove da lista e da tabela
 				listaProdutos.remove(linhaSelecionada);

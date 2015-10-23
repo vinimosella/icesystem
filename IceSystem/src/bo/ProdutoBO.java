@@ -20,12 +20,12 @@ public class ProdutoBO {
 
 	public boolean atualizarProduto(ProdutoVO produto) {
 
-		return true;
+		return dao.alterarProduto(produto);
 	}
 
-	public boolean excluirProduto(Integer idProduto) {
+	public boolean excluirProduto(ProdutoVO produto) {
 
-		return true;
+		return dao.excluirProduto(produto);
 	}
 
 	public boolean cadastrarProduto(ProdutoVO produto) {
@@ -33,11 +33,6 @@ public class ProdutoBO {
 		produto.setQuantidadeEstoque(0);
 		
 		return dao.cadastrarProduto(produto);
-	}
-
-	public boolean alterarProduto(ProdutoVO produto) {
-
-		return true;
 	}
 	
 }

@@ -176,7 +176,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [alter] que sera executado no banco
-			pstm = conexao.prepareStatement("alter table Produto set quantidade_estoque=?, nome=?, sabor=? where id_produto=?");
+			pstm = conexao.prepareStatement("update Produto set quantidade_estoque=?, nome=?, sabor=? where id_produto=?");
 			
 			pstm.setInt(1, produto.getQuantidadeEstoque());
 			pstm.setString(2, produto.getNome());

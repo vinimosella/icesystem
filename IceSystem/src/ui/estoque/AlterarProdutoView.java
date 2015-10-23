@@ -91,12 +91,10 @@ public class AlterarProdutoView extends JDialog{
 				
 				//se não tiver erros
 				if(msgErro.toString().trim().equals("")){
-					
-					AlterarProdutoView.this.produto = new ProdutoVO();
-					
+										
 					AlterarProdutoView.this.produto.setNome(txtNome.getText());
 					AlterarProdutoView.this.produto.setSabor(txtSabor.getText());
-					bo.alterarProduto(AlterarProdutoView.this.produto);
+					bo.atualizarProduto(AlterarProdutoView.this.produto);
 					
 					Utilidades.frmHome.getContentPane().removeAll();
 					ConsultaProdutoView consulta = new ConsultaProdutoView();
