@@ -4,18 +4,30 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import daoimpl.OrdemDeProducaoDAO;
 import teste.BancoEstatico;
 import util.Utilidades;
 import vo.IngredienteReceitaProdutoVO;
 import vo.MateriaPrimaVO;
 import vo.OrdemProducaoVO;
+import vo.SituacaoVO;
 
 public class OrdemProducaoBO {
 	
+	private OrdemDeProducaoDAO dao;
+	
+	{
+		dao = new OrdemDeProducaoDAO();
+	}
+	
 	public boolean incluirOrdemProducao(OrdemProducaoVO ordemProducao){
 		
-		//return dao.incluirOrdemProducao(ordemProducao);
-		return true;
+		SituacaoVO situação = new SituacaoVO();
+		situação.setIdSituacao(3);
+		
+		ordemProducao.setSituacao(situação);
+		
+		return dao.cadastrarOP(ordemProducao);
 	}
 	
 	public boolean alterarOrdemProducaoEControlaEstoque(OrdemProducaoVO ordemProducao){
@@ -70,22 +82,22 @@ public class OrdemProducaoBO {
 
 	public List<OrdemProducaoVO> consultarTodas() {
 
-		return BancoEstatico.listaOrdensProducao;
+		return dao.consultarTodasOP();
 	}
 	
 	public List<OrdemProducaoVO> consultarFinalizadas() {
 
-		return BancoEstatico.listaOrdensProducaoFinzalizada;
+		return dao.consultarOPFinalizado();
 	}
 	
 	public List<OrdemProducaoVO> consultarCanceladas() {
 
-		return BancoEstatico.listaOrdensProducaoCancelada;
+		return dao.consultarOPCancelado();
 	}
 	
 	public List<OrdemProducaoVO> consultarSolicitadas() {
 
-		return BancoEstatico.listaOrdensProducaoSolicitada;
+		return dao.consultarOPSolicitado();
 	}
 	
 
