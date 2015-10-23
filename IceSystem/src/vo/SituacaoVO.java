@@ -8,7 +8,6 @@ public class SituacaoVO {
 	
 	private Integer idSituacao;
 	private String descricao;
-	private Integer codigo;
 	
 	public Integer getIdSituacao() {
 		return idSituacao;
@@ -21,12 +20,6 @@ public class SituacaoVO {
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-	public Integer getCodigo() {
-		return codigo;
-	}
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
 	}
 	
 }

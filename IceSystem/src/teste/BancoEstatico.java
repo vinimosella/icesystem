@@ -325,19 +325,16 @@ public class BancoEstatico {
 		
 		situacao = new SituacaoVO();
 		situacao.setIdSituacao(3);
-		situacao.setCodigo(3);
 		situacao.setDescricao("Solicitado");
 		listasituacoes.add(situacao);
 		
 		situacao = new SituacaoVO();
 		situacao.setIdSituacao(2);
-		situacao.setCodigo(2);
 		situacao.setDescricao("Cancelado");
 		listasituacoes.add(situacao);
 		
 		situacao = new SituacaoVO();
 		situacao.setIdSituacao(1);
-		situacao.setCodigo(1);
 		situacao.setDescricao("Finalizado");
 		listasituacoes.add(situacao);
 		
