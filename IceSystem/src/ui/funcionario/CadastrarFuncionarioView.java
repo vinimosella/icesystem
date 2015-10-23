@@ -626,31 +626,31 @@ public class CadastrarFuncionarioView extends JPanel{
 		
 		
 		//campos direita
-		txtNome.setBounds(lblDirX,distY+distEntre,200,20);
-		txtCpf.setBounds(lblDirX,distY+distEntre*2,200,20);
-		txtRg.setBounds(lblDirX,distY+distEntre*3,200,20);
+		txtNome.setBounds(lblDirX,distY+distEntre,200,alturaCampo);
+		txtCpf.setBounds(lblDirX,distY+distEntre*2,200,alturaCampo);
+		txtRg.setBounds(lblDirX,distY+distEntre*3,200,alturaCampo);
 		
-		comboTelefone.setBounds(250,distY+distEntre*4,40,20);
-		txtTelefone.setBounds(lblDirX,distY+distEntre*4,200,20);
-		btnAtualizarTelefone.setBounds(502,distY+distEntre*4,17,17);
-		btnAdicionarTelefone.setBounds(521,distY+distEntre*4,17,17);
-		btnRemoverTelefone.setBounds(540,distY+distEntre*4,17,17);
+		comboTelefone.setBounds(250,distY+distEntre*4,40,alturaCampo);
+		txtTelefone.setBounds(lblDirX,distY+distEntre*4,200,alturaCampo);
+		btnAtualizarTelefone.setBounds(502,distY+distEntre*4,17,alturaCampo-3);
+		btnAdicionarTelefone.setBounds(521,distY+distEntre*4,17,alturaCampo-3);
+		btnRemoverTelefone.setBounds(540,distY+distEntre*4,17,alturaCampo-3);
 		
-		comboEmail.setBounds(250,distY+distEntre*5,40,20);
-		txtEmail.setBounds(lblDirX,distY+distEntre*5,200,20);
-		btnAtualizarEmail.setBounds(502,distY+distEntre*5,17,17);
-		btnAdicionarEmail.setBounds(521,distY+distEntre*5,17,17);
-		btnRemoverEmail.setBounds(540,distY+distEntre*5,17,17);
+		comboEmail.setBounds(250,distY+distEntre*5,40,alturaCampo);
+		txtEmail.setBounds(lblDirX,distY+distEntre*5,200,alturaCampo);
+		btnAtualizarEmail.setBounds(502,distY+distEntre*5,17,alturaCampo-3);
+		btnAdicionarEmail.setBounds(521,distY+distEntre*5,17,alturaCampo-3);
+		btnRemoverEmail.setBounds(540,distY+distEntre*5,17,alturaCampo-3);
 		
-		comboEstado.setBounds(lblDirX,distY+distEntre*6,200,20);
-		comboCidade.setBounds(lblDirX,distY+distEntre*7,200,20);	
-		txtLogradouro.setBounds(lblDirX,distY+distEntre*8,200,20);
-		txtNumero.setBounds(lblDirX,distY+distEntre*9,200,20);
-		txtComplemento.setBounds(lblDirX,distY+distEntre*10,200,20);
-		txtBairro.setBounds(lblDirX,distY+distEntre*11,200,20);
-		txtCep.setBounds(lblDirX,distY+distEntre*12,200,20);
-		comboCargo.setBounds(lblDirX,distY+distEntre*13,200,20);
-		btnCadastrar.setBounds(245,(distY+distEntre*14)+5,120,20);
+		comboEstado.setBounds(lblDirX,distY+distEntre*6,200,alturaCampo);
+		comboCidade.setBounds(lblDirX,distY+distEntre*7,200,alturaCampo);	
+		txtLogradouro.setBounds(lblDirX,distY+distEntre*8,200,alturaCampo);
+		txtNumero.setBounds(lblDirX,distY+distEntre*9,200,alturaCampo);
+		txtComplemento.setBounds(lblDirX,distY+distEntre*10,200,alturaCampo);
+		txtBairro.setBounds(lblDirX,distY+distEntre*11,200,alturaCampo);
+		txtCep.setBounds(lblDirX,distY+distEntre*12,200,alturaCampo);
+		comboCargo.setBounds(lblDirX,distY+distEntre*13,200,alturaCampo);
+		btnCadastrar.setBounds(245,(distY+distEntre*14)+5,120,alturaCampo);
 		
 	}
 	
