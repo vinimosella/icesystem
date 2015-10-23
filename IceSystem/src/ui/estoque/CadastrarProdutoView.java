@@ -25,6 +25,8 @@ import bo.MateriaPrimaBO;
 import bo.ProdutoBO;
 
 public class CadastrarProdutoView extends JPanel{
+	
+	//TODO implementar a receita no botão salvar e implementar tudo a respeito de receita na tela de alterar.
 
 	private static final long serialVersionUID = 1L;
 	private JLabel lblNomePagina;
@@ -51,6 +53,8 @@ public class CadastrarProdutoView extends JPanel{
 	private JTextField txtQtd;
 	private JButton btnAdicionarItemMateria;
 	private JButton btnRemoverItemMateria;
+	private JLabel lblMaterias;
+	private JLabel lblReceita;
 	
 	{
 		bo = new ProdutoBO();
@@ -83,22 +87,26 @@ public class CadastrarProdutoView extends JPanel{
 		txtSabor.setBounds(100,60,130,20);
 		this.add(txtSabor);
 		
+		lblMaterias = new JLabel("Matérias Primas");
+		lblMaterias.setBounds(20,90, 120, 20);
+		this.add(lblMaterias);
+		
 		tabelaMaterias = new JTable();
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 90, 550, 150);
+		scrollPane.setBounds(20, 120, 550, 150);
 		this.add(scrollPane);
 		carregaDtmMateria();
 		
 		lblQtd = new JLabel("Quantidade Necessária");
-		lblQtd.setBounds(20,250,130,20);
+		lblQtd.setBounds(20,270,130,20);
 		this.add(lblQtd);
 		
 		txtQtd = new JTextField();
-		txtQtd.setBounds(160, 250, 70, 20);
+		txtQtd.setBounds(160, 270, 70, 20);
 		this.add(txtQtd);
 		
 		btnAdicionarItemMateria = new JButton(new ImageIcon(getClass().getResource("/img/down.png")));
-		btnAdicionarItemMateria.setBounds(365, 250, 25, 25);
+		btnAdicionarItemMateria.setBounds(365, 270, 25, 25);
 		btnAdicionarItemMateria.addActionListener(new ActionListener() {
 			
 			@Override
@@ -158,13 +166,17 @@ public class CadastrarProdutoView extends JPanel{
 		});
 		this.add(btnAdicionarItemMateria);
 		
+		lblReceita = new JLabel("Receita do Produto");
+		lblReceita.setBounds(20,290,120, 20);
+		this.add(lblReceita);
+		
 		tabelaReceita = new JTable();
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 290, 550, 150);
+		scrollPane.setBounds(20, 320, 550, 150);
 		this.add(scrollPane);
 		
 		btnRemoverItemMateria = new JButton(new ImageIcon(getClass().getResource("/img/delete.png")));
-		btnRemoverItemMateria.setBounds(570, 320, 25, 25);
+		btnRemoverItemMateria.setBounds(570, 350, 25, 25);
 		btnRemoverItemMateria.addActionListener(new ActionListener() {
 			
 			@Override
