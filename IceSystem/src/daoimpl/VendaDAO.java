@@ -237,7 +237,7 @@ public class VendaDAO implements IVendaDAO{
 			//Executa uma atualização no banco
 			pstm.executeUpdate();
 			
-			//Em caso de sucesso, executa o commit do cadastro no banco
+			//Em caso de sucesso, executa o commit do update no banco
 			conexao.commit();
 	
 		} catch (ClassNotFoundException cnf) {
@@ -312,6 +312,8 @@ public class VendaDAO implements IVendaDAO{
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 				
 				sql.printStackTrace();
+				
+				return false;
 			}
 
 		}
