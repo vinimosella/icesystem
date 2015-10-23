@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import daoimpl.OrdemDeProducaoDAO;
+import daoimpl.ProdutoDAO;
 import teste.BancoEstatico;
 import util.Utilidades;
 import vo.IngredienteReceitaProdutoVO;
@@ -15,9 +16,11 @@ import vo.SituacaoVO;
 public class OrdemProducaoBO {
 	
 	private OrdemDeProducaoDAO dao;
+	private ProdutoDAO daoP;
 	
 	{
 		dao = new OrdemDeProducaoDAO();
+		daoP = new ProdutoDAO();
 	}
 	
 	public boolean incluirOrdemProducao(OrdemProducaoVO ordemProducao){
@@ -32,12 +35,13 @@ public class OrdemProducaoBO {
 	
 	public boolean alterarOrdemProducaoEControlaEstoque(OrdemProducaoVO ordemProducao){
 		
-		//dao.alterarOrdemProducao(ordemProducao);
-		
 		if(ordemProducao.getSituacao().getDescricao().equals(Utilidades.FINALIZADO)){
 			
+			System.out.println(ordemProducao.getProduto().getQuantidadeEstoque());
+			System.out.println(ordemProducao.getQuantidade());
+			
 			ordemProducao.getProduto().setQuantidadeEstoque(ordemProducao.getProduto().getQuantidadeEstoque()+ordemProducao.getQuantidade());			
-			//dao.alterarProduto(ordemProducao.getProduto());
+			daoP.alterarProduto(ordemProducao.getProduto());
 		}
 		
 		else if(ordemProducao.getSituacao().getDescricao().equals(Utilidades.CANCELADO)){
@@ -45,7 +49,7 @@ public class OrdemProducaoBO {
 			ordemCancelada(ordemProducao);
 		}
 		
-		return true;
+		return dao.alterarOrdemProducao(ordemProducao);
 	}
 	
 	private void ordemCancelada(OrdemProducaoVO ordemProducao){
