@@ -66,37 +66,37 @@ public class CadastrarProdutoView extends JPanel{
 		lblNomePagina.setBounds(10,20,170,25);
 				
 		lblNome = new JLabel("Nome:");
-		lblNome.setBounds(20, 20, 70, 25);
+		lblNome.setBounds(20, 20, 70, 20);
 		this.add(lblNome);
 		
 		txtNome = new JTextField();
-		txtNome.setBounds(100,20,130,25);
+		txtNome.setBounds(100,20,130,20);
 		this.add(txtNome);
 		
 		lblSabor = new JLabel("Sabor:");
-		lblSabor.setBounds(20, 60, 70, 25);
+		lblSabor.setBounds(20, 60, 70, 20);
 		this.add(lblSabor);
 		
 		txtSabor = new JTextField();
-		txtSabor.setBounds(100,60,130,25);
+		txtSabor.setBounds(100,60,130,20);
 		this.add(txtSabor);
 		
 		tabelaMaterias = new JTable();
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 80, 250, 400);
+		scrollPane.setBounds(20, 90, 550, 150);
 		this.add(scrollPane);
 		carregaDtmMateria();
 		
 		lblQtd = new JLabel("Quantidade Necessária");
-		lblQtd.setBounds(20,360,130,20);
+		lblQtd.setBounds(20,250,130,20);
 		this.add(lblQtd);
 		
 		txtQtd = new JTextField();
-		txtQtd.setBounds(160, 360, 70, 20);
+		txtQtd.setBounds(160, 250, 70, 20);
 		this.add(txtQtd);
 		
 		btnAdicionarItemMateria = new JButton("\\/");
-		btnAdicionarItemMateria.setBounds(100, 360, 30, 30);
+		btnAdicionarItemMateria.setBounds(365, 250, 70, 30);
 		btnAdicionarItemMateria.addActionListener(new ActionListener() {
 			
 			@Override
@@ -133,10 +133,11 @@ public class CadastrarProdutoView extends JPanel{
 				
 			}
 		});
+		this.add(btnAdicionarItemMateria);
 		
 		tabelaReceita = new JTable();
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 50, 550, 400);
+		scrollPane.setBounds(20, 290, 550, 150);
 		this.add(scrollPane);
 		
 		btnSalvar = new JButton("Salvar");
