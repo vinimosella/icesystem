@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import daoimpl.MateriaPrimaDAO;
-import teste.BancoEstatico;
 import vo.FornecedorVO;
 import vo.IngredienteReceitaProdutoVO;
 import vo.MateriaPrimaVO;
 import vo.ProdutoVO;
+import daoimpl.MateriaPrimaDAO;
 
 public class MateriaPrimaBO {
 	
@@ -26,7 +25,7 @@ public class MateriaPrimaBO {
 	
 	public List<MateriaPrimaVO> consultarMateriasPrimas(){
 		
-		return BancoEstatico.listaMateriasPrimas;
+		return dao.consultarTodasMP();
 	}
 	
 	public void alterarMateriaPrimaReceita(List<IngredienteReceitaProdutoVO> listaReceitas, Integer qtdProduto, ProdutoVO produto){
@@ -57,21 +56,21 @@ public class MateriaPrimaBO {
 		//dao.AtualizarMateriasPrimas(listaMateriasAtualizadas);
 	}
 
-	public boolean excluirMateriaPrima(Integer idMateriaPrima) {
+	public boolean excluirMateriaPrima(MateriaPrimaVO materiaPrima) {
 
-		return true;
+		return dao.excluirMP(materiaPrima);
 	}
 
 	public boolean cadastrarMateriaPrima(MateriaPrimaVO materiaPrima) {
 		
 		materiaPrima.setQuantidadeDisponivel(0.0);
 
-		return true;
+		return dao.cadastrarMP(materiaPrima);
 	}
 
 	public boolean alterarMateriaPrima(MateriaPrimaVO materiaPrima) {
 
-		return true;
+		return dao.alterarMP(materiaPrima);
 	}
 	
 }

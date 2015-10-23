@@ -37,9 +37,6 @@ public class OrdemProducaoBO {
 		
 		if(ordemProducao.getSituacao().getDescricao().equals(Utilidades.FINALIZADO)){
 			
-			System.out.println(ordemProducao.getProduto().getQuantidadeEstoque());
-			System.out.println(ordemProducao.getQuantidade());
-			
 			ordemProducao.getProduto().setQuantidadeEstoque(ordemProducao.getProduto().getQuantidadeEstoque()+ordemProducao.getQuantidade());			
 			daoP.alterarProduto(ordemProducao.getProduto());
 		}

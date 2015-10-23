@@ -324,8 +324,8 @@ public class BancoEstatico {
 		listasituacoes = new ArrayList<SituacaoVO>();
 		
 		situacao = new SituacaoVO();
-		situacao.setIdSituacao(1);
-		situacao.setCodigo(1);
+		situacao.setIdSituacao(3);
+		situacao.setCodigo(3);
 		situacao.setDescricao("Solicitado");
 		listasituacoes.add(situacao);
 		
@@ -336,8 +336,8 @@ public class BancoEstatico {
 		listasituacoes.add(situacao);
 		
 		situacao = new SituacaoVO();
-		situacao.setIdSituacao(3);
-		situacao.setCodigo(3);
+		situacao.setIdSituacao(1);
+		situacao.setCodigo(1);
 		situacao.setDescricao("Finalizado");
 		listasituacoes.add(situacao);
 		

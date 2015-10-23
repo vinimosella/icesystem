@@ -37,7 +37,7 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexao.prepareStatement("select op.id_ordem_producao, op.id_produto, op.id_situacao, op.quantidade, op.data_solicitacao, p.nome, p.sabor, s.descricao from Ordem_Producao op"
+			pstm = conexao.prepareStatement("select op.id_ordem_producao, op.id_produto, op.id_situacao, op.quantidade, op.data_solicitacao, p.nome, p.sabor, p.quantidade_estoque, s.descricao from Ordem_Producao op"
 					                       + " inner join Produto p on op.id_produto = p.id_produto"
 										   + " inner join Situacao s on op.id_situacao = s.id_situacao");
 			
@@ -55,6 +55,7 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 				op.getProduto().setIdProduto(rs.getInt("id_produto"));
 				op.getProduto().setNome(rs.getString("nome"));
 				op.getProduto().setSabor(rs.getString("sabor"));
+				op.getProduto().setQuantidadeEstoque(rs.getInt("quantidade_estoque"));
 				op.setSituacao(new SituacaoVO());
 				op.getSituacao().setIdSituacao(rs.getInt("id_situacao"));
 				op.getSituacao().setDescricao(rs.getString("descricao"));
@@ -368,6 +369,8 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 
 	@Override
 	public boolean alterarOrdemProducao(OrdemProducaoVO op) {
+		
+		System.out.println(op.getSituacao().getIdSituacao());
 		
 		try {
 			

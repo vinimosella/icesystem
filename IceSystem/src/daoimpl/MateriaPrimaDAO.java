@@ -197,13 +197,14 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [alter] que sera executado no banco
-			pstm = conexao.prepareStatement("update materia_prima set id_fornecedor_pj=?, quantidade_disponivel=?, sabor=?"
+			pstm = conexao.prepareStatement("update materia_prima set id_fornecedor_pj=?, quantidade_disponivel=?, sabor=?, nome=?"
 					                        +" where id_materia_prima=?");
 			
 			pstm.setInt(1, mp.getFornecedor().getIdPessoaJuridica());
 			pstm.setDouble(2, mp.getQuantidadeDisponivel());
 			pstm.setString(3, mp.getSabor());
-			pstm.setInt(4, mp.getIdMateriaPrima());
+			pstm.setString(4, mp.getNome());
+			pstm.setInt(5, mp.getIdMateriaPrima());
 			
 			//Executa uma atualização no banco
 			pstm.executeUpdate();
@@ -404,13 +405,15 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [insert] que sera executado no banco
-			pstm = conexao.prepareStatement("insert into materia_prima (nome, sabor, id_fornecedor_pj) values (?, ?, ?)");
+			pstm = conexao.prepareStatement("insert into materia_prima (nome, sabor, id_fornecedor_pj, quantidade_disponivel) values (?, ?, ?, ?)");
 			
 			pstm.setString(1, mp.getNome());
 			
 			pstm.setString(2, mp.getSabor());
 		
 			pstm.setInt(3, mp.getFornecedor().getIdPessoaJuridica());
+			
+			pstm.setDouble(4, mp.getQuantidadeDisponivel());
 			
 			//Executa uma atualização no banco
 			pstm.executeUpdate();
@@ -435,6 +438,12 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 				
 			}
 			
+			LogFactory.getInstance().gerarLog(getClass().getName(), cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			return false;
+			
 		} catch (SQLException sql) {
 			
 			//Caso ocorra algum erro, executa o rollback do cadastro no banco
@@ -450,7 +459,13 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 				
 				return false;
 				
-			}			
+			}	
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			return false;
 			
 		} finally{
 			

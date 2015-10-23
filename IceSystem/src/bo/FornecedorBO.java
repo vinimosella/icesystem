@@ -4,12 +4,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import daoimpl.FornecedorDAO;
 import teste.BancoEstatico;
 import vo.CidadeVO;
 import vo.EstadoVO;
 import vo.FornecedorVO;
 
 public class FornecedorBO {
+	
+	private FornecedorDAO dao;
+	
+	{
+		dao = new FornecedorDAO();
+	}
 	
 	public boolean cadastrarFornecedor(FornecedorVO fornecedor) {
 
@@ -28,7 +35,7 @@ public class FornecedorBO {
 	
 	public List<FornecedorVO> consultarFornecedores(){
 		
-		return BancoEstatico.listaFornecedores;
+		return dao.consultarFornecedores();
 	}
 	
 	public FornecedorVO detalharFornecedor(FornecedorVO fornecedor){

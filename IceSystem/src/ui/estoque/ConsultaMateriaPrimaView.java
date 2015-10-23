@@ -81,7 +81,7 @@ public class ConsultaMateriaPrimaView extends ConsultaGenericaView{
 			dtm.addRow(new Object[] {
 				materia.getIdMateriaPrima(),
 				materia.getNome(),
-				(materia.getSabor()!=null) ? materia.getSabor() : "-",
+				(materia.getSabor()!=null || !materia.getSabor().trim().equals("")) ? materia.getSabor() : "-",
 				materia.getQuantidadeDisponivel(),
 				materia.getFornecedor().getRazaoSocial()
 			});
@@ -125,7 +125,7 @@ public class ConsultaMateriaPrimaView extends ConsultaGenericaView{
 		if(JOptionPane.showConfirmDialog(null, "Deseja realmente excluir a Matéria Prima "+listaMaterias.get(linhaSelecionada).getNome()+sabor+" ?", "Exclusão", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
 					
 			//se excluir com sucesso...
-			if(bo.excluirMateriaPrima(listaMaterias.get(linhaSelecionada).getIdMateriaPrima())){
+			if(bo.excluirMateriaPrima(listaMaterias.get(linhaSelecionada))){
 				
 				//remove da lista e da tabela
 				listaMaterias.remove(linhaSelecionada);						
