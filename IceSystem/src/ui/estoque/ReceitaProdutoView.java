@@ -101,7 +101,7 @@ public class ReceitaProdutoView extends JDialog {
 						
 				},
 				new String[] {
-					"ID Materia", "Nome", "Sabor", "Quantidade Disponível", "Fornecedor"
+					"ID Materia", "Nome", "Sabor", "Quantidade Necessária", "Quantidade Disponível", "Fornecedor"
 				}				
 		){
 		
@@ -128,6 +128,7 @@ public class ReceitaProdutoView extends JDialog {
 					ingrediente.getMateriaPrima().getIdMateriaPrima(),
 					ingrediente.getMateriaPrima().getNome(),
 					(ingrediente.getMateriaPrima().getSabor()!=null) ? ingrediente.getMateriaPrima().getSabor() : "-",
+					Utilidades.FORMAT.format(ingrediente.getQuantidadeMateria()),
 					ingrediente.getMateriaPrima().getQuantidadeDisponivel(),
 					ingrediente.getMateriaPrima().getFornecedor().getRazaoSocial()
 						
