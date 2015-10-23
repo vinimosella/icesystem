@@ -2,9 +2,8 @@ package bo;
 
 import java.util.List;
 
-import daoimpl.ProdutoDAO;
-import teste.BancoEstatico;
 import vo.ProdutoVO;
+import daoimpl.ProdutoDAO;
 
 public class ProdutoBO {
 	
@@ -16,7 +15,7 @@ public class ProdutoBO {
 
 	public List<ProdutoVO> consultarProdutos(){
 		
-		return BancoEstatico.listaProdutos;
+		return dao.consultarTodosProdutos();
 	}
 
 	public boolean atualizarProduto(ProdutoVO produto) {

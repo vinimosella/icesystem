@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import daoimpl.MateriaPrimaDAO;
 import teste.BancoEstatico;
 import vo.FornecedorVO;
 import vo.IngredienteReceitaProdutoVO;
@@ -11,10 +12,16 @@ import vo.MateriaPrimaVO;
 import vo.ProdutoVO;
 
 public class MateriaPrimaBO {
+	
+	private MateriaPrimaDAO dao;
+	
+	{
+		dao = new MateriaPrimaDAO();
+	}
 
 	public List<MateriaPrimaVO> consultarMateriasPrimas(FornecedorVO fornecedor){
 		
-		return BancoEstatico.listaMateriasPrimas;
+		return dao.consultarMateriaPrimaFornecedor(fornecedor);
 	}
 	
 	public List<MateriaPrimaVO> consultarMateriasPrimas(){
