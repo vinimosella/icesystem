@@ -336,6 +336,21 @@ public class  ProdutoDAO implements IProdutoDAO{
 					
 				} catch (SQLException sql) {
 					
+					//Caso ocorra algum erro, executa o rollback do cadastro no banco
+					try {
+						
+						conexao.rollback();
+						
+					} catch (SQLException sql2) {
+						
+						LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+						
+						sql2.printStackTrace();
+						
+						return false;
+						
+					}
+					
 					LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
 					
 					sql.printStackTrace();

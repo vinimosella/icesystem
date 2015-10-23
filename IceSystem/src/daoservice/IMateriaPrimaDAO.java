@@ -15,4 +15,6 @@ public interface IMateriaPrimaDAO {
 	
 	public boolean excluirMP(MateriaPrimaVO mp);
 	
+	public boolean cadastrarMP(MateriaPrimaVO mp);
+	
 }

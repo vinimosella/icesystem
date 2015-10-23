@@ -393,5 +393,11 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 		
 		return true;
 	}
+
+	@Override
+	public boolean cadastrarMP(MateriaPrimaVO mp) {
+		
+		return false;
+	}
 		
 }

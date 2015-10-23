@@ -147,17 +147,10 @@ public class VendaDAO implements IVendaDAO{
 						
 		} catch (ClassNotFoundException cnf) {
 			
-			//Log do ClassNotFoundException
-			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
-			
-			cnf.printStackTrace();
-			
 			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
 				
 				conexao.rollback();
-				
-				return false;
 				
 			} catch (SQLException sql) {
 				
@@ -166,20 +159,15 @@ public class VendaDAO implements IVendaDAO{
 				sql.printStackTrace();
 				
 				return false;
+				
 			}
 			
 		} catch (SQLException sql) {
-			
-			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
-			
-			sql.printStackTrace();
 			
 			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
 				
 				conexao.rollback();
-				
-				return false;
 				
 			} catch (SQLException sql2) {
 				
@@ -189,19 +177,22 @@ public class VendaDAO implements IVendaDAO{
 				
 				return false;
 				
-			} finally{
+			}			
+			
+		} finally{
+			
+			//Finalizando os recursos
+			try {
 				
-				//Finalizando os recursos
+				conexao.close();
+				pstm.close();					
+				
+			} catch (SQLException sql) {
+				
+				//Caso ocorra algum erro, executa o rollback do cadastro no banco
 				try {
 					
-					conexao.close();
-					
-					pstm.close();
-					
-					if(rs!= null){
-						
-						rs.close();
-					}
+					conexao.rollback();
 					
 				} catch (SQLException sql2) {
 					
@@ -212,12 +203,17 @@ public class VendaDAO implements IVendaDAO{
 					return false;
 					
 				}
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
 			}
-
 		}
-		
-		return true;
-	}
+	
+	return true;
+}
 
 	@Override
 	public boolean atualizarVenda(VendaVO venda) {
