@@ -312,8 +312,6 @@ public class VendaDAO implements IVendaDAO{
 				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
 				
 				sql.printStackTrace();
-				
-				return false;
 			}
 
 		}
