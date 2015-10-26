@@ -116,7 +116,9 @@ public class IngredienteProdutoReceitaDAO implements IIngredienteProdutoReceitaD
 	}
 
 	@Override
-	public boolean cadastrarIngredientesReceita(IngredienteReceitaProdutoVO irp) {
+	public boolean cadastrarIngredientesReceita(List<IngredienteReceitaProdutoVO> listaIRP) {
+		
+		IngredienteReceitaProdutoVO irp = null;
 		
 		try {
 			
@@ -127,9 +129,18 @@ public class IngredienteProdutoReceitaDAO implements IIngredienteProdutoReceitaD
 			//Cria o [insert] que sera executado no banco
 			pstm = conexao.prepareStatement("insert into Ingrediente_Produto_Receita (id_produto, id_materia_prima, quantidade_materia) values (?, ?, ?)");
 			
-			pstm.setInt(1, irp.getProduto().getIdProduto());
-			pstm.setInt(2, irp.getMateriaPrima().getIdMateriaPrima());
-			pstm.setDouble(3, irp.getQuantidadeMateria());
+			//Carrega a listaIRP
+			while(rs.next()){
+				
+				irp = new IngredienteReceitaProdutoVO();
+
+				pstm.setInt(1, irp.getProduto().getIdProduto());
+				pstm.setInt(2, irp.getMateriaPrima().getIdMateriaPrima());
+				pstm.setDouble(3, irp.getQuantidadeMateria());
+				
+				listaIRP.add(irp);
+				
+			}			
 			
 			//Executa uma atualização no banco
 			pstm.executeUpdate();
