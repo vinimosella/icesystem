@@ -98,10 +98,71 @@ public class SituacaoDAO implements ISituacaoDAO{
 		return listaSituacoes;
 	}
 
-	public SituacaoVO consultarSituacaoPorDesc(String string) {
+	public SituacaoVO consultarSituacaoPorDesc(String descricao) {
 		
-		// TODO Auto-generated method stub
-		return null;
+		SituacaoVO situacao = null;
+		
+		try {
+			
+			situacao = new SituacaoVO();
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			
+			//Cria o [select] que sera executado no banco
+			pstm = conexao.prepareStatement("select id_situacao, descricao from Situacao where descricao = ?");
+			
+			pstm.setString(1, descricao);
+			
+			//Executa a pesquisa no banco
+			rs = pstm.executeQuery();
+			
+			//Carrega a situacao				
+			situacao.setIdSituacao(rs.getInt("id_situacao"));
+			situacao.setDescricao(rs.getString("descricao"));
+			
+		} catch (SQLException sql) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			situacao = null;
+			
+		} catch (ClassNotFoundException cnf) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			situacao = null;
+			
+		} finally {
+			
+			//Finalizando os processos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+				if(rs != null){
+					
+					rs.close();
+				}
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
+
+				situacao = null;
+				
+			}			
+		
+		}
+		
+		return situacao;
 	}
 	
 }
