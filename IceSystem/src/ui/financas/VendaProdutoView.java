@@ -155,12 +155,12 @@ public class VendaProdutoView extends JPanel{
 		});
 		this.add(btnAdicionar);
 
-		// LABEL TABELA ITENS COMPRA
-		lblItensVenda = new JLabel("Itens da compra: ");
+		// LABEL TABELA ITENS VENDA
+		lblItensVenda = new JLabel("Itens da venda: ");
 		lblItensVenda.setBounds(20,165,100,25);
 		this.add(lblItensVenda);
 
-		// BOTÃO REMOVER ITEM DA COMPRA
+		// BOTÃO REMOVER ITEM DA VENDA
 		btnRemover = new JButton("Remover item selecionado", new ImageIcon(getClass().getResource("/img/remover.png")));
 		btnRemover.setBounds(359,165,210,25);
 		btnRemover.addActionListener(new ActionListener() {
@@ -184,7 +184,7 @@ public class VendaProdutoView extends JPanel{
 		});
 		this.add(btnRemover);
 
-		// TABELA ITENS COMPRA
+		// TABELA ITENS venda
 		tabela = new JTable();
 
 		scrollPane = new JScrollPane();
@@ -193,13 +193,13 @@ public class VendaProdutoView extends JPanel{
 		carregaDtm();
 		scrollPane.setViewportView(tabela);
 
-		// LABEL TOTAL DA COMPRA
+		// LABEL TOTAL DA VENDA
 		lblTotal = new JLabel("Total: 0");
 		lblTotal.setBounds(20,510, 100, 25);
 		this.add(lblTotal);
 
-		// BOTÃO CADASTRAR COMPRA
-		btnCadastrar = new JButton("Cadastrar Compra");
+		// BOTÃO CADASTRAR VENDA
+		btnCadastrar = new JButton("Cadastrar Venda");
 		btnCadastrar.setBounds(200,510,160,25);
 		btnCadastrar.addActionListener(new ActionListener() {
 
