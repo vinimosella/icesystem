@@ -9,4 +9,6 @@ public interface ISituacaoDAO {
 	
 	public List<SituacaoVO> consultarSituacoes();
 	
+	public SituacaoVO consultarSituacaoPorDesc(String descricao);
+	
 }
