@@ -26,8 +26,6 @@ import bo.MateriaPrimaBO;
 import bo.ProdutoBO;
 
 public class CadastrarProdutoView extends JPanel{
-	
-	//TODO implementar a receita no botão salvar e implementar tudo a respeito de receita na tela de alterar.
 
 	private static final long serialVersionUID = 1L;
 	private JLabel lblNomePagina;
