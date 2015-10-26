@@ -4,9 +4,13 @@ import java.text.DecimalFormat;
 
 import javax.swing.JFrame;
 
+import daoimpl.SituacaoDAO;
 import vo.FuncionarioVO;
+import vo.SituacaoVO;
 
 public class Utilidades {
+	
+	private static SituacaoDAO sitDao = new SituacaoDAO();
 	
 	public static JFrame frmHome = null;
 	public static FuncionarioVO funcionarioLogado = null;
@@ -42,9 +46,9 @@ public class Utilidades {
 	public static final String FINALIZADO = "Finalizado";
 	public static final String CANCELADO = "Cancelado";
 	
-	public static final int CODIGO_SITUACAO_VENDA_DEFAULT = 0;
-	public static final int CODIGO_SITUACAO_COMPRA_DEFAULT = 0;
-	public static final int CODIGO_SITUACAO_ORDEM_PRODUCAO_DEFAULT = 0;
+	public static final SituacaoVO SITUACAO_VENDA_DEFAULT = sitDao.consultarSituacaoPorDesc("Solicitado");
+	public static final SituacaoVO SITUACAO_COMPRA_DEFAULT = sitDao.consultarSituacaoPorDesc("Solicitado");
+	public static final SituacaoVO SITUACAO_ORDEM_PRODUCAO_DEFAULT = sitDao.consultarSituacaoPorDesc("Solicitado");
 	
 	public static final String PATH_LOG = "C:/Desenvolvimento/Logs/log.txt";
 }

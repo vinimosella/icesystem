@@ -5,7 +5,6 @@ import java.util.List;
 import teste.BancoEstatico;
 import util.Utilidades;
 import vo.ItemVendaVO;
-import vo.SituacaoVO;
 import vo.VendaVO;
 
 public class VendaBO {
@@ -24,9 +23,7 @@ public class VendaBO {
 
 		venda.setFuncionario(Utilidades.funcionarioLogado);
 		
-		SituacaoVO situacao = new SituacaoVO();
-		situacao.setIdSituacao(Utilidades.CODIGO_SITUACAO_VENDA_DEFAULT);
-		venda.setSituacao(situacao);
+		venda.setSituacao(Utilidades.SITUACAO_VENDA_DEFAULT);
 		
 		//dao.cadastrarVenda(venda, listaItensVenda);
 		

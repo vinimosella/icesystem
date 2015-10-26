@@ -6,7 +6,6 @@ import teste.BancoEstatico;
 import util.Utilidades;
 import vo.CompraVO;
 import vo.ItemCompraVO;
-import vo.SituacaoVO;
 
 public class CompraBO {
 	
@@ -27,12 +26,8 @@ public class CompraBO {
 		CompraVO compra = new CompraVO();
 		
 		compra.setFuncionario(Utilidades.funcionarioLogado);
-		
-		SituacaoVO situacao = new SituacaoVO();
-		
-		situacao.setIdSituacao(Utilidades.CODIGO_SITUACAO_COMPRA_DEFAULT);
-		
-		compra.setSituacao(situacao);
+						
+		compra.setSituacao(Utilidades.SITUACAO_COMPRA_DEFAULT);
 		
 		//dao.cadastrarCompra(listaItensCompra, compra);
 		

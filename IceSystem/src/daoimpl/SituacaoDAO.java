@@ -97,5 +97,11 @@ public class SituacaoDAO implements ISituacaoDAO{
 		
 		return listaSituacoes;
 	}
+
+	public SituacaoVO consultarSituacaoPorDesc(String string) {
+		
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
