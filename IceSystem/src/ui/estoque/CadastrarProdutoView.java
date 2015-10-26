@@ -21,6 +21,7 @@ import util.Utilidades;
 import vo.IngredienteReceitaProdutoVO;
 import vo.MateriaPrimaVO;
 import vo.ProdutoVO;
+import bo.IngredienteReceitaProdutoBO;
 import bo.MateriaPrimaBO;
 import bo.ProdutoBO;
 
@@ -55,6 +56,7 @@ public class CadastrarProdutoView extends JPanel{
 	private JButton btnRemoverItemMateria;
 	private JLabel lblMaterias;
 	private JLabel lblReceita;
+	private IngredienteReceitaProdutoBO recBo;
 	
 	{
 		bo = new ProdutoBO();
@@ -213,6 +215,11 @@ public class CadastrarProdutoView extends JPanel{
 					msgErro.append("O campo 'sabor' deve estar preenchido\n");
 				}
 				
+				if(listaReceita.size() == 0){
+					
+					msgErro.append("O produto precisa de pelo menos 1 item na receita\n");
+				}
+				
 				//se não tiver erros
 				if(msgErro.toString().trim().equals("")){
 					
@@ -221,6 +228,7 @@ public class CadastrarProdutoView extends JPanel{
 					produto.setNome(txtNome.getText());
 					produto.setSabor(txtSabor.getText());
 					bo.cadastrarProduto(produto);
+					recBo.cadastrarReceitas(listaReceita);
 					
 					Utilidades.frmHome.getContentPane().removeAll();
 					ConsultaProdutoView consulta = new ConsultaProdutoView();
