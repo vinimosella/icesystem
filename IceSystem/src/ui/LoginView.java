@@ -16,19 +16,13 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import ui.cliente.CadastrarClienteView;
 import ui.cliente.ConsultarClienteView;
 import ui.estoque.ConsultaMateriaPrimaView;
 import ui.estoque.ConsultaProdutoView;
-import ui.estoque.GerarOrdemProducao;
 import ui.estoque.OrdemDeProducaoView;
-import ui.financas.CompraMateriaPrimaView;
 import ui.financas.ConsultarComprasView;
 import ui.financas.ConsultarVendasView;
-import ui.financas.VendaProdutoView;
-import ui.fornecedor.CadastrarFornecedorView;
 import ui.fornecedor.ConsultarFornecedorView;
-import ui.funcionario.CadastrarFuncionarioView;
 import ui.funcionario.ConsultarFuncionarioView;
 import util.Utilidades;
 import bo.LoginBO;
@@ -43,9 +37,7 @@ public class LoginView extends JPanel{
 	private JButton btnLogin;
 	private JMenuBar menuBar;
 	private JMenu mnArquivo;
-	private JMenu mnFuncionario;
-	private JMenu mnCliente;
-	private JMenu mnFornecedor;
+	private JMenu mnPessoas;
 	private JMenu mnEstoque;
 	private JMenu mnFinancas;
 	private LoginBO bo;
@@ -53,20 +45,14 @@ public class LoginView extends JPanel{
 	private JMenuItem mntmSair;
 	private JMenuItem mntmLogin;
 	private JMenuItem mntmSobre;
-	private JMenuItem mntmCadastrarFuncionario;
-	private JMenuItem mntmConsultarFuncionario;
-	private JMenuItem mntmCadastrarCliente;
-	private JMenuItem mntmConsultarCliente;
-	private JMenuItem mntmCadastrarFornecedor;
-	private JMenuItem mntmConsultarFornecedor;
-	private JMenuItem mntmConsultarCompra;
-	private JMenuItem mntmEfetuarCompra;
-	private JMenuItem mntmConsultarVenda;
-	private JMenuItem mntmEfetuarVenda;
+	private JMenuItem mntmFuncionario;
+	private JMenuItem mntmCliente;
+	private JMenuItem mntmFornecedor;
+	private JMenuItem mntmCompra;
+	private JMenuItem mntmVenda;
 	private JMenuItem mntmMateriaPrima;
 	private JMenuItem mntmProduto;
-	private JMenuItem mntmGerarOrdemProducao;
-	private JMenuItem mntmConsultarOrdensProducao;
+	private JMenuItem mntmOrdensProducao;
 	
 	{
 		bo = new LoginBO();
@@ -116,7 +102,7 @@ public class LoginView extends JPanel{
 				}
 				
 				//adiciona menus que todos users podem usar
-				criarMenu();
+				criarMenuSimples();
 				
 				Utilidades.frmHome.getContentPane().removeAll();
 				LogadoView logado = new LogadoView();
@@ -138,7 +124,7 @@ public class LoginView extends JPanel{
 
 	}
 	
-	private void criarMenu(){
+	private void criarMenuSimples(){
 		
 		//a barra de menu criada na HomeView é armazenada no atributo menuBar
 		menuBar = Utilidades.frmHome.getJMenuBar();
@@ -176,85 +162,51 @@ public class LoginView extends JPanel{
 		
 		mnArquivo.add(mntmSair);
 		
-		// * -- MENU FUNCIONARIO
-		mnFuncionario = new JMenu("Funcionario");
-		menuBar.add(mnFuncionario);
+		// * -- MENU PESSOAS
+		mnPessoas = new JMenu("Pessoas");
+		menuBar.add(mnPessoas);
 		
-		//ITEM CONSULTAR FUNCIONARIO
-		mntmConsultarFuncionario = new JMenuItem("Consultar");
-		mntmConsultarFuncionario.addActionListener(new ActionListener() {
+		//ITEM FUNCIONARIO
+		mntmFuncionario = new JMenuItem("Funcionário");
+		mntmFuncionario.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultarFuncionarioView consultarFuncionario = new ConsultarFuncionarioView(Utilidades.CONSULTA_FUNCIONARIOS);
+				ConsultarFuncionarioView consultarFuncionario = new ConsultarFuncionarioView();
 				Utilidades.frmHome.getContentPane().add(consultarFuncionario, BorderLayout.CENTER);
 				Utilidades.frmHome.getContentPane().revalidate();				
 			}
 		});
-		mnFuncionario.add(mntmConsultarFuncionario);
+		mnPessoas.add(mntmFuncionario);
 		
-		// * -- MENU CLIENTE
-		mnCliente = new JMenu("Cliente");
-		menuBar.add(mnCliente);
-		
-		//ITEM CADASTRAR CLIENTE
-		mntmCadastrarCliente = new JMenuItem("Cadastrar");
-		mntmCadastrarCliente.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Utilidades.frmHome.getContentPane().removeAll();
-				CadastrarClienteView cadastrarCliente = new CadastrarClienteView();
-				Utilidades.frmHome.getContentPane().add(cadastrarCliente, BorderLayout.CENTER);
-				Utilidades.frmHome.getContentPane().revalidate();
-			}
-		});
-		mnCliente.add(mntmCadastrarCliente);
-		
-		//ITEM CONSULTAR CLIENTE
-		mntmConsultarCliente = new JMenuItem("Consultar");
-		mntmConsultarCliente.addActionListener(new ActionListener() {
+		//ITEM CLIENTE
+		mntmCliente = new JMenuItem("Cliente");
+		mntmCliente.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultarClienteView consultarCliente = new ConsultarClienteView(Utilidades.CONSULTA_CLIENTES);
+				ConsultarClienteView consultarCliente = new ConsultarClienteView();
 				Utilidades.frmHome.getContentPane().add(consultarCliente, BorderLayout.CENTER);
 				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
-		mnCliente.add(mntmConsultarCliente);
+		mnPessoas.add(mntmCliente);
 		
-		// * -- MENU FORNECEDOR
-		mnFornecedor = new JMenu("Fornecedor");
-		menuBar.add(mnFornecedor);
-		
-		//ITEM CADASTRAR FORNECEDOR
-		mntmCadastrarFornecedor = new JMenuItem("Cadastrar");
-		mntmCadastrarFornecedor.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				Utilidades.frmHome.getContentPane().removeAll();
-				CadastrarFornecedorView cadastrarFornecedor = new CadastrarFornecedorView();
-				Utilidades.frmHome.getContentPane().add(cadastrarFornecedor, BorderLayout.CENTER);
-				Utilidades.frmHome.getContentPane().revalidate();				
-			}
-		});
-		mnFornecedor.add(mntmCadastrarFornecedor);
-		
-		//ITEM CONSULTAR FORNECEDOR
-		mntmConsultarFornecedor = new JMenuItem("Consultar");
-		mntmConsultarFornecedor.addActionListener(new ActionListener() {
+		//ITEM FORNECEDOR
+		mntmFornecedor = new JMenuItem("Fornecedor");
+		mntmFornecedor.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultarFornecedorView consultarFornecedor = new ConsultarFornecedorView(Utilidades.CONSULTA_FORNECEDORES);
+				ConsultarFornecedorView consultarFornecedor = new ConsultarFornecedorView();
 				Utilidades.frmHome.getContentPane().add(consultarFornecedor, BorderLayout.CENTER);
 				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
-		mnFornecedor.add(mntmConsultarFornecedor);
+		mnPessoas.add(mntmFornecedor);
 		
 		// * -- MENU PRODUÇÃO
 		mnEstoque = new JMenu("Estoque");
@@ -288,8 +240,8 @@ public class LoginView extends JPanel{
 		mnEstoque.addSeparator();
 		
 		// ITEM CONSULTAR ORDEM PRODUCAO
-		mntmConsultarOrdensProducao = new JMenuItem("Consultar Ordem de Produção");
-		mntmConsultarOrdensProducao.addActionListener(new ActionListener() {
+		mntmOrdensProducao = new JMenuItem("Consultar Ordem de Produção");
+		mntmOrdensProducao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Utilidades.frmHome.getContentPane().removeAll();
 				OrdemDeProducaoView op = new OrdemDeProducaoView();
@@ -298,83 +250,42 @@ public class LoginView extends JPanel{
 			}
 		});
 
-		mnEstoque.add(mntmConsultarOrdensProducao);
-
-		// ITEM GERAR ORDEM PRODUCAO
-		mntmGerarOrdemProducao = new JMenuItem("Gerar Ordem de Produção");
-		mntmGerarOrdemProducao.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Utilidades.frmHome.getContentPane().removeAll();
-				GerarOrdemProducao gerarOrdem = new GerarOrdemProducao();
-				Utilidades.frmHome.getContentPane().add(gerarOrdem,BorderLayout.CENTER);
-				Utilidades.frmHome.getContentPane().revalidate();
-			}
-		});
-
-		mnEstoque.add(mntmGerarOrdemProducao);
+		mnEstoque.add(mntmOrdensProducao);
 		
 		// * -- MENU FINANÇAS
 		mnFinancas = new JMenu("Finanças");
 		menuBar.add(mnFinancas);
 		
 		// ITEM CONSULTAR COMPRA
-		mntmConsultarCompra = new JMenuItem("Consultar Compras");
-		mntmConsultarCompra.addActionListener(new ActionListener() {
+		mntmCompra = new JMenuItem("Compras");
+		mntmCompra.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultarComprasView consCompras = new ConsultarComprasView(Utilidades.CONSULTA_COMPRAS);
+				ConsultarComprasView consCompras = new ConsultarComprasView();
 				Utilidades.frmHome.getContentPane().add(consCompras, BorderLayout.CENTER);
 				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
-		mnFinancas.add(mntmConsultarCompra);
-		
-		// ITEM EFETUAR COMPRA
-		mntmEfetuarCompra = new JMenuItem("Adicionar Compras");
-		mntmEfetuarCompra.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Utilidades.frmHome.getContentPane().removeAll();
-				CompraMateriaPrimaView efetCompras = new CompraMateriaPrimaView(null);
-				Utilidades.frmHome.getContentPane().add(efetCompras, BorderLayout.CENTER);
-				Utilidades.frmHome.getContentPane().revalidate();
-			}
-		});
-		mnFinancas.add(mntmEfetuarCompra);
+		mnFinancas.add(mntmCompra);
 		
 		//SEPARADOR
 		mnFinancas.addSeparator();
 		
 		// ITEM CONSULTAR VENDA
-		mntmConsultarVenda = new JMenuItem("Consultar Vendas");
-		mntmConsultarVenda.addActionListener(new ActionListener() {
+		mntmVenda = new JMenuItem("Vendas");
+		mntmVenda.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultarVendasView consVendas = new ConsultarVendasView(Utilidades.CONSULTA_VENDAS);
+				ConsultarVendasView consVendas = new ConsultarVendasView();
 				Utilidades.frmHome.getContentPane().add(consVendas, BorderLayout.CENTER);
 				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
-		mnFinancas.add(mntmConsultarVenda);
-		
-		// ITEM EFETUAR VENDA
-		mntmEfetuarVenda = new JMenuItem("Adicionar Vendas");
-		mntmEfetuarVenda.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Utilidades.frmHome.getContentPane().removeAll();
-				VendaProdutoView efetVendas = new VendaProdutoView();
-				Utilidades.frmHome.getContentPane().add(efetVendas, BorderLayout.CENTER);
-				Utilidades.frmHome.getContentPane().revalidate();
-			}
-		});
-		mnFinancas.add(mntmEfetuarVenda);		
+		mnFinancas.add(mntmVenda);		
 		
 		// adiciona menus do administrador
 		if (Utilidades.funcionarioLogado.getCargo().getIdCargo() == 1) {
@@ -384,20 +295,7 @@ public class LoginView extends JPanel{
 	
 	private void criarMenuAdministrador(){
 		
-		// * - MENU ARQUIVO
-		//ITEM CADASTRAR FUNCIONARIO		
-		mntmCadastrarFuncionario = new JMenuItem("Cadastrar");
-		mntmCadastrarFuncionario.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				Utilidades.frmHome.getContentPane().removeAll();
-				CadastrarFuncionarioView cadastrarFuncionario = new CadastrarFuncionarioView();
-				Utilidades.frmHome.getContentPane().add(cadastrarFuncionario, BorderLayout.CENTER);
-				Utilidades.frmHome.getContentPane().revalidate();
-			}
-		});
-		mnFuncionario.add(mntmCadastrarFuncionario,0);//adiciona na primeira posição
+		//TODO permissão login
 				
 	}
 	

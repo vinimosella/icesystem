@@ -138,5 +138,15 @@ public class ConsultaProdutoView extends ConsultaGenericaView{
 		
 	}
 
+	@Override
+	public void btnCadastrar() {
+
+		Utilidades.frmHome.getContentPane().removeAll();
+		CadastrarProdutoView cadastrarProduto = new CadastrarProdutoView();
+		Utilidades.frmHome.getContentPane().add(cadastrarProduto, BorderLayout.CENTER);
+		Utilidades.frmHome.getContentPane().revalidate();
+		
+	}
+
 
 }

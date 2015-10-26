@@ -17,6 +17,7 @@ public abstract class ConsultaFinancasGenericaView extends JPanel{
 	private JLabel lblConsultar;
 	private JButton btnDetalhar;
 	private JButton btnAtualizar;
+	private JButton btnCadastrar;
 	
 	//é necessario o codUser pra criar o botao da tela de alterar/delete apenas se for userAdmin
 	public ConsultaFinancasGenericaView(String lblConsulta){
@@ -32,23 +33,18 @@ public abstract class ConsultaFinancasGenericaView extends JPanel{
 		
 		montaTabela(table);
 		
-		btnDetalhar = new JButton("Detalhar");
-		btnDetalhar.setBounds(100, 480, 91, 23);
-		btnDetalhar.addActionListener(new ActionListener() {
+		btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.setBounds(100, 480, 91, 23);
+		btnCadastrar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				if(table.getSelectedRow() != -1){
-					
-					btnDetalhar(table.getSelectedRow());
-					
-				}
+				btnCadastrar();
 				
 			}
 		});
-		this.add(btnDetalhar);
-		
+		this.add(btnCadastrar);		
 		
 		btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.setBounds(231, 480, 91, 23);
@@ -66,7 +62,24 @@ public abstract class ConsultaFinancasGenericaView extends JPanel{
 			}
 			
 		});
-		this.add(btnAtualizar);
+		this.add(btnAtualizar);	
+		
+		btnDetalhar = new JButton("Detalhar");
+		btnDetalhar.setBounds(150, 510, 91, 23);
+		btnDetalhar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				if(table.getSelectedRow() != -1){
+					
+					btnDetalhar(table.getSelectedRow());
+					
+				}
+				
+			}
+		});
+		this.add(btnDetalhar);
 		
 	}
 	
@@ -75,5 +88,7 @@ public abstract class ConsultaFinancasGenericaView extends JPanel{
 	public abstract void montaTabela(JTable table);
 		
 	public abstract void btnAtualizar(Integer linhaSelecionada);
+	
+	public abstract void btnCadastrar();
 		
 }

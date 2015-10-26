@@ -21,8 +21,8 @@ public class ConsultarFornecedorView extends ConsultaGenericaView{
 	
 	private FornecedorBO bo;
 	
-	public ConsultarFornecedorView(String lblConsulta) {
-		super(lblConsulta);
+	public ConsultarFornecedorView() {
+		super(Utilidades.CONSULTA_FORNECEDORES);
 
 	}
 
@@ -107,6 +107,16 @@ public class ConsultarFornecedorView extends ConsultaGenericaView{
 			}
 					
 		}
+		
+	}
+
+	@Override
+	public void btnCadastrar() {
+
+		Utilidades.frmHome.getContentPane().removeAll();
+		CadastrarFornecedorView cadastrarFornecedor = new CadastrarFornecedorView();
+		Utilidades.frmHome.getContentPane().add(cadastrarFornecedor, BorderLayout.CENTER);
+		Utilidades.frmHome.getContentPane().revalidate();	
 		
 	}
 	

@@ -27,7 +27,7 @@ public class AtualizarVendasView extends AtualizarSituacaoView {
 		bo.AtualizarVenda(venda);
 		
 		Utilidades.frmHome.getContentPane().removeAll();
-		ConsultarVendasView consulta = new ConsultarVendasView(Utilidades.CONSULTA_VENDAS);
+		ConsultarVendasView consulta = new ConsultarVendasView();
 		Utilidades.frmHome.add(consulta);
 		Utilidades.frmHome.revalidate();
 		

@@ -1,5 +1,6 @@
 package ui.financas;
 
+import java.awt.BorderLayout;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,8 +15,8 @@ import bo.VendaBO;
 
 public class ConsultarVendasView extends ConsultaFinancasGenericaView{
 
-	public ConsultarVendasView(String lblConsulta) {
-		super(lblConsulta);
+	public ConsultarVendasView() {
+		super(Utilidades.CONSULTA_VENDAS);
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -99,6 +100,16 @@ public class ConsultarVendasView extends ConsultaFinancasGenericaView{
 
 		DetalharVendaView detalharVenda = new DetalharVendaView(listaVendas.get(linhaSelecionada));
 		detalharVenda.setVisible(true);
+		
+	}
+
+	@Override
+	public void btnCadastrar() {
+		
+		Utilidades.frmHome.getContentPane().removeAll();
+		VendaProdutoView efetVendas = new VendaProdutoView();
+		Utilidades.frmHome.getContentPane().add(efetVendas, BorderLayout.CENTER);
+		Utilidades.frmHome.getContentPane().revalidate();
 		
 	}
 	

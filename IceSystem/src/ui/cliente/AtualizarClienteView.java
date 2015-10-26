@@ -26,7 +26,7 @@ public class AtualizarClienteView extends AtualizarPessoaJuridicaView{
 	public void btnCancelar() {
 
 		Utilidades.frmHome.getContentPane().removeAll();
-		ConsultarClienteView consulta = new ConsultarClienteView(Utilidades.CONSULTA_CLIENTES);
+		ConsultarClienteView consulta = new ConsultarClienteView();
 		Utilidades.frmHome.getContentPane().add(consulta, BorderLayout.CENTER);
 		Utilidades.frmHome.getContentPane().revalidate();
 		

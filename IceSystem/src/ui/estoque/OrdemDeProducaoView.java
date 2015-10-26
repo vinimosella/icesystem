@@ -1,5 +1,6 @@
 package ui.estoque;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +26,7 @@ public class OrdemDeProducaoView extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private JLabel lblOrdemProducao;
+	private JButton btnGerarOrdem;
 	private JButton btnAtualizar;
 	private DefaultTableModel dtm;
 	private OrdemProducaoVO op;
@@ -150,6 +152,23 @@ public class OrdemDeProducaoView extends JPanel{
 		this.add(scrollPane);
 		carregaDtm();
 		scrollPane.setViewportView(table);
+		
+		btnGerarOrdem = new JButton("Gerar Ordem");
+		btnGerarOrdem.setBounds(151, 480, 131, 23);
+		btnGerarOrdem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				Utilidades.frmHome.getContentPane().removeAll();
+				GerarOrdemProducao gerarOrdem = new GerarOrdemProducao();
+				Utilidades.frmHome.getContentPane().add(gerarOrdem, BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
+				
+			}
+			
+		});
+		this.add(btnGerarOrdem);
 				
 		btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.setBounds(251, 480, 91, 23);

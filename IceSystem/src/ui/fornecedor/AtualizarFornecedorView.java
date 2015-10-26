@@ -25,7 +25,7 @@ public class AtualizarFornecedorView extends AtualizarPessoaJuridicaView{
 	public void btnCancelar() {
 		
 		Utilidades.frmHome.getContentPane().removeAll();
-		ConsultarFornecedorView consulta = new ConsultarFornecedorView(Utilidades.CONSULTA_FORNECEDORES);
+		ConsultarFornecedorView consulta = new ConsultarFornecedorView();
 		Utilidades.frmHome.getContentPane().add(consulta, BorderLayout.CENTER);
 		Utilidades.frmHome.getContentPane().revalidate();
 		

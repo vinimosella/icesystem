@@ -24,8 +24,8 @@ public class ConsultarFuncionarioView extends ConsultaGenericaView{
 	
 	private FuncionarioBO bo;
 
-	public ConsultarFuncionarioView(String lblConsulta) {
-		super(lblConsulta);
+	public ConsultarFuncionarioView() {
+		super(Utilidades.CONSULTA_FUNCIONARIOS);
 
 	}
 
@@ -110,6 +110,16 @@ public class ConsultarFuncionarioView extends ConsultaGenericaView{
 			}
 			
 		}
+		
+	}
+
+	@Override
+	public void btnCadastrar() {
+
+		Utilidades.frmHome.getContentPane().removeAll();
+		CadastrarFuncionarioView cadastrarFuncionario = new CadastrarFuncionarioView();
+		Utilidades.frmHome.getContentPane().add(cadastrarFuncionario, BorderLayout.CENTER);
+		Utilidades.frmHome.getContentPane().revalidate();
 		
 	}
 	

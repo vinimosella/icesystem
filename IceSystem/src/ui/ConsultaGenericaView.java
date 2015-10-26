@@ -18,6 +18,7 @@ public abstract class ConsultaGenericaView extends JPanel{
 	
 	private JTable table;
 	private JLabel lblConsultar;
+	private JButton btnCadastrar;
 	private JButton btnDetalhar;
 	private JButton btnAtualizar;
 	private JButton btnRemover;
@@ -40,23 +41,19 @@ public abstract class ConsultaGenericaView extends JPanel{
 		this.add(scrollPane);
 		carregaDtm(table, dtm);
 		scrollPane.setViewportView(table);
-						
-		btnDetalhar = new JButton("Detalhar");
-		btnDetalhar.setBounds(130, 480, 91, 23);
-		btnDetalhar.addActionListener(new ActionListener() {
+		
+		btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.setBounds(130, 480, 91, 23);
+		btnCadastrar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				if(table.getSelectedRow() != -1){ // se tiver algo selecionado
-					
-					btnDetalhar(table.getSelectedRow());
-					
-				}		
+				btnCadastrar();
 				
 			}
 		});
-		this.add(btnDetalhar);
+		this.add(btnCadastrar);
 		
 		btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.setBounds(231, 480, 91, 23);
@@ -97,8 +94,27 @@ public abstract class ConsultaGenericaView extends JPanel{
 		});
 		this.add(btnRemover);
 		
+		btnDetalhar = new JButton("Detalhar");
+		btnDetalhar.setBounds(250, 510, 91, 23);
+		btnDetalhar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				if(table.getSelectedRow() != -1){ // se tiver algo selecionado
+					
+					btnDetalhar(table.getSelectedRow());
+					
+				}		
+				
+			}
+		});
+		this.add(btnDetalhar);
+		
 	}
 	
+	public abstract void btnCadastrar();
+
 	public abstract void carregaDtm(JTable table, DefaultTableModel dtm);
 	
 	public abstract void btnDetalhar(Integer linhaSelecionada);

@@ -23,8 +23,8 @@ public class ConsultarClienteView extends ConsultaGenericaView{
 	
 	private ClienteBO bo;
 	
-	public ConsultarClienteView(String lblConsulta) {
-		super(lblConsulta);
+	public ConsultarClienteView() {
+		super(Utilidades.CONSULTA_CLIENTES);
 
 	}
 
@@ -108,6 +108,16 @@ public class ConsultarClienteView extends ConsultaGenericaView{
 			}
 							
 		}
+		
+	}
+
+	@Override
+	public void btnCadastrar() {
+
+		Utilidades.frmHome.getContentPane().removeAll();
+		CadastrarClienteView cadastrarCliente = new CadastrarClienteView();
+		Utilidades.frmHome.getContentPane().add(cadastrarCliente, BorderLayout.CENTER);
+		Utilidades.frmHome.getContentPane().revalidate();
 		
 	}
 	
