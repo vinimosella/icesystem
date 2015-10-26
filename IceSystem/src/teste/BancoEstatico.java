@@ -230,7 +230,7 @@ public class BancoEstatico {
 		listaFuncionarios = new ArrayList<FuncionarioVO>();
 		
 		funcionario = new FuncionarioVO();
-		funcionario.setIdFuncionario(1);
+		funcionario.setIdFuncionario(8);
 		funcionario.setNome("Vinicius");
 		funcionario.setCpf("422.811.468-71");
 		funcionario.setRg("38.345.776-02");		

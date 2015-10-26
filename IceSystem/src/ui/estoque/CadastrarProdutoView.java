@@ -61,6 +61,7 @@ public class CadastrarProdutoView extends JPanel{
 	{
 		bo = new ProdutoBO();
 		matBo = new MateriaPrimaBO();
+		recBo = new IngredienteReceitaProdutoBO();
 		listaMaterias = matBo.consultarMateriasPrimas();
 		listaReceita = new ArrayList<IngredienteReceitaProdutoVO>();
 	}

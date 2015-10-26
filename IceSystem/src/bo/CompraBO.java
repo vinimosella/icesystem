@@ -6,14 +6,19 @@ import teste.BancoEstatico;
 import util.Utilidades;
 import vo.CompraVO;
 import vo.ItemCompraVO;
+import daoimpl.CompraDAO;
 
 public class CompraBO {
 	
-	//private CompraDAO dao = new CompraDAO();
+	private CompraDAO dao;
+	
+	{
+		dao = new CompraDAO();
+	}
 	
 	public List<CompraVO> consultarCompras() {
 
-		return BancoEstatico.listaCompras;
+		return dao.consultarCompras();
 	}
 
 	public boolean atualizarCompra(CompraVO compra) {
@@ -29,7 +34,7 @@ public class CompraBO {
 						
 		compra.setSituacao(Utilidades.SITUACAO_COMPRA_DEFAULT);
 		
-		//dao.cadastrarCompra(listaItensCompra, compra);
+		dao.cadastrarCompra(compra,listaItensCompra);
 		
 		return true;
 	}

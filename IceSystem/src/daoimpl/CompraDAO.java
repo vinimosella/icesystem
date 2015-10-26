@@ -40,8 +40,9 @@ public class CompraDAO implements ICompraDAO{
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexao.prepareStatement("select c.id_compra, c.data_compra, c.id_funcionario, c.id_situacao, f.nome from Compra c"
-					                       + " inner join Funcionario f on c.id_funcionario = f.id_funcionario");
+			pstm = conexao.prepareStatement("select c.id_compra, c.data_compra, c.id_funcionario, c.id_situacao, s.descricao, f.nome from Compra c"
+					                       + " inner join Funcionario f on c.id_funcionario = f.id_funcionario"
+										   + " inner join Situacao s on s.id_situacao = c.id_situacao");
 			
 			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
@@ -60,6 +61,7 @@ public class CompraDAO implements ICompraDAO{
 				c.getFuncionario().setNome(rs.getString("nome"));
 				c.setSituacao(new SituacaoVO());
 				c.getSituacao().setIdSituacao(rs.getInt("id_situacao"));
+				c.getSituacao().setDescricao(rs.getString("descricao"));
 				
 				listaCompras.add(c);
 				
@@ -202,7 +204,7 @@ public class CompraDAO implements ICompraDAO{
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [insert] que sera executado no banco
-			pstm = conexao.prepareStatement("insert into Compra (id_funcionario, id_situacao) values (?, ?)");
+			pstm = conexao.prepareStatement("insert into Compra (id_funcionario, id_situacao) values (?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
 						
 			pstm.setInt(1, compra.getFuncionario().getIdFuncionario());
 			pstm.setInt(2, compra.getSituacao().getIdSituacao());
@@ -212,25 +214,36 @@ public class CompraDAO implements ICompraDAO{
 			
 			//Recebe o id gerado automaticamente no insert anterior
 			rs = pstm.getGeneratedKeys();
-			int idCompra = rs.getInt("id_compra");
 			
-			//Cria o [insert] que sera executado no banco
-			pstm = conexao.prepareStatement("insert into Item_Compra (id_compra, id_materia_prima, quantidade, valor) values (?, ?, ?, ?)");
 			
-			for (ItemCompraVO itemCompra : listaItensCompra) {
-
-				pstm.setInt(1, idCompra);
-				pstm.setInt(2, itemCompra.getMateriaPrima().getIdMateriaPrima());
-				pstm.setDouble(3, itemCompra.getQuantidade());
-				pstm.setDouble(4, itemCompra.getValor());
+			if(rs != null && rs.next()){
 				
-				//Executa uma atualização no banco
-				pstm.executeUpdate();
+				int idCompra = rs.getInt(1);
+				
+				//Cria o [insert] que sera executado no banco
+				pstm = conexao.prepareStatement("insert into Item_Compra (id_compra, id_materia_prima, quantidade, valor) values (?, ?, ?, ?)");
+				
+				for (ItemCompraVO itemCompra : listaItensCompra) {
+
+					pstm.setInt(1, idCompra);
+					pstm.setInt(2, itemCompra.getMateriaPrima().getIdMateriaPrima());
+					pstm.setDouble(3, itemCompra.getQuantidade());
+					pstm.setDouble(4, itemCompra.getValor());
+					
+					//Executa uma atualização no banco
+					pstm.executeUpdate();
+					
+				}
+				
+				//Em caso de sucesso, executa o commit do cadastro no banco
+				conexao.commit();
 				
 			}
-			
-			//Em caso de sucesso, executa o commit do cadastro no banco
-			conexao.commit();
+			else{
+				
+				conexao.rollback();
+				
+			}
 			
 		} catch (ClassNotFoundException cnf) {
 			

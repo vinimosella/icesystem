@@ -28,6 +28,7 @@ public class ConsultaProdutoView extends ConsultaGenericaView{
 
 	
 	public ConsultaProdutoView() {
+		
 		super(Utilidades.CONSULTA_PRODUTOS);
 
 		super.getBtnDetalhar().setVisible(false);
