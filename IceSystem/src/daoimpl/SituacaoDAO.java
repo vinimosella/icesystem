@@ -116,10 +116,14 @@ public class SituacaoDAO implements ISituacaoDAO{
 			
 			//Executa a pesquisa no banco
 			rs = pstm.executeQuery();
-						
-			//Carrega a situacao				
-			situacao.setIdSituacao(rs.getInt("id_situacao"));
-			situacao.setDescricao(rs.getString("descricao"));
+			
+			if(rs.next()){
+				
+				//Carrega a situacao				
+				situacao.setIdSituacao(rs.getInt("id_situacao"));
+				situacao.setDescricao(rs.getString("descricao"));
+				
+			}
 			
 		} catch (SQLException sql) {
 			
