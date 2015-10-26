@@ -1,6 +1,5 @@
 package ui.estoque;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
@@ -141,10 +140,8 @@ public class ConsultaMateriaPrimaView extends ConsultaGenericaView{
 	@Override
 	public void btnCadastrar() {
 
-		Utilidades.frmHome.getContentPane().removeAll();
 		CadastrarMateriaPrimaView cadastrarMateria = new CadastrarMateriaPrimaView();
-		Utilidades.frmHome.getContentPane().add(cadastrarMateria, BorderLayout.CENTER);
-		Utilidades.frmHome.getContentPane().revalidate();
+		cadastrarMateria.setVisible(true);
 		
 	}
 
