@@ -43,7 +43,6 @@ public abstract class ConsultaGenericaView extends JPanel{
 		scrollPane.setViewportView(table);
 		
 		btnCadastrar = new JButton("Cadastrar");
-		btnCadastrar.setBounds(130, 480, 91, 23);
 		btnCadastrar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -56,7 +55,6 @@ public abstract class ConsultaGenericaView extends JPanel{
 		this.add(btnCadastrar);
 		
 		btnAtualizar = new JButton("Atualizar");
-		btnAtualizar.setBounds(231, 480, 91, 23);
 		btnAtualizar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -74,7 +72,6 @@ public abstract class ConsultaGenericaView extends JPanel{
 		this.add(btnAtualizar);
 		
 		btnRemover = new JButton("Remover");
-		btnRemover.setBounds(332, 480, 91, 23);
 		btnRemover.addActionListener(new ActionListener() {
 			
 			@Override
@@ -95,7 +92,6 @@ public abstract class ConsultaGenericaView extends JPanel{
 		this.add(btnRemover);
 		
 		btnDetalhar = new JButton("Detalhar");
-		btnDetalhar.setBounds(250, 510, 91, 23);
 		btnDetalhar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -111,6 +107,43 @@ public abstract class ConsultaGenericaView extends JPanel{
 		});
 		this.add(btnDetalhar);
 		
+		boundsBtn();
+		
+	}
+	
+	public void boundsBtn(){
+		
+		int altura, distanciaInicial, distanciaEntre;
+		
+		if(btnDetalhar.isVisible() && btnRemover.isVisible()){
+			
+			altura = 490; distanciaInicial = 100; distanciaEntre = 100;
+			
+			btnCadastrar.setBounds(distanciaInicial, altura, 91, 23);
+			btnDetalhar.setBounds(distanciaInicial+distanciaEntre, altura, 91, 23);
+			btnAtualizar.setBounds(distanciaInicial+distanciaEntre*2, altura, 91, 23);
+			btnRemover.setBounds(distanciaInicial+distanciaEntre*3, altura, 91, 23);
+			
+		}
+		else if(!btnDetalhar.isVisible()){
+			
+			altura = 490; distanciaInicial = 150; distanciaEntre = 100;
+			
+			btnCadastrar.setBounds(distanciaInicial, altura, 91, 23);
+			btnAtualizar.setBounds(distanciaInicial+distanciaEntre, altura, 91, 23);
+			btnRemover.setBounds(distanciaInicial+distanciaEntre*2, altura, 91, 23);
+			
+		}
+		else if(!btnRemover.isVisible()){
+			
+			altura = 490; distanciaInicial = 150; distanciaEntre = 100;
+			
+			btnCadastrar.setBounds(distanciaInicial, altura, 91, 23);
+			btnDetalhar.setBounds(distanciaInicial+distanciaEntre, altura, 91, 23);
+			btnAtualizar.setBounds(distanciaInicial+distanciaEntre*2, altura, 91, 23);
+			
+		}
+		
 	}
 	
 	public abstract void btnCadastrar();
@@ -122,6 +155,7 @@ public abstract class ConsultaGenericaView extends JPanel{
 	public abstract void btnAtualizar(Integer linhaSelecionada);
 	
 	public abstract void btnRemover(Integer linhaSelecionada);
+	
 	
 	public JButton getBtnDetalhar() {
 		return btnDetalhar;
@@ -144,6 +178,14 @@ public abstract class ConsultaGenericaView extends JPanel{
 
 	public void setBtnRemover(JButton btnRemover) {
 		this.btnRemover = btnRemover;
+	}
+
+	public JButton getBtnCadastrar() {
+		return btnCadastrar;
+	}
+
+	public void setBtnCadastrar(JButton btnCadastrar) {
+		this.btnCadastrar = btnCadastrar;
 	}
 
 }

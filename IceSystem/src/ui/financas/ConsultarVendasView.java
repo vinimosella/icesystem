@@ -5,33 +5,66 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import ui.ConsultaGenericaView;
 import util.Utilidades;
 import vo.VendaVO;
 import bo.VendaBO;
 
-public class ConsultarVendasView extends ConsultaFinancasGenericaView{
-
-	public ConsultarVendasView() {
-		super(Utilidades.CONSULTA_VENDAS);
-	}
+public class ConsultarVendasView extends ConsultaGenericaView{
 
 	private static final long serialVersionUID = 1L;
-	private JScrollPane scrollPane;
-	private DefaultTableModel dtm;
 	private VendaBO bo;
 	private List<VendaVO> listaVendas;
 	private VendaVO venda;
 	
-	@Override
-	public void montaTabela(JTable table) {
+	public ConsultarVendasView() {
+		super(Utilidades.CONSULTA_VENDAS);
 		
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 50, 550, 400);
-		this.add(scrollPane);
+		super.getBtnRemover().setVisible(false);
+		super.boundsBtn();
+	}
+
+	@Override
+	public void btnAtualizar(Integer linhaSelecionada) {
+		
+		//se ja estiver cancelada ou finalizada...
+		if(listaVendas.get(linhaSelecionada).getSituacao().getDescricao().equals(Utilidades.CANCELADO) || listaVendas.get(linhaSelecionada).getSituacao().getDescricao().equals(Utilidades.FINALIZADO)){
+			
+			JOptionPane.showMessageDialog(Utilidades.frmHome, "Não é possível alterar itens finalizados ou cancelados!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+			
+		}
+		else{
+			
+			AtualizarVendasView atualizarVendas = new AtualizarVendasView(listaVendas.get(linhaSelecionada));
+			atualizarVendas.setVisible(true);
+			
+		}
+		
+	}
+
+	@Override
+	public void btnDetalhar(Integer linhaSelecionada) {
+
+		DetalharVendaView detalharVenda = new DetalharVendaView(listaVendas.get(linhaSelecionada));
+		detalharVenda.setVisible(true);
+		
+	}
+
+	@Override
+	public void btnCadastrar() {
+		
+		Utilidades.frmHome.getContentPane().removeAll();
+		VendaProdutoView efetVendas = new VendaProdutoView();
+		Utilidades.frmHome.getContentPane().add(efetVendas, BorderLayout.CENTER);
+		Utilidades.frmHome.getContentPane().revalidate();
+		
+	}
+
+	@Override
+	public void carregaDtm(JTable table, DefaultTableModel dtm) {
 				
 		dtm = new DefaultTableModel(
 				
@@ -73,43 +106,12 @@ public class ConsultarVendasView extends ConsultaFinancasGenericaView{
 		}			
 		
 		table.setModel(dtm);
-		scrollPane.setViewportView(table);
 		
 	}
 
+	//ESSA TELA NÃO POSSUI ESSE BOTAO
 	@Override
-	public void btnAtualizar(Integer linhaSelecionada) {
-		
-		//se ja estiver cancelada ou finalizada...
-		if(listaVendas.get(linhaSelecionada).getSituacao().getDescricao().equals(Utilidades.CANCELADO) || listaVendas.get(linhaSelecionada).getSituacao().getDescricao().equals(Utilidades.FINALIZADO)){
-			
-			JOptionPane.showMessageDialog(Utilidades.frmHome, "Não é possível alterar itens finalizados ou cancelados!", "Alerta!", JOptionPane.ERROR_MESSAGE);
-			
-		}
-		else{
-			
-			AtualizarVendasView atualizarVendas = new AtualizarVendasView(listaVendas.get(linhaSelecionada));
-			atualizarVendas.setVisible(true);
-			
-		}
-		
-	}
-
-	@Override
-	public void btnDetalhar(Integer linhaSelecionada) {
-
-		DetalharVendaView detalharVenda = new DetalharVendaView(listaVendas.get(linhaSelecionada));
-		detalharVenda.setVisible(true);
-		
-	}
-
-	@Override
-	public void btnCadastrar() {
-		
-		Utilidades.frmHome.getContentPane().removeAll();
-		VendaProdutoView efetVendas = new VendaProdutoView();
-		Utilidades.frmHome.getContentPane().add(efetVendas, BorderLayout.CENTER);
-		Utilidades.frmHome.getContentPane().revalidate();
+	public void btnRemover(Integer linhaSelecionada) {
 		
 	}
 	

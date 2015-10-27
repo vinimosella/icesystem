@@ -25,6 +25,7 @@ public class ConsultaMateriaPrimaView extends ConsultaGenericaView{
 		super(Utilidades.CONSULTA_MATERIAS_PRIMAS);
 
 		super.getBtnDetalhar().setVisible(false);
+		super.boundsBtn();
 		
 	}
 
