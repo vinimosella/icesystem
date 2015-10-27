@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -56,7 +57,6 @@ public class LoginView extends JPanel{
 	private JMenuItem mntmOrdensProducao;
 	private ImageIcon fundo = new ImageIcon(getClass().getResource("/img/img.jpg"));  
 
-	
 	{
 		bo = new LoginBO();
 	}
@@ -66,8 +66,10 @@ public class LoginView extends JPanel{
 		
 		//criação dos campos da tela de login
 		labelUser = new JLabel();
-		labelUser.setText("Usuário:  ");
-		labelUser.setBounds(150,160,60,50);
+		labelUser.setText("Usuário:");
+		labelUser.setForeground(Color.BLACK);
+		labelUser.setFont(new Font("Dialog", Font.BOLD, 20));  
+		labelUser.setBounds(120,160,120,50);
 		
 		txtUser = new JTextField();
 		txtUser.setBounds(220,170,200,30);
@@ -80,8 +82,10 @@ public class LoginView extends JPanel{
 		});  
 		
 		labelPassword = new JLabel();
-		labelPassword.setText("Senha:  ");
-		labelPassword.setBounds(150,220,60,50);
+		labelPassword.setText("Senha:");
+		labelPassword.setForeground(Color.BLACK);
+		labelPassword.setFont(new Font("Dialog", Font.BOLD, 20)); 
+		labelPassword.setBounds(120,220,120,50);
 		
 		txtPassword = new JPasswordField();
 		txtPassword.setBounds(220,230,200,30);
