@@ -1,5 +1,6 @@
 package ui.funcionario;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -527,7 +528,10 @@ public class CadastrarFuncionarioView extends JPanel{
 
 				if(bo.cadastrarFuncionario(validaFuncionario())){
 					
-					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Funcionário cadastrado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+					Utilidades.frmHome.getContentPane().removeAll();
+					ConsultarFuncionarioView consultarFuncionario = new ConsultarFuncionarioView();
+					Utilidades.frmHome.getContentPane().add(consultarFuncionario, BorderLayout.CENTER);
+					Utilidades.frmHome.getContentPane().revalidate();	
 					
 				}
 				else{

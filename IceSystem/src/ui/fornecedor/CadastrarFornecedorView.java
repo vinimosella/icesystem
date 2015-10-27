@@ -1,5 +1,7 @@
 package ui.fornecedor;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JOptionPane;
 
 import ui.pessoaJuridica.CadastrarPessoaJuridicaView;
@@ -34,7 +36,10 @@ public class CadastrarFornecedorView extends CadastrarPessoaJuridicaView{
 		
 		if(bo.cadastrarFornecedor(fornecedor)){
 			
-			JOptionPane.showMessageDialog(Utilidades.frmHome, "   Fornecedor cadastrado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+			Utilidades.frmHome.getContentPane().removeAll();
+			ConsultarFornecedorView consultarFornecedor = new ConsultarFornecedorView();
+			Utilidades.frmHome.getContentPane().add(consultarFornecedor, BorderLayout.CENTER);
+			Utilidades.frmHome.getContentPane().revalidate();
 			
 		}
 		else{

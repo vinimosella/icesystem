@@ -1,5 +1,7 @@
 package ui.cliente;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JOptionPane;
 
 import ui.pessoaJuridica.CadastrarPessoaJuridicaView;
@@ -34,7 +36,10 @@ public class CadastrarClienteView extends CadastrarPessoaJuridicaView{
 				
 		if(bo.cadastrarCliente(cliente)){
 			
-			JOptionPane.showMessageDialog(Utilidades.frmHome, "   Cliente cadastrado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+			Utilidades.frmHome.getContentPane().removeAll();
+			ConsultarClienteView consultarCliente = new ConsultarClienteView();
+			Utilidades.frmHome.getContentPane().add(consultarCliente, BorderLayout.CENTER);
+			Utilidades.frmHome.getContentPane().revalidate();
 			
 		}
 		else{

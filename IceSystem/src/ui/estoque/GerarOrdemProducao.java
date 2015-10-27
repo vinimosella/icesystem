@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 import util.Utilidades;
@@ -213,23 +212,11 @@ public class GerarOrdemProducao extends JPanel{
 				
 				//diminui a quantidade de estoque de materia prima
 				materiaBo.alterarMateriaPrimaReceita(listaReceitas, qtdProduto, produto);
-				
-				//limpa campo de quantidade
-				txtQuantidade.setText("");
-				
-				//mudar texto dos botões "yes" e "no"
-				UIManager.put("OptionPane.noButtonText", "Não");  
-				UIManager.put("OptionPane.yesButtonText", "Sim");
-				
-				//se clicar em sim, vai excluir
-				if(JOptionPane.showConfirmDialog(null, "Ordem de produção gerada!\nDeseja abrir a tela de ordens?", "Sucesso", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-					
-					Utilidades.frmHome.getContentPane().removeAll();
-					OrdemDeProducaoView opv = new OrdemDeProducaoView();
-					Utilidades.frmHome.getContentPane().add(opv, BorderLayout.CENTER);
-					Utilidades.frmHome.getContentPane().revalidate();	
 									
-				}
+				Utilidades.frmHome.getContentPane().removeAll();
+				OrdemDeProducaoView opv = new OrdemDeProducaoView();
+				Utilidades.frmHome.getContentPane().add(opv, BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();									
 				
 			}
 			else{

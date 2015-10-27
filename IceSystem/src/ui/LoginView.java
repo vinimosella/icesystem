@@ -207,7 +207,7 @@ public class LoginView extends JPanel{
 		menuBar.add(mnEstoque);
 		
 		// ITEM MATERIA PRIMA
-		mntmMateriaPrima = new JMenuItem("Materias Primas");
+		mntmMateriaPrima = new JMenuItem("Matérias Primas");
 		mntmMateriaPrima.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Utilidades.frmHome.getContentPane().removeAll();
@@ -234,7 +234,7 @@ public class LoginView extends JPanel{
 		mnEstoque.addSeparator();
 		
 		// ITEM CONSULTAR ORDEM PRODUCAO
-		mntmOrdensProducao = new JMenuItem("Consultar Ordem de Produção");
+		mntmOrdensProducao = new JMenuItem("Ordem de Produção");
 		mntmOrdensProducao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Utilidades.frmHome.getContentPane().removeAll();

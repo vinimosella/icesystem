@@ -1,5 +1,6 @@
 package ui.financas;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -206,7 +207,13 @@ public class VendaProdutoView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				vendaBo.cadastrarVenda(venda,listaItensVenda);
+				if(vendaBo.cadastrarVenda(venda,listaItensVenda)){
+					
+					Utilidades.frmHome.getContentPane().removeAll();
+					ConsultarVendasView consVendas = new ConsultarVendasView();
+					Utilidades.frmHome.getContentPane().add(consVendas, BorderLayout.CENTER);
+					Utilidades.frmHome.getContentPane().revalidate();
+				}
 			}
 		});
 		btnCadastrar.setEnabled(false);
