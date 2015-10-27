@@ -109,9 +109,9 @@ public class ConsultarComprasView extends ConsultaGenericaView{
 		
 	}
 
+	//NAO TERÁ ESSE BOTÃO NESSA TELA
 	@Override
 	public void btnRemover(Integer linhaSelecionada) {
-		// TODO Auto-generated method stub
 		
 	}
 

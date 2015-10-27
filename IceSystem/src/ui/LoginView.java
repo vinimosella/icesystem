@@ -31,11 +31,6 @@ import bo.LoginBO;
 
 public class LoginView extends JPanel{
 	
-	/* TODO
-	 * MUDAR TODAS TELAS DE CADASTRO PRA PODER VOLTAR À TELA DE CONSULTA QUANDO CLICAR EM CANCELAR, OU,
-	 * QUANDO O CADASTRO OBTER SUCESSO
-	 */
-	
 	private static final long serialVersionUID = 1L;
 	private JLabel labelUser;
 	private JTextField txtUser;
