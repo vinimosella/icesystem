@@ -20,8 +20,8 @@ public class HomeView {
 	
 	private JMenuBar menuBar;
 	private JMenu mnArquivo;
-	private JMenuItem mntmLogin;
 	private JMenuItem mntmSobre;
+	private JMenuItem mntmSair;
 	private ImageIcon img;
 	private JLabel labelImg;
 
@@ -64,19 +64,6 @@ public class HomeView {
 		mnArquivo = new JMenu("Arquivo");
 		menuBar.add(mnArquivo);
 		
-		mntmLogin = new JMenuItem("Login");
-		mntmLogin.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Utilidades.frmHome.getContentPane().removeAll();
-				LoginView loginView = new LoginView();
-				Utilidades.frmHome.getContentPane().add(loginView,BorderLayout.CENTER);
-				Utilidades.frmHome.getContentPane().revalidate();
-			}
-		});
-		mnArquivo.add(mntmLogin);
-		
 		mntmSobre = new JMenuItem("Sobre");
 		mntmSobre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -84,7 +71,24 @@ public class HomeView {
 				sobre.setVisible(true);
 			}
 		});
-		mnArquivo.add(mntmSobre);		
+		mnArquivo.add(mntmSobre);
+		
+		mnArquivo.addSeparator();
+		
+		//ITEM SAIR
+		mntmSair = new JMenuItem("Sair do Sistema");
+		mntmSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		
+		mnArquivo.add(mntmSair);
+		
+		Utilidades.frmHome.getContentPane().removeAll();
+		LoginView loginView = new LoginView();
+		Utilidades.frmHome.getContentPane().add(loginView,BorderLayout.CENTER);
+		Utilidades.frmHome.getContentPane().revalidate();
 		
 	}
 	

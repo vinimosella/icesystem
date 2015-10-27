@@ -2,6 +2,8 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,7 +32,6 @@ import bo.LoginBO;
 public class LoginView extends JPanel{
 	
 	/* TODO
-	 * MUDAR O LOGIN VIEW PRA SER A PRIMEIRA TELA ABERTA, COM O PAPEL DE PAREDE DO SORVETE
 	 * MUDAR TODAS TELAS DE CADASTRO PRA PODER VOLTAR À TELA DE CONSULTA QUANDO CLICAR EM CANCELAR, OU,
 	 * QUANDO O CADASTRO OBTER SUCESSO
 	 */
@@ -48,7 +49,6 @@ public class LoginView extends JPanel{
 	private JMenu mnFinancas;
 	private LoginBO bo;
 	private JMenuItem mntmLogout;
-	private JMenuItem mntmSair;
 	private JMenuItem mntmLogin;
 	private JMenuItem mntmSobre;
 	private JMenuItem mntmFuncionario;
@@ -59,6 +59,8 @@ public class LoginView extends JPanel{
 	private JMenuItem mntmMateriaPrima;
 	private JMenuItem mntmProduto;
 	private JMenuItem mntmOrdensProducao;
+	private ImageIcon fundo = new ImageIcon(getClass().getResource("/img/img.jpg"));  
+
 	
 	{
 		bo = new LoginBO();
@@ -107,7 +109,7 @@ public class LoginView extends JPanel{
 					return;
 				}
 				
-				//adiciona menus que todos users podem usar
+				//USUARIO REALIZOU LOGIN - adiciona menus que todos users podem usar
 				criarMenuSimples();
 				
 				Utilidades.frmHome.getContentPane().removeAll();
@@ -132,16 +134,12 @@ public class LoginView extends JPanel{
 	
 	private void criarMenuSimples(){
 		
-		//a barra de menu criada na HomeView é armazenada no atributo menuBar
+		//a barra de menu criada na HomeView é armazenada no atributo
 		menuBar = Utilidades.frmHome.getJMenuBar();
 		
-		//armazena o menu arquivo e remove o primeiro item dele (o item login)
+		//o menu arquivo criado na HomeView é armazenada no atributo
 		mnArquivo = Utilidades.frmHome.getJMenuBar().getMenu(0);
-		mnArquivo.remove(0);
-		
-		//o sobre ficou no menu como primeiro item, após ele é adicionado um separador
-		mnArquivo.addSeparator();
-		
+				
 		// * -- MENU ARQUIVO
 		//ITEM LOGOUT
 		mntmLogout = new JMenuItem("Logout");
@@ -156,17 +154,7 @@ public class LoginView extends JPanel{
 				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
-		mnArquivo.add(mntmLogout);
-		
-		//ITEM SAIR
-		mntmSair = new JMenuItem("Sair do Sistema");
-		mntmSair.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
-			}
-		});
-		
-		mnArquivo.add(mntmSair);
+		mnArquivo.add(mntmLogout,2);//coloca entre o sobre/sair e depois do separator
 		
 		// * -- MENU PESSOAS
 		mnPessoas = new JMenu("Pessoas");
@@ -306,7 +294,7 @@ public class LoginView extends JPanel{
 	}
 	
 	private void AdicionarMenuDeslogado(){
-		
+				
 		menuBar = new JMenuBar();
 		Utilidades.frmHome.setJMenuBar(menuBar);
 		
@@ -325,6 +313,14 @@ public class LoginView extends JPanel{
 		});
 		mnArquivo.add(mntmSobre);
 		
+	}
+		  
+	@Override  
+	protected void paintComponent(Graphics g) {  
+	    super.paintComponent(g);  
+	    Graphics2D g2d = (Graphics2D) g.create();  
+	    g2d.drawImage(fundo.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);  
+	    g2d.dispose();  
 	}
 
 }
