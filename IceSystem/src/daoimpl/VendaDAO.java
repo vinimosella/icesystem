@@ -40,7 +40,7 @@ public class VendaDAO implements IVendaDAO{
 			//Cria o [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select v.id_venda, v.data_venda, s.descricao, pj.razao_social from Venda v"
 					                       + " inner join Situacao s on v.id_situacao = s.id_situacao"
-					                       + " inner join Cliente c on v.id_cliente = c.id_cliente"
+					                       + " inner join Cliente c on v.id_cliente_pj = c.id_cliente_pj"
 					                       + " inner join Pessoa_Juridica pj on pj.id_pessoa_juridica = c.id_cliente_pj");
 			
 			//Executa uma pesquisa no banco
@@ -67,11 +67,13 @@ public class VendaDAO implements IVendaDAO{
 		} catch (SQLException sql) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			sql.printStackTrace();
 			listaVendas = null;
 			
 		} catch (ClassNotFoundException cnf) {
 			
 			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			cnf.printStackTrace();
 			listaVendas = null;
 			
 		} finally {
@@ -124,26 +126,37 @@ public class VendaDAO implements IVendaDAO{
 			
 			//Recebe o id gerado automaticamente no insert anterior
 			rs = pstm.getGeneratedKeys();
-			int idVenda = rs.getInt("id_venda");
 			
-			//Cria o [insert] que sera executado no banco
-			pstm = conexao.prepareStatement("insert into Item_Venda (id_venda, id_produto, quantidade, valor) values (?, ?, ?, ?)");
-			
-			//Foreach para inserir a listaItensVenda na Venda
-			for (ItemVendaVO itemVenda : listaItensVenda) {
-
-				pstm.setInt(1, idVenda);
-				pstm.setInt(2, itemVenda.getProduto().getIdProduto());
-				pstm.setDouble(3, itemVenda.getQuantidade());
-				pstm.setDouble(4, itemVenda.getValor());			
+			if(rs != null && rs.next()){
 				
-				//Executa uma atualização no banco
-				pstm.executeUpdate();
+				int idVenda = rs.getInt("id_venda");
+				
+				//Cria o [insert] que sera executado no banco
+				pstm = conexao.prepareStatement("insert into Item_Venda (id_venda, id_produto, quantidade, valor) values (?, ?, ?, ?)");
+				
+				//Foreach para inserir a listaItensVenda na Venda
+				for (ItemVendaVO itemVenda : listaItensVenda) {
+
+					pstm.setInt(1, idVenda);
+					pstm.setInt(2, itemVenda.getProduto().getIdProduto());
+					pstm.setDouble(3, itemVenda.getQuantidade());
+					pstm.setDouble(4, itemVenda.getValor());			
+					
+					//Executa uma atualização no banco
+					pstm.executeUpdate();
+					
+				}
+				
+				//Em caso de sucesso, executa o commit do cadastro no banco
+				conexao.commit();
 				
 			}
-			
-			//Em caso de sucesso, executa o commit do cadastro no banco
-			conexao.commit();
+			else{
+				
+				conexao.rollback();
+				
+				return false;
+			}
 						
 		} catch (ClassNotFoundException cnf) {
 			

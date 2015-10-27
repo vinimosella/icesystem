@@ -243,6 +243,7 @@ public class CompraDAO implements ICompraDAO{
 				
 				conexao.rollback();
 				
+				return false;
 			}
 			
 		} catch (ClassNotFoundException cnf) {
@@ -341,7 +342,7 @@ public class CompraDAO implements ICompraDAO{
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [alter] que sera executado no banco
-			pstm = conexao.prepareStatement("update Compra set id_situacao=? where id_venda=?");
+			pstm = conexao.prepareStatement("update Compra set id_situacao=? where id_compra=?");
 			
 			pstm.setInt(1, compra.getSituacao().getIdSituacao());
 			pstm.setLong(2, compra.getIdCompra());

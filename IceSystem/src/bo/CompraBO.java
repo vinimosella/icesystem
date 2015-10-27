@@ -23,7 +23,7 @@ public class CompraBO {
 
 	public boolean atualizarCompra(CompraVO compra) {
 
-		return true;
+		return dao.atualizarCompra(compra);
 	}
 	
 	public boolean cadastrarCompra(List<ItemCompraVO> listaItensCompra){

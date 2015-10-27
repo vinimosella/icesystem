@@ -2,21 +2,28 @@ package bo;
 
 import java.util.List;
 
+import daoimpl.VendaDAO;
 import teste.BancoEstatico;
 import util.Utilidades;
 import vo.ItemVendaVO;
 import vo.VendaVO;
 
 public class VendaBO {
+	
+	private VendaDAO dao;
+	
+	{
+		dao = new VendaDAO();
+	}
 
 	public List<VendaVO> consultarVendas() {
 
-		return BancoEstatico.listaVendas;
+		return dao.consultarVendas();
 	}
 
 	public boolean AtualizarVenda(VendaVO venda) {
 		
-		return true;
+		return dao.atualizarVenda(venda);
 	}
 
 	public boolean cadastrarVenda(VendaVO venda, List<ItemVendaVO> listaItensVenda) {
@@ -25,9 +32,7 @@ public class VendaBO {
 		
 		venda.setSituacao(Utilidades.SITUACAO_VENDA_DEFAULT);
 		
-		//dao.cadastrarVenda(venda, listaItensVenda);
-		
-		return true;
+		return dao.cadastrarVenda(venda, listaItensVenda);
 	}
 
 	public List<ItemVendaVO> consultarVendasPorId(VendaVO venda) {

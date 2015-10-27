@@ -120,7 +120,10 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			//Cria o [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select mp.id_materia_prima, mp.quantidade_disponivel, mp.nome, mp.sabor, pj.razao_social from Materia_Prima mp"
 					                       + " inner join Fornecedor f on mp.id_fornecedor_pj = f.id_fornecedor_pj"
-					                       + " inner join Pessoa_Juridica pj on pj.id_pessoa_juridica = f.id_fornecedor_pj");
+					                       + " inner join Pessoa_Juridica pj on pj.id_pessoa_juridica = f.id_fornecedor_pj"
+					                       + " where mp.id_status = ?");
+			
+			pstm.setInt(1, 1);
 			
 			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
@@ -138,8 +141,6 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 				mp.setSabor(rs.getString("sabor"));
 				mp.setFornecedor(new FornecedorVO());
 				mp.getFornecedor().setRazaoSocial(rs.getString("razao_social"));
-				
-				System.out.println(mp.getSabor() + "/" + mp.getSabor().length());
 				
 				listaMP.add(mp);
 				
@@ -305,9 +306,11 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [delete] que sera executado no banco
-			pstm = conexao.prepareStatement("delete from materia_prima where id_materia_prima=?");
+			pstm = conexao.prepareStatement("update materia_prima set id_status = ? where id_materia_prima=?");
 			
-			pstm.setInt(1, mp.getIdMateriaPrima());
+			pstm.setInt(1, 2);
+			
+			pstm.setInt(2, mp.getIdMateriaPrima());
 			
 			//Executa uma atualização no banco
 			pstm.executeUpdate();
@@ -407,7 +410,7 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [insert] que sera executado no banco
-			pstm = conexao.prepareStatement("insert into materia_prima (nome, sabor, id_fornecedor_pj, quantidade_disponivel) values (?, ?, ?, ?)");
+			pstm = conexao.prepareStatement("insert into materia_prima (nome, sabor, id_fornecedor_pj, quantidade_disponivel, id_status) values (?, ?, ?, ?, ?)");
 			
 			pstm.setString(1, mp.getNome());
 			
@@ -416,6 +419,8 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			pstm.setInt(3, mp.getFornecedor().getIdPessoaJuridica());
 			
 			pstm.setDouble(4, mp.getQuantidadeDisponivel());
+			
+			pstm.setDouble(5, 1);
 			
 			//Executa uma atualização no banco
 			pstm.executeUpdate();

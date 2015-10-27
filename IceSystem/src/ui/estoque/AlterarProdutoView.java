@@ -57,6 +57,7 @@ public class AlterarProdutoView extends JPanel{
 	{
 		bo = new ProdutoBO();
 		matBo = new MateriaPrimaBO();
+		recBo = new IngredienteReceitaProdutoBO();
 		listaMaterias = matBo.consultarMateriasPrimas();
 	}
 
