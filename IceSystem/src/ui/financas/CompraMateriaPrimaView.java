@@ -1,5 +1,6 @@
 package ui.financas;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -230,7 +231,14 @@ public class CompraMateriaPrimaView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				compraBo.cadastrarCompra(listaItensCompra);
+				if(compraBo.cadastrarCompra(listaItensCompra)){
+					
+					Utilidades.frmHome.getContentPane().removeAll();
+					ConsultarComprasView consCompras = new ConsultarComprasView();
+					Utilidades.frmHome.getContentPane().add(consCompras, BorderLayout.CENTER);
+					Utilidades.frmHome.getContentPane().revalidate();
+					
+				}
 			}
 		});
 		btnCadastrar.setEnabled(false);
