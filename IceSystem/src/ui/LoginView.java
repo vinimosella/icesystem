@@ -45,8 +45,8 @@ public class LoginView extends JPanel{
 	private JMenu mnFinancas;
 	private LoginBO bo;
 	private JMenuItem mntmLogout;
-	private JMenuItem mntmLogin;
 	private JMenuItem mntmSobre;
+	private JMenuItem mntmSair;
 	private JMenuItem mntmFuncionario;
 	private JMenuItem mntmCliente;
 	private JMenuItem mntmFornecedor;
@@ -62,6 +62,7 @@ public class LoginView extends JPanel{
 	}
 
 	LoginView(){
+		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
 		
 		//criação dos campos da tela de login
@@ -108,8 +109,8 @@ public class LoginView extends JPanel{
 					return;
 				}
 				
-				//USUARIO REALIZOU LOGIN - adiciona menus que todos users podem usar
-				criarMenuSimples();
+				//USUARIO REALIZOU LOGIN - adiciona menus
+				criarMenu();
 				
 				Utilidades.frmHome.getContentPane().removeAll();
 				LogadoView logado = new LogadoView();
@@ -122,16 +123,16 @@ public class LoginView extends JPanel{
 			
 		});
 		
-		Utilidades.frmHome.add(labelUser);
-		Utilidades.frmHome.add(txtUser);
-		Utilidades.frmHome.add(labelPassword);
-		Utilidades.frmHome.add(txtPassword);
-		Utilidades.frmHome.add(btnLogin);
+		this.add(labelUser);
+		this.add(txtUser);
+		this.add(labelPassword);
+		this.add(txtPassword);
+		this.add(btnLogin);
 		Utilidades.frmHome.getRootPane().setDefaultButton(btnLogin); //logar quando apertar enter
 
 	}
 	
-	private void criarMenuSimples(){
+	private void criarMenu(){
 		
 		//a barra de menu criada na HomeView é armazenada no atributo
 		menuBar = Utilidades.frmHome.getJMenuBar();
@@ -151,6 +152,7 @@ public class LoginView extends JPanel{
 				LoginView loginView = new LoginView(); //abre a tela de login com o novo menu
 				Utilidades.frmHome.getContentPane().add(loginView,BorderLayout.CENTER);
 				Utilidades.frmHome.getContentPane().revalidate();
+				Utilidades.frmHome.revalidate();
 			}
 		});
 		mnArquivo.add(mntmLogout,2);//coloca entre o sobre/sair e depois do separator
@@ -280,16 +282,6 @@ public class LoginView extends JPanel{
 		});
 		mnFinancas.add(mntmVenda);		
 		
-		// adiciona menus do administrador
-		if (Utilidades.funcionarioLogado.getCargo().getIdCargo() == 1) {
-			criarMenuAdministrador();
-		}
-	}
-	
-	private void criarMenuAdministrador(){
-		
-		//TODO permissão login
-				
 	}
 	
 	private void AdicionarMenuDeslogado(){
@@ -300,9 +292,6 @@ public class LoginView extends JPanel{
 		mnArquivo = new JMenu("Arquivo");
 		menuBar.add(mnArquivo);
 		
-		mntmLogin = new JMenuItem("Login");
-		mnArquivo.add(mntmLogin);
-		
 		mntmSobre = new JMenuItem("Sobre");
 		mntmSobre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -311,6 +300,18 @@ public class LoginView extends JPanel{
 			}
 		});
 		mnArquivo.add(mntmSobre);
+		
+		mnArquivo.addSeparator();
+		
+		//ITEM SAIR
+		mntmSair = new JMenuItem("Sair do Sistema");
+		mntmSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		
+		mnArquivo.add(mntmSair);
 		
 	}
 		  
