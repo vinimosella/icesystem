@@ -17,13 +17,13 @@ public class Utilidades {
 	
 	public static final DecimalFormat FORMAT = new DecimalFormat("#,##0.00");
 
-	public static final String CONSULTA_FUNCIONARIOS = "Consultar Funcionários";
-	public static final String CONSULTA_CLIENTES = "Consultar Clientes";
-	public static final String CONSULTA_FORNECEDORES = "Consultar Fornecedores";
-	public static final String CONSULTA_COMPRAS = "Consultar Compras";
-	public static final String CONSULTA_VENDAS = "Consultar Vendas";
-	public static final String CONSULTA_PRODUTOS = "Consultar Produtos";
-	public static final String CONSULTA_MATERIAS_PRIMAS = "Consultar Matérias Primas";
+	public static final String CONSULTA_FUNCIONARIOS = "Funcionários";
+	public static final String CONSULTA_CLIENTES = "Clientes";
+	public static final String CONSULTA_FORNECEDORES = "Fornecedores";
+	public static final String CONSULTA_COMPRAS = "Compras";
+	public static final String CONSULTA_VENDAS = "Vendas";
+	public static final String CONSULTA_PRODUTOS = "Produtos";
+	public static final String CONSULTA_MATERIAS_PRIMAS = "Matérias Primas";
 	
 	public static final String DETALHE_FUNCIONARIOS = "Detalhar Funcionário";
 	public static final String DETALHE_CLIENTES = "Detalhar Cliente";
@@ -31,13 +31,13 @@ public class Utilidades {
 	public static final String DETALHE_COMPRAS = "Detalhar Compra";
 	public static final String DETALHE_VENDAS = "Detalhar Venda";
 	
-	public static final String ATUALIZAR_COMPRAS = "Atualizar Compras";
-	public static final String ATUALIZAR_VENDAS = "Atualizar Vendas";
+	public static final String ATUALIZAR_COMPRAS = "Atualizar Compra";
+	public static final String ATUALIZAR_VENDAS = "Atualizar Venda";
 	public static final String ATUALIZAR_ORDEM_PRODUCAO = "Atualizar Ordem de Produção";
 	public static final String ATUALIZAR_PRODUTO = "Atualizar Produto";
 	public static final String ATUALIZAR_MATERIA_PRIMA = "Atualizar Matéria Prima";
 	
-	public static final String CADASTRAR_FUNCIONARIO = "Cadastrar Funcionario";
+	public static final String CADASTRAR_FUNCIONARIO = "Cadastrar Funcionário";
 	public static final String CADASTRAR_FORNECEDOR = "Cadastrar Fornecedor";
 	public static final String CADASTRAR_CLIENTE = "Cadastrar Cliente";
 	public static final String CADASTRAR_PRODUTO = "Cadastrar Produto";
