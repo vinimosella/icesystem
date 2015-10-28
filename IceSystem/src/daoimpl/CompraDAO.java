@@ -124,7 +124,7 @@ public class CompraDAO implements ICompraDAO{
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexao.prepareStatement("select mp.id_fornecedor_pj, mp.nome, mp.quantidade_disponivel, mp.sabor, i.quantidade, i.valor from Item_Compra i"
+			pstm = conexao.prepareStatement("select mp.id_materia_prima, mp.id_fornecedor_pj, mp.nome, mp.quantidade_disponivel, mp.sabor, i.quantidade, i.valor from Item_Compra i"
 					                       + " inner join Materia_Prima mp on mp.id_materia_prima = i.id_materia_prima where i.id_compra=?");
 			
 			pstm.setLong(1, compra.getIdCompra());
@@ -148,6 +148,7 @@ public class CompraDAO implements ICompraDAO{
 				mp.setNome(rs.getString("nome"));
 				mp.setQuantidadeDisponivel(rs.getDouble("quantidade_disponivel"));
 				mp.setSabor(rs.getString("sabor"));
+				mp.setIdMateriaPrima(rs.getInt("id_materia_prima"));
 				
 				item.setMateriaPrima(mp);
 				item.setCompra(compra);

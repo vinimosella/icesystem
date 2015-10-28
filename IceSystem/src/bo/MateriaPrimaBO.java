@@ -75,7 +75,7 @@ public class MateriaPrimaBO {
 	
 	public boolean alteraEstoqueMaterias(List<MateriaPrimaVO> listaMaterias) {
 
-		return true;
+		return dao.alterarEstoqueMaterias(listaMaterias);
 	}
 	
 }
