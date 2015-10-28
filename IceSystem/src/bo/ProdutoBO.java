@@ -28,7 +28,7 @@ public class ProdutoBO {
 		return dao.excluirProduto(produto);
 	}
 
-	public boolean cadastrarProduto(ProdutoVO produto) {
+	public ProdutoVO cadastrarProduto(ProdutoVO produto) {
 
 		produto.setQuantidadeEstoque(0);
 		
