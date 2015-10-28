@@ -41,7 +41,7 @@ public class CompraBO {
 
 	public List<ItemCompraVO> consultarComprasPorId(CompraVO compra) {
 
-		return BancoEstatico.listaItensCompra;
+		return dao.detalharCompra(compra);
 	}
 	
 }

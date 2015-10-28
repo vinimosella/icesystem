@@ -19,7 +19,7 @@ public class ProdutoBO {
 	}
 
 	public boolean atualizarProduto(ProdutoVO produto) {
-
+		
 		return dao.alterarProduto(produto);
 	}
 

@@ -37,9 +37,12 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			
 			//Cria o [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select mp.id_materia_prima, mp.id_fornecedor_pj, mp.quantidade_disponivel, mp.nome, mp.sabor"
-				                            + " from Materia_Prima mp where mp.id_fornecedor_pj = ?");
+				                            + " from Materia_Prima mp where mp.id_fornecedor_pj = ?"
+				                            + " and mp.id_status = ?");
 			
 			pstm.setLong(1, fornecedor.getIdPessoaJuridica());
+			
+			pstm.setInt(2, 1);
 			
 			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
