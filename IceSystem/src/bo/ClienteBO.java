@@ -26,6 +26,8 @@ public class ClienteBO {
 	
 	public boolean excluirCliente(ClienteVO cliente){
 		
+		cliente.setStatus(Utilidades.STATUS_INATIVO);
+		
 		return true;
 	}
 	

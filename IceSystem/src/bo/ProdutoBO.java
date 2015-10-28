@@ -21,6 +21,8 @@ public class ProdutoBO {
 
 	public boolean atualizarProduto(ProdutoVO produto) {
 		
+		produto.setStatus(Utilidades.STATUS_INATIVO);
+		
 		return dao.alterarProduto(produto);
 	}
 

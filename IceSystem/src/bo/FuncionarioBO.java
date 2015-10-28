@@ -71,7 +71,9 @@ public class FuncionarioBO {
 		return BancoEstatico.listaFuncionarios;
 	}
 	
-	public boolean excluirFuncionario(Integer idFuncionario){
+	public boolean excluirFuncionario(FuncionarioVO funcionario){
+		
+		funcionario.setStatus(Utilidades.STATUS_INATIVO);
 		
 		return true;
 	}

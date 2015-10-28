@@ -28,6 +28,8 @@ public class FornecedorBO {
 	
 	public boolean excluirFornecedor(FornecedorVO fornecedor){
 		
+		fornecedor.setStatus(Utilidades.STATUS_INATIVO);
+		
 		return true;
 	}
 	

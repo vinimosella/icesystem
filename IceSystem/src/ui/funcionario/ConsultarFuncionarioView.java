@@ -101,7 +101,7 @@ public class ConsultarFuncionarioView extends ConsultaGenericaView{
 		if(JOptionPane.showConfirmDialog(null, "Deseja realmente excluir o funcionário "+listaFuncionarios.get(linhaSelecionada).getNome()+" ?", "Exclusão", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
 			
 			//se excluir com sucesso...
-			if(bo.excluirFuncionario(listaFuncionarios.get(linhaSelecionada).getIdFuncionario())){
+			if(bo.excluirFuncionario(listaFuncionarios.get(linhaSelecionada))){
 				
 				//remove da lista e da tabela
 				listaFuncionarios.remove(linhaSelecionada);						
