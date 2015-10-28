@@ -55,7 +55,7 @@ public class LoginView extends JPanel{
 	private JMenuItem mntmMateriaPrima;
 	private JMenuItem mntmProduto;
 	private JMenuItem mntmOrdensProducao;
-	private ImageIcon fundo = new ImageIcon(getClass().getResource("/img/img.jpg"));  
+	private ImageIcon fundo = new ImageIcon(getClass().getResource("/img/biometria.jpg"));  
 
 	{
 		bo = new LoginBO();
@@ -69,7 +69,8 @@ public class LoginView extends JPanel{
 		labelUser = new JLabel();
 		labelUser.setText("Usuário:");
 		labelUser.setForeground(Color.BLACK);
-		labelUser.setFont(new Font("Dialog", Font.BOLD, 20));  
+		labelUser.setBackground(Color.GRAY);
+		labelUser.setFont(new Font("Arial", Font.BOLD, 20));  
 		labelUser.setBounds(120,160,120,50);
 		
 		txtUser = new JTextField();

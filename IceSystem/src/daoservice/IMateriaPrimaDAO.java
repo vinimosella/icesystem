@@ -17,4 +17,6 @@ public interface IMateriaPrimaDAO {
 	
 	public boolean cadastrarMP(MateriaPrimaVO mp);
 	
+	public boolean alterarEstoqueMaterias(List<MateriaPrimaVO> listaMaterias);
+	
 }
