@@ -285,7 +285,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 				conexao.setAutoCommit(false); //Inicia uma transação
 				
 				//Cria o [insert] que sera executado no banco
-				pstm = conexao.prepareStatement("insert into Produto (nome, sabor, quantidade_estoque, id_status) values (?, ?, ?, ?)");
+				pstm = conexao.prepareStatement("insert into Produto (nome, sabor, quantidade_estoque, id_status) values (?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
 				
 				pstm.setString(1, produto.getNome());
 				
@@ -293,7 +293,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 			
 				pstm.setInt(3, produto.getQuantidadeEstoque());
 				
-				//pstm.setInt(4, Utilidades.STATUS_ATIVO.getIdStatus());
+				pstm.setInt(4, produto.getStatus().getIdStatus());
 				
 				//Executa uma atualização no banco
 				pstm.executeUpdate();
@@ -301,15 +301,28 @@ public class  ProdutoDAO implements IProdutoDAO{
 				//Recebe o id gerado automaticamente no insert anterior
 				rs = pstm.getGeneratedKeys();
 				
-				int idProduto = rs.getInt("id_produto");
-				
-				//Carrega o produto com o id gerado pelo banco
-				produto.setIdProduto(idProduto);
-				
-				//Em caso de sucesso, executa o commit do cadastro no banco
-				conexao.commit();
+				if(rs != null && rs.next()){
+					
+					int idProduto = rs.getInt(1);
+					
+					//Carrega o produto com o id gerado pelo banco
+					produto.setIdProduto(idProduto);
+					
+					System.out.println(idProduto);
+					
+					//Em caso de sucesso, executa o commit do cadastro no banco
+					conexao.commit();
+					
+				}
+				else{
+					
+					conexao.rollback();
+	
+				}
 				
 			} catch (ClassNotFoundException cnf) {
+				
+				cnf.printStackTrace();
 				
 				//Caso ocorra algum erro, executa o rollback do cadastro no banco
 				try {
@@ -327,6 +340,8 @@ public class  ProdutoDAO implements IProdutoDAO{
 				}
 				
 			} catch (SQLException sql) {
+				
+				sql.printStackTrace();
 				
 				//Caso ocorra algum erro, executa o rollback do cadastro no banco
 				try {

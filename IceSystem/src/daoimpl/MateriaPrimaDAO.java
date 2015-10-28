@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import util.LogFactory;
+import util.Utilidades;
 import vo.FornecedorVO;
 import vo.MateriaPrimaVO;
 import vo.StatusVO;
@@ -30,6 +31,7 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 		List<MateriaPrimaVO> listaMP = null;
 		
 		MateriaPrimaVO mp = null;
+		StatusVO st = null;
 		
 		try {
 			
@@ -37,13 +39,14 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexao.prepareStatement("select mp.id_materia_prima, mp.id_fornecedor_pj, mp.quantidade_disponivel, mp.nome, mp.sabor"
-				                            + " from Materia_Prima mp where mp.id_fornecedor_pj = ?"
+			pstm = conexao.prepareStatement("select mp.id_materia_prima, mp.id_fornecedor_pj, mp.quantidade_disponivel, mp.nome, mp.sabor, st.id_status, st.descricao from Materia_Prima mp"
+                    						+ " inner join Status st on st.id_status = mp.id_status"
+                    						+ " where mp.id_fornecedor_pj = ?"
 				                            + " and mp.id_status = ?");
 			
 			pstm.setLong(1, fornecedor.getIdPessoaJuridica());
 			
-			pstm.setInt(2, 1);
+			pstm.setInt(2, Utilidades.STATUS_ATIVO.getIdStatus());
 			
 			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
@@ -54,6 +57,10 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			while(rs.next()){
 				
 				mp = new MateriaPrimaVO();
+				st = new StatusVO();
+				
+				st.setDescricao(rs.getString("descricao"));
+				st.setIdStatus(rs.getInt("id_status"));
 				
 				mp.setIdMateriaPrima(rs.getInt("id_materia_prima"));
 				mp.setFornecedor(fornecedor);
@@ -61,6 +68,7 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 				mp.setNome(rs.getString("nome"));
 				mp.setQuantidadeDisponivel(rs.getDouble("quantidade_disponivel"));
 				mp.setSabor(rs.getString("sabor"));
+				mp.setStatus(st);
 				
 				listaMP.add(mp);
 			}
@@ -113,6 +121,7 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 	public List<MateriaPrimaVO> consultarTodasMP() {
 		
 		MateriaPrimaVO mp = null;
+		StatusVO st = null;
 		
 		List<MateriaPrimaVO> listaMP = null;
 		
@@ -122,9 +131,10 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexao.prepareStatement("select mp.id_materia_prima, mp.quantidade_disponivel, mp.nome, mp.sabor, pj.razao_social, mp.id_status from Materia_Prima mp"
+			pstm = conexao.prepareStatement("select mp.id_materia_prima, mp.quantidade_disponivel, mp.nome, mp.sabor, pj.razao_social, st.id_status, st.descricao from Materia_Prima mp"
 					                       + " inner join Fornecedor f on mp.id_fornecedor_pj = f.id_fornecedor_pj"
 					                       + " inner join Pessoa_Juridica pj on pj.id_pessoa_juridica = f.id_fornecedor_pj"
+					                       + " inner join Status st on st.id_status = mp.id_status"
 					                       + " where mp.id_status = ?");
 			
 			pstm.setInt(1, 1);
@@ -138,6 +148,10 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			while(rs.next()){
 				
 				mp = new MateriaPrimaVO();
+				st = new StatusVO();
+				
+				st.setDescricao(rs.getString("descricao"));
+				st.setIdStatus(rs.getInt("id_status"));
 					
 				mp.setIdMateriaPrima(rs.getInt("id_materia_prima"));
 				mp.setQuantidadeDisponivel(rs.getDouble("quantidade_disponivel"));
@@ -147,6 +161,7 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 				mp.getFornecedor().setRazaoSocial(rs.getString("razao_social"));
 				mp.setStatus(new StatusVO());
 				mp.getStatus().setIdStatus(rs.getInt("id_status"));
+				mp.setStatus(st);
 				
 				listaMP.add(mp);
 				

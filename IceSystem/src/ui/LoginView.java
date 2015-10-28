@@ -19,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import org.jdesktop.swingx.prompt.PromptSupport;
+
 import ui.cliente.ConsultarClienteView;
 import ui.estoque.ConsultaMateriaPrimaView;
 import ui.estoque.ConsultaProdutoView;
@@ -75,7 +77,7 @@ public class LoginView extends JPanel{
 		
 		txtUser = new JTextField();
 		txtUser.setBounds(220,170,200,30);
-		
+		PromptSupport.setPrompt("TROXA", txtUser);
 		//ficar com foco no txtUser ao abrir a janela
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {  
 		    public void run() {  
