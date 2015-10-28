@@ -28,8 +28,6 @@ public class IngredienteProdutoReceitaDAO implements IIngredienteProdutoReceitaD
 	@Override
 	public List<IngredienteReceitaProdutoVO> consultarIngredientesReceita(ProdutoVO produto) {
 		
-		IngredienteReceitaProdutoVO irp = null;
-		
 		List<IngredienteReceitaProdutoVO> listaIRP = null;
 		
 		try {
@@ -52,10 +50,8 @@ public class IngredienteProdutoReceitaDAO implements IIngredienteProdutoReceitaD
 			listaIRP = new ArrayList<IngredienteReceitaProdutoVO>();
 			
 			//Carrega a listaProdutos
-			while(rs.next()){
-				
-				irp = new IngredienteReceitaProdutoVO();
-				
+			for (IngredienteReceitaProdutoVO irp : listaIRP) {
+			
 				irp.setMateriaPrima(new MateriaPrimaVO());
 				irp.getMateriaPrima().setIdMateriaPrima(rs.getInt("id_materia_prima"));
 				irp.getMateriaPrima().setNome(rs.getString("nome"));
@@ -68,8 +64,8 @@ public class IngredienteProdutoReceitaDAO implements IIngredienteProdutoReceitaD
 				irp.setQuantidadeMateria(rs.getDouble("quantidade_materia"));
 				
 				listaIRP.add(irp);
-				
-			}
+			}				
+			
 			
 		} catch (SQLException sql) {
 			
