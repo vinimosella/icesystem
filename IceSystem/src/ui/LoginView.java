@@ -69,7 +69,7 @@ public class LoginView extends JPanel{
 		labelUser = new JLabel();
 		labelUser.setText("Usuário:");
 		labelUser.setForeground(Color.BLACK);
-		labelUser.setBackground(Color.GRAY);
+		
 		labelUser.setFont(new Font("Arial", Font.BOLD, 20));  
 		labelUser.setBounds(120,160,120,50);
 		

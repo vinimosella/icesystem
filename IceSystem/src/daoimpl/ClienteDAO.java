@@ -35,7 +35,7 @@ public class ClienteDAO implements IClienteDAO{
 			//Cria o [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select cli.id.cliente_pj, pj.razao_social"
 					                       + " inner join Pessoa_Juridica pj on cli.id_cliente_pj = pj.id_pessoa_juridica"
-										   + " inner join Status st on cli.id_status = st.id_status where cli.descricao = ?");
+										   + " inner join Status st on cli.id_status = st.id_status where cli.id_status = ?");
 			
 			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
@@ -48,7 +48,7 @@ public class ClienteDAO implements IClienteDAO{
 				cli.setIdPessoaJuridica(rs.getInt("id_cliente_pj"));
 				cli.setRazaoSocial(rs.getString("razao_social"));
 				//cli.setStatus(new StatusVO());
-				//cli.getStatus.setDescricao(rs.getString(Utilidades.ATIVO));
+				//cli.getStatus.setIdStatus(rs.getInt("id_status"));
 				listaClientes.add(cli);
 				
 			}				

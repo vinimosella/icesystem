@@ -276,7 +276,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 	}
 
 	@Override
-	public boolean cadastrarProduto(ProdutoVO produto) {
+	public ProdutoVO cadastrarProduto(ProdutoVO produto) {
 		
 			try {
 				
@@ -293,13 +293,21 @@ public class  ProdutoDAO implements IProdutoDAO{
 			
 				pstm.setInt(3, produto.getQuantidadeEstoque());
 				
-				pstm.setInt(4, 1);
+				//pstm.setInt(4, Utilidades.STATUS_ATIVO.getIdStatus());
 				
 				//Executa uma atualização no banco
 				pstm.executeUpdate();
 				
+				//Recebe o id gerado automaticamente no insert anterior
+				rs = pstm.getGeneratedKeys();
+				
+				int idProduto = rs.getInt("id_produto");
+				
+				//Carrega o produto com o id gerado pelo banco
+				produto.setIdProduto(idProduto);
+				
 				//Em caso de sucesso, executa o commit do cadastro no banco
-				conexao.commit();		
+				conexao.commit();
 				
 			} catch (ClassNotFoundException cnf) {
 				
@@ -314,7 +322,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 					
 					sql.printStackTrace();
 					
-					return false;
+					return null;
 					
 				}
 				
@@ -331,7 +339,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 					
 					sql2.printStackTrace();
 					
-					return false;
+					return null;
 					
 				}			
 				
@@ -356,7 +364,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 						
 						sql2.printStackTrace();
 						
-						return false;
+						return null;
 						
 					}
 					
@@ -364,11 +372,11 @@ public class  ProdutoDAO implements IProdutoDAO{
 					
 					sql.printStackTrace();
 					
-					return false;
+					return null;
 				}
 			}
 		
-		return true;
+		return produto;
 	}
 
 	@Override

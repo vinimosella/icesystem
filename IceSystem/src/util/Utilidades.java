@@ -5,12 +5,15 @@ import java.text.DecimalFormat;
 import javax.swing.JFrame;
 
 import daoimpl.SituacaoDAO;
+import daoimpl.StatusDAO;
 import vo.FuncionarioVO;
 import vo.SituacaoVO;
+import vo.StatusVO;
 
 public class Utilidades {
 	
 	private static SituacaoDAO sitDao = new SituacaoDAO();
+	private static StatusDAO statusDao= new StatusDAO();
 	
 	public static JFrame frmHome = null;
 	public static FuncionarioVO funcionarioLogado = null;
@@ -45,7 +48,7 @@ public class Utilidades {
 	
 	public static final String FINALIZADO = "Finalizado";
 	public static final String CANCELADO = "Cancelado";
-	public static final String ATIVO = "Ativo";
+	public static final StatusVO STATUS_ATIVO = statusDao.consultarPorDescricao("Ativo");
 	
 	public static final SituacaoVO SITUACAO_VENDA_DEFAULT = sitDao.consultarSituacaoPorDesc("Solicitado");
 	public static final SituacaoVO SITUACAO_COMPRA_DEFAULT = sitDao.consultarSituacaoPorDesc("Solicitado");

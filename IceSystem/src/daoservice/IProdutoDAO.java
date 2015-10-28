@@ -12,7 +12,7 @@ public interface IProdutoDAO {
 	
 	public boolean alterarProduto(ProdutoVO produto);
 	
-	public boolean cadastrarProduto(ProdutoVO produto);
+	public ProdutoVO cadastrarProduto(ProdutoVO produto);
 	
 	public boolean excluirProduto(ProdutoVO produto);	
 }
