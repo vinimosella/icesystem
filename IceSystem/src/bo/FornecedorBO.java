@@ -6,6 +6,7 @@ import java.util.List;
 
 import daoimpl.FornecedorDAO;
 import teste.BancoEstatico;
+import util.Utilidades;
 import vo.CidadeVO;
 import vo.EstadoVO;
 import vo.FornecedorVO;
@@ -20,6 +21,8 @@ public class FornecedorBO {
 	
 	public boolean cadastrarFornecedor(FornecedorVO fornecedor) {
 
+		fornecedor.setStatus(Utilidades.STATUS_ATIVO);
+		
 		return true;
 	}
 	

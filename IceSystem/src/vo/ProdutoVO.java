@@ -10,6 +10,7 @@ public class ProdutoVO {
 	private Integer quantidadeEstoque;
 	private String nome;
 	private String sabor;
+	private StatusVO status;
 	
 	public Integer getIdProduto() {
 		return idProduto;
@@ -34,6 +35,12 @@ public class ProdutoVO {
 	}
 	public void setSabor(String sabor) {
 		this.sabor = sabor;
+	}
+	public StatusVO getStatus() {
+		return status;
+	}
+	public void setStatus(StatusVO status) {
+		this.status = status;
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import teste.BancoEstatico;
+import util.Utilidades;
 import vo.CidadeVO;
 import vo.ClienteVO;
 import vo.EstadoVO;
@@ -12,6 +13,8 @@ import vo.EstadoVO;
 public class ClienteBO {
 	
 	public boolean cadastrarCliente(ClienteVO cliente){
+		
+		cliente.setStatus(Utilidades.STATUS_ATIVO);
 		
 		return true;
 	}

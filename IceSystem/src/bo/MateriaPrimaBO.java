@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import util.Utilidades;
 import vo.FornecedorVO;
 import vo.IngredienteReceitaProdutoVO;
 import vo.MateriaPrimaVO;
@@ -64,6 +65,7 @@ public class MateriaPrimaBO {
 	public boolean cadastrarMateriaPrima(MateriaPrimaVO materiaPrima) {
 		
 		materiaPrima.setQuantidadeDisponivel(0.0);
+		materiaPrima.setStatus(Utilidades.STATUS_ATIVO);
 
 		return dao.cadastrarMP(materiaPrima);
 	}

@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import teste.BancoEstatico;
+import util.Utilidades;
 import vo.CargoVO;
 import vo.CidadeVO;
 import vo.EmailVO;
@@ -15,6 +16,8 @@ import vo.TelefoneVO;
 public class FuncionarioBO {
 	
 	public boolean cadastrarFuncionario(FuncionarioVO funcionario){
+		
+		funcionario.setStatus(Utilidades.STATUS_ATIVO);
 		
 		return true;
 	}

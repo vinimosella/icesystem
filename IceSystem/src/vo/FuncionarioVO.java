@@ -18,6 +18,7 @@ public class FuncionarioVO{
 	private EnderecoVO endereco;
 	private List<EmailVO> listaEmails;
 	private List<TelefoneVO> listaTelefones;
+	private StatusVO status;
 	
 	public List<EmailVO> getListaEmails() {
 		return listaEmails;
@@ -78,6 +79,12 @@ public class FuncionarioVO{
 	}
 	public void setLogin(String login) {
 		this.login = login;
+	}
+	public StatusVO getStatus() {
+		return status;
+	}
+	public void setStatus(StatusVO status) {
+		this.status = status;
 	}
 	
 }

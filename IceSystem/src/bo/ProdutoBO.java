@@ -2,6 +2,7 @@ package bo;
 
 import java.util.List;
 
+import util.Utilidades;
 import vo.ProdutoVO;
 import daoimpl.ProdutoDAO;
 
@@ -31,6 +32,7 @@ public class ProdutoBO {
 	public ProdutoVO cadastrarProduto(ProdutoVO produto) {
 
 		produto.setQuantidadeEstoque(0);
+		produto.setStatus(Utilidades.STATUS_ATIVO);
 		
 		return dao.cadastrarProduto(produto);
 	}

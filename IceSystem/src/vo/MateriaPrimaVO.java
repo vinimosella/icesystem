@@ -11,6 +11,7 @@ public class MateriaPrimaVO {
 	private Double quantidadeDisponivel;
 	private String nome;
 	private String sabor;
+	private StatusVO status;
 	
 	public FornecedorVO getFornecedor() {
 		return fornecedor;
@@ -41,6 +42,12 @@ public class MateriaPrimaVO {
 	}
 	public void setSabor(String sabor) {
 		this.sabor = sabor;
+	}
+	public StatusVO getStatus() {
+		return status;
+	}
+	public void setStatus(StatusVO status) {
+		this.status = status;
 	}
 
 }
