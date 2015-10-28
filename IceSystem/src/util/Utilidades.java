@@ -45,6 +45,7 @@ public class Utilidades {
 	
 	public static final String FINALIZADO = "Finalizado";
 	public static final String CANCELADO = "Cancelado";
+	public static final String ATIVO = "Ativo";
 	
 	public static final SituacaoVO SITUACAO_VENDA_DEFAULT = sitDao.consultarSituacaoPorDesc("Solicitado");
 	public static final SituacaoVO SITUACAO_COMPRA_DEFAULT = sitDao.consultarSituacaoPorDesc("Solicitado");
