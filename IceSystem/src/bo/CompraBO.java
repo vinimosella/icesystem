@@ -2,7 +2,6 @@ package bo;
 
 import java.util.List;
 
-import teste.BancoEstatico;
 import util.Utilidades;
 import vo.CompraVO;
 import vo.ItemCompraVO;

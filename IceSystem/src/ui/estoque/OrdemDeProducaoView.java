@@ -154,7 +154,7 @@ public class OrdemDeProducaoView extends JPanel{
 		scrollPane.setViewportView(table);
 		
 		btnGerarOrdem = new JButton("Gerar Ordem");
-		btnGerarOrdem.setBounds(151, 480, 131, 23);
+		btnGerarOrdem.setBounds(151, 480, 111, 23);
 		btnGerarOrdem.addActionListener(new ActionListener() {
 			
 			@Override
@@ -171,7 +171,7 @@ public class OrdemDeProducaoView extends JPanel{
 		this.add(btnGerarOrdem);
 				
 		btnAtualizar = new JButton("Atualizar");
-		btnAtualizar.setBounds(251, 480, 91, 23);
+		btnAtualizar.setBounds(341, 480, 111, 23);
 		btnAtualizar.addActionListener(new ActionListener() {
 			
 			@Override

@@ -73,4 +73,9 @@ public class MateriaPrimaBO {
 		return dao.alterarMP(materiaPrima);
 	}
 	
+	public boolean alteraEstoqueMaterias(List<MateriaPrimaVO> listaMaterias) {
+
+		return true;
+	}
+	
 }
