@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import daoimpl.ClienteDAO;
 import teste.BancoEstatico;
 import util.Utilidades;
 import vo.CidadeVO;
@@ -11,6 +12,12 @@ import vo.ClienteVO;
 import vo.EstadoVO;
 
 public class ClienteBO {
+	
+	private ClienteDAO dao;
+	
+	{
+		dao = new ClienteDAO();
+	}
 	
 	public boolean cadastrarCliente(ClienteVO cliente){
 		
@@ -21,7 +28,7 @@ public class ClienteBO {
 	
 	public List<ClienteVO> consultarClientes(){
 		
-		return BancoEstatico.listaClientes;
+		return dao.consultarTodosClientes();
 	}
 	
 	public boolean excluirCliente(ClienteVO cliente){

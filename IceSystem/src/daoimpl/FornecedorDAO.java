@@ -43,10 +43,11 @@ public class FornecedorDAO implements IFornecedorDAO{
 					                       + " inner join Pessoa_Juridica pj on f.id_fornecedor_pj = pj.id_pessoa_juridica"
 					                       + " inner join Status st on f.id_status = st.id_status where f.id_status = ?");
 			
+
+			pstm.setInt(1, Utilidades.STATUS_ATIVO.getIdStatus());
+			
 			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
-			
-			pstm.setInt(1, Utilidades.STATUS_ATIVO.getIdStatus());
 			
 			listaFornecedores = new ArrayList<FornecedorVO>();
 			

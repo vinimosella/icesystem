@@ -9,6 +9,7 @@ import java.util.List;
 
 import util.LogFactory;
 import vo.ClienteVO;
+import vo.StatusVO;
 import daoservice.IClienteDAO;
 
 public class ClienteDAO implements IClienteDAO{
@@ -47,8 +48,8 @@ public class ClienteDAO implements IClienteDAO{
 				
 				cli.setIdPessoaJuridica(rs.getInt("id_cliente_pj"));
 				cli.setRazaoSocial(rs.getString("razao_social"));
-				//cli.setStatus(new StatusVO());
-				//cli.getStatus.setIdStatus(rs.getInt("id_status"));
+				cli.setStatus(new StatusVO());
+				cli.getStatus().setIdStatus(rs.getInt("id_status"));
 				listaClientes.add(cli);
 				
 			}				
