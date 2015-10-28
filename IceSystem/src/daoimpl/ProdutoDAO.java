@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import util.LogFactory;
+import util.Utilidades;
 import vo.ProdutoVO;
 import daoservice.IProdutoDAO;
 
@@ -293,7 +294,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 			
 				pstm.setInt(3, produto.getQuantidadeEstoque());
 				
-				//pstm.setInt(4, Utilidades.STATUS_ATIVO.getIdStatus());
+				pstm.setInt(4, Utilidades.STATUS_ATIVO.getIdStatus());
 				
 				//Executa uma atualização no banco
 				pstm.executeUpdate();

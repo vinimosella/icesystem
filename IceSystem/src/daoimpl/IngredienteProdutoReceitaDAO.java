@@ -133,13 +133,11 @@ public class IngredienteProdutoReceitaDAO implements IIngredienteProdutoReceitaD
 				pstm.setInt(2, irp.getMateriaPrima().getIdMateriaPrima());
 				pstm.setDouble(3, irp.getQuantidadeMateria());
 				
-				listaIRP.add(irp);
+				//Executa uma atualização no banco
+				pstm.executeUpdate();
 				
-			}			
-			
-			//Executa uma atualização no banco
-			pstm.executeUpdate();
-			
+			}					
+		
 			//Em caso de sucesso, executa o commit do cadastro no banco
 			conexao.commit();		
 			
