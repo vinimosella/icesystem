@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import util.LogFactory;
+import util.Utilidades;
 import vo.EmailVO;
 import vo.EnderecoVO;
 import vo.FornecedorVO;
@@ -38,11 +39,14 @@ public class FornecedorDAO implements IFornecedorDAO{
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexao.prepareStatement("select f.id_fornecedor_pj, pj.cnpj, pj.id_endereco, pj.razao_social from Fornecedor f"
-					                       + " inner join Pessoa_Juridica pj on f.id_fornecedor_pj = pj.id_pessoa_juridica");
+			pstm = conexao.prepareStatement("select f.id_fornecedor_pj, pj.cnpj, pj.id_endereco, pj.razao_social, st.id_status, st.descricao from Fornecedor f"
+					                       + " inner join Pessoa_Juridica pj on f.id_fornecedor_pj = pj.id_pessoa_juridica"
+					                       + " inner join Status st on f.id_status = st.id_status where f.id_status = ?");
 			
 			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
+			
+			pstm.setInt(1, Utilidades.STATUS_ATIVO.getIdStatus());
 			
 			listaFornecedores = new ArrayList<FornecedorVO>();
 			

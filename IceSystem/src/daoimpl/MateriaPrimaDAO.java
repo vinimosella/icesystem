@@ -221,14 +221,15 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [alter] que sera executado no banco
-			pstm = conexao.prepareStatement("update materia_prima set id_fornecedor_pj=?, quantidade_disponivel=?, sabor=?, nome=?"
+			pstm = conexao.prepareStatement("update materia_prima set id_fornecedor_pj=?, quantidade_disponivel=?, sabor=?, nome=?, id_status=?"
 					                        +" where id_materia_prima=?");
 			
 			pstm.setInt(1, mp.getFornecedor().getIdPessoaJuridica());
 			pstm.setDouble(2, mp.getQuantidadeDisponivel());
 			pstm.setString(3, mp.getSabor());
 			pstm.setString(4, mp.getNome());
-			pstm.setInt(5, mp.getIdMateriaPrima());
+			pstm.setInt(5, mp.getStatus().getIdStatus());
+			pstm.setInt(6, mp.getIdMateriaPrima());
 			
 			//Executa uma atualização no banco
 			pstm.executeUpdate();
