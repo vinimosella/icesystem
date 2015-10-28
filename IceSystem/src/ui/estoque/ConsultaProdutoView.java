@@ -89,8 +89,10 @@ public class ConsultaProdutoView extends ConsultaGenericaView{
 	@Override
 	public void btnAtualizar(Integer linhaSelecionada) {
 
+		Utilidades.frmHome.getContentPane().removeAll();
 		AlterarProdutoView at = new AlterarProdutoView(listaProdutos.get(linhaSelecionada));
-		at.setVisible(true);
+		Utilidades.frmHome.getContentPane().add(at, BorderLayout.CENTER);
+		Utilidades.frmHome.getContentPane().revalidate();
 
 	}
 
