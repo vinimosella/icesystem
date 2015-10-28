@@ -7,6 +7,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,6 +22,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 
 import org.jdesktop.swingx.prompt.PromptSupport;
 
@@ -77,13 +83,55 @@ public class LoginView extends JPanel{
 		
 		txtUser = new JTextField();
 		txtUser.setBounds(220,170,200,30);
-		PromptSupport.setPrompt("TROXA", txtUser);
-		//ficar com foco no txtUser ao abrir a janela
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {  
-		    public void run() {  
-		    	txtUser.requestFocusInWindow();  
-		    }  
-		});  
+		txtUser.setText("Usuário");
+		txtUser.setForeground(Color.gray);
+		txtUser.addKeyListener(new KeyAdapter() {
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				
+				if(txtUser.getText().equals("Usuário")){
+					
+					txtUser.setText("");
+					txtUser.setForeground(Color.BLACK);
+				}
+				
+			}
+			
+		});
+		txtUser.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+
+				if(txtUser.getText().trim().equals("")){
+					
+					txtUser.setText("Usuário");
+					txtUser.setForeground(Color.gray);
+				}
+				
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+
+				if(txtUser.getText().equals("Usuário")){
+					
+					txtUser.setCaretPosition(0);
+				}
+			}
+		});
+		txtUser.addCaretListener(new CaretListener() {
+			
+			@Override
+			public void caretUpdate(CaretEvent e) {
+
+				if(e.getDot()!=0 && txtUser.getText().equals("Usuário")){
+					
+					txtUser.setCaretPosition(0);
+				}
+			}
+		});
 		
 		labelPassword = new JLabel();
 		labelPassword.setText("Senha:");
@@ -93,6 +141,9 @@ public class LoginView extends JPanel{
 		
 		txtPassword = new JPasswordField();
 		txtPassword.setBounds(220,230,200,30);
+		PromptSupport.setBackground(txtUser.getBackground(), txtPassword);
+		PromptSupport.setForeground(Color.gray, txtPassword);
+		PromptSupport.setPrompt("Senha", txtPassword);
 		
 		btnLogin = new JButton(new ImageIcon(getClass().getResource("/img/login.png")));
 		btnLogin.setText("Login");
