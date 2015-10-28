@@ -293,7 +293,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 			
 				pstm.setInt(3, produto.getQuantidadeEstoque());
 				
-				pstm.setInt(4, produto.getStatus().getIdStatus());
+				//pstm.setInt(4, Utilidades.STATUS_ATIVO.getIdStatus());
 				
 				//Executa uma atualização no banco
 				pstm.executeUpdate();
@@ -303,7 +303,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 				
 				if(rs != null && rs.next()){
 					
-					int idProduto = rs.getInt(1);
+					Integer idProduto = rs.getInt(1);
 					
 					//Carrega o produto com o id gerado pelo banco
 					produto.setIdProduto(idProduto);

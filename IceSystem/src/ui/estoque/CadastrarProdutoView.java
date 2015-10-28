@@ -227,7 +227,14 @@ public class CadastrarProdutoView extends JPanel{
 					produto.setNome(txtNome.getText());
 					produto.setSabor(txtSabor.getText());
 					produto = bo.cadastrarProduto(produto);
-					System.out.println(produto.getIdProduto());
+					
+					it = listaReceita.iterator();	
+					while(it.hasNext()){
+						
+						itemReceita = (IngredienteReceitaProdutoVO) it.next();
+						itemReceita.setProduto(produto);
+					}
+					
 					recBo.cadastrarReceitas(listaReceita);
 					
 					Utilidades.frmHome.getContentPane().removeAll();
