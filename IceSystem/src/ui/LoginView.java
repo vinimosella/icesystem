@@ -2,7 +2,6 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -14,7 +13,6 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -41,9 +39,7 @@ import bo.LoginBO;
 public class LoginView extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
-	private JLabel labelUser;
 	private JTextField txtUser;
-	private JLabel labelPassword;
 	private JPasswordField txtPassword;
 	private JButton btnLogin;
 	private JMenuBar menuBar;
@@ -73,16 +69,9 @@ public class LoginView extends JPanel{
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
 		
-		//criação dos campos da tela de login
-		labelUser = new JLabel();
-		labelUser.setText("Usuário:");
-		labelUser.setForeground(Color.BLACK);
-		
-		labelUser.setFont(new Font("Arial", Font.BOLD, 20));  
-		labelUser.setBounds(120,160,120,50);
-		
+		//criação dos campos da tela de login		
 		txtUser = new JTextField();
-		txtUser.setBounds(220,170,200,30);
+		txtUser.setBounds(200,170,200,30);
 		txtUser.setText("Usuário");
 		txtUser.setForeground(Color.gray);
 		txtUser.addKeyListener(new KeyAdapter() {
@@ -133,14 +122,8 @@ public class LoginView extends JPanel{
 			}
 		});
 		
-		labelPassword = new JLabel();
-		labelPassword.setText("Senha:");
-		labelPassword.setForeground(Color.BLACK);
-		labelPassword.setFont(new Font("Dialog", Font.BOLD, 20)); 
-		labelPassword.setBounds(120,220,120,50);
-		
 		txtPassword = new JPasswordField();
-		txtPassword.setBounds(220,230,200,30);
+		txtPassword.setBounds(200,230,200,30);
 		PromptSupport.setBackground(txtUser.getBackground(), txtPassword);
 		PromptSupport.setForeground(Color.gray, txtPassword);
 		PromptSupport.setPrompt("Senha", txtPassword);
@@ -177,9 +160,7 @@ public class LoginView extends JPanel{
 			
 		});
 		
-		this.add(labelUser);
 		this.add(txtUser);
-		this.add(labelPassword);
 		this.add(txtPassword);
 		this.add(btnLogin);
 		Utilidades.frmHome.getRootPane().setDefaultButton(btnLogin); //logar quando apertar enter
