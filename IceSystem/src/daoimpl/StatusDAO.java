@@ -43,8 +43,8 @@ public class StatusDAO implements IStatusDAO{
 			if(rs.next()){
 				
 				//Carrega a situacao				
-				//status.setIdStatus(rs.getInt("id_status"));
-				//status.setDescricao(rs.getString("descricao"));
+				status.setIdStatus(rs.getInt("id_status"));
+				status.setDescricao(rs.getString("descricao"));
 				
 			}
 			

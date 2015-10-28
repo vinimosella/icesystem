@@ -59,12 +59,15 @@ public class MateriaPrimaBO {
 
 	public boolean excluirMateriaPrima(MateriaPrimaVO materiaPrima) {
 
+		materiaPrima.setStatus(Utilidades.STATUS_INATIVO);
+		
 		return dao.excluirMP(materiaPrima);
 	}
 
 	public boolean cadastrarMateriaPrima(MateriaPrimaVO materiaPrima) {
 		
 		materiaPrima.setQuantidadeDisponivel(0.0);
+		
 		materiaPrima.setStatus(Utilidades.STATUS_ATIVO);
 
 		return dao.cadastrarMP(materiaPrima);

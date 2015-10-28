@@ -10,6 +10,7 @@ import java.util.List;
 import util.LogFactory;
 import vo.FornecedorVO;
 import vo.MateriaPrimaVO;
+import vo.StatusVO;
 import daoservice.IMateriaPrimaDAO;
 
 public class MateriaPrimaDAO implements IMateriaPrimaDAO{
@@ -121,7 +122,7 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexao.prepareStatement("select mp.id_materia_prima, mp.quantidade_disponivel, mp.nome, mp.sabor, pj.razao_social from Materia_Prima mp"
+			pstm = conexao.prepareStatement("select mp.id_materia_prima, mp.quantidade_disponivel, mp.nome, mp.sabor, pj.razao_social, mp.id_status from Materia_Prima mp"
 					                       + " inner join Fornecedor f on mp.id_fornecedor_pj = f.id_fornecedor_pj"
 					                       + " inner join Pessoa_Juridica pj on pj.id_pessoa_juridica = f.id_fornecedor_pj"
 					                       + " where mp.id_status = ?");
@@ -144,6 +145,8 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 				mp.setSabor(rs.getString("sabor"));
 				mp.setFornecedor(new FornecedorVO());
 				mp.getFornecedor().setRazaoSocial(rs.getString("razao_social"));
+				mp.setStatus(new StatusVO());
+				mp.getStatus().setIdStatus(rs.getInt("id_status"));
 				
 				listaMP.add(mp);
 				
@@ -311,7 +314,7 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			//Cria o [delete] que sera executado no banco
 			pstm = conexao.prepareStatement("update materia_prima set id_status = ? where id_materia_prima=?");
 			
-			pstm.setInt(1, 2);
+			pstm.setInt(1, mp.getStatus().getIdStatus());
 			
 			pstm.setInt(2, mp.getIdMateriaPrima());
 			
@@ -423,7 +426,7 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 			
 			pstm.setDouble(4, mp.getQuantidadeDisponivel());
 			
-			pstm.setDouble(5, 1);
+			pstm.setInt(5, mp.getStatus().getIdStatus());
 			
 			//Executa uma atualização no banco
 			pstm.executeUpdate();
