@@ -533,6 +533,8 @@ public class AtualizarFuncionarioView extends JPanel{
 		});
 		this.add(btnAtualizar);
 		
+		geraBoundsCamposTela();
+		
 	}
 	
 	private void carregaTelefone(){

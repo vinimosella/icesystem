@@ -41,12 +41,12 @@ public class FornecedorDAO implements IFornecedorDAO{
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexao.prepareStatement("select f.id_fornecedor_pj, pj.cnpj, pj.id_endereco, en.bairro, en.cep, en.complemento, en.logradouro, en.numero, cd.id_cidade, cd.nome, es.id_estado, es.nome, es.sigla, pj.razao_social, st.id_status, st.descricao from Fornecedor f"
+			pstm = conexao.prepareStatement("select f.id_fornecedor_pj, pj.cnpj, pj.id_endereco, en.bairro, en.cep, en.complemento, en.logradouro, en.numero, cd.id_cidade, cd.nome as nome_cidade, es.id_estado, es.nome, es.sigla, pj.razao_social, st.id_status, st.descricao from Fornecedor f"
 					                       + " inner join Pessoa_Juridica pj on f.id_fornecedor_pj = pj.id_pessoa_juridica"
-					                       + " inner join Status st on f.id_status = st.id_status where f.id_status = ?"
+					                       + " inner join Status st on f.id_status = st.id_status"
 					                       + " inner join Endereco en on en.id_endereco = pj.id_endereco"
 					                       + " inner join Cidade cd on cd.id_cidade = en.id_cidade"
-					                       + " inner join Estado es on es.id_estado = cd.id_estado");
+					                       + " inner join Estado es on es.id_estado = cd.id_estado where f.id_status = ?");
 			
 
 			pstm.setInt(1, Utilidades.STATUS_ATIVO.getIdStatus());
@@ -74,10 +74,10 @@ public class FornecedorDAO implements IFornecedorDAO{
 				fornecedor.getEndereco().setNumero(rs.getInt("numero"));
 				fornecedor.getEndereco().setCidade(new CidadeVO());
 				fornecedor.getEndereco().getCidade().setIdCidade(rs.getInt("id_cidade"));
-				fornecedor.getEndereco().getCidade().setNome(rs.getString("cd.nome"));
+				fornecedor.getEndereco().getCidade().setNome(rs.getString("nome_cidade"));
 				fornecedor.getEndereco().getCidade().setEstado(new EstadoVO());
 				fornecedor.getEndereco().getCidade().getEstado().setIdEstado(rs.getInt("id_estado"));
-				fornecedor.getEndereco().getCidade().getEstado().setNome(rs.getString("es.nome"));
+				fornecedor.getEndereco().getCidade().getEstado().setNome(rs.getString("nome"));
 				fornecedor.getEndereco().getCidade().getEstado().setSigla(rs.getString("sigla"));
 				fornecedor.setRazaoSocial(rs.getString("razao_social"));
 				fornecedor.setListaEmails(consultarEmailFornecedor(idFornecedor, conexao));
