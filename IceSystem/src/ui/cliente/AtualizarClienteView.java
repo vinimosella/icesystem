@@ -18,7 +18,7 @@ public class AtualizarClienteView extends AtualizarPessoaJuridicaView{
 	private ClienteVO cliente;
 	
 	public AtualizarClienteView(PessoaJuridicaVO pj) {
-		super(pj);
+		super(pj,"Atualizar Cliente");
 
 	}
 

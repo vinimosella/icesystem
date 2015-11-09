@@ -18,7 +18,7 @@ public class AtualizarFornecedorView extends AtualizarPessoaJuridicaView{
 	private FornecedorVO fornecedor;
 
 	public AtualizarFornecedorView(PessoaJuridicaVO pj) {
-		super(pj);
+		super(pj, "Atualizar Fornecedor");
 	}
 
 	@Override
