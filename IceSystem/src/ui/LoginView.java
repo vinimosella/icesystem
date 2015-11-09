@@ -59,7 +59,7 @@ public class LoginView extends JPanel{
 	private JMenuItem mntmMateriaPrima;
 	private JMenuItem mntmProduto;
 	private JMenuItem mntmOrdensProducao;
-	private ImageIcon fundo = new ImageIcon(getClass().getResource("/img/parabens.jpg"));  
+	private ImageIcon fundo = new ImageIcon(getClass().getResource("/img/biometria.jpg"));  
 
 	{
 		bo = new LoginBO();

@@ -181,10 +181,6 @@ public class BancoEstatico {
 		email.setEmail("oloco@bixo.com.br");
 		listaEmails.add(email);
 		
-		email = new EmailVO();
-		email.setEmail("porra@meu.com.br");
-		listaEmails.add(email);
-		
 		//CARREGA TELEFONES
 		listaTelefones = new ArrayList<TelefoneVO>();
 		

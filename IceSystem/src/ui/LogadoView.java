@@ -23,8 +23,8 @@ public class LogadoView extends JPanel{
 		labelWelcome = new JLabel();
 		labelWelcome.setText("Bem-Vindo!");
 		labelWelcome.setFont(new Font(Font.DIALOG, Font.BOLD, 40));
-		labelWelcome.setForeground(Color.BLUE);
-		labelWelcome.setBounds(175,250,250,50);
+		labelWelcome.setForeground(Color.BLACK);
+		labelWelcome.setBounds(180,30,250,50);
 		this.add(labelWelcome);
 		
 	}
