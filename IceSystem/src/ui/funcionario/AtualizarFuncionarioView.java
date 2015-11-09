@@ -28,6 +28,7 @@ import bo.FuncionarioBO;
 public class AtualizarFuncionarioView extends JPanel{
 
 	private static final long serialVersionUID = 1L;
+	private JLabel labelNomeTela;
 	private JLabel labelNome;
 	private JTextField txtNome;
 	private JLabel labelCpf;
@@ -99,39 +100,36 @@ public class AtualizarFuncionarioView extends JPanel{
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
 		
+		labelNomeTela = new JLabel();
+		labelNomeTela.setText("Alterar Funcionário");
+		this.add(labelNomeTela);
+		
 		labelNome = new JLabel();
 		labelNome.setText("Nome:");
-		labelNome.setBounds(20,5,120,20);
 		this.add(labelNome);
 		
 		txtNome = new JTextField();
-		txtNome.setBounds(300,7,200,20);
 		txtNome.setText(funcionario.getNome());
 		this.add(txtNome);
 		
 		labelCpf = new JLabel();
 		labelCpf.setText("CPF:");
-		labelCpf.setBounds(20,30,120,20);
 		this.add(labelCpf);
 		
 		txtCpf = new JTextField();
-		txtCpf.setBounds(300,32,200,20);
 		txtCpf.setText(funcionario.getCpf());
 		this.add(txtCpf);
 		
 		labelRg = new JLabel();
 		labelRg.setText("RG:");
-		labelRg.setBounds(20,55,120,20);
 		this.add(labelRg);
 		
 		txtRg = new JTextField();
-		txtRg.setBounds(300,57,200,20);
 		txtRg.setText(funcionario.getRg());
 		this.add(txtRg);
 		
 		labelTelefone = new JLabel();
 		labelTelefone.setText("Telefone:");
-		labelTelefone.setBounds(20,80,120,20);
 		this.add(labelTelefone);
 		
 		//armazena a quantidade de telefones que tem, alterará o valor do label de telefone para o numero corrente
@@ -139,7 +137,6 @@ public class AtualizarFuncionarioView extends JPanel{
 		
 		carregaTelefone();
 		
-		comboTelefone.setBounds(250,82,40,20);
 		//Muda o valor do textField quando muda o 'id' do telefone do combobox
 		comboTelefone.addActionListener(new ActionListener() {
 			
@@ -158,12 +155,10 @@ public class AtualizarFuncionarioView extends JPanel{
 		this.add(comboTelefone);
 		
 		txtTelefone = new JTextField();
-		txtTelefone.setBounds(300,82,200,20);
 		txtTelefone.setText(listaTelefones.get(0).getDdd()+listaTelefones.get(0).getNumero());
 		this.add(txtTelefone);
 		
 		btnAtualizarTelefone = new JButton(new ImageIcon(getClass().getResource("/img/update.png")));
-		btnAtualizarTelefone.setBounds(502,83,17,17);
 		btnAtualizarTelefone.addActionListener(new ActionListener() {
 			
 			@Override
@@ -192,7 +187,6 @@ public class AtualizarFuncionarioView extends JPanel{
 		this.add(btnAtualizarTelefone);
 
 		btnAdicionarTelefone = new JButton(new ImageIcon(getClass().getResource("/img/confirm.png")));
-		btnAdicionarTelefone.setBounds(521,83,17,17);
 		btnAdicionarTelefone.addActionListener(new ActionListener() {
 			
 			@Override
@@ -225,7 +219,6 @@ public class AtualizarFuncionarioView extends JPanel{
 		this.add(btnAdicionarTelefone);
 		
 		btnRemoverTelefone = new JButton(new ImageIcon(getClass().getResource("/img/delete.png")));
-		btnRemoverTelefone.setBounds(540,83,17,17);
 		btnRemoverTelefone.addActionListener(new ActionListener() {
 			
 			@Override
@@ -260,7 +253,6 @@ public class AtualizarFuncionarioView extends JPanel{
 		
 		labelEmail = new JLabel();
 		labelEmail.setText("Email:");
-		labelEmail.setBounds(20,105,120,20);
 		this.add(labelEmail);
 		
 		//armazena a quantidade de emails que tem, alterará o valor do label de email para o numero corrente
@@ -268,7 +260,6 @@ public class AtualizarFuncionarioView extends JPanel{
 		
 		carregaEmail();
 		
-		comboEmail.setBounds(250,107,40,20);
 		//Muda o valor do textField quando muda o 'id' do email do combobox
 		comboEmail.addActionListener(new ActionListener() {
 			
@@ -286,12 +277,10 @@ public class AtualizarFuncionarioView extends JPanel{
 		this.add(comboEmail);
 		
 		txtEmail = new JTextField();
-		txtEmail.setBounds(300,107,200,20);
 		txtEmail.setText(listaEmails.get(0).getEmail());
 		this.add(txtEmail);
 		
 		btnAtualizarEmail = new JButton(new ImageIcon(getClass().getResource("/img/update.png")));
-		btnAtualizarEmail.setBounds(502,108,17,17);
 		btnAtualizarEmail.addActionListener(new ActionListener() {
 			
 			@Override
@@ -319,7 +308,6 @@ public class AtualizarFuncionarioView extends JPanel{
 		this.add(btnAtualizarEmail);
 		
 		btnAdicionarEmail = new JButton(new ImageIcon(getClass().getResource("/img/confirm.png")));
-		btnAdicionarEmail.setBounds(521,108,17,17);
 		btnAdicionarEmail.addActionListener(new ActionListener() {
 			
 			@Override
@@ -350,7 +338,6 @@ public class AtualizarFuncionarioView extends JPanel{
 		this.add(btnAdicionarEmail);
 		
 		btnRemoverEmail = new JButton(new ImageIcon(getClass().getResource("/img/delete.png")));
-		btnRemoverEmail.setBounds(540,108,17,17);
 		btnRemoverEmail.addActionListener(new ActionListener() {
 			
 			@Override
@@ -385,11 +372,9 @@ public class AtualizarFuncionarioView extends JPanel{
 		
 		labelEstado = new JLabel();
 		labelEstado.setText("Estado:");
-		labelEstado.setBounds(20,130,120,20);
 		this.add(labelEstado);
 		
 		comboEstado = new JComboBox<String>();
-		comboEstado.setBounds(300,132,200,20);
 		comboEstado.addItem("Selecione");
 		listaEstados = bo.buscaEstados();
 		
@@ -435,11 +420,9 @@ public class AtualizarFuncionarioView extends JPanel{
 		
 		labelCidade = new JLabel();
 		labelCidade.setText("Cidade:");
-		labelCidade.setBounds(20,155,120,20);
 		this.add(labelCidade);
 		
 		comboCidade = new JComboBox<String>();
-		comboCidade.setBounds(300,157,200,20);
 		comboCidade.addItem("Selecione");
 		listaCidades = bo.buscaCidadesPorEstado(listaEstados.get(comboEstado.getSelectedIndex()-1).getIdEstado());
 		it = listaCidades.iterator();
@@ -457,61 +440,49 @@ public class AtualizarFuncionarioView extends JPanel{
 		
 		labelLogradouro = new JLabel();
 		labelLogradouro.setText("Logradouro:");
-		labelLogradouro.setBounds(20,180,120,20);
 		this.add(labelLogradouro);
 		
 		txtLogradouro = new JTextField();
-		txtLogradouro.setBounds(300,182,200,20);
 		txtLogradouro.setText(funcionario.getEndereco().getLogradouro());
 		this.add(txtLogradouro);
 		
 		labelNumero = new JLabel();
 		labelNumero.setText("Número:");
-		labelNumero.setBounds(20,205,120,20);
 		this.add(labelNumero);
 		
 		txtNumero = new JTextField();
-		txtNumero.setBounds(300,207,200,20);
 		txtNumero.setText(funcionario.getEndereco().getNumero().toString());
 		this.add(txtNumero);
 		
 		labelComplemento = new JLabel();
 		labelComplemento.setText("Complemento:");
-		labelComplemento.setBounds(20,230,120,20);
 		this.add(labelComplemento);
 		
 		txtComplemento = new JTextField();
-		txtComplemento.setBounds(300,232,200,20);
 		txtComplemento.setText(funcionario.getEndereco().getComplemento());
 		this.add(txtComplemento);
 		
 		labelBairro = new JLabel();
 		labelBairro.setText("Bairro:");
-		labelBairro.setBounds(20,255,120,20);
 		this.add(labelBairro);
 		
 		txtBairro = new JTextField();
-		txtBairro.setBounds(300,257,200,20);
 		txtBairro.setText(funcionario.getEndereco().getBairro());
 		this.add(txtBairro);
 		
 		labelCep = new JLabel();
 		labelCep.setText("CEP:");
-		labelCep.setBounds(20,280,120,20);
 		this.add(labelCep);
 		
 		txtCep = new JTextField();
-		txtCep.setBounds(300,282,200,20);
 		txtCep.setText(funcionario.getEndereco().getCep());
 		this.add(txtCep);
 		
 		labelCargo = new JLabel();
 		labelCargo.setText("Cargo:");
-		labelCargo.setBounds(20,305,120,20);
 		this.add(labelCargo);
 		
 		comboCargo = new JComboBox<String>();
-		comboCargo.setBounds(300, 307, 200, 20);
 		listaCargos = bo.buscaCargos();
 		
 		it = listaCargos.iterator();
@@ -527,7 +498,6 @@ public class AtualizarFuncionarioView extends JPanel{
 		this.add(comboCargo);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(100, 450, 120, 20);
 		btnCancelar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -543,7 +513,6 @@ public class AtualizarFuncionarioView extends JPanel{
 		this.add(btnCancelar);
 		
 		btnAtualizar = new JButton("Atualizar");
-		btnAtualizar.setBounds(300, 450, 120, 20);
 		btnAtualizar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -620,6 +589,60 @@ public class AtualizarFuncionarioView extends JPanel{
 		funcionario.setCargo(cargo);
 		
 		return funcionario;
+	}
+	
+	private void geraBoundsCamposTela(){
+		
+		int distY = 10;
+		int lblEsqX = 20;
+		int lblDirX = 300;
+		int distEntre = 35;
+		int alturaCampo = 20;
+		
+		//campos esquerda
+		labelNomeTela.setBounds(lblEsqX,distY,180,alturaCampo);
+		labelNome.setBounds(lblEsqX,distY+distEntre,120,alturaCampo);
+		labelCpf.setBounds(lblEsqX,distY+distEntre*2,120,alturaCampo);
+		labelRg.setBounds(lblEsqX,distY+distEntre*3,120,alturaCampo);
+		labelTelefone.setBounds(lblEsqX,distY+distEntre*4,120,alturaCampo);
+		labelEmail.setBounds(lblEsqX,distY+distEntre*5,120,alturaCampo);
+		labelEstado.setBounds(lblEsqX,distY+distEntre*6,120,alturaCampo);
+		labelCidade.setBounds(lblEsqX,distY+distEntre*7,120,alturaCampo);
+		labelLogradouro.setBounds(lblEsqX,distY+distEntre*8,120,alturaCampo);
+		labelNumero.setBounds(lblEsqX,distY+distEntre*9,120,alturaCampo);
+		labelComplemento.setBounds(lblEsqX,distY+distEntre*10,120,alturaCampo);
+		labelBairro.setBounds(lblEsqX,distY+distEntre*11,120,alturaCampo);
+		labelCep.setBounds(lblEsqX,distY+distEntre*12,120,alturaCampo);
+		labelCargo.setBounds(lblEsqX,distY+distEntre*13,120,alturaCampo);
+		
+		
+		//campos direita
+		txtNome.setBounds(lblDirX,distY+distEntre,200,alturaCampo);
+		txtCpf.setBounds(lblDirX,distY+distEntre*2,200,alturaCampo);
+		txtRg.setBounds(lblDirX,distY+distEntre*3,200,alturaCampo);
+		
+		comboTelefone.setBounds(250,distY+distEntre*4,40,alturaCampo);
+		txtTelefone.setBounds(lblDirX,distY+distEntre*4,200,alturaCampo);
+		btnAtualizarTelefone.setBounds(502,distY+distEntre*4,17,alturaCampo-3);
+		btnAdicionarTelefone.setBounds(521,distY+distEntre*4,17,alturaCampo-3);
+		btnRemoverTelefone.setBounds(540,distY+distEntre*4,17,alturaCampo-3);
+		
+		comboEmail.setBounds(250,distY+distEntre*5,40,alturaCampo);
+		txtEmail.setBounds(lblDirX,distY+distEntre*5,200,alturaCampo);
+		btnAtualizarEmail.setBounds(502,distY+distEntre*5,17,alturaCampo-3);
+		btnAdicionarEmail.setBounds(521,distY+distEntre*5,17,alturaCampo-3);
+		btnRemoverEmail.setBounds(540,distY+distEntre*5,17,alturaCampo-3);
+		
+		comboEstado.setBounds(lblDirX,distY+distEntre*6,200,alturaCampo);
+		comboCidade.setBounds(lblDirX,distY+distEntre*7,200,alturaCampo);	
+		txtLogradouro.setBounds(lblDirX,distY+distEntre*8,200,alturaCampo);
+		txtNumero.setBounds(lblDirX,distY+distEntre*9,200,alturaCampo);
+		txtComplemento.setBounds(lblDirX,distY+distEntre*10,200,alturaCampo);
+		txtBairro.setBounds(lblDirX,distY+distEntre*11,200,alturaCampo);
+		txtCep.setBounds(lblDirX,distY+distEntre*12,200,alturaCampo);
+		comboCargo.setBounds(lblDirX,distY+distEntre*13,200,alturaCampo);
+		btnAtualizar.setBounds(245,(distY+distEntre*14)+5,120,alturaCampo);
+		
 	}
 	
 }
