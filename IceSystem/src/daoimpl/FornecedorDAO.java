@@ -147,7 +147,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 			Connection conexaoLocal = conexao;
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexaoLocal.prepareStatement("select id_email, email, id_funcionario from Email where id_funcionario = ?");
+			pstm = conexaoLocal.prepareStatement("select id_email, email, id_pessoa_juridica from Email where id_pessoa_juridica = ?");
 			
 			pstm.setInt(1, idFornecedor);
 			
@@ -202,7 +202,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 			Connection conexaoLocal = conexao;
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexaoLocal.prepareStatement("select id_telefone, ddd, numero, id_funcionario from Telefone where id_funcionario = ?");
+			pstm = conexaoLocal.prepareStatement("select id_telefone, ddd, numero, id_pessoa_juridica from Telefone where id_pessoa_juridica = ?");
 			
 			//Executa uma pesquisa no banco
 			pstm.setInt(1, idFornecedor);
