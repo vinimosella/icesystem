@@ -235,7 +235,7 @@ public class CadastrarProdutoView extends JPanel{
 						itemReceita.setProduto(produto);
 					}
 					
-					recBo.cadastrarReceitas(listaReceita);
+					recBo.cadastrarReceitas(listaReceita, produto);
 					
 					Utilidades.frmHome.getContentPane().removeAll();
 					ConsultaProdutoView consulta = new ConsultaProdutoView();

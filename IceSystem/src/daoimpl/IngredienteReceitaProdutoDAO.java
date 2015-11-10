@@ -115,7 +115,7 @@ public class IngredienteReceitaProdutoDAO implements IIngredienteReceitaProdutoD
 	}
 
 	@Override
-	public boolean cadastrarIngredientesReceita(List<IngredienteReceitaProdutoVO> listaIRP) {
+	public boolean cadastrarIngredientesReceita(List<IngredienteReceitaProdutoVO> listaIRP, ProdutoVO produto) {
 		
 		try {
 			
@@ -124,12 +124,12 @@ public class IngredienteReceitaProdutoDAO implements IIngredienteReceitaProdutoD
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [insert] que sera executado no banco
-			pstm = conexao.prepareStatement("insert into Ingrediente_Produto_Receita (id_produto, id_materia_prima, quantidade_materia) values (?, ?, ?)");
+			pstm = conexao.prepareStatement("insert into Ingrediente_Receita_Produto (id_produto, id_materia_prima, quantidade_materia) values (?, ?, ?)");
 			
 			//Carrega a listaIRP
 			for (IngredienteReceitaProdutoVO irp : listaIRP) {
 				
-				pstm.setInt(1, irp.getProduto().getIdProduto());
+				pstm.setInt(1, produto.getIdProduto());
 				pstm.setInt(2, irp.getMateriaPrima().getIdMateriaPrima());
 				pstm.setDouble(3, irp.getQuantidadeMateria());
 				
@@ -142,6 +142,8 @@ public class IngredienteReceitaProdutoDAO implements IIngredienteReceitaProdutoD
 			conexao.commit();		
 			
 		} catch (ClassNotFoundException cnf) {
+			
+			cnf.printStackTrace();
 			
 			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
@@ -159,6 +161,8 @@ public class IngredienteReceitaProdutoDAO implements IIngredienteReceitaProdutoD
 			}
 			
 		} catch (SQLException sql) {
+			
+			sql.printStackTrace();
 			
 			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
@@ -184,6 +188,8 @@ public class IngredienteReceitaProdutoDAO implements IIngredienteReceitaProdutoD
 				pstm.close();					
 				
 			} catch (SQLException sql) {
+				
+				sql.printStackTrace();
 				
 				//Caso ocorra algum erro, executa o rollback do cadastro no banco
 				try {

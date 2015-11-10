@@ -314,9 +314,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 					
 					//Carrega o produto com o id gerado pelo banco
 					produto.setIdProduto(idProduto);
-					
-					System.out.println(idProduto);
-					
+										
 					//Em caso de sucesso, executa o commit do cadastro no banco
 					conexao.commit();
 					

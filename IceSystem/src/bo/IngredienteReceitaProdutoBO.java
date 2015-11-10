@@ -19,9 +19,9 @@ public class IngredienteReceitaProdutoBO {
 		return dao.consultarIngredientesReceita(produto);
 	}
 
-	public boolean cadastrarReceitas(List<IngredienteReceitaProdutoVO> listaReceita) {
+	public boolean cadastrarReceitas(List<IngredienteReceitaProdutoVO> listaReceita, ProdutoVO produto) {
 
-		return dao.cadastrarIngredientesReceita(listaReceita);
+		return dao.cadastrarIngredientesReceita(listaReceita, produto);
 	}
 
 }

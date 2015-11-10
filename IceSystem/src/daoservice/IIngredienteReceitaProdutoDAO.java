@@ -10,7 +10,7 @@ public interface IIngredienteReceitaProdutoDAO {
 	public List<IngredienteReceitaProdutoVO> consultarIngredientesReceita(ProdutoVO produto);
 	
 	public boolean excluirIngredientesReceita(IngredienteReceitaProdutoVO irp);
-	
-	public boolean cadastrarIngredientesReceita(List<IngredienteReceitaProdutoVO> listaIRP);
+
+	public boolean cadastrarIngredientesReceita(List<IngredienteReceitaProdutoVO> listaIRP, ProdutoVO produto);
 	
 }
