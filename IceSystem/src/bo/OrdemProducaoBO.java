@@ -8,7 +8,6 @@ import util.Utilidades;
 import vo.IngredienteReceitaProdutoVO;
 import vo.MateriaPrimaVO;
 import vo.OrdemProducaoVO;
-import vo.SituacaoVO;
 import daoimpl.IngredienteReceitaProdutoDAO;
 import daoimpl.MateriaPrimaDAO;
 import daoimpl.OrdemDeProducaoDAO;
@@ -30,10 +29,7 @@ public class OrdemProducaoBO {
 	
 	public boolean incluirOrdemProducao(OrdemProducaoVO ordemProducao){
 		
-		SituacaoVO situação = new SituacaoVO();
-		situação.setIdSituacao(3);
-		
-		ordemProducao.setSituacao(situação);
+		ordemProducao.setSituacao(Utilidades.SITUACAO_ORDEM_PRODUCAO_DEFAULT);
 		
 		return dao.cadastrarOP(ordemProducao);
 	}

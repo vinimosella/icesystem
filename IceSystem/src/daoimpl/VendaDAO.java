@@ -324,7 +324,7 @@ public class VendaDAO implements IVendaDAO{
 			conexao.setAutoCommit(false); //Inicia uma tranção
 			
 			//Cria o [alter] que sera executado no banco
-			pstm = conexao.prepareStatement("alter table Venda set id_situacao=? where id_venda=?");
+			pstm = conexao.prepareStatement("update Venda set id_situacao=? where id_venda=?");
 			
 			pstm.setInt(1, venda.getSituacao().getIdSituacao());
 			pstm.setLong(2, venda.getIdVenda());

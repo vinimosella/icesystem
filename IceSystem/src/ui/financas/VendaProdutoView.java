@@ -138,20 +138,22 @@ public class VendaProdutoView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				//se for o primeiro item é preciso informar o cliente da venda e desabilitar o combo de clientes
-				if(listaItensVenda.size() == 0){
+				if(validaCamposPraAdicionarItem()){
+				
+					//se for o primeiro item é preciso informar o cliente da venda e desabilitar o combo de clientes
+					if(listaItensVenda.size() == 0){
+						
+						venda.setCliente(listaClientes.get(comboCliente.getSelectedIndex()-1));
+						comboCliente.setEnabled(false);				
+						btnCadastrar.setEnabled(true);
+						
+					}
 					
-					venda.setCliente(listaClientes.get(comboCliente.getSelectedIndex()-1));
-					comboCliente.setEnabled(false);
+					adicionarItemVenda();
+					carregaDtm();
+					somaTotal();					
 				}
-
-				// agora que tem item da venda, é possivel cadastrar venda
-				btnCadastrar.setEnabled(true);
-
-				adicionarItemVenda();
-				carregaDtm();
-				somaTotal();
-
+				
 			}
 		});
 		this.add(btnAdicionar);
@@ -171,6 +173,7 @@ public class VendaProdutoView extends JPanel{
 
 				// se tiver algo selecionado
 				if (tabela.getSelectedRow() != -1) {
+					devolveEstoque();
 					listaItensVenda.remove(tabela.getSelectedRow());
 					carregaDtm();
 					somaTotal();
@@ -221,6 +224,22 @@ public class VendaProdutoView extends JPanel{
 
 	}
 
+	protected void devolveEstoque() {
+
+		ProdutoVO produto = listaItensVenda.get(tabela.getSelectedRow()).getProduto();
+		
+		for(ProdutoVO produtoLista : listaProdutos){
+			
+			if(produto.getIdProduto() == produtoLista.getIdProduto()){
+				
+				produtoLista.setQuantidadeEstoque(produtoLista.getQuantidadeEstoque()+listaItensVenda.get(tabela.getSelectedRow()).getQuantidade());
+				break;
+			}
+			
+		}
+		
+	}
+
 	private void carregaDtm() {
 
 		dtm = new DefaultTableModel(
@@ -265,9 +284,9 @@ public class VendaProdutoView extends JPanel{
 		tabela.setModel(dtm);
 
 	}
-
-	private void adicionarItemVenda() {
-
+	
+	private boolean validaCamposPraAdicionarItem(){
+		
 		msg = new StringBuilder();
 
 		// CARREGA MENSAGEM SE ALGO ESTÁ INVÁLIDO
@@ -279,7 +298,7 @@ public class VendaProdutoView extends JPanel{
 		if (comboProduto.getSelectedIndex() == 0) {
 
 			msg.append("Selecione o Produto\n");
-		}
+		}		
 
 		if (txtQuantidade.getText().equals("")) {
 
@@ -290,47 +309,71 @@ public class VendaProdutoView extends JPanel{
 
 			msg.append("Indique o valor unitário\n");
 		}
+		
+		//verifica se tudo foi preenchido corretamente pra poder validar o estoque
+		if(msg.toString().trim().equals("")){
+			
+			//valida se a quantidade está disponível no estoque
+			if(listaProdutos.get(comboProduto.getSelectedIndex()-1).getQuantidadeEstoque() < Integer.parseInt(txtQuantidade.getText())){
+				
+				msg.append("Quantidade disponível insuficiente! (disponível: "+listaProdutos.get(comboProduto.getSelectedIndex()-1).getQuantidadeEstoque()+")\n");
+			}
+			
+		}
 
 		// VERIFICA SE A MENSAGEM NÃO ESTÁ VAZIA PARA EXIBI-LA
 		if (!msg.toString().trim().equals("")) {
 
 			JOptionPane.showMessageDialog(Utilidades.frmHome, msg.toString(),"Não foi possível adicionar item!",JOptionPane.ERROR_MESSAGE);
+			
+			return false;
+		} 
+		
+		return true;
+	}
 
-		} else { // SE CAIU AQUI ESTÁ CERTO E PODE SER ADICIONADO Á VENDA
+	private void adicionarItemVenda() {
+				
+		it = listaItensVenda.iterator();
+		
+		ProdutoVO produtoHelper = listaProdutos.get(comboProduto.getSelectedIndex() - 1);
 
-			it = listaItensVenda.iterator();
-
-			boolean itemEstaNaTabela = false;
-			// verifica se o item ja esta na lista, se estiver, não será
-			// adicionado novamente, apenas somado
-			while (it.hasNext()) {
-
-				itemVenda = (ItemVendaVO) it.next();
-
-				if (itemVenda.getProduto().getIdProduto() == listaProdutos.get(comboProduto.getSelectedIndex() - 1).getIdProduto()) {
-
-					itemVenda.setQuantidade(itemVenda.getQuantidade()+ Integer.parseInt(txtQuantidade.getText()));
-					itemVenda.setValor(Double.parseDouble(txtValor.getText()));
-					itemEstaNaTabela = true;
-
-				}
-
-			}
-
-			// se o item não foi somado no while acima, ele é adicionado na
-			// lista aqui
-			if (!itemEstaNaTabela) {
-				itemVenda = new ItemVendaVO();
-
-				itemVenda.setVenda(venda);
-				itemVenda.setProduto(listaProdutos.get(comboProduto.getSelectedIndex() - 1));
-				itemVenda.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
+		boolean itemEstaNaTabela = false;
+		// verifica se o item ja esta na lista, se estiver, não será
+		// adicionado novamente, apenas somado
+		while (it.hasNext()) {
+						
+			itemVenda = (ItemVendaVO) it.next();
+			
+			if (itemVenda.getProduto().getIdProduto() == produtoHelper.getIdProduto()) {
+								
+				itemVenda.setQuantidade(itemVenda.getQuantidade()+ Integer.parseInt(txtQuantidade.getText()));
 				itemVenda.setValor(Double.parseDouble(txtValor.getText()));
-
-				listaItensVenda.add(itemVenda);
+				produtoHelper.setQuantidadeEstoque(produtoHelper.getQuantidadeEstoque()-Integer.parseInt(txtQuantidade.getText()));
+				itemVenda.setProduto(produtoHelper);
+				itemEstaNaTabela = true;
+				break;
 			}
 
 		}
+
+		// se o item não foi somado no while acima, ele é adicionado na
+		// lista aqui
+		if (!itemEstaNaTabela) {
+			itemVenda = new ItemVendaVO();
+			
+			//diminui o estoque do produto antes de adiciona-lo ao itemVenda
+			produtoHelper.setQuantidadeEstoque(produtoHelper.getQuantidadeEstoque()-Integer.parseInt(txtQuantidade.getText()));
+			
+			itemVenda.setVenda(venda);
+			itemVenda.setProduto(produto);
+			itemVenda.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
+			itemVenda.setValor(Double.parseDouble(txtValor.getText()));
+
+			listaItensVenda.add(itemVenda);
+		}
+
+		listaProdutos.get(comboProduto.getSelectedIndex() - 1).setQuantidadeEstoque(produtoHelper.getQuantidadeEstoque());
 	}
 
 	private void somaTotal() {

@@ -35,7 +35,7 @@ public abstract class DetalharFinancasGenericaView extends JDialog{
 		table = new JTable();
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 20, 455, 400);
+		scrollPane.setBounds(20, 20, 555, 400);
 		contentPane.add(scrollPane);
 		
 		table.setModel(montaDtm(o));

@@ -505,4 +505,111 @@ public class  ProdutoDAO implements IProdutoDAO{
 		return true;
 	}
 	
+	public boolean alterarEstoqueProdutos(List<ProdutoVO> listaProdutos) {
+		
+		try {
+			
+			//Cria a conexao com o banco
+			conexao = fabrica.getConexao();
+			conexao.setAutoCommit(false); //Inicia uma transação
+			
+			//Cria o UPDATE que sera executado no banco
+			pstm = conexao.prepareStatement("update produto set quantidade_estoque=? where id_produto=?");
+			
+			//Atuliza cada item da lista
+			for (ProdutoVO produto : listaProdutos) {
+				
+				pstm.setDouble(1, produto.getQuantidadeEstoque());
+				pstm.setInt(2, produto.getIdProduto());
+				
+
+				//Executa uma atualização no banco
+				pstm.executeUpdate();
+				
+			}			
+			
+			//Em caso de sucesso, executa o commit do update no banco
+			conexao.commit();
+	
+		} catch (ClassNotFoundException cnf) {
+			
+			//Caso ocorra algum erro, executa o rollback do update no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+			}
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			return false;
+			
+		} catch (SQLException sql) {
+			
+			//Caso ocorra algum erro, executa o rollback do update no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql2) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+				
+				sql2.printStackTrace();
+				
+				return false;
+				
+			}
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			return false;
+			
+		} finally {
+
+			//Finalizando os recursos
+			try {
+
+				conexao.close();
+				pstm.close();
+
+			} catch (SQLException sql) {
+
+				//Caso ocorra algum erro, executa o rollback do update no banco
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql2) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+					
+					sql2.printStackTrace();
+					
+					return false;
+					
+				}
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+			}
+
+		}
+		
+		return true;
+	}
+	
 }
