@@ -32,6 +32,8 @@ public class ClienteDAO implements IClienteDAO{
 	@Override
 	public List<ClienteVO> consultarTodosClientes() {
 		
+		ClienteVO cli = null;
+		
 		List<ClienteVO> listaClientes = null;
 		
 		try {
@@ -41,11 +43,11 @@ public class ClienteDAO implements IClienteDAO{
 			
 			//Cria o [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select c.id_cliente_pj, pj.cnpj, pj.id_endereco, en.bairro, en.cep, en.complemento, en.logradouro, en.numero, cd.id_cidade, cd.nome as nome_cidade, es.id_estado, es.nome, es.sigla, pj.razao_social, st.id_status, st.descricao from Cliente c"
-					                       + " inner join Pessoa_Juridica pj on cli.id_cliente_pj = pj.id_pessoa_juridica"
-										   + " inner join Status st on cli.id_status = st.id_status"
+					                       + " inner join Pessoa_Juridica pj on c.id_cliente_pj = pj.id_pessoa_juridica"
+										   + " inner join Status st on c.id_status = st.id_status"
 					                       + " inner join Endereco en on en.id_endereco = pj.id_endereco"
 					                       + " inner join Cidade cd on cd.id_cidade = en.id_cidade"
-					                       + " inner join Estado es on es.id_estado = cd.id_estado");
+					                       + " inner join Estado es on es.id_estado = cd.id_estado where c.id_status = ?");
 			
 			pstm.setInt(1, Utilidades.STATUS_ATIVO.getIdStatus());
 			
@@ -55,7 +57,7 @@ public class ClienteDAO implements IClienteDAO{
 			listaClientes = new ArrayList<ClienteVO>();
 			
 			//Carregando a listaClientes
-			for (ClienteVO cli : listaClientes) {
+			while(rs.next()) {
 				
 				Integer idCliente = rs.getInt("id_cliente_pj");
 				
@@ -78,7 +80,7 @@ public class ClienteDAO implements IClienteDAO{
 				cli.getEndereco().getCidade().setNome(rs.getString("nome_cidade"));
 				cli.getEndereco().getCidade().setEstado(new EstadoVO());
 				cli.getEndereco().getCidade().getEstado().setIdEstado(rs.getInt("id_estado"));
-				cli.getEndereco().getCidade().getEstado().setNome(rs.getString("es.nome"));
+				cli.getEndereco().getCidade().getEstado().setNome(rs.getString("nome"));
 				cli.getEndereco().getCidade().getEstado().setSigla(rs.getString("sigla"));
 				cli.setListaEmails(consultarEmailCliente(idCliente, conexao));
 				cli.setListaTelefones(consultarTelefoneCliente(idCliente, conexao));
