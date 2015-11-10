@@ -38,7 +38,7 @@ public class ClienteBO {
 		
 		cliente.setStatus(Utilidades.STATUS_INATIVO);
 		
-		return true;
+		return dao.excluirCliente(cliente);
 	}
 	
 	public boolean atualizarCliente(ClienteVO cliente){

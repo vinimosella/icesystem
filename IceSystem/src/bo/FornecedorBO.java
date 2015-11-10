@@ -34,7 +34,7 @@ public class FornecedorBO {
 		
 		fornecedor.setStatus(Utilidades.STATUS_INATIVO);
 		
-		return true;
+		return dao.excluirFornecedor(fornecedor);
 	}
 	
 	public boolean atualizarFornecedor(FornecedorVO fornecedor){

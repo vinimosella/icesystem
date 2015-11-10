@@ -76,7 +76,7 @@ public class FuncionarioBO {
 		
 		funcionario.setStatus(Utilidades.STATUS_INATIVO);
 		
-		return true;
+		return dao.excluirFuncionario(funcionario);
 	}
 	
 	public boolean isTelefoneExistenteLista(String txtTelefone, List<TelefoneVO> listaTelefones){

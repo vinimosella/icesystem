@@ -412,4 +412,107 @@ public class FornecedorDAO implements IFornecedorDAO{
 		return listaTelefones;
 	}
 
+	public boolean excluirFornecedor(FornecedorVO fornecedor) {
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			conexao.setAutoCommit(false); //Inicia uma transação
+			
+			//Cria o [delete] que sera executado no banco
+			pstm = conexao.prepareStatement("update Fornecedor set id_status = ? where id_fornecedor_pj = ?");
+			
+			pstm.setInt(1, fornecedor.getStatus().getIdStatus());
+			
+			pstm.setInt(2, fornecedor.getIdPessoaJuridica());
+			
+			//Executa uma atualização no banco
+			pstm.executeUpdate();
+			
+			//Em caso de sucesso, executa o commit da exclusão no banco
+			conexao.commit();
+						
+		} catch (ClassNotFoundException cnf) {
+			
+			//Caso ocorra algum erro, executa o rollback da exclusão no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+				
+			}
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(), cnf.getMessage());
+			
+			cnf.printStackTrace();
+						
+			return false;
+			
+		} catch (SQLException sql) {
+			
+			//Caso ocorra algum erro, executa o rollback da exclusão no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql2) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+				
+				sql2.printStackTrace();
+				
+				return false;
+				
+			}
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			return false;
+			
+		} finally{
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+			} catch (SQLException sql) {
+				
+				//Caso ocorra algum erro, executa o rollback da exclusão no banco
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql2) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+					
+					sql2.printStackTrace();
+					
+					return false;
+				}
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+			}
+			
+		}
+		
+		return true;
+	}
+	
 }
