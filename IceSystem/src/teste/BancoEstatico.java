@@ -131,10 +131,9 @@ public class BancoEstatico {
 		funcionario.setNome("Vinicius");
 		funcionario.setCpf("422.811.468-71");
 		funcionario.setRg("38.345.776-02");		
-		char[] senha = {'a','d','m','i','n'};
 		funcionario.setCargo(listaCargos.get(0));
 		funcionario.setLogin("admin");
-		funcionario.setSenha(senha);
+		funcionario.setSenha("admin");
 		
 		funcionario.setListaEmails(listaEmails);
 		funcionario.setListaTelefones(listaTelefones);
@@ -148,10 +147,9 @@ public class BancoEstatico {
 		funcionario.setNome("Thiago");
 		funcionario.setCpf("566.671.448-65");
 		funcionario.setRg("35.455.754-72");		
-		char[] senha2 = {'u','s','e','r'};
 		funcionario.setCargo(listaCargos.get(1));
 		funcionario.setLogin("user");
-		funcionario.setSenha(senha2);
+		funcionario.setSenha("user");
 		
 		funcionario.setListaEmails(listaEmails);
 		funcionario.setListaTelefones(listaTelefones);
@@ -164,10 +162,9 @@ public class BancoEstatico {
 		funcionario.setNome("Leandro");
 		funcionario.setCpf("567.432.123-88");
 		funcionario.setRg("88.777.345-55");
-		char[] senha3 = {'1','2','3'};
 		funcionario.setCargo(listaCargos.get(2));
 		funcionario.setLogin("123");
-		funcionario.setSenha(senha3);
+		funcionario.setSenha("123");
 		
 		funcionario.setListaEmails(listaEmails);
 		funcionario.setListaTelefones(listaTelefones);

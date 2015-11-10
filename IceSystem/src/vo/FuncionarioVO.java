@@ -13,7 +13,7 @@ public class FuncionarioVO{
 	private String cpf;
 	private String rg;
 	private CargoVO cargo;
-	private char[] senha;
+	private String senha;
 	private String login;
 	private EnderecoVO endereco;
 	private List<EmailVO> listaEmails;
@@ -68,10 +68,10 @@ public class FuncionarioVO{
 	public void setCargo(CargoVO cargo) {
 		this.cargo = cargo;
 	}
-	public char[] getSenha() {
+	public String getSenha() {
 		return senha;
 	}
-	public void setSenha(char[] senha) {
+	public void setSenha(String senha) {
 		this.senha = senha;
 	}
 	public String getLogin() {

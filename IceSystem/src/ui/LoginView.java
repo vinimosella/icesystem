@@ -138,8 +138,8 @@ public class LoginView extends JPanel{
 				
 				txtUser.setText("admin");
 				txtPassword.setText("admin");
-				
-				Utilidades.funcionarioLogado = bo.verificaLogin(txtUser.getText(), txtPassword.getPassword());
+								
+				Utilidades.funcionarioLogado = bo.verificaLogin(txtUser.getText(), new String(txtPassword.getPassword()));
 				
 				if(Utilidades.funcionarioLogado==null){ //se for inválido
 					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Usuário Não Cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);

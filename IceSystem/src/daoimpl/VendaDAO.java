@@ -115,8 +115,7 @@ public class VendaDAO implements IVendaDAO{
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [insert] que sera executado no  banco
-			pstm = conexao.prepareStatement("insert into Venda (id_cliente, id_funcionario, id_situacao) "
-					                       + "values (?, ?, ?)");
+			pstm = conexao.prepareStatement("insert into Venda (id_cliente_pj, id_funcionario, id_situacao) values (?, ?, ?)",PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			pstm.setInt(1, venda.getCliente().getIdPessoaJuridica());
 			pstm.setInt(2, venda.getFuncionario().getIdFuncionario());
@@ -130,7 +129,7 @@ public class VendaDAO implements IVendaDAO{
 			
 			if(rs != null && rs.next()){
 				
-				int idVenda = rs.getInt("id_venda");
+				int idVenda = rs.getInt(1);
 				
 				//Cria o [insert] que sera executado no banco
 				pstm = conexao.prepareStatement("insert into Item_Venda (id_venda, id_produto, quantidade, valor) values (?, ?, ?, ?)");
@@ -154,12 +153,15 @@ public class VendaDAO implements IVendaDAO{
 			}
 			else{
 				
+				System.out.println("caiu no rollback");
 				conexao.rollback();
 				
 				return false;
 			}
 						
 		} catch (ClassNotFoundException cnf) {
+			
+			cnf.printStackTrace();
 			
 			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
@@ -177,6 +179,8 @@ public class VendaDAO implements IVendaDAO{
 			}
 			
 		} catch (SQLException sql) {
+			
+			sql.printStackTrace();
 			
 			//Caso ocorra algum erro, executa o rollback do cadastro no banco
 			try {
@@ -202,6 +206,8 @@ public class VendaDAO implements IVendaDAO{
 				pstm.close();					
 				
 			} catch (SQLException sql) {
+				
+				sql.printStackTrace();
 				
 				//Caso ocorra algum erro, executa o rollback do cadastro no banco
 				try {

@@ -28,6 +28,8 @@ public class FuncionarioBO {
 		
 		funcionario.setStatus(Utilidades.STATUS_ATIVO);
 		
+		funcionario.setSenha(Utilidades.criptografarMd5(funcionario.getSenha()));
+		
 		return true;
 	}
 	

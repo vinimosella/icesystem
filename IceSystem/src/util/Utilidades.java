@@ -1,14 +1,17 @@
 package util;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 
 import javax.swing.JFrame;
 
-import daoimpl.SituacaoDAO;
-import daoimpl.StatusDAO;
 import vo.FuncionarioVO;
 import vo.SituacaoVO;
 import vo.StatusVO;
+import daoimpl.SituacaoDAO;
+import daoimpl.StatusDAO;
 
 public class Utilidades {
 	
@@ -63,4 +66,37 @@ public class Utilidades {
 		
 		return texto.replaceAll("\\.|-","");
 	}
+	
+public static String criptografarMd5(String campo){
+		
+		String campoFormatado = null;
+		
+		try {
+			
+			//Biblioteca para indicar em qual tipo sera a criptografia ( no caso, md5)
+			
+			MessageDigest conversor = MessageDigest.getInstance("md5");
+		
+			//Converte um vetor de bytes que é passado pelo campo.getBytes
+			
+			conversor.update(campo.getBytes());
+			
+			//O conversor criptografa o vetor de bytes
+			//O numero 1 serve para manter o padrao entre o BigInteger e o md5, sem ele, pode gerar valores diferentes entre os 2
+			
+			BigInteger numericoAux = new BigInteger(1,conversor.digest());
+			
+			//Indica de qual tipo o md5 ira criptografar ( 16 = Hexadecimal )
+			
+			campoFormatado = numericoAux.toString(16);
+			
+		} catch (NoSuchAlgorithmException e) {
+			
+			campoFormatado = null;
+			
+		}
+		
+		return campoFormatado;
+	}
+
 }

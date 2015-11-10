@@ -1,32 +1,26 @@
 package bo;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-
-import teste.BancoEstatico;
+import util.Utilidades;
 import vo.FuncionarioVO;
+import daoimpl.FuncionarioDAO;
 
 public class LoginBO {
 	
-	public FuncionarioVO verificaLogin(String user, char[] password){		
+	private FuncionarioDAO dao;
+	
+	{
+		dao = new FuncionarioDAO();
+	}
+	
+	public FuncionarioVO verificaLogin(String user, String password){
 		
-		List<FuncionarioVO> listaFuncionarios = BancoEstatico.listaFuncionarios;
-		
-		Iterator<FuncionarioVO> it = (Iterator<FuncionarioVO>) listaFuncionarios.iterator();
-		FuncionarioVO funcionario;
-		while(it.hasNext()){
+		//se algum estiver vazio
+		if(user == null ||user.trim().equals("") || password == null || password.equals("")){
 			
-			funcionario = (FuncionarioVO) it.next();
-
-			if(funcionario.getLogin().equals(user) && Arrays.equals(funcionario.getSenha(), password)){
-				
-				return funcionario;
-			}
-			
+			return null;
 		}
-		
-		return null;
+				
+		return dao.realizarLogin(user, Utilidades.criptografarMd5(password.trim()));
 	}
 
 }
