@@ -1,6 +1,5 @@
 package bo;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,8 +11,18 @@ import vo.EmailVO;
 import vo.EstadoVO;
 import vo.FuncionarioVO;
 import vo.TelefoneVO;
+import daoimpl.CidadeDAO;
+import daoimpl.EstadoDAO;
 
 public class FuncionarioBO {
+	
+	private EstadoDAO estDao;
+	private CidadeDAO cidDao;
+	
+	{
+		estDao = new EstadoDAO();
+		cidDao = new CidadeDAO();
+	}
 	
 	public boolean cadastrarFuncionario(FuncionarioVO funcionario){
 		
@@ -40,25 +49,12 @@ public class FuncionarioBO {
 
 	public List<EstadoVO> buscaEstados(){
 		
-		return BancoEstatico.listaEstados;
+		return estDao.consultaEstados();
 	}
 	
-	public List<CidadeVO> buscaCidadesPorEstado(Integer idEstado){
+	public List<CidadeVO> buscaCidadesPorEstado(EstadoVO estado){
 		
-		Iterator<CidadeVO> it = BancoEstatico.listaCidades.iterator();		
-		List<CidadeVO> listaCidadesAux = new ArrayList<CidadeVO>();
-		CidadeVO cidadeAux;
-		
-		while(it.hasNext()){
-			
-			cidadeAux = it.next();
-			
-			if(cidadeAux.getEstado().getIdEstado() == idEstado){
-				listaCidadesAux.add(cidadeAux);
-			}
-		}
-		
-		return listaCidadesAux;
+		return cidDao.consultaCidadesPorEstado(estado);
 	}
 	
 	public List<CargoVO> buscaCargos(){

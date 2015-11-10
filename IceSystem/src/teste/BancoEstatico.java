@@ -5,12 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import vo.CargoVO;
-import vo.CidadeVO;
 import vo.ClienteVO;
 import vo.CompraVO;
 import vo.EmailVO;
 import vo.EnderecoVO;
-import vo.EstadoVO;
 import vo.FornecedorVO;
 import vo.FuncionarioVO;
 import vo.IngredienteReceitaProdutoVO;
@@ -33,12 +31,6 @@ public class BancoEstatico {
 	
 	public static EnderecoVO endereco;
 	public static List<EnderecoVO> listaEnderecos;
-	
-	public static EstadoVO estado;
-	public static List<EstadoVO> listaEstados;
-	
-	public static CidadeVO cidade;
-	public static List<CidadeVO> listaCidades;
 	
 	public static EmailVO email;
 	public static List<EmailVO> listaEmails;
@@ -84,60 +76,11 @@ public class BancoEstatico {
 
 	public static void carregaBanco(){
 		
-		//CARREGA ESTADOS
-		listaEstados = new ArrayList<EstadoVO>();
-		
-		estado = new EstadoVO();
-		estado.setIdEstado(1);
-		estado.setNome("São Paulo");
-		estado.setSigla("SP");
-		listaEstados.add(estado);
-		
-		estado = new EstadoVO();
-		estado.setIdEstado(2);
-		estado.setNome("Rio de Janeiro");
-		estado.setSigla("RJ");
-		listaEstados.add(estado);
-		
-		estado = new EstadoVO();
-		estado.setIdEstado(3);
-		estado.setNome("Minas Gerais");
-		estado.setSigla("MG");
-		listaEstados.add(estado);
-		
-		//CARREGA CIDADES
-		listaCidades = new ArrayList<CidadeVO>();
-		
-		cidade = new CidadeVO();
-		cidade.setEstado(listaEstados.get(0));
-		cidade.setNome("Pederneiras");
-		cidade.setIdCidade(1);
-		listaCidades.add(cidade);
-		
-		estado = new EstadoVO();
-		estado.setIdEstado(2);
-		
-		cidade = new CidadeVO();
-		cidade.setEstado(listaEstados.get(1));
-		cidade.setNome("Rio de Janeiro");
-		cidade.setIdCidade(2);
-		listaCidades.add(cidade);
-		
-		estado = new EstadoVO();
-		estado.setIdEstado(3);
-		
-		cidade = new CidadeVO();
-		cidade.setEstado(listaEstados.get(2));
-		cidade.setNome("Belo Horizonte");
-		cidade.setIdCidade(3);
-		listaCidades.add(cidade);
-		
 		//CARREGA ENDERECOS
 		
 		listaEnderecos = new ArrayList<EnderecoVO>();
 		
 		endereco = new EnderecoVO();
-		endereco.setCidade(listaCidades.get(0));
 		endereco.setCep("17.280-000");
 		endereco.setBairro("Centro");
 		endereco.setLogradouro("Rua Rio Branco");
@@ -147,7 +90,6 @@ public class BancoEstatico {
 		listaEnderecos.add(endereco);
 		
 		endereco = new EnderecoVO();
-		endereco.setCidade(listaCidades.get(1));
 		endereco.setCep("66.288-888");
 		endereco.setBairro("Centro");
 		endereco.setLogradouro("Rua Bombinhas");
@@ -157,7 +99,6 @@ public class BancoEstatico {
 		listaEnderecos.add(endereco);
 		
 		endereco = new EnderecoVO();
-		endereco.setCidade(listaCidades.get(2));
 		endereco.setCep("24.111-111");
 		endereco.setBairro("Bairro dos corinthianos");
 		endereco.setLogradouro("Rua Dos Viados");

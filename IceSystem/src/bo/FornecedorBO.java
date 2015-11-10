@@ -1,21 +1,25 @@
 package bo;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import daoimpl.FornecedorDAO;
 import teste.BancoEstatico;
 import util.Utilidades;
 import vo.CidadeVO;
 import vo.EstadoVO;
 import vo.FornecedorVO;
+import daoimpl.CidadeDAO;
+import daoimpl.EstadoDAO;
+import daoimpl.FornecedorDAO;
 
 public class FornecedorBO {
 	
 	private FornecedorDAO dao;
+	private EstadoDAO estDao;
+	private CidadeDAO cidDao;
 	
 	{
+		estDao = new EstadoDAO();
+		cidDao = new CidadeDAO();
 		dao = new FornecedorDAO();
 	}
 	
@@ -56,25 +60,12 @@ public class FornecedorBO {
 	
 	public List<EstadoVO> buscaEstados(){
 		
-		return BancoEstatico.listaEstados;
+		return estDao.consultaEstados();
 	}
 	
-	public List<CidadeVO> buscaCidadesPorEstado(Integer idEstado){
-		
-		Iterator<CidadeVO> it = BancoEstatico.listaCidades.iterator();		
-		List<CidadeVO> listaCidadesAux = new ArrayList<CidadeVO>();
-		CidadeVO cidadeAux;
-		
-		while(it.hasNext()){
-			
-			cidadeAux = it.next();
-			
-			if(cidadeAux.getEstado().getIdEstado() == idEstado){
-				listaCidadesAux.add(cidadeAux);
-			}
-		}
-		
-		return listaCidadesAux;
+	public List<CidadeVO> buscaCidadesPorEstado(EstadoVO estado){
+				
+		return cidDao.consultaCidadesPorEstado(estado);
 	}
 	
 }

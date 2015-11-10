@@ -1,38 +1,33 @@
 package bo;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import teste.BancoEstatico;
 import vo.CidadeVO;
 import vo.EmailVO;
 import vo.EstadoVO;
 import vo.TelefoneVO;
+import daoimpl.CidadeDAO;
+import daoimpl.EstadoDAO;
 
 public class PessoaJuridicaBO {
 
-	public List<EstadoVO> buscaEstados(){
-		
-		return BancoEstatico.listaEstados;
+	private EstadoDAO estDao;
+	private CidadeDAO cidDao;
+	
+	{
+		estDao = new EstadoDAO();
+		cidDao = new CidadeDAO();
 	}
 	
-	public List<CidadeVO> buscaCidadesPorEstado(Integer idEstado){
+	public List<EstadoVO> buscaEstados(){
 		
-		Iterator<CidadeVO> it = BancoEstatico.listaCidades.iterator();		
-		List<CidadeVO> listaCidadesAux = new ArrayList<CidadeVO>();
-		CidadeVO cidadeAux;
+		return estDao.consultaEstados();
+	}
+	
+	public List<CidadeVO> buscaCidadesPorEstado(EstadoVO estado){
 		
-		while(it.hasNext()){
-			
-			cidadeAux = it.next();
-			
-			if(cidadeAux.getEstado().getIdEstado() == idEstado){
-				listaCidadesAux.add(cidadeAux);
-			}
-		}
-		
-		return listaCidadesAux;
+		return cidDao.consultaCidadesPorEstado(estado);
 	}
 	
 	public boolean isTelefoneExistenteLista(String txtTelefone, List<TelefoneVO> listaTelefones){

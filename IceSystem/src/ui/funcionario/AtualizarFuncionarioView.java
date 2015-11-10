@@ -396,7 +396,7 @@ public class AtualizarFuncionarioView extends JPanel{
 				
 				if(comboEstado.getSelectedIndex()!= 0){
 					
-					listaCidades = bo.buscaCidadesPorEstado(listaEstados.get(comboEstado.getSelectedIndex()-1).getIdEstado());
+					listaCidades = bo.buscaCidadesPorEstado(listaEstados.get(comboEstado.getSelectedIndex()-1));
 					comboCidade.setEnabled(true);
 					
 					Iterator<CidadeVO> it = listaCidades.iterator();
@@ -424,7 +424,7 @@ public class AtualizarFuncionarioView extends JPanel{
 		
 		comboCidade = new JComboBox<String>();
 		comboCidade.addItem("Selecione");
-		listaCidades = bo.buscaCidadesPorEstado(listaEstados.get(comboEstado.getSelectedIndex()-1).getIdEstado());
+		listaCidades = bo.buscaCidadesPorEstado(listaEstados.get(comboEstado.getSelectedIndex()-1));
 		it = listaCidades.iterator();
 		CidadeVO cidade;
 		

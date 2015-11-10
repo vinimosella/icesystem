@@ -53,6 +53,7 @@ public class OrdemProducaoBO {
 		
 		//List<IngredienteReceitaProdutoVO> listaIngredientes = dao.consultarIngredienteReceitaProduto(ordemProducao.getProduto());
 		
+		//TODO
 		List<IngredienteReceitaProdutoVO> listaIngredientes = BancoEstatico.listaReceitas;
 		
 		List<MateriaPrimaVO> listaMateriasAtualizadas = new ArrayList<MateriaPrimaVO>();

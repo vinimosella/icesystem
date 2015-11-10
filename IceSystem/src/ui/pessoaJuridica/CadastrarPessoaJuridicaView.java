@@ -419,7 +419,7 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 				
 				if(comboEstado.getSelectedIndex()!= 0){
 					
-					listaCidades = bo.buscaCidadesPorEstado(listaEstados.get(comboEstado.getSelectedIndex()-1).getIdEstado());
+					listaCidades = bo.buscaCidadesPorEstado(listaEstados.get(comboEstado.getSelectedIndex()-1));
 					comboCidade.setEnabled(true);
 					
 					Iterator<CidadeVO> it = listaCidades.iterator();
