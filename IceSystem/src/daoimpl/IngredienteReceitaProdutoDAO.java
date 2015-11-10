@@ -12,9 +12,9 @@ import vo.FornecedorVO;
 import vo.IngredienteReceitaProdutoVO;
 import vo.MateriaPrimaVO;
 import vo.ProdutoVO;
-import daoservice.IIngredienteProdutoReceitaDAO;
+import daoservice.IIngredienteReceitaProdutoDAO;
 
-public class IngredienteProdutoReceitaDAO implements IIngredienteProdutoReceitaDAO{
+public class IngredienteReceitaProdutoDAO implements IIngredienteReceitaProdutoDAO{
 
 	private Connection conexao;
 	private PreparedStatement pstm;

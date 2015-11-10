@@ -4,23 +4,28 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import daoimpl.OrdemDeProducaoDAO;
-import daoimpl.ProdutoDAO;
-import teste.BancoEstatico;
 import util.Utilidades;
 import vo.IngredienteReceitaProdutoVO;
 import vo.MateriaPrimaVO;
 import vo.OrdemProducaoVO;
 import vo.SituacaoVO;
+import daoimpl.IngredienteReceitaProdutoDAO;
+import daoimpl.MateriaPrimaDAO;
+import daoimpl.OrdemDeProducaoDAO;
+import daoimpl.ProdutoDAO;
 
 public class OrdemProducaoBO {
 	
 	private OrdemDeProducaoDAO dao;
 	private ProdutoDAO daoP;
+	private IngredienteReceitaProdutoDAO ingRPDao;
+	private MateriaPrimaDAO matDao;
 	
 	{
 		dao = new OrdemDeProducaoDAO();
 		daoP = new ProdutoDAO();
+		ingRPDao = new IngredienteReceitaProdutoDAO();
+		matDao = new MateriaPrimaDAO();
 	}
 	
 	public boolean incluirOrdemProducao(OrdemProducaoVO ordemProducao){
@@ -51,35 +56,27 @@ public class OrdemProducaoBO {
 	
 	private void ordemCancelada(OrdemProducaoVO ordemProducao){
 		
-		//List<IngredienteReceitaProdutoVO> listaIngredientes = dao.consultarIngredienteReceitaProduto(ordemProducao.getProduto());
-		
-		//TODO
-		List<IngredienteReceitaProdutoVO> listaIngredientes = BancoEstatico.listaReceitas;
+		//consulta os ingredientes pra depois voltar o estoque
+		List<IngredienteReceitaProdutoVO> listaIngredientes = ingRPDao.consultarIngredientesReceita(ordemProducao.getProduto());
 		
 		List<MateriaPrimaVO> listaMateriasAtualizadas = new ArrayList<MateriaPrimaVO>();
 		
-		Iterator<IngredienteReceitaProdutoVO> it = listaIngredientes.iterator();
+		IngredienteReceitaProdutoVO ingredienteReceita;
 		
-		IngredienteReceitaProdutoVO receita;
-		
+		Iterator<IngredienteReceitaProdutoVO> it = listaIngredientes.iterator();		
 		while(it.hasNext()){
 			
-			receita = it.next();
+			ingredienteReceita = it.next();
 			
-			//se a receita for do produto passado
-			if(receita.getProduto().getIdProduto() == ordemProducao.getProduto().getIdProduto()){
+			//retorna a quantidade ao estoque
+			ingredienteReceita.getMateriaPrima().setQuantidadeDisponivel(ingredienteReceita.getMateriaPrima().getQuantidadeDisponivel()+ingredienteReceita.getQuantidadeMateria()*ordemProducao.getQuantidade());
 				
-				//diminui a quantidade do estoque
-				receita.getMateriaPrima().setQuantidadeDisponivel(receita.getMateriaPrima().getQuantidadeDisponivel()-receita.getQuantidadeMateria()*ordemProducao.getQuantidade());
-				
-				//adiciona na lista que será atualiza no banco
-				listaMateriasAtualizadas.add(receita.getMateriaPrima());
-				
-			}
+			//adiciona na lista que será atualiza no banco
+			listaMateriasAtualizadas.add(ingredienteReceita.getMateriaPrima());
 			
 		}
 		
-		//dao.AtualizarMateriasPrimas(listaMateriasAtualizadas);*/
+		matDao.alterarEstoqueMaterias(listaMateriasAtualizadas);
 	}
 
 	public List<OrdemProducaoVO> consultarTodas() {

@@ -2,11 +2,10 @@ package bo;
 
 import java.util.List;
 
-import daoimpl.VendaDAO;
-import teste.BancoEstatico;
 import util.Utilidades;
 import vo.ItemVendaVO;
 import vo.VendaVO;
+import daoimpl.VendaDAO;
 
 public class VendaBO {
 	
@@ -37,8 +36,7 @@ public class VendaBO {
 
 	public List<ItemVendaVO> consultarVendasPorId(VendaVO venda) {
 
-		//TODO
-		return BancoEstatico.listaItensVenda;
+		return dao.detalharVenda(venda);
 	}
 
 }

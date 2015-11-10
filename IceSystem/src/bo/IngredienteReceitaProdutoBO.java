@@ -2,16 +2,16 @@ package bo;
 
 import java.util.List;
 
-import daoimpl.IngredienteProdutoReceitaDAO;
+import daoimpl.IngredienteReceitaProdutoDAO;
 import vo.IngredienteReceitaProdutoVO;
 import vo.ProdutoVO;
 
 public class IngredienteReceitaProdutoBO {
 	
-	private IngredienteProdutoReceitaDAO dao;
+	private IngredienteReceitaProdutoDAO dao;
 	
 	{
-		dao = new IngredienteProdutoReceitaDAO();
+		dao = new IngredienteReceitaProdutoDAO();
 	}
 	
 	public List<IngredienteReceitaProdutoVO> consultaReceitasPorProduto(ProdutoVO produto){

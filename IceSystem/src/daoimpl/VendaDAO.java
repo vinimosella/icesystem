@@ -10,6 +10,7 @@ import java.util.List;
 import util.LogFactory;
 import vo.ClienteVO;
 import vo.ItemVendaVO;
+import vo.ProdutoVO;
 import vo.SituacaoVO;
 import vo.VendaVO;
 import daoservice.IVendaDAO;
@@ -225,8 +226,87 @@ public class VendaDAO implements IVendaDAO{
 			}
 		}
 	
-	return true;
-}
+		return true;
+	}
+	
+	public List<ItemVendaVO> detalharVenda(VendaVO venda){
+		
+		List<ItemVendaVO> listaItensVenda;		
+		ItemVendaVO itemVenda;
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			
+			//Cria o [select] que sera executado no banco
+			pstm = conexao.prepareStatement("select iv.quantidade, iv.valor, p.id_produto, p.nome, p.sabor from Item_Venda iv"
+					                       + " inner join Venda v on iv.id_venda = v.id_venda"
+					                       + " inner join Produto p on iv.id_produto = p.id_produto"
+					                       + " where iv.id_venda = ?");
+			
+			pstm.setLong(1, venda.getIdVenda());
+			
+			//Executa uma pesquisa no banco
+			rs = pstm.executeQuery();
+			
+			listaItensVenda = new ArrayList<ItemVendaVO>();
+			
+			//Carrega a listaVendas
+			while(rs.next()){
+				
+				itemVenda = new ItemVendaVO();
+					
+				itemVenda.setQuantidade(rs.getInt("quantidade"));
+				itemVenda.setValor(rs.getDouble("valor"));
+				itemVenda.setProduto(new ProdutoVO());
+				itemVenda.getProduto().setIdProduto(rs.getInt("id_produto"));
+				itemVenda.getProduto().setNome(rs.getString("nome"));
+				itemVenda.getProduto().setSabor(rs.getString("sabor"));
+				
+				listaItensVenda.add(itemVenda);
+				
+			}
+			
+		} catch (SQLException sql) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			sql.printStackTrace();
+			listaItensVenda = null;
+			
+		} catch (ClassNotFoundException cnf) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			cnf.printStackTrace();
+			listaItensVenda = null;
+			
+		} finally {
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+				if(rs != null){
+					
+					rs.close();
+				}
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				listaItensVenda = null;
+				
+			}			
+		
+		}
+		
+		return listaItensVenda;
+	}
 
 	@Override
 	public boolean atualizarVenda(VendaVO venda) {

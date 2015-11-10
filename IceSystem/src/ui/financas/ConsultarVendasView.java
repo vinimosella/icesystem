@@ -72,7 +72,7 @@ public class ConsultarVendasView extends ConsultaGenericaView{
 						
 				},
 				new String[] {
-					"ID", "Descrição", "Data", "Cliente"
+					"ID", "Situação", "Data", "Cliente"
 				}				
 		){
 		

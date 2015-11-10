@@ -23,7 +23,7 @@ public abstract class DetalharFinancasGenericaView extends JDialog{
 	public DetalharFinancasGenericaView(Object o, String titulo) {
 		setTitle(titulo);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(0, 0, 500, 500);
+		setBounds(0, 0, 600, 500);
 		setModal(true);
 		setResizable(false);
 		contentPane = new JPanel();
