@@ -58,4 +58,9 @@ public class Utilidades {
 	public static final StatusVO STATUS_INATIVO = staDao.consultarPorDescricao("Inativo");
 	
 	public static final String PATH_LOG = "C:/Desenvolvimento/Logs/log.txt";
+	
+	public static String removePontoETraco(String texto){
+		
+		return texto.replaceAll("\\.|-","");
+	}
 }

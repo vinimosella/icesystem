@@ -23,7 +23,7 @@ public class FornecedorBO {
 
 		fornecedor.setStatus(Utilidades.STATUS_ATIVO);
 		
-		return true;
+		return dao.cadastrarFornecedor(fornecedor);
 	}
 	
 	public boolean excluirFornecedor(FornecedorVO fornecedor){

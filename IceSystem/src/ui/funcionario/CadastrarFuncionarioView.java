@@ -203,7 +203,7 @@ public class CadastrarFuncionarioView extends JPanel{
 					
 					telefone = new TelefoneVO();
 					telefone.setDdd(txtTelefone.getText().substring(0, 2));
-					telefone.setNumero(txtTelefone.getText().substring(2));
+					telefone.setNumero(Utilidades.removePontoETraco(txtTelefone.getText().substring(2)));
 					listaTelefones.add(telefone);
 					comboTelefone.addItem(++contadorTelefones);
 					comboTelefone.setSelectedItem(contadorTelefones);
@@ -586,7 +586,7 @@ public class CadastrarFuncionarioView extends JPanel{
 		endereco.setNumero(Integer.parseInt(txtNumero.getText()));
 		endereco.setComplemento(txtComplemento.getText());
 		endereco.setBairro(txtBairro.getText());
-		endereco.setCep(txtCep.getText());
+		endereco.setCep(Utilidades.removePontoETraco(txtCep.getText()));
 		
 		cidade = bo.buscaCidadePorNomeNaLista(comboCidade.getSelectedItem().toString(), listaCidades);	
 		

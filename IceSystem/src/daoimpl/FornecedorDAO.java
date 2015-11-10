@@ -28,6 +28,176 @@ public class FornecedorDAO implements IFornecedorDAO{
 		fabrica = ConnectionFactory.getInstance();		
 	}
 	
+	public boolean cadastrarFornecedor(FornecedorVO fornecedor) {
+
+		try {
+
+			// Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			conexao.setAutoCommit(false);
+			
+			//INCLUIR ENDERECO
+			pstm = conexao.prepareStatement("insert into Endereco (id_cidade, logradouro, bairro, cep, numero, complemento, id_status) values (?, ?, ?, ?, ?, ?, ?)",PreparedStatement.RETURN_GENERATED_KEYS);
+
+			pstm.setInt(1, fornecedor.getEndereco().getCidade().getIdCidade());
+			pstm.setString(2, fornecedor.getEndereco().getLogradouro());
+			pstm.setString(3, fornecedor.getEndereco().getBairro());
+			pstm.setString(4, fornecedor.getEndereco().getCep());
+			pstm.setInt(5, fornecedor.getEndereco().getNumero());
+			pstm.setString(6, fornecedor.getEndereco().getComplemento());
+			pstm.setInt(7, fornecedor.getStatus().getIdStatus()); //fornecedor foi enviado com status ativo
+			
+			pstm.executeUpdate();
+
+			// Recebe o id gerado automaticamente no insert anterior
+			rs = pstm.getGeneratedKeys();
+
+			if (rs != null && rs.next()) {
+
+				Integer idEndereco = rs.getInt(1);
+			
+				//INCLUIR PESSOA JURIDICA
+				pstm = conexao.prepareStatement("insert into Pessoa_Juridica (cnpj, razao_social, id_endereco) values (?, ?, ?)",PreparedStatement.RETURN_GENERATED_KEYS);
+				
+				pstm.setString(1, fornecedor.getCnpj());
+				pstm.setString(2, fornecedor.getRazaoSocial());
+				pstm.setInt(3, idEndereco);
+				
+				pstm.executeUpdate();
+				
+				// Recebe o id gerado automaticamente no insert anterior
+				rs = pstm.getGeneratedKeys();
+
+				if (rs != null && rs.next()) {
+					
+					Integer idPJ = rs.getInt(1);
+					
+					//INCLUIR FORNECEDOR
+					pstm = conexao.prepareStatement("insert into Fornecedor (id_fornecedor_pj, id_status) values (?, ?)");
+					
+					pstm.setInt(1, idPJ);
+					pstm.setInt(2, fornecedor.getStatus().getIdStatus());
+					
+					pstm.executeUpdate();
+					
+					//INCLUIR EMAIL
+					for (EmailVO email : fornecedor.getListaEmails()) {
+						
+						pstm = conexao.prepareStatement("insert into Email (id_pessoa_juridica, email, id_status) values (?, ?, ?)");
+						
+						pstm.setInt(1, idPJ);
+						pstm.setString(2, email.getEmail());
+						pstm.setInt(3, fornecedor.getStatus().getIdStatus());
+						
+						pstm.executeUpdate();
+					}
+					
+					//INCLUIR TELEFONE
+					for (TelefoneVO telefone : fornecedor.getListaTelefones()) {
+						
+						pstm = conexao.prepareStatement("insert into Telefone (id_pessoa_juridica, ddd, numero, id_status) values (?, ?, ?, ?)");
+						
+						pstm.setInt(1, idPJ);
+						pstm.setString(2, telefone.getDdd());
+						pstm.setString(3, telefone.getNumero());
+						pstm.setInt(4, fornecedor.getStatus().getIdStatus());
+						
+						pstm.executeUpdate();
+					}
+					
+					//TERMINOU \O/ 
+					conexao.commit();
+					
+				}else{ //SE NÃO INCLUIU PJ
+					
+					conexao.rollback();
+				}
+
+			}
+			else{ //SE NÃO INCLUIU ENDERECO
+				
+				conexao.rollback();
+			}
+
+		} catch (ClassNotFoundException cnf) {
+
+			cnf.printStackTrace();
+
+			// Caso ocorra algum erro, executa o rollback do cadastro no banco
+			try {
+
+				conexao.rollback();
+
+			} catch (SQLException sql) {
+
+				LogFactory.getInstance().gerarLog(getClass().getName(),
+						sql.getMessage());
+
+				sql.printStackTrace();
+
+				return false;
+
+			}
+
+		} catch (SQLException sql) {
+
+			sql.printStackTrace();
+
+			// Caso ocorra algum erro, executa o rollback do cadastro no banco
+			try {
+
+				conexao.rollback();
+
+			} catch (SQLException sql2) {
+
+				LogFactory.getInstance().gerarLog(getClass().getName(),
+						sql2.getMessage());
+
+				sql2.printStackTrace();
+
+				return false;
+
+			}
+
+		} finally {
+
+			// Finalizando os recursos
+			try {
+
+				conexao.close();
+				pstm.close();
+
+			} catch (SQLException sql) {
+
+				// Caso ocorra algum erro, executa o rollback do cadastro no
+				// banco
+				try {
+
+					conexao.rollback();
+
+				} catch (SQLException sql2) {
+
+					LogFactory.getInstance().gerarLog(getClass().getName(),
+							sql2.getMessage());
+
+					sql2.printStackTrace();
+
+					return false;
+
+				}
+
+				LogFactory.getInstance().gerarLog(getClass().getName(),
+						sql.getMessage());
+
+				sql.printStackTrace();
+
+				return false;
+			}
+		}
+
+		return true;
+	}
+	
 	@Override
 	public List<FornecedorVO> consultarFornecedores() {
 		

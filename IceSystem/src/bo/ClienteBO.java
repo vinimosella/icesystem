@@ -22,8 +22,7 @@ public class ClienteBO {
 	public boolean cadastrarCliente(ClienteVO cliente){
 		
 		cliente.setStatus(Utilidades.STATUS_ATIVO);
-		
-		return true;
+		return dao.cadastrarCliente(cliente);
 	}
 	
 	public List<ClienteVO> consultarClientes(){

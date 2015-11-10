@@ -54,8 +54,6 @@ public class ConsultarClienteView extends ConsultaGenericaView{
 		bo = new ClienteBO();
 		
 		listaClientes = bo.consultarClientes();
-
-		System.out.println("caiu aqui" + listaClientes);
 		
 		Iterator<ClienteVO> it = listaClientes.iterator();
 			
