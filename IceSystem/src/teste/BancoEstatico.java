@@ -4,18 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vo.CargoVO;
-import vo.ClienteVO;
 import vo.EmailVO;
 import vo.EnderecoVO;
-import vo.FornecedorVO;
-import vo.FuncionarioVO;
 import vo.TelefoneVO;
 
 public class BancoEstatico {
 	
-	public static FuncionarioVO funcionario;
-	public static List<FuncionarioVO> listaFuncionarios;
-
 	public static CargoVO cargo;
 	public static List<CargoVO> listaCargos;
 	
@@ -27,12 +21,6 @@ public class BancoEstatico {
 
 	public static TelefoneVO telefone;
 	public static List<TelefoneVO> listaTelefones;
-	
-	public static FornecedorVO fornecedor;
-	public static List<FornecedorVO> listaFornecedores;
-	
-	public static ClienteVO cliente;
-	public static List<ClienteVO> listaClientes;
 
 	public static void carregaBanco(){
 		
@@ -123,96 +111,6 @@ public class BancoEstatico {
 		cargo.setFuncao("Cozinheiro");
 		listaCargos.add(cargo);	
 		
-		//CARREGA FUNCIONARIOS
-		listaFuncionarios = new ArrayList<FuncionarioVO>();
-		
-		funcionario = new FuncionarioVO();
-		funcionario.setIdFuncionario(8);
-		funcionario.setNome("Vinicius");
-		funcionario.setCpf("422.811.468-71");
-		funcionario.setRg("38.345.776-02");		
-		funcionario.setCargo(listaCargos.get(0));
-		funcionario.setLogin("admin");
-		funcionario.setSenha("admin");
-		
-		funcionario.setListaEmails(listaEmails);
-		funcionario.setListaTelefones(listaTelefones);
-		funcionario.setEndereco(listaEnderecos.get(0));
-		
-		listaFuncionarios.add(funcionario);
-		
-		
-		funcionario = new FuncionarioVO();
-		funcionario.setIdFuncionario(2);
-		funcionario.setNome("Thiago");
-		funcionario.setCpf("566.671.448-65");
-		funcionario.setRg("35.455.754-72");		
-		funcionario.setCargo(listaCargos.get(1));
-		funcionario.setLogin("user");
-		funcionario.setSenha("user");
-		
-		funcionario.setListaEmails(listaEmails);
-		funcionario.setListaTelefones(listaTelefones);
-		funcionario.setEndereco(listaEnderecos.get(1));
-		
-		listaFuncionarios.add(funcionario);
-		
-		funcionario = new FuncionarioVO();
-		funcionario.setIdFuncionario(3);
-		funcionario.setNome("Leandro");
-		funcionario.setCpf("567.432.123-88");
-		funcionario.setRg("88.777.345-55");
-		funcionario.setCargo(listaCargos.get(2));
-		funcionario.setLogin("123");
-		funcionario.setSenha("123");
-		
-		funcionario.setListaEmails(listaEmails);
-		funcionario.setListaTelefones(listaTelefones);
-		funcionario.setEndereco(listaEnderecos.get(2));
-		
-		listaFuncionarios.add(funcionario);
-		
-		//CARREGA FORNECEDORES
-		listaFornecedores = new ArrayList<FornecedorVO>();
-		
-		fornecedor = new FornecedorVO();
-		fornecedor.setRazaoSocial("Fabrica de pó");
-		fornecedor.setCnpj("566.5667.708-7776");
-		fornecedor.setListaEmails(listaEmails);
-		fornecedor.setListaTelefones(listaTelefones);
-		fornecedor.setEndereco(listaEnderecos.get(0));
-		
-		listaFornecedores.add(fornecedor);
-		
-		fornecedor = new FornecedorVO();
-		fornecedor.setRazaoSocial("Pó de Fabrica");
-		fornecedor.setCnpj("1234321567");
-		fornecedor.setListaEmails(listaEmails);
-		fornecedor.setListaTelefones(listaTelefones);
-		fornecedor.setEndereco(listaEnderecos.get(1));
-		
-		listaFornecedores.add(fornecedor);
-		
-		//CARREGA CLIENTES
-		listaClientes = new ArrayList<ClienteVO>();
-		
-		cliente = new ClienteVO();
-		cliente.setRazaoSocial("Sorveteria Ki-Gelado");
-		cliente.setCnpj("566.5667.708-7776");
-		cliente.setListaEmails(listaEmails);
-		cliente.setListaTelefones(listaTelefones);
-		cliente.setEndereco(listaEnderecos.get(0));
-		
-		listaClientes.add(cliente);
-		
-		cliente = new ClienteVO();
-		cliente.setRazaoSocial("Sorveteria IceDream");
-		cliente.setCnpj("1234321567");
-		cliente.setListaEmails(listaEmails);
-		cliente.setListaTelefones(listaTelefones);
-		cliente.setEndereco(listaEnderecos.get(1));
-		
-		listaClientes.add(cliente);
 	}
 	
 }

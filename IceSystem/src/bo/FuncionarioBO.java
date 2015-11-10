@@ -13,15 +13,18 @@ import vo.FuncionarioVO;
 import vo.TelefoneVO;
 import daoimpl.CidadeDAO;
 import daoimpl.EstadoDAO;
+import daoimpl.FuncionarioDAO;
 
 public class FuncionarioBO {
 	
 	private EstadoDAO estDao;
 	private CidadeDAO cidDao;
+	private FuncionarioDAO dao;
 	
 	{
 		estDao = new EstadoDAO();
 		cidDao = new CidadeDAO();
+		dao = new FuncionarioDAO();
 	}
 	
 	public boolean cadastrarFuncionario(FuncionarioVO funcionario){
@@ -66,7 +69,7 @@ public class FuncionarioBO {
 	
 	public List<FuncionarioVO> consultarFuncionarios(){
 		
-		return BancoEstatico.listaFuncionarios;
+		return dao.consultarFuncionarios();
 	}
 	
 	public boolean excluirFuncionario(FuncionarioVO funcionario){

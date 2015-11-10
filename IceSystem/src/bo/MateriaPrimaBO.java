@@ -54,7 +54,7 @@ public class MateriaPrimaBO {
 			
 		}
 		
-		//dao.AtualizarMateriasPrimas(listaMateriasAtualizadas);
+		dao.alterarEstoqueMaterias(listaMateriasAtualizadas);
 	}
 
 	public boolean excluirMateriaPrima(MateriaPrimaVO materiaPrima) {
