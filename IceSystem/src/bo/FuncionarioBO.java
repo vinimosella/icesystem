@@ -3,7 +3,6 @@ package bo;
 import java.util.Iterator;
 import java.util.List;
 
-import teste.BancoEstatico;
 import util.Utilidades;
 import vo.CargoVO;
 import vo.CidadeVO;
@@ -60,11 +59,7 @@ public class FuncionarioBO {
 	
 	public FuncionarioVO detalharFuncionario(FuncionarioVO funcionario){
 		
-		funcionario.setListaEmails(BancoEstatico.listaEmails);
-		funcionario.setListaTelefones(BancoEstatico.listaTelefones);
-				
-		return funcionario;
-		//return FuncionarioDAO.detalharFuncionario(funcionario);
+		return dao.detalharFuncionario(funcionario);
 	}
 	
 	// ##########################################################################################################

@@ -2,7 +2,6 @@ package bo;
 
 import java.util.List;
 
-import teste.BancoEstatico;
 import util.Utilidades;
 import vo.CidadeVO;
 import vo.EstadoVO;
@@ -48,12 +47,8 @@ public class FornecedorBO {
 	}
 	
 	public FornecedorVO detalharFornecedor(FornecedorVO fornecedor){
-		
-		fornecedor.setListaEmails(BancoEstatico.listaEmails);
-		fornecedor.setListaTelefones(BancoEstatico.listaTelefones);
-				
-		return fornecedor;
-		//return FornecedorDAO.detalharFornecedor(fornecedor);
+
+		return dao.detalharFornecedor(fornecedor);
 	}
 	
 	//########################################################################
