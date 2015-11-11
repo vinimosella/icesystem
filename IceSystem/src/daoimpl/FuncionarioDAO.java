@@ -11,9 +11,11 @@ import util.LogFactory;
 import util.Utilidades;
 import vo.CargoVO;
 import vo.CidadeVO;
+import vo.EmailVO;
 import vo.EnderecoVO;
 import vo.EstadoVO;
 import vo.FuncionarioVO;
+import vo.TelefoneVO;
 
 public class FuncionarioDAO {
 
@@ -24,6 +26,166 @@ public class FuncionarioDAO {
 		
 	{
 		fabrica = ConnectionFactory.getInstance();		
+	}
+	
+	public boolean cadastrarFuncionario(FuncionarioVO funcionario){
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao(); 				
+			conexao.setAutoCommit(false); //Inicia uma transação
+			
+			//INCLUIR ENDERECO
+			pstm = conexao.prepareStatement("insert into Endereco (id_cidade, logradouro, bairro, cep, numero, complemento, id_status) values (?, ?, ?, ?, ?, ?, ?)",PreparedStatement.RETURN_GENERATED_KEYS);
+
+			pstm.setInt(1, funcionario.getEndereco().getCidade().getIdCidade());
+			pstm.setString(2, funcionario.getEndereco().getLogradouro());
+			pstm.setString(3, funcionario.getEndereco().getBairro());
+			pstm.setString(4, funcionario.getEndereco().getCep());
+			pstm.setInt(5, funcionario.getEndereco().getNumero());
+			pstm.setString(6, funcionario.getEndereco().getComplemento());
+			pstm.setInt(7, funcionario.getStatus().getIdStatus()); //fornecedor foi enviado com status ativo
+			
+			pstm.executeUpdate();
+
+			// Recebe o id gerado automaticamente no insert anterior
+			rs = pstm.getGeneratedKeys();
+			
+			if (rs != null && rs.next()) {
+				
+				Integer idEndereco = rs.getInt(1);
+				
+				//Cria o [insert] que sera executado no banco
+				pstm = conexao.prepareStatement("insert into Funcionario (nome, rg, cpf, usuario, senha, id_status, id_cargo, id_endereco) values (?, ?, ?, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+				
+				pstm.setString(1, funcionario.getNome());
+				pstm.setString(2, funcionario.getRg());
+				pstm.setString(3, funcionario.getCpf());
+				pstm.setString(4, funcionario.getLogin());
+				pstm.setString(5, funcionario.getSenha());
+				pstm.setInt(6, funcionario.getStatus().getIdStatus());
+				pstm.setInt(7, funcionario.getCargo().getIdCargo());
+				pstm.setInt(8, idEndereco);
+				
+				//Executa uma atualização no banco
+				pstm.executeUpdate();
+				
+				//Recebe o id gerado automaticamente no insert anterior
+				rs = pstm.getGeneratedKeys();
+				
+				if(rs != null && rs.next()){
+					
+					Integer idFuncionario = rs.getInt(1);
+					
+					//INCLUIR EMAIL
+					for (EmailVO email : funcionario.getListaEmails()) {
+						
+						pstm = conexao.prepareStatement("insert into Email (id_funcionario, email, id_status) values (?, ?, ?)");
+						
+						pstm.setInt(1, idFuncionario);
+						pstm.setString(2, email.getEmail());
+						pstm.setInt(3, funcionario.getStatus().getIdStatus());
+						
+						pstm.executeUpdate();
+					}
+					
+					//INCLUIR TELEFONE
+					for (TelefoneVO telefone : funcionario.getListaTelefones()) {
+						
+						pstm = conexao.prepareStatement("insert into Telefone (id_funcionario, ddd, numero, id_status) values (?, ?, ?, ?)");
+						
+						pstm.setInt(1, idFuncionario);
+						pstm.setString(2, telefone.getDdd());
+						pstm.setString(3, telefone.getNumero());
+						pstm.setInt(4, funcionario.getStatus().getIdStatus());
+						
+						pstm.executeUpdate();
+					}
+
+					conexao.commit();
+				}
+				else{
+					conexao.rollback();
+				}
+			}
+			else{
+				
+				conexao.rollback();
+			}
+			
+		} catch (ClassNotFoundException cnf) {
+			
+			cnf.printStackTrace();
+			
+			//Caso ocorra algum erro, executa o rollback do cadastro no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+				
+			}
+			
+		} catch (SQLException sql) {
+			
+			sql.printStackTrace();
+			
+			//Caso ocorra algum erro, executa o rollback do cadastro no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql2) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql2.getMessage());
+				
+				sql2.printStackTrace();
+				
+				return false;
+				
+			}			
+			
+		} finally{
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();					
+				
+			} catch (SQLException sql) {
+				
+				//Caso ocorra algum erro, executa o rollback do cadastro no banco
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql2) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+					
+					sql2.printStackTrace();
+					
+					return false;
+					
+				}
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+			}
+		}
+
+		return true;
 	}
 	
 	public FuncionarioVO realizarLogin(String user, String password){

@@ -33,7 +33,7 @@ public class FuncionarioBO {
 		
 		funcionario.setSenha(Utilidades.criptografarMd5(funcionario.getSenha()));
 		
-		return true;
+		return dao.cadastrarFuncionario(funcionario);
 	}
 	
 	public boolean atualizarFuncionario(FuncionarioVO funcionario){
