@@ -40,7 +40,7 @@ public class ConsultaProdutoView extends ConsultaGenericaView{
 						
 				},
 				new String[] {
-					"ID", "Nome", "Sabor", "Quantidade Estoque"
+					"ID", "Tipo", "Sabor", "Quantidade Estoque"
 				}				
 		){
 		
@@ -66,7 +66,7 @@ public class ConsultaProdutoView extends ConsultaGenericaView{
 				
 			dtm.addRow(new Object[] {
 				produto.getIdProduto(),
-				produto.getNome(),
+				produto.getTipo(),
 				produto.getSabor(),
 				produto.getQuantidadeEstoque()
 			});
@@ -106,7 +106,7 @@ public class ConsultaProdutoView extends ConsultaGenericaView{
 		}
 		
 		// se clicar em sim, vai excluir
-		if (JOptionPane.showConfirmDialog(null,"Deseja realmente excluir o produto "+ listaProdutos.get(linhaSelecionada).getNome()+sabor+ " ?", "Exclusão", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		if (JOptionPane.showConfirmDialog(null,"Deseja realmente excluir o produto "+ listaProdutos.get(linhaSelecionada).getTipo()+sabor+ " ?", "Exclusão", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
 			// se excluir com sucesso...
 			if (bo.excluirProduto(listaProdutos.get(linhaSelecionada))) {

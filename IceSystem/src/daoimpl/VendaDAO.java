@@ -246,7 +246,7 @@ public class VendaDAO implements IVendaDAO{
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexao.prepareStatement("select iv.quantidade, iv.valor, p.id_produto, p.nome, p.sabor from Item_Venda iv"
+			pstm = conexao.prepareStatement("select iv.quantidade, iv.valor, p.id_produto, p.tipo, p.sabor from Item_Venda iv"
 					                       + " inner join Venda v on iv.id_venda = v.id_venda"
 					                       + " inner join Produto p on iv.id_produto = p.id_produto"
 					                       + " where iv.id_venda = ?");
@@ -267,7 +267,7 @@ public class VendaDAO implements IVendaDAO{
 				itemVenda.setValor(rs.getDouble("valor"));
 				itemVenda.setProduto(new ProdutoVO());
 				itemVenda.getProduto().setIdProduto(rs.getInt("id_produto"));
-				itemVenda.getProduto().setNome(rs.getString("nome"));
+				itemVenda.getProduto().setTipo(rs.getString("tipo"));
 				itemVenda.getProduto().setSabor(rs.getString("sabor"));
 				
 				listaItensVenda.add(itemVenda);

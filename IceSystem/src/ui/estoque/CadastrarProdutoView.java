@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -29,8 +30,8 @@ public class CadastrarProdutoView extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	private JLabel lblNomePagina;
-	private JLabel lblNome;
-	private JTextField txtNome;
+	private JLabel lblTipo;
+	private JComboBox<String> comboTipo;
 	private JLabel lblSabor;
 	private JTextField txtSabor;
 	private ProdutoBO bo;
@@ -72,13 +73,17 @@ public class CadastrarProdutoView extends JPanel{
 		lblNomePagina = new JLabel(Utilidades.CADASTRAR_MATERIA_PRIMA);
 		lblNomePagina.setBounds(10,20,170,25);
 				
-		lblNome = new JLabel("Nome:");
-		lblNome.setBounds(20, 20, 70, 20);
-		this.add(lblNome);
+		lblTipo = new JLabel("Nome:");
+		lblTipo.setBounds(20, 20, 70, 20);
+		this.add(lblTipo);
 		
-		txtNome = new JTextField();
-		txtNome.setBounds(100,20,130,20);
-		this.add(txtNome);
+		comboTipo = new JComboBox<String>();
+		comboTipo.setBounds(100,20,130,20);
+		for(int x = 0; x<Utilidades.VET_TIPOS_PRODUTOS.length;x++){
+			
+			comboTipo.addItem(Utilidades.VET_TIPOS_PRODUTOS[x]);
+		}
+		this.add(comboTipo);
 		
 		lblSabor = new JLabel("Sabor:");
 		lblSabor.setBounds(20, 60, 70, 20);
@@ -203,12 +208,6 @@ public class CadastrarProdutoView extends JPanel{
 				
 				msgErro = new StringBuilder();
 				
-				//valida campos
-				if(txtNome.getText().trim().equals("")){
-					
-					msgErro.append("O campo 'nome' deve estar preenchido\n");
-				}
-				
 				if(txtSabor.getText().trim().equals("")){
 					
 					msgErro.append("O campo 'sabor' deve estar preenchido\n");
@@ -224,7 +223,7 @@ public class CadastrarProdutoView extends JPanel{
 					
 					produto = new ProdutoVO();
 					
-					produto.setNome(txtNome.getText());
+					produto.setTipo((String)comboTipo.getSelectedItem());
 					produto.setSabor(txtSabor.getText());
 					produto = bo.cadastrarProduto(produto);
 					

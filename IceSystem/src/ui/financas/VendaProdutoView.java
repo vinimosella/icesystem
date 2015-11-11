@@ -101,12 +101,7 @@ public class VendaProdutoView extends JPanel{
 			
 			produto = (ProdutoVO) it.next();
 			
-			if(produto.getSabor() == null){
-				comboProduto.addItem(produto.getNome());
-			}
-			else{
-				comboProduto.addItem(produto.getNome() + " - " + produto.getSabor());
-			}
+			comboProduto.addItem(produto.getTipo() + " - " + produto.getSabor());
 			
 		}
 		
@@ -273,7 +268,7 @@ public class VendaProdutoView extends JPanel{
 			dtm.addRow(new Object[] {
 					
 					venda.getCliente().getRazaoSocial(),
-					itemVenda.getProduto().getNome(),
+					itemVenda.getProduto().getTipo(),
 					(itemVenda.getProduto().getSabor() != null) ? itemVenda.getProduto().getSabor() : "-",
 					itemVenda.getQuantidade(),
 					Utilidades.FORMAT.format(itemVenda.getValor()),

@@ -36,7 +36,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexao.prepareStatement("select id_produto, quantidade_estoque, nome, sabor from Produto"
+			pstm = conexao.prepareStatement("select id_produto, quantidade_estoque, tipo, sabor from Produto"
 										  + " where id_status = ?");
 			
 			pstm.setInt(1, 1);
@@ -54,7 +54,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 				p = new ProdutoVO();
 					
 				p.setIdProduto(rs.getInt("id_produto"));
-				p.setNome(rs.getString("nome"));
+				p.setTipo(rs.getString("tipo"));
 				p.setQuantidadeEstoque(rs.getInt("quantidade_estoque"));
 				p.setSabor(rs.getString("sabor"));
 				
@@ -115,7 +115,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexao.prepareStatement("select p.id_produto, p.quantidade_estoque, p.nome, p.sabor, p.id_status, st.descricao from Produto p"
+			pstm = conexao.prepareStatement("select p.id_produto, p.quantidade_estoque, p.tipo, p.sabor, p.id_status, st.descricao from Produto p"
 					                       + " inner join Status st on p.id_status = st.id_status"
 					                       + " where p.id_produto = ? and p.id_status = ?");
 			
@@ -128,7 +128,7 @@ public class  ProdutoDAO implements IProdutoDAO{
 			
 			//Carrega o produto				
 			produto.setIdProduto(rs.getInt("id_produto"));
-			produto.setNome(rs.getString("nome"));
+			produto.setTipo(rs.getString("tipo"));
 			produto.setQuantidadeEstoque(rs.getInt("quantidade_estoque"));
 			produto.setSabor(rs.getString("sabor"));
 			
@@ -186,10 +186,10 @@ public class  ProdutoDAO implements IProdutoDAO{
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [alter] que sera executado no banco
-			pstm = conexao.prepareStatement("update Produto set quantidade_estoque=?, nome=?, sabor=? where id_produto=?");
+			pstm = conexao.prepareStatement("update Produto set quantidade_estoque=?, tipo=?, sabor=? where id_produto=?");
 			
 			pstm.setInt(1, produto.getQuantidadeEstoque());
-			pstm.setString(2, produto.getNome());
+			pstm.setString(2, produto.getTipo());
 			pstm.setString(3, produto.getSabor());
 			pstm.setInt(4, produto.getIdProduto());
 			
@@ -292,9 +292,9 @@ public class  ProdutoDAO implements IProdutoDAO{
 				conexao.setAutoCommit(false); //Inicia uma transação
 				
 				//Cria o [insert] que sera executado no banco
-				pstm = conexao.prepareStatement("insert into Produto (nome, sabor, quantidade_estoque, id_status) values (?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+				pstm = conexao.prepareStatement("insert into Produto (tipo, sabor, quantidade_estoque, id_status) values (?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
 				
-				pstm.setString(1, produto.getNome());
+				pstm.setString(1, produto.getTipo());
 				
 				pstm.setString(2, produto.getSabor());
 			

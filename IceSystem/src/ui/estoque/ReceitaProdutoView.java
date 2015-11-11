@@ -54,13 +54,7 @@ public class ReceitaProdutoView extends JDialog {
 		contentPane.setLayout(null);
 		this.setLocationRelativeTo(null);
 				
-		if(produto.getSabor()!=null){
-			lblReceita = new JLabel("Receita - "+produto.getNome()+" - "+produto.getSabor());
-		}
-		else{
-			lblReceita = new JLabel("Receita - "+produto.getNome());
-		}
-		
+		lblReceita = new JLabel("Receita - "+produto.getTipo()+" - "+produto.getSabor());		
 		lblReceita.setBounds(10,10,600,25);
 		contentPane.add(lblReceita);
 		

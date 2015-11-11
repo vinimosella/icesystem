@@ -8,7 +8,7 @@ public class ProdutoVO {
 	
 	private Integer idProduto;
 	private Integer quantidadeEstoque;
-	private String nome;
+	private String tipo;
 	private String sabor;
 	private StatusVO status;
 	
@@ -24,11 +24,11 @@ public class ProdutoVO {
 	public void setQuantidadeEstoque(Integer quantidadeEstoque) {
 		this.quantidadeEstoque = quantidadeEstoque;
 	}
-	public String getNome() {
-		return nome;
+	public String getTipo() {
+		return tipo;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 	public String getSabor() {
 		return sabor;

@@ -199,7 +199,7 @@ public class OrdemDeProducaoView extends JPanel{
 						
 				},
 				new String[] {
-					"ID Ordem", "Nome-Produto", "Sabor", "Quantidade", "Situação"
+					"ID Ordem", "Tipo", "Sabor", "Quantidade", "Situação"
 				}				
 		){
 		
@@ -221,7 +221,7 @@ public class OrdemDeProducaoView extends JPanel{
 
 			dtm.addRow(new Object[] {
 					op.getIdOrdemProducao(),
-					op.getProduto().getNome(),
+					op.getProduto().getTipo(),
 					(op.getProduto().getSabor()!=null) ? op.getProduto().getSabor() : "-",
 					op.getQuantidade(),
 					op.getSituacao().getDescricao()

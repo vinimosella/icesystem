@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,8 +28,8 @@ import bo.ProdutoBO;
 public class AlterarProdutoView extends JPanel{
 
 	private static final long serialVersionUID = 1L;
-	private JLabel lblNome;
-	private JTextField txtNome;
+	private JLabel lblTipo;
+	private JComboBox<String> comboTipo;
 	private JLabel lblSabor;
 	private JTextField txtSabor;
 	private ProdutoBO bo;
@@ -68,16 +69,20 @@ public class AlterarProdutoView extends JPanel{
 		
 		listaReceita = recBo.consultaReceitasPorProduto(produto);
 				
-		lblNome = new JLabel("Nome:");
-		lblNome.setBounds(20, 20, 70, 25);
-		this.add(lblNome);
+		lblTipo = new JLabel("Tipo:");
+		lblTipo.setBounds(20, 20, 70, 25);
+		this.add(lblTipo);
 		
-		txtNome = new JTextField();
-		txtNome.setBounds(100,20,130,25);
-		if(produto.getNome()!=null){
-			txtNome.setText(produto.getNome());
+		comboTipo = new JComboBox<String>();
+		comboTipo.setBounds(100,20,130,25);
+		for(int x = 0; x<Utilidades.VET_TIPOS_PRODUTOS.length;x++){
+			
+			comboTipo.addItem(Utilidades.VET_TIPOS_PRODUTOS[x]);
+			if(Utilidades.VET_TIPOS_PRODUTOS[x].equals(produto.getTipo())){
+				comboTipo.setSelectedItem(Utilidades.VET_TIPOS_PRODUTOS[x]);
+			}
 		}
-		this.add(txtNome);
+		this.add(comboTipo);
 		
 		lblSabor = new JLabel("Sabor:");
 		lblSabor.setBounds(20, 60, 70, 25);
@@ -207,12 +212,6 @@ public class AlterarProdutoView extends JPanel{
 				
 				msgErro = new StringBuilder();
 				
-				//valida campos
-				if(txtNome.getText().trim().equals("")){
-					
-					msgErro.append("O campo 'nome' deve estar preenchido\n");
-				}
-				
 				if(txtSabor.getText().trim().equals("")){
 					
 					msgErro.append("O campo 'sabor' deve estar preenchido\n");
@@ -221,7 +220,7 @@ public class AlterarProdutoView extends JPanel{
 				//se não tiver erros
 				if(msgErro.toString().trim().equals("")){
 										
-					AlterarProdutoView.this.produto.setNome(txtNome.getText());
+					AlterarProdutoView.this.produto.setTipo((String)comboTipo.getSelectedItem());
 					AlterarProdutoView.this.produto.setSabor(txtSabor.getText());
 					bo.atualizarProduto(AlterarProdutoView.this.produto);
 					
@@ -267,7 +266,7 @@ public class AlterarProdutoView extends JPanel{
 						
 				},
 				new String[] {
-					"ID", "Nome", "Sabor", "Fornecedor"
+					"ID", "Tipo", "Sabor", "Fornecedor"
 				}				
 		){
 		

@@ -63,6 +63,8 @@ public class Utilidades {
 	public static final StatusVO STATUS_ATIVO = staDao.consultarPorDescricao("Ativo");
 	public static final StatusVO STATUS_INATIVO = staDao.consultarPorDescricao("Inativo");
 	
+	public static final String[] VET_TIPOS_PRODUTOS = {"Massa","Picolé"};
+	
 	public static final String PATH_LOG = "C:/Desenvolvimento/Logs/log.txt";
 	
 	public static String removePontoETraco(String texto){

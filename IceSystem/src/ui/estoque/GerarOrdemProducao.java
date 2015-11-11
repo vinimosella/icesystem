@@ -120,7 +120,7 @@ public class GerarOrdemProducao extends JPanel{
 						
 				},
 				new String[] {
-					"ID Produto", "Nome", "Sabor", "Estoque"
+					"ID Produto", "Tipo", "Sabor", "Estoque"
 				}				
 		){
 		
@@ -144,7 +144,7 @@ public class GerarOrdemProducao extends JPanel{
 				
 			dtm.addRow(new Object[] {
 					produto.getIdProduto(),
-					produto.getNome(),
+					produto.getTipo(),
 					(produto.getSabor()!=null) ? produto.getSabor() : "-",
 					produto.getQuantidadeEstoque()
 			});
