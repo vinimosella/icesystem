@@ -38,7 +38,7 @@ public class ClienteDAO implements IClienteDAO{
 			conexao.setAutoCommit(false);
 			
 			//INCLUIR ENDERECO
-			pstm = conexao.prepareStatement("insert into Endereco (id_cidade, logradouro, bairro, cep, numero, complemento, id_status) values (?, ?, ?, ?, ?, ?, ?)",PreparedStatement.RETURN_GENERATED_KEYS);
+			pstm = conexao.prepareStatement("insert into Endereco (id_cidade, logradouro, bairro, cep, numero, complemento) values (?, ?, ?, ?, ?, ?)",PreparedStatement.RETURN_GENERATED_KEYS);
 
 			pstm.setInt(1, cliente.getEndereco().getCidade().getIdCidade());
 			pstm.setString(2, cliente.getEndereco().getLogradouro());
@@ -46,7 +46,6 @@ public class ClienteDAO implements IClienteDAO{
 			pstm.setString(4, cliente.getEndereco().getCep());
 			pstm.setInt(5, cliente.getEndereco().getNumero());
 			pstm.setString(6, cliente.getEndereco().getComplemento());
-			pstm.setInt(7, cliente.getStatus().getIdStatus()); //fornecedor foi enviado com status ativo
 			
 			pstm.executeUpdate();
 
@@ -520,7 +519,6 @@ public class ClienteDAO implements IClienteDAO{
 			//Carregando a listaItens
 			if(rs.next()){
 				
-				cliente.getEndereco().setIdEndereco(rs.getInt("id_endereco"));
 				cliente.getEndereco().setBairro(rs.getString("bairro"));
 				cliente.getEndereco().setCep(rs.getString("cep"));
 				cliente.getEndereco().setComplemento(rs.getString("complemento"));

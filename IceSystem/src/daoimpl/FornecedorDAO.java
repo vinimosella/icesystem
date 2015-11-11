@@ -37,7 +37,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 			conexao.setAutoCommit(false);
 			
 			//INCLUIR ENDERECO
-			pstm = conexao.prepareStatement("insert into Endereco (id_cidade, logradouro, bairro, cep, numero, complemento, id_status) values (?, ?, ?, ?, ?, ?, ?)",PreparedStatement.RETURN_GENERATED_KEYS);
+			pstm = conexao.prepareStatement("insert into Endereco (id_cidade, logradouro, bairro, cep, numero, complemento) values (?, ?, ?, ?, ?, ?)",PreparedStatement.RETURN_GENERATED_KEYS);
 
 			pstm.setInt(1, fornecedor.getEndereco().getCidade().getIdCidade());
 			pstm.setString(2, fornecedor.getEndereco().getLogradouro());
@@ -45,7 +45,6 @@ public class FornecedorDAO implements IFornecedorDAO{
 			pstm.setString(4, fornecedor.getEndereco().getCep());
 			pstm.setInt(5, fornecedor.getEndereco().getNumero());
 			pstm.setString(6, fornecedor.getEndereco().getComplemento());
-			pstm.setInt(7, fornecedor.getStatus().getIdStatus()); //fornecedor foi enviado com status ativo
 			
 			pstm.executeUpdate();
 
@@ -522,7 +521,6 @@ public class FornecedorDAO implements IFornecedorDAO{
 			//Carregando a listaItens
 			if(rs.next()){
 				
-				fornecedor.getEndereco().setIdEndereco(rs.getInt("id_endereco"));
 				fornecedor.getEndereco().setBairro(rs.getString("bairro"));
 				fornecedor.getEndereco().setCep(rs.getString("cep"));
 				fornecedor.getEndereco().setComplemento(rs.getString("complemento"));

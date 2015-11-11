@@ -138,7 +138,7 @@ public class FuncionarioDAO {
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//INCLUIR ENDERECO
-			pstm = conexao.prepareStatement("insert into Endereco (id_cidade, logradouro, bairro, cep, numero, complemento, id_status) values (?, ?, ?, ?, ?, ?, ?)",PreparedStatement.RETURN_GENERATED_KEYS);
+			pstm = conexao.prepareStatement("insert into Endereco (id_cidade, logradouro, bairro, cep, numero, complemento) values (?, ?, ?, ?, ?, ?)",PreparedStatement.RETURN_GENERATED_KEYS);
 
 			pstm.setInt(1, funcionario.getEndereco().getCidade().getIdCidade());
 			pstm.setString(2, funcionario.getEndereco().getLogradouro());
@@ -146,8 +146,7 @@ public class FuncionarioDAO {
 			pstm.setString(4, funcionario.getEndereco().getCep());
 			pstm.setInt(5, funcionario.getEndereco().getNumero());
 			pstm.setString(6, funcionario.getEndereco().getComplemento());
-			pstm.setInt(7, funcionario.getStatus().getIdStatus()); //fornecedor foi enviado com status ativo
-			
+
 			pstm.executeUpdate();
 
 			// Recebe o id gerado automaticamente no insert anterior
@@ -607,7 +606,6 @@ public class FuncionarioDAO {
 			//Carregando a listaItens
 			if(rs.next()){
 				
-				funcionario.getEndereco().setIdEndereco(rs.getInt("id_endereco"));
 				funcionario.getEndereco().setBairro(rs.getString("bairro"));
 				funcionario.getEndereco().setCep(rs.getString("cep"));
 				funcionario.getEndereco().setComplemento(rs.getString("complemento"));
