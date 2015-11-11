@@ -69,7 +69,7 @@ public class Utilidades {
 	
 	public static String removePontoETraco(String texto){
 		
-		return texto.replaceAll("\\.|-","");
+		return texto.replaceAll("\\.|-|(|)","");
 	}
 	
 	public static String trocaEspacoPorPonto(String texto){
