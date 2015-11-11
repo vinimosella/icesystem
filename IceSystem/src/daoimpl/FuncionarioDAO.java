@@ -408,17 +408,11 @@ public class FuncionarioDAO {
 			
 			//Cria o [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select f.id_funcionario, f.nome, f.rg, f.cpf, f.usuario, f.senha, f.id_cargo, f.id_endereco, f.id_status,"
-										   + " en.bairro, en.cep, en.complemento, en.logradouro, en.numero,"
-										   + " cd.id_cidade, cd.nome as nome_cidade,"
-										   + " es.id_estado, es.nome, es.sigla,"
 										   + " st.id_status, st.descricao,"
 										   + " c.id_cargo, c.funcao"
 										   + " from Funcionario f"
 										   + " inner join Cargo c on f.id_cargo = c.id_cargo"
 					                       + " inner join Status st on f.id_status = st.id_status"
-					                       + " inner join Endereco en on en.id_endereco = f.id_endereco"
-					                       + " inner join Cidade cd on cd.id_cidade = en.id_cidade"
-					                       + " inner join Estado es on es.id_estado = cd.id_estado"
 					                       + " where f.id_status = ?");			
 
 			pstm.setInt(1, Utilidades.STATUS_ATIVO.getIdStatus());
@@ -438,18 +432,6 @@ public class FuncionarioDAO {
 				funcionario.setSenha(rs.getString("senha"));
 				funcionario.setEndereco(new EnderecoVO());
 				funcionario.getEndereco().setIdEndereco(rs.getInt("id_endereco"));
-				funcionario.getEndereco().setBairro(rs.getString("bairro"));
-				funcionario.getEndereco().setCep(rs.getString("cep"));
-				funcionario.getEndereco().setComplemento(rs.getString("complemento"));
-				funcionario.getEndereco().setLogradouro(rs.getString("logradouro"));
-				funcionario.getEndereco().setNumero(rs.getInt("numero"));
-				funcionario.getEndereco().setCidade(new CidadeVO());
-				funcionario.getEndereco().getCidade().setIdCidade(rs.getInt("id_cidade"));
-				funcionario.getEndereco().getCidade().setNome(rs.getString("nome_cidade"));
-				funcionario.getEndereco().getCidade().setEstado(new EstadoVO());
-				funcionario.getEndereco().getCidade().getEstado().setIdEstado(rs.getInt("id_estado"));
-				funcionario.getEndereco().getCidade().getEstado().setNome(rs.getString("nome"));
-				funcionario.getEndereco().getCidade().getEstado().setSigla(rs.getString("sigla"));
 				funcionario.setCargo(new CargoVO());
 				funcionario.getCargo().setIdCargo(rs.getByte("id_cargo"));
 				funcionario.getCargo().setFuncao(rs.getString("funcao"));
@@ -602,6 +584,188 @@ public class FuncionarioDAO {
 		}
 		
 		return true;
+	}
+	
+	public FuncionarioVO detalharFuncionario(FuncionarioVO funcionario){
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			
+			//Cria o [select] que sera executado no banco
+			pstm = conexao.prepareStatement("select en.bairro, en.cep, en.complemento, en.logradouro, en.numero, cd.id_cidade, cd.nome as nome_cidade, es.id_estado, es.nome, es.sigla from Endereco en"
+					                       + " inner join Cidade cd on cd.id_cidade = en.id_cidade"
+					                       + " inner join Estado es on es.id_estado = cd.id_estado"
+					                       + " where en.id_endereco = ?");
+			
+			pstm.setLong(1, funcionario.getEndereco().getIdEndereco());
+			
+			//Executa o select no banco
+			rs = pstm.executeQuery();			
+			
+			//Carregando a listaItens
+			if(rs.next()){
+				
+				funcionario.getEndereco().setIdEndereco(rs.getInt("id_endereco"));
+				funcionario.getEndereco().setBairro(rs.getString("bairro"));
+				funcionario.getEndereco().setCep(rs.getString("cep"));
+				funcionario.getEndereco().setComplemento(rs.getString("complemento"));
+				funcionario.getEndereco().setLogradouro(rs.getString("logradouro"));
+				funcionario.getEndereco().setNumero(rs.getInt("numero"));
+				funcionario.getEndereco().setCidade(new CidadeVO());
+				funcionario.getEndereco().getCidade().setIdCidade(rs.getInt("id_cidade"));
+				funcionario.getEndereco().getCidade().setNome(rs.getString("nome_cidade"));
+				funcionario.getEndereco().getCidade().setEstado(new EstadoVO());
+				funcionario.getEndereco().getCidade().getEstado().setIdEstado(rs.getInt("id_estado"));
+				funcionario.getEndereco().getCidade().getEstado().setNome(rs.getString("nome"));
+				funcionario.getEndereco().getCidade().getEstado().setSigla(rs.getString("sigla"));
+				funcionario.setListaEmails(consultarEmailFuncionario(funcionario.getIdFuncionario(), conexao));
+				funcionario.setListaTelefones(consultarTelefoneFuncionario(funcionario.getIdFuncionario(), conexao));
+			}
+			
+		} catch (SQLException sql) {
+			
+			sql.printStackTrace();
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+		} catch (ClassNotFoundException cnf) {
+			
+			cnf.printStackTrace();
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+		} finally {
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+				if(rs != null){
+					
+					rs.close();
+				}
+				
+			} catch (SQLException sql) {
+				
+				sql.printStackTrace();
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+			}			
+		
+		}
+		
+		return funcionario;
+	}
+	
+	public List<EmailVO> consultarEmailFuncionario(Integer idFuncionario, Connection conexao) throws SQLException {
+		
+		EmailVO email = null;
+		
+		List<EmailVO> listaEmails = null;
+		
+		ResultSet rs = null;
+		
+		PreparedStatement pstm = null;
+		
+		try {
+			
+			Connection conexaoLocal = conexao;
+			
+			//Cria o [select] que sera executado no banco
+			pstm = conexaoLocal.prepareStatement("select id_email, email, id_funcionario from Email where id_funcionario = ?");
+			
+			pstm.setInt(1, idFuncionario);
+			
+			//Executa uma pesquisa no banco
+			rs = pstm.executeQuery();
+			
+			listaEmails = new ArrayList<EmailVO>();
+			
+			//Carrega a listaEmails que sera utilizada no consultarFornecedores
+			while(rs.next()){
+				
+				email = new EmailVO();
+					
+				email.setIdEmail(rs.getInt("id_email"));
+				email.setEmail(rs.getString("email"));
+				email.setFuncionario(new FuncionarioVO());
+				email.getFuncionario().setIdFuncionario(idFuncionario);
+				
+				listaEmails.add(email);
+				
+			}
+			
+		} finally {
+			
+			//Finalizando os recursos 
+			//Obs: A conexão não é finalizada pois faz parte da mesma transação do Fornecedor, então é Finalizada apenas uma vez
+			pstm.close();
+			
+			if(rs != null){
+				
+				rs.close();
+			}
+			
+		}
+		
+		return listaEmails;
+	}
+	
+	public List<TelefoneVO> consultarTelefoneFuncionario(Integer idFuncionario, Connection conexao) throws SQLException{
+		
+		TelefoneVO telefone = null;
+		
+		List<TelefoneVO> listaTelefones = null;
+		
+		ResultSet rs = null;
+		
+		PreparedStatement pstm = null;
+		
+		try {
+			
+			Connection conexaoLocal = conexao;
+			
+			//Cria o [select] que sera executado no banco
+			pstm = conexaoLocal.prepareStatement("select id_telefone, ddd, numero, id_funcionario from Telefone where id_funcionario = ?");
+			
+			//Executa uma pesquisa no banco
+			pstm.setInt(1, idFuncionario);
+			
+			rs = pstm.executeQuery();
+			
+			listaTelefones = new ArrayList<TelefoneVO>();
+			
+			//Carrega a listaTelefones que sera utilizada no consultarFornecedores
+			while(rs.next()){
+				
+				telefone = new TelefoneVO();
+					
+				telefone.setIdTelefone(rs.getInt("id_telefone"));
+				telefone.setDdd(rs.getString("ddd"));
+				telefone.setNumero(rs.getString("numero"));
+				telefone.setFuncionario(new FuncionarioVO());
+				telefone.getFuncionario().setIdFuncionario(idFuncionario);
+				
+				listaTelefones.add(telefone);
+				
+			}
+			
+		} finally {
+			
+			//Finalizando os recursos
+			//Obs: A conexão não é finalizada pois faz parte da mesma transação do Fornecedor, então é Finalizada apenas uma vez
+			pstm.close();
+			
+			if(rs != null){
+				
+				rs.close();
+			}
+			
+		}
+		
+		return listaTelefones;
 	}
 	
 }
