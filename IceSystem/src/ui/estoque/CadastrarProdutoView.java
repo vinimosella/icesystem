@@ -73,7 +73,7 @@ public class CadastrarProdutoView extends JPanel{
 		lblNomePagina = new JLabel(Utilidades.CADASTRAR_MATERIA_PRIMA);
 		lblNomePagina.setBounds(10,20,170,25);
 				
-		lblTipo = new JLabel("Nome:");
+		lblTipo = new JLabel("Tipo:");
 		lblTipo.setBounds(20, 20, 70, 20);
 		this.add(lblTipo);
 		

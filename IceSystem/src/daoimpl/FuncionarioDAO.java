@@ -28,6 +28,107 @@ public class FuncionarioDAO {
 		fabrica = ConnectionFactory.getInstance();		
 	}
 	
+	public boolean alterarSenhaFuncLogado(FuncionarioVO funcionarioLogado){
+	
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			conexao.setAutoCommit(false); //Inicia uma tranção
+			
+			//Cria o [update] que sera executado no banco
+			pstm = conexao.prepareStatement("update Funcionario set senha=? where id_funcionario=?");
+			
+			pstm.setString(1, funcionarioLogado.getSenha());
+			pstm.setInt(2, funcionarioLogado.getIdFuncionario());
+			
+			//Executa uma atualização no banco
+			pstm.executeUpdate();
+			
+			//Em caso de sucesso, executa o commit do update no banco
+			conexao.commit();
+	
+		} catch (ClassNotFoundException cnf) {
+			
+			//Caso ocorra algum erro, executa o rollback do update no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+				
+			}
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			return false;
+			
+		} catch (SQLException sql) {
+			
+			//Caso ocorra algum erro, executa o rollback do update no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql2) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+				
+				sql2.printStackTrace();
+				
+				return false;
+			}
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			return false;
+			
+		} finally {
+			
+			//Finalizando os recursos
+			try {
+
+				conexao.close();
+				pstm.close();
+
+			} catch (SQLException sql) {
+				
+				//Caso ocorra algum erro, executa o rollback do update no banco
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql2) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+					
+					sql2.printStackTrace();
+					
+					return false;
+				}
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+			}
+
+		}
+		
+		return true;
+	}
+	
 	public boolean cadastrarFuncionario(FuncionarioVO funcionario){
 		
 		try {

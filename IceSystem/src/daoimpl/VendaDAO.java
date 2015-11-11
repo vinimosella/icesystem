@@ -323,7 +323,7 @@ public class VendaDAO implements IVendaDAO{
 			conexao = fabrica.getConexao();
 			conexao.setAutoCommit(false); //Inicia uma tranção
 			
-			//Cria o [alter] que sera executado no banco
+			//Cria o [update] que sera executado no banco
 			pstm = conexao.prepareStatement("update Venda set id_situacao=? where id_venda=?");
 			
 			pstm.setInt(1, venda.getSituacao().getIdSituacao());

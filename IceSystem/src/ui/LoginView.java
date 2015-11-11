@@ -48,6 +48,7 @@ public class LoginView extends JPanel{
 	private JMenu mnEstoque;
 	private JMenu mnFinancas;
 	private LoginBO bo;
+	private JMenuItem mntmAlterarSenha;
 	private JMenuItem mntmLogout;
 	private JMenuItem mntmSobre;
 	private JMenuItem mntmSair;
@@ -176,6 +177,20 @@ public class LoginView extends JPanel{
 		mnArquivo = Utilidades.frmHome.getJMenuBar().getMenu(0);
 				
 		// * -- MENU ARQUIVO
+		//ITEM ALTERAR SENHA
+		mntmAlterarSenha = new JMenuItem("Alterar Senha");
+		mntmAlterarSenha.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				AlterarSenhaView ats = new AlterarSenhaView();
+				ats.setVisible(true);
+				
+			}
+		});
+		mnArquivo.add(mntmAlterarSenha,1);
+		
 		//ITEM LOGOUT
 		mntmLogout = new JMenuItem("Logout");
 		mntmLogout.addActionListener(new ActionListener() {
@@ -190,7 +205,7 @@ public class LoginView extends JPanel{
 				Utilidades.frmHome.revalidate();
 			}
 		});
-		mnArquivo.add(mntmLogout,2);//coloca entre o sobre/sair e depois do separator
+		mnArquivo.add(mntmLogout,3);//coloca entre o sobre/sair e depois do separator
 		
 		// * -- MENU PESSOAS
 		mnPessoas = new JMenu("Pessoas");
