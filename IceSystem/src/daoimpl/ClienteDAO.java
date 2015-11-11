@@ -212,12 +212,10 @@ public class ClienteDAO implements IClienteDAO{
 			conexao = fabrica.getConexao();
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexao.prepareStatement("select c.id_cliente_pj, pj.cnpj, pj.id_endereco, en.bairro, en.cep, en.complemento, en.logradouro, en.numero, cd.id_cidade, cd.nome as nome_cidade, es.id_estado, es.nome, es.sigla, pj.razao_social, st.id_status, st.descricao from Cliente c"
+			pstm = conexao.prepareStatement("select c.id_cliente_pj, pj.cnpj, pj.id_endereco, pj.razao_social, st.id_status, st.descricao from Cliente c"
 					                       + " inner join Pessoa_Juridica pj on c.id_cliente_pj = pj.id_pessoa_juridica"
 										   + " inner join Status st on c.id_status = st.id_status"
-					                       + " inner join Endereco en on en.id_endereco = pj.id_endereco"
-					                       + " inner join Cidade cd on cd.id_cidade = en.id_cidade"
-					                       + " inner join Estado es on es.id_estado = cd.id_estado where c.id_status = ?");
+					                       + " where c.id_status = ?");
 			
 			pstm.setInt(1, Utilidades.STATUS_ATIVO.getIdStatus());
 			
@@ -240,20 +238,6 @@ public class ClienteDAO implements IClienteDAO{
 				cli.setCnpj(rs.getString("cnpj"));
 				cli.setEndereco(new EnderecoVO());
 				cli.getEndereco().setIdEndereco(rs.getInt("id_endereco"));
-				cli.getEndereco().setBairro(rs.getString("bairro"));
-				cli.getEndereco().setCep(rs.getString("cep"));
-				cli.getEndereco().setComplemento(rs.getString("complemento"));
-				cli.getEndereco().setLogradouro(rs.getString("logradouro"));
-				cli.getEndereco().setNumero(rs.getInt("numero"));
-				cli.getEndereco().setCidade(new CidadeVO());
-				cli.getEndereco().getCidade().setIdCidade(rs.getInt("id_cidade"));
-				cli.getEndereco().getCidade().setNome(rs.getString("nome_cidade"));
-				cli.getEndereco().getCidade().setEstado(new EstadoVO());
-				cli.getEndereco().getCidade().getEstado().setIdEstado(rs.getInt("id_estado"));
-				cli.getEndereco().getCidade().getEstado().setNome(rs.getString("nome"));
-				cli.getEndereco().getCidade().getEstado().setSigla(rs.getString("sigla"));
-				cli.setListaEmails(consultarEmailCliente(idCliente, conexao));
-				cli.setListaTelefones(consultarTelefoneCliente(idCliente, conexao));
 				listaClientes.add(cli);
 
 			}				
@@ -513,6 +497,79 @@ public class ClienteDAO implements IClienteDAO{
 		}
 		
 		return true;
+	}
+	
+	public ClienteVO detalharCliente(ClienteVO cliente){
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			
+			//Cria o [select] que sera executado no banco
+			pstm = conexao.prepareStatement("select en.bairro, en.cep, en.complemento, en.logradouro, en.numero, cd.id_cidade, cd.nome as nome_cidade, es.id_estado, es.nome, es.sigla from Endereco en"
+					                       + " inner join Cidade cd on cd.id_cidade = en.id_cidade"
+					                       + " inner join Estado es on es.id_estado = cd.id_estado"
+					                       + " where en.id_endereco = ?");
+			
+			pstm.setLong(1, cliente.getIdPessoaJuridica());
+			
+			//Executa o select no banco
+			rs = pstm.executeQuery();			
+			
+			//Carregando a listaItens
+			if(rs.next()){
+				
+				cliente.getEndereco().setIdEndereco(rs.getInt("id_endereco"));
+				cliente.getEndereco().setBairro(rs.getString("bairro"));
+				cliente.getEndereco().setCep(rs.getString("cep"));
+				cliente.getEndereco().setComplemento(rs.getString("complemento"));
+				cliente.getEndereco().setLogradouro(rs.getString("logradouro"));
+				cliente.getEndereco().setNumero(rs.getInt("numero"));
+				cliente.getEndereco().setCidade(new CidadeVO());
+				cliente.getEndereco().getCidade().setIdCidade(rs.getInt("id_cidade"));
+				cliente.getEndereco().getCidade().setNome(rs.getString("nome_cidade"));
+				cliente.getEndereco().getCidade().setEstado(new EstadoVO());
+				cliente.getEndereco().getCidade().getEstado().setIdEstado(rs.getInt("id_estado"));
+				cliente.getEndereco().getCidade().getEstado().setNome(rs.getString("nome"));
+				cliente.getEndereco().getCidade().getEstado().setSigla(rs.getString("sigla"));
+				cliente.setListaEmails(consultarEmailCliente(cliente.getIdPessoaJuridica(), conexao));
+				cliente.setListaTelefones(consultarTelefoneCliente(cliente.getIdPessoaJuridica(), conexao));
+			}
+			
+		} catch (SQLException sql) {
+			
+			sql.printStackTrace();
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+		} catch (ClassNotFoundException cnf) {
+			
+			cnf.printStackTrace();
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+		} finally {
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+				if(rs != null){
+					
+					rs.close();
+				}
+				
+			} catch (SQLException sql) {
+				
+				sql.printStackTrace();
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+			}			
+		
+		}
+		
+		return cliente;
 	}
 	
 }

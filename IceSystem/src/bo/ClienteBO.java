@@ -2,7 +2,6 @@ package bo;
 
 import java.util.List;
 
-import teste.BancoEstatico;
 import util.Utilidades;
 import vo.CidadeVO;
 import vo.ClienteVO;
@@ -48,11 +47,7 @@ public class ClienteBO {
 	
 	public ClienteVO detalharCliente(ClienteVO cliente){
 		
-		cliente.setListaEmails(BancoEstatico.listaEmails);
-		cliente.setListaTelefones(BancoEstatico.listaTelefones);
-				
-		return cliente;
-		//return ClienteDAO.detalharCliente(cliente);
+		return dao.detalharCliente(cliente);
 	}
 	
 	// ##################################################################
