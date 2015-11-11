@@ -110,6 +110,7 @@ public class AlterarSenhaView extends JDialog{
 					if(bo.alterarSenhaFuncLogado()){
 						
 						JOptionPane.showMessageDialog(Utilidades.frmHome, "Senha alterada com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+						AlterarSenhaView.this.dispose();
 					}
 				}
 				else{
