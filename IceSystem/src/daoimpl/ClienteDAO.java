@@ -512,7 +512,7 @@ public class ClienteDAO implements IClienteDAO{
 					                       + " inner join Estado es on es.id_estado = cd.id_estado"
 					                       + " where en.id_endereco = ?");
 			
-			pstm.setLong(1, cliente.getIdPessoaJuridica());
+			pstm.setLong(1, cliente.getEndereco().getIdEndereco());
 			
 			//Executa o select no banco
 			rs = pstm.executeQuery();			
