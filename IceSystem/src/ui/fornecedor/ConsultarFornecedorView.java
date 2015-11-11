@@ -84,8 +84,10 @@ public class ConsultarFornecedorView extends ConsultaGenericaView{
 	@Override
 	public void btnAtualizar(Integer linhaSelecionada) {
 		
+		bo = new FornecedorBO();
+		
 		Utilidades.frmHome.getContentPane().removeAll();
-		AtualizarFornecedorView atualizar = new AtualizarFornecedorView(listaFornecedores.get(linhaSelecionada));
+		AtualizarFornecedorView atualizar = new AtualizarFornecedorView(bo.detalharFornecedor(listaFornecedores.get(linhaSelecionada)));
 		Utilidades.frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
 		Utilidades.frmHome.getContentPane().revalidate();
 		

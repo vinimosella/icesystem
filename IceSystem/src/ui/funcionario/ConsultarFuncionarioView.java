@@ -79,7 +79,9 @@ public class ConsultarFuncionarioView extends ConsultaGenericaView{
 	@Override
 	public void btnDetalhar(Integer linhaSelecionada) {
 		
-		DetalharFuncionarioView detalhe = new DetalharFuncionarioView(listaFuncionarios.get(linhaSelecionada));
+		bo = new FuncionarioBO();
+		
+		DetalharFuncionarioView detalhe = new DetalharFuncionarioView(bo.detalharFuncionario(listaFuncionarios.get(linhaSelecionada)));
 		detalhe.setVisible(true);
 		
 	}

@@ -13,7 +13,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import teste.BancoEstatico;
 import util.Utilidades;
 
 public class HomeView {
@@ -39,7 +38,6 @@ public class HomeView {
 	}
 	
 	public HomeView(){
-		BancoEstatico.carregaBanco();
 		initialize();
 	}
 	

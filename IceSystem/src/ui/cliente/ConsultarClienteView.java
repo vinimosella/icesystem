@@ -85,8 +85,10 @@ public class ConsultarClienteView extends ConsultaGenericaView{
 	@Override
 	public void btnAtualizar(Integer linhaSelecionada) {
 		
+		bo = new ClienteBO();
+		
 		Utilidades.frmHome.getContentPane().removeAll();
-		AtualizarClienteView atualizar = new AtualizarClienteView(listaClientes.get(linhaSelecionada));
+		AtualizarClienteView atualizar = new AtualizarClienteView(bo.detalharCliente(listaClientes.get(linhaSelecionada)));
 		Utilidades.frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
 		Utilidades.frmHome.getContentPane().revalidate();
 		
