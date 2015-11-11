@@ -153,7 +153,6 @@ public class VendaDAO implements IVendaDAO{
 			}
 			else{
 				
-				System.out.println("caiu no rollback");
 				conexao.rollback();
 				
 				return false;
