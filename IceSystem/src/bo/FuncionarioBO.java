@@ -46,11 +46,11 @@ public class FuncionarioBO {
 		return dao.cadastrarFuncionario(funcionario);
 	}
 	
-	public boolean alterarSenhaFuncLogado(FuncionarioVO funcionarioLogado){
+	public boolean alterarSenhaFuncLogado(){
 		
-		funcionarioLogado.setSenha(Utilidades.criptografarMd5(funcionarioLogado.getSenha()));
+		Utilidades.funcionarioLogado.setSenha(Utilidades.criptografarMd5(Utilidades.funcionarioLogado.getSenha()));
 		
-		return dao.alterarSenhaFuncLogado(funcionarioLogado);
+		return dao.alterarSenhaFuncLogado(Utilidades.funcionarioLogado);
 	}
 	
 	public boolean atualizarFuncionario(FuncionarioVO funcionario){

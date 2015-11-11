@@ -8,8 +8,12 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+
+import util.Utilidades;
+import bo.FuncionarioBO;
 
 public class AlterarSenhaView extends JDialog{
 
@@ -23,6 +27,12 @@ public class AlterarSenhaView extends JDialog{
 	private JPasswordField txtConfNovaSenha;
 	private JButton btnCancelar;
 	private JButton btnSalvar;
+	private StringBuilder msgErro;
+	private FuncionarioBO bo;
+	
+	{
+		bo = new FuncionarioBO();
+	}
 	
 	public AlterarSenhaView(){
 		
@@ -80,6 +90,33 @@ public class AlterarSenhaView extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+				msgErro = new StringBuilder();
+				
+				//se a senha estiver errada
+				if(!Utilidades.criptografarMd5(new String(txtSenhaAntiga.getPassword())).equals(Utilidades.funcionarioLogado.getSenha())){
+					
+					msgErro.append("Senha antiga incorreta!");
+				}
+				//se as senhas novas não baterem
+				if(!new String(txtNovaSenha.getPassword()).equals(new String(txtConfNovaSenha.getPassword()))){
+					
+					msgErro.append("A nova senha e a confirmação da nova senha não são iguais!");
+				}
+				
+				if(msgErro.toString().trim().equals("")){
+					
+					Utilidades.funcionarioLogado.setSenha(new String(txtNovaSenha.getPassword()));
+					
+					if(bo.alterarSenhaFuncLogado()){
+						
+						JOptionPane.showMessageDialog(Utilidades.frmHome, "Senha alterada com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+				else{
+					
+					JOptionPane.showMessageDialog(Utilidades.frmHome, msgErro.toString(), "Alerta!", JOptionPane.ERROR_MESSAGE);
+				}
+				
 			}
 		});
 		contentPane.add(btnSalvar);
