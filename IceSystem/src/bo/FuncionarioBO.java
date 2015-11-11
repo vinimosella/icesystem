@@ -11,6 +11,7 @@ import vo.EmailVO;
 import vo.EstadoVO;
 import vo.FuncionarioVO;
 import vo.TelefoneVO;
+import daoimpl.CargoDAO;
 import daoimpl.CidadeDAO;
 import daoimpl.EstadoDAO;
 import daoimpl.FuncionarioDAO;
@@ -20,18 +21,27 @@ public class FuncionarioBO {
 	private EstadoDAO estDao;
 	private CidadeDAO cidDao;
 	private FuncionarioDAO dao;
+	private CargoDAO cargDao;
 	
 	{
 		estDao = new EstadoDAO();
 		cidDao = new CidadeDAO();
 		dao = new FuncionarioDAO();
+		cargDao = new CargoDAO();
 	}
 	
 	public boolean cadastrarFuncionario(FuncionarioVO funcionario){
 		
 		funcionario.setStatus(Utilidades.STATUS_ATIVO);
 		
-		funcionario.setSenha(Utilidades.criptografarMd5(funcionario.getSenha()));
+		//se for administrador ou secretario gera usuario/senha
+		if(funcionario.getCargo().getFuncao().equals(Utilidades.CARGO_ACESSO_ADMIN) || funcionario.getCargo().getFuncao().equals(Utilidades.CARGO_ACESSO_SECRETARIO)){
+			
+			String userAndPass = Utilidades.trocaEspacoPorPonto(funcionario.getNome().trim().toLowerCase());
+			
+			funcionario.setLogin(userAndPass);
+			funcionario.setSenha(Utilidades.criptografarMd5(userAndPass));
+		}
 		
 		return dao.cadastrarFuncionario(funcionario);
 	}
@@ -64,7 +74,7 @@ public class FuncionarioBO {
 	
 	public List<CargoVO> buscaCargos(){
 		
-		return BancoEstatico.listaCargos;
+		return cargDao.consultaCargos();
 	}
 	
 	public List<FuncionarioVO> consultarFuncionarios(){

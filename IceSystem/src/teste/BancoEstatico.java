@@ -3,15 +3,11 @@ package teste;
 import java.util.ArrayList;
 import java.util.List;
 
-import vo.CargoVO;
 import vo.EmailVO;
 import vo.EnderecoVO;
 import vo.TelefoneVO;
 
 public class BancoEstatico {
-	
-	public static CargoVO cargo;
-	public static List<CargoVO> listaCargos;
 	
 	public static EnderecoVO endereco;
 	public static List<EnderecoVO> listaEnderecos;
@@ -92,24 +88,6 @@ public class BancoEstatico {
 		telefone.setDdd("99");
 		telefone.setNumero("9090-8080");
 		listaTelefones.add(telefone);
-		
-		//CARREGA CARGOS
-		listaCargos = new ArrayList<CargoVO>();
-		
-		cargo = new CargoVO();
-		cargo.setIdCargo((byte) 1);
-		cargo.setFuncao("ADM");
-		listaCargos.add(cargo);
-		
-		cargo = new CargoVO();
-		cargo.setIdCargo((byte) 2);
-		cargo.setFuncao("Gerente");
-		listaCargos.add(cargo);
-		
-		cargo = new CargoVO();
-		cargo.setIdCargo((byte) 3);
-		cargo.setFuncao("Cozinheiro");
-		listaCargos.add(cargo);	
 		
 	}
 	

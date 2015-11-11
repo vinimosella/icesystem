@@ -53,6 +53,9 @@ public class Utilidades {
 	public static final String CANCELADO = "Cancelado";
 	public static final String ATIVO = "Ativo";
 	
+	public static final String CARGO_ACESSO_ADMIN = "Administrador";
+	public static final String CARGO_ACESSO_SECRETARIO = "Secretario";
+	
 	public static final SituacaoVO SITUACAO_VENDA_DEFAULT = sitDao.consultarSituacaoPorDesc("Solicitado");
 	public static final SituacaoVO SITUACAO_COMPRA_DEFAULT = sitDao.consultarSituacaoPorDesc("Solicitado");
 	public static final SituacaoVO SITUACAO_ORDEM_PRODUCAO_DEFAULT = sitDao.consultarSituacaoPorDesc("Solicitado");
@@ -67,7 +70,12 @@ public class Utilidades {
 		return texto.replaceAll("\\.|-","");
 	}
 	
-public static String criptografarMd5(String campo){
+	public static String trocaEspacoPorPonto(String texto){
+		
+		return texto.replaceAll("\\ ",".");
+	}
+	
+	public static String criptografarMd5(String campo){
 		
 		String campoFormatado = null;
 		
