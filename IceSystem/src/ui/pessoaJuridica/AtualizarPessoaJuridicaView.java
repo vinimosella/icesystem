@@ -82,14 +82,14 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 		bo = new PessoaJuridicaBO();
 		contadorTelefones = 0;
 		contadorEmails = 0;
-		listaTelefones = pj.getListaTelefones();
-		listaEmails = pj.getListaEmails();
 		
 	}
 	
 	public AtualizarPessoaJuridicaView(PessoaJuridicaVO pj, String titulo) {
 
 		this.pj = pj;
+		listaTelefones = pj.getListaTelefones();
+		listaEmails = pj.getListaEmails();
 
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));

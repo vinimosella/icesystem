@@ -94,6 +94,9 @@ public class AtualizarFuncionarioView extends JPanel{
 	
 	public AtualizarFuncionarioView(FuncionarioVO funcionario, Byte codUser){
 		
+		listaEmails = funcionario.getListaEmails();
+		listaTelefones = funcionario.getListaTelefones();
+		
 		this.funcionario = funcionario;
 		
 		listaEmails = funcionario.getListaEmails();
