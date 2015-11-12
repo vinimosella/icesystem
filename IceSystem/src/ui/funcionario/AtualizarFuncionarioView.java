@@ -526,6 +526,10 @@ public class AtualizarFuncionarioView extends JPanel{
 				if(bo.atualizarFuncionario(validaFuncionario(), listaListaEmail, listaListaTelefone)){
 					
 					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Funcionário atualizado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+					Utilidades.frmHome.getContentPane().removeAll();
+					ConsultarFuncionarioView consultarFuncionario = new ConsultarFuncionarioView();
+					Utilidades.frmHome.getContentPane().add(consultarFuncionario, BorderLayout.CENTER);
+					Utilidades.frmHome.getContentPane().revalidate();		
 					
 				}
 				else{

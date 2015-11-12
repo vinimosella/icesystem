@@ -54,7 +54,10 @@ public class AtualizarClienteView extends AtualizarPessoaJuridicaView{
 		if(bo.atualizarCliente(cliente, listaListaEmail, listaListaTelefone)){
 			
 			JOptionPane.showMessageDialog(Utilidades.frmHome, "   Cliente atualizado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
-			
+			Utilidades.frmHome.getContentPane().removeAll();
+			ConsultarClienteView consulta = new ConsultarClienteView();
+			Utilidades.frmHome.getContentPane().add(consulta, BorderLayout.CENTER);
+			Utilidades.frmHome.getContentPane().revalidate();		
 		}
 		else{
 			

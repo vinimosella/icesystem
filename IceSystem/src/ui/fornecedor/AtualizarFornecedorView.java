@@ -53,7 +53,10 @@ public class AtualizarFornecedorView extends AtualizarPessoaJuridicaView{
 		if(bo.atualizarFornecedor(fornecedor, listaListaEmail, listaListaTelefone)){
 			
 			JOptionPane.showMessageDialog(Utilidades.frmHome, "   Fornecedor atualizado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
-			
+			Utilidades.frmHome.getContentPane().removeAll();
+			ConsultarFornecedorView consulta = new ConsultarFornecedorView();
+			Utilidades.frmHome.getContentPane().add(consulta, BorderLayout.CENTER);
+			Utilidades.frmHome.getContentPane().revalidate();	
 		}
 		else{
 			
