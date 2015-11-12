@@ -3,7 +3,6 @@ package ui.pessoaJuridica;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -83,8 +82,9 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 		bo = new PessoaJuridicaBO();
 		contadorTelefones = 0;
 		contadorEmails = 0;
-		listaTelefones = new ArrayList<TelefoneVO>();
-		listaEmails = new ArrayList<EmailVO>();
+		listaTelefones = pj.getListaTelefones();
+		listaEmails = pj.getListaEmails();
+		
 	}
 	
 	public AtualizarPessoaJuridicaView(PessoaJuridicaVO pj, String titulo) {
@@ -120,7 +120,8 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 		
 		//armazena a quantidade de telefones que tem, alterará o valor do label de telefone para o numero corrente
 		comboTelefone = new JComboBox<Integer>();
-				
+		carregaTelefone();
+		
 		//Muda o valor do textField quando muda o 'id' do telefone do combobox
 		comboTelefone.addActionListener(new ActionListener() {
 			
@@ -243,7 +244,8 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 		
 		//armazena a quantidade de emails que tem, alterará o valor do label de email para o numero corrente
 		comboEmail = new JComboBox<Integer>();
-				
+		carregaEmail();
+		
 		//Muda o valor do textField quando muda o 'id' do email do combobox
 		comboEmail.addActionListener(new ActionListener() {
 			
@@ -459,7 +461,7 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				btnAtualizar(validaPessoaJuridica());
+				btnAtualizar(validaPessoaJuridica(), listaTelefones, listaEmails);
 				
 			}
 
@@ -482,10 +484,9 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 		geraBoundsCamposTela();
 	}
 	
-private void carregaTelefone(){
-		
+	private void carregaTelefone(){
+
 		it = listaTelefones.iterator();
-		contadorTelefones = 0;
 
 		while (it.hasNext()) {
 			comboTelefone.addItem(++contadorTelefones);
@@ -497,7 +498,6 @@ private void carregaTelefone(){
 	private void carregaEmail(){
 		
 		it = listaEmails.iterator();
-		contadorEmails = 0;
 		
 		while(it.hasNext()){
 			comboEmail.addItem(++contadorEmails);
@@ -557,9 +557,6 @@ private void carregaTelefone(){
 				
 		pj.setRazaoSocial(txtRazaoSocial.getText());
 		pj.setCnpj(txtCnpj.getText());
-
-		pj.setListaTelefones(listaTelefones);
-		pj.setListaEmails(listaEmails);
 		
 		endereco = new EnderecoVO();
 		
@@ -583,6 +580,6 @@ private void carregaTelefone(){
 	
 	public abstract void btnCancelar();
 	
-	public abstract void btnAtualizar(PessoaJuridicaVO pj);
+	public abstract void btnAtualizar(PessoaJuridicaVO pj, List<TelefoneVO> listaTelefones, List<EmailVO> listaEmails);
 
 }

@@ -1,13 +1,16 @@
 package ui.fornecedor;
 
 import java.awt.BorderLayout;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import ui.pessoaJuridica.AtualizarPessoaJuridicaView;
 import util.Utilidades;
+import vo.EmailVO;
 import vo.FornecedorVO;
 import vo.PessoaJuridicaVO;
+import vo.TelefoneVO;
 import bo.FornecedorBO;
 
 public class AtualizarFornecedorView extends AtualizarPessoaJuridicaView{
@@ -32,7 +35,7 @@ public class AtualizarFornecedorView extends AtualizarPessoaJuridicaView{
 	}
 
 	@Override
-	public void btnAtualizar(PessoaJuridicaVO pj) {
+	public void btnAtualizar(PessoaJuridicaVO pj, List<TelefoneVO> listaTelAlt, List<EmailVO> listaEmailAlt) {
 		
 		bo = new FornecedorBO();
 		
@@ -44,7 +47,10 @@ public class AtualizarFornecedorView extends AtualizarPessoaJuridicaView{
 		fornecedor.setListaTelefones(pj.getListaTelefones());
 		fornecedor.setEndereco(pj.getEndereco());
 		
-		if(bo.atualizarFornecedor(fornecedor)){
+		List<List<EmailVO>> listaListaEmail = bo.gerenciaMudancasEmails(fornecedor.getListaEmails(), listaEmailAlt);
+		List<List<TelefoneVO>> listaListaTelefone = bo.gerenciaMudancasTelefones(fornecedor.getListaTelefones(), listaTelAlt);
+		
+		if(bo.atualizarFornecedor(fornecedor, listaListaEmail, listaListaTelefone)){
 			
 			JOptionPane.showMessageDialog(Utilidades.frmHome, "   Fornecedor atualizado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
 			

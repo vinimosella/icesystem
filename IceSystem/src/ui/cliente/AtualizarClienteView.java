@@ -1,13 +1,16 @@
 package ui.cliente;
 
 import java.awt.BorderLayout;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import ui.pessoaJuridica.AtualizarPessoaJuridicaView;
 import util.Utilidades;
 import vo.ClienteVO;
+import vo.EmailVO;
 import vo.PessoaJuridicaVO;
+import vo.TelefoneVO;
 import bo.ClienteBO;
 
 public class AtualizarClienteView extends AtualizarPessoaJuridicaView{
@@ -33,7 +36,7 @@ public class AtualizarClienteView extends AtualizarPessoaJuridicaView{
 	}
 
 	@Override
-	public void btnAtualizar(PessoaJuridicaVO pj) {
+	public void btnAtualizar(PessoaJuridicaVO pj, List<TelefoneVO> listaTelAlt, List<EmailVO> listaEmailAlt) {
 		
 		bo = new ClienteBO();
 		
@@ -45,7 +48,10 @@ public class AtualizarClienteView extends AtualizarPessoaJuridicaView{
 		cliente.setListaTelefones(pj.getListaTelefones());
 		cliente.setEndereco(pj.getEndereco());
 		
-		if(bo.atualizarCliente(cliente)){
+		List<List<EmailVO>> listaListaEmail = bo.gerenciaMudancasEmails(cliente.getListaEmails(), listaEmailAlt);
+		List<List<TelefoneVO>> listaListaTelefone = bo.gerenciaMudancasTelefones(cliente.getListaTelefones(), listaTelAlt);
+		
+		if(bo.atualizarCliente(cliente, listaListaEmail, listaListaTelefone)){
 			
 			JOptionPane.showMessageDialog(Utilidades.frmHome, "   Cliente atualizado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
 			

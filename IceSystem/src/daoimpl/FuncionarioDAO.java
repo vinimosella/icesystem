@@ -28,6 +28,145 @@ public class FuncionarioDAO {
 		fabrica = ConnectionFactory.getInstance();		
 	}
 	
+	//[] = {listaInclusao,listaAlteracao,listaExclusao}
+	public boolean alterarFuncionario(FuncionarioVO funcionario, List<List<EmailVO>> listaListaEmail, List<List<TelefoneVO>> listaListaTelefone){
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			conexao.setAutoCommit(false); //Inicia uma transação
+			
+			//Cria o [update] que sera executado no banco
+			pstm = conexao.prepareStatement("update Funcionario set id_cargo=?, nome=?, rg=?, cpf=? where id_funcionario=?");
+			
+			pstm.setInt(1, funcionario.getCargo().getIdCargo());
+			pstm.setString(2, funcionario.getNome());
+			pstm.setString(3, funcionario.getRg());
+			pstm.setString(4, funcionario.getCpf());
+			pstm.setInt(1, funcionario.getIdFuncionario());
+			
+			//Executa uma atualização no banco
+			pstm.executeUpdate();
+			
+			alterarEnderecoFuncionario(funcionario.getEndereco());
+			
+			if(listaListaEmail.get(0).size() > 0){
+				
+				incluirEmailFuncionario(funcionario, listaListaEmail.get(0), conexao);
+			}
+			
+			if(listaListaEmail.get(1).size() > 0){
+				
+				alterarEmailFuncionario(listaListaEmail.get(1), conexao);
+			}
+			
+			if(listaListaEmail.get(2).size() > 0){
+				
+				excluirEmailFuncionario(listaListaEmail.get(2), conexao);
+			}
+			
+			if(listaListaTelefone.get(0).size() > 0){
+				
+				incluirTelefoneFuncionario(funcionario, listaListaTelefone.get(0), conexao);
+			}
+			
+			if(listaListaTelefone.get(1).size() > 0){
+				
+				alterarTelefoneFuncionario(listaListaTelefone.get(1), conexao);
+			}
+			
+			if(listaListaTelefone.get(2).size() > 0){
+				
+				excluirTelefoneFuncionario(listaListaTelefone.get(2), conexao);
+			}
+			
+			//Em caso de sucesso, executa o commit do update no banco
+			conexao.commit(); 
+	
+		} catch (ClassNotFoundException cnf) {
+			
+			//Caso ocorra algum erro, executa o rollback do update no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+				
+			}
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			return false;
+			
+		} catch (SQLException sql) {
+			
+			//Caso ocorra algum erro, executa o rollback do update no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql2) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+				
+				sql2.printStackTrace();
+				
+				return false;
+				
+			}
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			return false;
+			
+		} finally {
+
+			//Finalizando os recursos
+			try {
+
+				conexao.close();
+				pstm.close();
+
+			} catch (SQLException sql) {
+
+				//Caso ocorra algum erro, executa o rollback do update no banco
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql2) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+					
+					sql2.printStackTrace();
+					
+					return false;
+					
+				}
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+			}
+
+		}
+		
+		return true;
+	}
+	
 	public boolean alterarSenhaFuncLogado(FuncionarioVO funcionarioLogado){
 	
 		try {
@@ -344,6 +483,8 @@ public class FuncionarioDAO {
 				funcionario.setCargo(new CargoVO());
 				funcionario.getCargo().setIdCargo(rs.getByte("id_cargo"));
 				funcionario.getCargo().setFuncao(rs.getString("funcao"));
+				funcionario.setListaEmails(consultarEmailFuncionario(funcionario.getIdFuncionario(), conexao));
+				funcionario.setListaTelefones(consultarTelefoneFuncionario(funcionario.getIdFuncionario(), conexao));
 				
 			}
 			else{
@@ -657,7 +798,7 @@ public class FuncionarioDAO {
 		return funcionario;
 	}
 	
-	public List<EmailVO> consultarEmailFuncionario(Integer idFuncionario, Connection conexao) throws SQLException {
+	private List<EmailVO> consultarEmailFuncionario(Integer idFuncionario, Connection conexao) throws SQLException {
 		
 		EmailVO email = null;
 		
@@ -711,7 +852,7 @@ public class FuncionarioDAO {
 		return listaEmails;
 	}
 	
-	public List<TelefoneVO> consultarTelefoneFuncionario(Integer idFuncionario, Connection conexao) throws SQLException{
+	private List<TelefoneVO> consultarTelefoneFuncionario(Integer idFuncionario, Connection conexao) throws SQLException{
 		
 		TelefoneVO telefone = null;
 		
@@ -764,6 +905,160 @@ public class FuncionarioDAO {
 		}
 		
 		return listaTelefones;
+	}
+	
+	private void incluirEmailFuncionario(FuncionarioVO funcionario, List<EmailVO> listaEmails, Connection conexao) throws SQLException {
+		
+		rs = null;
+		
+		pstm = null;
+		Connection conexaoLocal = conexao;
+			
+			for(EmailVO email : listaEmails){
+				
+				//Cria o [insert] que sera executado no banco
+				pstm = conexaoLocal.prepareStatement("insert into Email (email, id_funcionario, id_status) values (?,?,?)");
+				
+				pstm.setString(1, email.getEmail());
+				pstm.setInt(2, funcionario.getIdFuncionario());
+				pstm.setInt(3, funcionario.getStatus().getIdStatus());
+				
+				//Executa o insert
+				rs = pstm.executeQuery();
+			}
+			
+	}
+	
+	private void alterarEmailFuncionario(List<EmailVO> listaEmails, Connection conexao) throws SQLException {
+		
+		rs = null;
+		
+		pstm = null;
+		Connection conexaoLocal = conexao;
+			
+			for(EmailVO email : listaEmails){
+				
+				//Cria o [update] que sera executado no banco
+				pstm = conexaoLocal.prepareStatement("update Email set email = ? where id_email = ?");
+				
+				pstm.setString(1, email.getEmail());
+				pstm.setInt(2, email.getIdEmail());
+				
+				//Executa o update
+				rs = pstm.executeQuery();
+			}
+			
+	}
+	
+	private void excluirEmailFuncionario(List<EmailVO> listaEmails, Connection conexao) throws SQLException {
+		
+		rs = null;
+		
+		pstm = null;
+		Connection conexaoLocal = conexao;
+			
+			for(EmailVO email : listaEmails){
+				
+				//Cria o [update] que sera executado no banco
+				pstm = conexaoLocal.prepareStatement("update Email set id_status = ? where id_email = ?");
+				
+				pstm.setInt(1, Utilidades.STATUS_INATIVO.getIdStatus());
+				pstm.setInt(2, email.getIdEmail());
+				
+				//Executa o update
+				rs = pstm.executeQuery();
+			}
+			
+	}
+	
+	private void incluirTelefoneFuncionario(FuncionarioVO funcionario, List<TelefoneVO> listaTelefones, Connection conexao) throws SQLException {
+		
+		rs = null;
+		
+		pstm = null;
+		Connection conexaoLocal = conexao;
+			
+			for(TelefoneVO telefone : listaTelefones){
+				
+				//Cria o [insert] que sera executado no banco
+				pstm = conexaoLocal.prepareStatement("insert into Telefone (ddd, numero, id_funcionario, id_status) values (?,?,?,?)");
+				
+				pstm.setString(1, telefone.getDdd());
+				pstm.setString(2, telefone.getNumero());
+				pstm.setInt(3, funcionario.getIdFuncionario());
+				pstm.setInt(4, funcionario.getStatus().getIdStatus());
+				
+				//Executa o insert
+				rs = pstm.executeQuery();
+			}
+			
+	}
+	
+	private void alterarTelefoneFuncionario(List<TelefoneVO> listaTelefones, Connection conexao) throws SQLException {
+		
+		rs = null;
+		
+		pstm = null;
+		Connection conexaoLocal = conexao;
+			
+			for(TelefoneVO telefone : listaTelefones){
+				
+				//Cria o [update] que sera executado no banco
+				pstm = conexaoLocal.prepareStatement("update Telefone set ddd = ?, numero = ? where id_telefone = ?");
+				
+				pstm.setString(1, telefone.getDdd());
+				pstm.setString(2, telefone.getNumero());
+				pstm.setInt(3, telefone.getIdTelefone());
+				
+				//Executa o insert
+				rs = pstm.executeQuery();
+			}
+			
+	}
+
+	private void excluirTelefoneFuncionario(List<TelefoneVO> listaTelefones, Connection conexao) throws SQLException {
+		
+		rs = null;
+		
+		pstm = null;
+		Connection conexaoLocal = conexao;
+			
+			for(TelefoneVO telefone : listaTelefones){
+				
+				//Cria o [update] que sera executado no banco
+				pstm = conexaoLocal.prepareStatement("update Telefone set id_status = ? where id_telefone = ?");
+				
+				pstm.setInt(1, Utilidades.STATUS_INATIVO.getIdStatus());
+				pstm.setInt(2, telefone.getIdTelefone());
+				
+				//Executa o insert
+				rs = pstm.executeQuery();
+			}
+			
+	}
+	
+	private boolean alterarEnderecoFuncionario(EnderecoVO endereco) throws SQLException{
+		
+		rs = null;
+		
+		pstm = null;
+		Connection conexaoLocal = conexao;
+			
+		//Cria o [update] que sera executado no banco
+		pstm = conexaoLocal.prepareStatement("update Endereco set id_cidade=?, logradouro=?, bairro=?, cep=?, numero=?, complemento=? where id_endereco = ?");
+		
+		pstm.setInt(1, endereco.getCidade().getIdCidade());
+		pstm.setString(2, endereco.getLogradouro());
+		pstm.setString(3, endereco.getBairro());
+		pstm.setString(4, endereco.getCep());
+		pstm.setInt(5, endereco.getNumero());
+		pstm.setString(6, endereco.getComplemento());
+		pstm.setInt(7, endereco.getIdEndereco());
+		
+		//Executa o update
+		rs = pstm.executeQuery();
+		
+		return true;	
 	}
 	
 }

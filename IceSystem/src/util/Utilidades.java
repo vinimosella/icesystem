@@ -4,12 +4,16 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 
+import vo.EmailVO;
 import vo.FuncionarioVO;
 import vo.SituacaoVO;
 import vo.StatusVO;
+import vo.TelefoneVO;
 import daoimpl.SituacaoDAO;
 import daoimpl.StatusDAO;
 
@@ -107,6 +111,149 @@ public class Utilidades {
 		}
 		
 		return campoFormatado;
+	}
+	
+	public static List<List<EmailVO>> gerenciaMudancasEmails(List<EmailVO>listaOriginal, List<EmailVO> listaMudada){
+		
+		List<EmailVO> listaExcluidos = new ArrayList<EmailVO>();
+		List<EmailVO> listaIncluidos = new ArrayList<EmailVO>();
+		List<EmailVO> listaAlterados = new ArrayList<EmailVO>();
+		
+		for(EmailVO emailOri : listaOriginal){
+				
+			boolean contem = false;
+			for(EmailVO  emailMud: listaMudada){
+				
+				//se o id do email for null, ele n veio do banco, portanto deve ser incluido, porém se for incluido na lista aqui
+				//será incluido repetidamente, pois este for esta dentro de outro.
+				if(emailMud.getIdEmail() == null){
+					
+					continue; //pula pro proximo laço desse for
+				}
+				
+				//se o email da original estiver na mudada
+				if(emailMud.getIdEmail() == emailOri.getIdEmail()){
+					
+					contem = true;
+					
+					//se o email for diferente, mas for do mesmo id, foi alterado
+					if(!emailMud.getEmail().trim().equals(emailOri.getEmail().trim())){
+						
+						listaAlterados.add(emailMud);
+					}
+					
+				}
+				
+			}
+			
+			//se o email da original não estiver na mudada
+			if(!contem){
+				
+				listaExcluidos.add(emailOri);
+			}
+			
+		}
+		
+		//adiciona se foi incluido REALMENTE
+		for(EmailVO  emailMud: listaMudada){
+			
+			boolean flgEstaNaOriginal = false;
+			
+			for(EmailVO emailOrig : listaOriginal){
+				
+				if(emailMud.getIdEmail()==null && (emailOrig.getEmail().trim().equals(emailMud.getEmail().trim()))){
+					
+					flgEstaNaOriginal = true;
+				}
+				
+			}
+			
+			if(!flgEstaNaOriginal){
+				listaIncluidos.add(emailMud);
+			}
+		}
+		
+		List<List<EmailVO>> listaListaEmails = new ArrayList<List<EmailVO>>();
+		listaListaEmails.add(listaIncluidos);
+		listaListaEmails.add(listaAlterados);
+		listaListaEmails.add(listaExcluidos);
+		
+		return listaListaEmails;
+	}
+	
+	public static List<List<TelefoneVO>> gerenciaMudancasTelefones(List<TelefoneVO>listaOriginal, List<TelefoneVO> listaMudada){
+		
+		List<TelefoneVO> listaExcluidos = new ArrayList<TelefoneVO>();
+		List<TelefoneVO> listaIncluidos = new ArrayList<TelefoneVO>();
+		List<TelefoneVO> listaAlterados = new ArrayList<TelefoneVO>();
+		
+		for(TelefoneVO telefoneOri : listaOriginal){
+				
+			boolean contem = false;
+			for(TelefoneVO  telefoneMud: listaMudada){
+				
+				//se o id do telefone for null, ele n veio do banco, portanto deve ser incluido, porém se for incluido na lista aqui
+				//será incluido repetidamente, pois este for esta dentro de outro.
+				if(telefoneMud.getIdTelefone() == null){
+					
+					continue; //pula pro proximo laço desse for
+				}
+				
+				//se o telefone da original estiver na mudada
+				if(telefoneMud.getIdTelefone() == telefoneOri.getIdTelefone()){
+					
+					contem = true;
+					
+					//se o ddd for diferente, mas for do mesmo id, foi alterado
+					if(!telefoneMud.getDdd().trim().equals(telefoneOri.getDdd().trim())){
+						
+						listaAlterados.add(telefoneMud);
+					}
+					//se o numero for diferente, mas for do mesmo id, foi alterado
+					else if(!telefoneMud.getDdd().trim().equals(telefoneOri.getDdd().trim())){
+						
+						listaAlterados.add(telefoneMud);
+					}
+					
+				}
+				
+			}
+			
+			//se o email da original não estiver na mudada
+			if(!contem){
+				
+				listaExcluidos.add(telefoneOri);
+			}
+			
+		}
+		
+		//adiciona se foi incluido REALMENTE
+		for(TelefoneVO  telefoneMud: listaMudada){
+			
+			boolean flgEstaNaOriginal = false;
+			
+			for(TelefoneVO telefoneOrig : listaOriginal){
+				
+				if(telefoneMud.getIdTelefone()==null && 
+						(telefoneOrig.getNumero().trim().equals(telefoneMud.getNumero().trim()) && 
+								telefoneOrig.getDdd().trim().equals(telefoneMud.getDdd().trim()))){
+					
+					flgEstaNaOriginal = true;
+				}
+				
+			}
+			
+			if(!flgEstaNaOriginal){
+				listaIncluidos.add(telefoneMud);
+			}
+		}
+		
+		List<List<TelefoneVO>> listaListaTelefones = new ArrayList<List<TelefoneVO>>();
+		listaListaTelefones.add(listaIncluidos);
+		listaListaTelefones.add(listaAlterados);
+		listaListaTelefones.add(listaExcluidos);
+		
+		return listaListaTelefones;
 	}
 
 }

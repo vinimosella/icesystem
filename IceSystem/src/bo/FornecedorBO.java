@@ -4,8 +4,10 @@ import java.util.List;
 
 import util.Utilidades;
 import vo.CidadeVO;
+import vo.EmailVO;
 import vo.EstadoVO;
 import vo.FornecedorVO;
+import vo.TelefoneVO;
 import daoimpl.CidadeDAO;
 import daoimpl.EstadoDAO;
 import daoimpl.FornecedorDAO;
@@ -22,6 +24,16 @@ public class FornecedorBO {
 		dao = new FornecedorDAO();
 	}
 	
+	public List<List<EmailVO>> gerenciaMudancasEmails(List<EmailVO>listaOriginal, List<EmailVO> listaMudada){
+		
+		return Utilidades.gerenciaMudancasEmails(listaOriginal, listaMudada);
+	}
+	
+	public List<List<TelefoneVO>> gerenciaMudancasTelefones(List<TelefoneVO>listaOriginal, List<TelefoneVO> listaMudada){
+		
+		return Utilidades.gerenciaMudancasTelefones(listaOriginal, listaMudada);
+	}
+	
 	public boolean cadastrarFornecedor(FornecedorVO fornecedor) {
 
 		fornecedor.setStatus(Utilidades.STATUS_ATIVO);
@@ -36,9 +48,9 @@ public class FornecedorBO {
 		return dao.excluirFornecedor(fornecedor);
 	}
 	
-	public boolean atualizarFornecedor(FornecedorVO fornecedor){
+	public boolean atualizarFornecedor(FornecedorVO fornecedor, List<List<EmailVO>> listaListaEmail, List<List<TelefoneVO>> listaListaTelefone){
 		
-		return true;
+		return dao.alterarFornecedor(fornecedor, listaListaEmail, listaListaTelefone);
 	}
 	
 	public List<FornecedorVO> consultarFornecedores(){

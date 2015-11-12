@@ -86,6 +86,8 @@ public class AtualizarFuncionarioView extends JPanel{
 	private List<CargoVO> listaCargos;
 		
 	{
+		contadorEmails = 0;
+		contadorTelefones = 0;
 		bo = new FuncionarioBO();
 		comboCidade = new JComboBox<String>();
 	}
@@ -518,7 +520,10 @@ public class AtualizarFuncionarioView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if(bo.atualizarFuncionario(validaFuncionario())){
+				List<List<EmailVO>> listaListaEmail = bo.gerenciaMudancasEmails(AtualizarFuncionarioView.this.funcionario.getListaEmails(), listaEmails);
+				List<List<TelefoneVO>> listaListaTelefone = bo.gerenciaMudancasTelefones(AtualizarFuncionarioView.this.funcionario.getListaTelefones(), listaTelefones);
+				
+				if(bo.atualizarFuncionario(validaFuncionario(), listaListaEmail, listaListaTelefone)){
 					
 					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Funcionário atualizado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
 					
@@ -540,8 +545,7 @@ public class AtualizarFuncionarioView extends JPanel{
 	private void carregaTelefone(){
 		
 		it = listaTelefones.iterator();
-		contadorTelefones = 0;
-
+		
 		while (it.hasNext()) {
 			comboTelefone.addItem(++contadorTelefones);
 			it.next();
@@ -552,7 +556,6 @@ public class AtualizarFuncionarioView extends JPanel{
 	private void carregaEmail(){
 		
 		it = listaEmails.iterator();
-		contadorEmails = 0;
 		
 		while(it.hasNext()){
 			comboEmail.addItem(++contadorEmails);
@@ -566,8 +569,6 @@ public class AtualizarFuncionarioView extends JPanel{
 		funcionario.setNome(txtNome.getText());
 		funcionario.setCpf(txtCpf.getText());
 		funcionario.setRg(txtRg.getText());
-		funcionario.setListaTelefones(listaTelefones);
-		funcionario.setListaEmails(listaEmails);
 		
 		endereco = new EnderecoVO();
 		

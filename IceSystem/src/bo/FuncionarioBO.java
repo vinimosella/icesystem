@@ -29,6 +29,16 @@ public class FuncionarioBO {
 		cargDao = new CargoDAO();
 	}
 	
+	public List<List<EmailVO>> gerenciaMudancasEmails(List<EmailVO>listaOriginal, List<EmailVO> listaMudada){
+		
+		return Utilidades.gerenciaMudancasEmails(listaOriginal, listaMudada);
+	}
+	
+	public List<List<TelefoneVO>> gerenciaMudancasTelefones(List<TelefoneVO>listaOriginal, List<TelefoneVO> listaMudada){
+		
+		return Utilidades.gerenciaMudancasTelefones(listaOriginal, listaMudada);
+	}
+	
 	public boolean cadastrarFuncionario(FuncionarioVO funcionario){
 		
 		funcionario.setStatus(Utilidades.STATUS_ATIVO);
@@ -52,9 +62,9 @@ public class FuncionarioBO {
 		return dao.alterarSenhaFuncLogado(Utilidades.funcionarioLogado);
 	}
 	
-	public boolean atualizarFuncionario(FuncionarioVO funcionario){
+	public boolean atualizarFuncionario(FuncionarioVO funcionario, List<List<EmailVO>> listaListaEmail, List<List<TelefoneVO>> listaListaTelefone){
 				
-		return true;
+		return dao.alterarFuncionario(funcionario, listaListaEmail, listaListaTelefone);
 	}
 	
 	public FuncionarioVO detalharFuncionario(FuncionarioVO funcionario){
