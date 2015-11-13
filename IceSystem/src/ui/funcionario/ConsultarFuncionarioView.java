@@ -16,8 +16,6 @@ import bo.FuncionarioBO;
 public class ConsultarFuncionarioView extends ConsultaGenericaView{
 	
 	private static final long serialVersionUID = 1L;
-	
-	private Byte codUser;
 	private DefaultTableModel dtm;
 	private FuncionarioVO funcionario;
 	private List<FuncionarioVO> listaFuncionarios;
@@ -89,8 +87,9 @@ public class ConsultarFuncionarioView extends ConsultaGenericaView{
 	@Override
 	public void btnAtualizar(Integer linhaSelecionada) {
 
+		bo = new FuncionarioBO();
 		Utilidades.frmHome.getContentPane().removeAll();
-		AtualizarFuncionarioView atualizar = new AtualizarFuncionarioView(listaFuncionarios.get(linhaSelecionada),ConsultarFuncionarioView.this.codUser);
+		AtualizarFuncionarioView atualizar = new AtualizarFuncionarioView(bo.detalharFuncionario(listaFuncionarios.get(linhaSelecionada)));
 		Utilidades.frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
 		Utilidades.frmHome.getContentPane().revalidate();
 		

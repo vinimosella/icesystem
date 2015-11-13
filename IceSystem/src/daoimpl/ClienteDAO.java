@@ -374,6 +374,8 @@ public class ClienteDAO implements IClienteDAO{
 				cli.setCnpj(rs.getString("cnpj"));
 				cli.setEndereco(new EnderecoVO());
 				cli.getEndereco().setIdEndereco(rs.getInt("id_endereco"));
+				cli.setStatus(new StatusVO());
+				cli.getStatus().setIdStatus(rs.getInt("id_status"));
 				listaClientes.add(cli);
 
 			}				
@@ -438,9 +440,10 @@ public class ClienteDAO implements IClienteDAO{
 			Connection conexaoLocal = conexao;
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexaoLocal.prepareStatement("select id_email, email, id_pessoa_juridica from Email where id_pessoa_juridica = ?");
+			pstm = conexaoLocal.prepareStatement("select id_email, email, id_pessoa_juridica from Email where id_pessoa_juridica = ? and id_status=?");
 			
 			pstm.setInt(1, idCliente);
+			pstm.setInt(2, Utilidades.STATUS_ATIVO.getIdStatus());
 			
 			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
@@ -494,7 +497,7 @@ public class ClienteDAO implements IClienteDAO{
 				pstm.setInt(3, cliente.getStatus().getIdStatus());
 				
 				//Executa o insert
-				rs = pstm.executeQuery();
+				pstm.executeUpdate();
 			}
 			
 	}
@@ -515,7 +518,7 @@ public class ClienteDAO implements IClienteDAO{
 				pstm.setInt(2, email.getIdEmail());
 				
 				//Executa o update
-				rs = pstm.executeQuery();
+				pstm.executeUpdate();
 			}
 			
 	}
@@ -536,7 +539,7 @@ public class ClienteDAO implements IClienteDAO{
 				pstm.setInt(2, email.getIdEmail());
 				
 				//Executa o update
-				rs = pstm.executeQuery();
+				pstm.executeUpdate();
 			}
 			
 	}
@@ -556,10 +559,11 @@ public class ClienteDAO implements IClienteDAO{
 			Connection conexaoLocal = conexao;
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexaoLocal.prepareStatement("select id_telefone, ddd, numero, id_pessoa_juridica from Telefone where id_pessoa_juridica = ?");
+			pstm = conexaoLocal.prepareStatement("select id_telefone, ddd, numero, id_pessoa_juridica from Telefone where id_pessoa_juridica = ? and id_status=?");
 			
 			//Executa uma pesquisa no banco
 			pstm.setInt(1, idCliente);
+			pstm.setInt(2, Utilidades.STATUS_ATIVO.getIdStatus());
 			
 			rs = pstm.executeQuery();
 			
@@ -614,7 +618,7 @@ public class ClienteDAO implements IClienteDAO{
 				pstm.setInt(4, cliente.getStatus().getIdStatus());
 				
 				//Executa o insert
-				rs = pstm.executeQuery();
+				pstm.executeUpdate();
 			}
 			
 	}
@@ -636,7 +640,7 @@ public class ClienteDAO implements IClienteDAO{
 				pstm.setInt(3, telefone.getIdTelefone());
 				
 				//Executa o insert
-				rs = pstm.executeQuery();
+				pstm.executeUpdate();
 			}
 			
 	}
@@ -657,7 +661,7 @@ public class ClienteDAO implements IClienteDAO{
 				pstm.setInt(2, telefone.getIdTelefone());
 				
 				//Executa o insert
-				rs = pstm.executeQuery();
+				pstm.executeUpdate();
 			}
 			
 	}
@@ -681,7 +685,7 @@ public class ClienteDAO implements IClienteDAO{
 		pstm.setInt(7, endereco.getIdEndereco());
 		
 		//Executa o update
-		rs = pstm.executeQuery();
+		pstm.executeUpdate();
 		
 		return true;	
 	}

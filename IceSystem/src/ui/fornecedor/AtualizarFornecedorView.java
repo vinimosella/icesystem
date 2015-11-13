@@ -41,6 +41,8 @@ public class AtualizarFornecedorView extends AtualizarPessoaJuridicaView{
 		
 		fornecedor = new FornecedorVO();
 		
+		fornecedor.setStatus(Utilidades.STATUS_ATIVO);
+		fornecedor.setIdPessoaJuridica(pj.getIdPessoaJuridica());
 		fornecedor.setRazaoSocial(pj.getRazaoSocial());
 		fornecedor.setCnpj(pj.getCnpj());
 		fornecedor.setListaEmails(pj.getListaEmails());

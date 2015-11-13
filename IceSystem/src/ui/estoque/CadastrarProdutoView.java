@@ -46,7 +46,8 @@ public class CadastrarProdutoView extends JPanel{
 	private JTable tabelaReceita;
 	private List<IngredienteReceitaProdutoVO> listaReceita;
 	private IngredienteReceitaProdutoVO itemReceita;
-	private JScrollPane scrollPane;
+	private JScrollPane scrollPaneMat;
+	private JScrollPane scrollPaneRec;
 	private DefaultTableModel dtm;
 	private Iterator<?> it;
 	private JLabel lblQtd;
@@ -70,15 +71,13 @@ public class CadastrarProdutoView extends JPanel{
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
 		
-		lblNomePagina = new JLabel(Utilidades.CADASTRAR_MATERIA_PRIMA);
-		lblNomePagina.setBounds(10,20,170,25);
-				
+		lblNomePagina = new JLabel(Utilidades.CADASTRAR_PRODUTO);
+		this.add(lblNomePagina);
+		
 		lblTipo = new JLabel("Tipo:");
-		lblTipo.setBounds(20, 20, 70, 20);
 		this.add(lblTipo);
 		
 		comboTipo = new JComboBox<String>();
-		comboTipo.setBounds(100,20,130,20);
 		for(int x = 0; x<Utilidades.VET_TIPOS_PRODUTOS.length;x++){
 			
 			comboTipo.addItem(Utilidades.VET_TIPOS_PRODUTOS[x]);
@@ -86,33 +85,26 @@ public class CadastrarProdutoView extends JPanel{
 		this.add(comboTipo);
 		
 		lblSabor = new JLabel("Sabor:");
-		lblSabor.setBounds(20, 60, 70, 20);
 		this.add(lblSabor);
 		
 		txtSabor = new JTextField();
-		txtSabor.setBounds(100,60,130,20);
 		this.add(txtSabor);
 		
 		lblMaterias = new JLabel("Matérias Primas");
-		lblMaterias.setBounds(20,90, 120, 20);
 		this.add(lblMaterias);
 		
 		tabelaMaterias = new JTable();
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 120, 550, 150);
-		this.add(scrollPane);
+		scrollPaneMat = new JScrollPane();
+		this.add(scrollPaneMat);
 		carregaDtmMateria();
 		
-		lblQtd = new JLabel("Quantidade Necessária");
-		lblQtd.setBounds(20,270,130,20);
+		lblQtd = new JLabel("Quantidade Necessária:");
 		this.add(lblQtd);
 		
 		txtQtd = new JTextField();
-		txtQtd.setBounds(160, 270, 70, 20);
 		this.add(txtQtd);
 		
 		btnAdicionarItemMateria = new JButton(new ImageIcon(getClass().getResource("/img/down.png")));
-		btnAdicionarItemMateria.setBounds(365, 270, 25, 25);
 		btnAdicionarItemMateria.addActionListener(new ActionListener() {
 			
 			@Override
@@ -173,16 +165,13 @@ public class CadastrarProdutoView extends JPanel{
 		this.add(btnAdicionarItemMateria);
 		
 		lblReceita = new JLabel("Receita do Produto");
-		lblReceita.setBounds(20,290,120, 20);
 		this.add(lblReceita);
 		
 		tabelaReceita = new JTable();
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 320, 550, 150);
-		this.add(scrollPane);
+		scrollPaneRec = new JScrollPane();
+		this.add(scrollPaneRec);
 		
-		btnRemoverItemMateria = new JButton(new ImageIcon(getClass().getResource("/img/delete.png")));
-		btnRemoverItemMateria.setBounds(570, 350, 25, 25);
+		btnRemoverItemMateria = new JButton("Remover item da receita", new ImageIcon(getClass().getResource("/img/remover.png")));
 		btnRemoverItemMateria.addActionListener(new ActionListener() {
 			
 			@Override
@@ -200,7 +189,6 @@ public class CadastrarProdutoView extends JPanel{
 		this.add(btnRemoverItemMateria);
 		
 		btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(30,520,90,30);
 		btnSalvar.addActionListener(new ActionListener() {
 
 			@Override
@@ -253,7 +241,6 @@ public class CadastrarProdutoView extends JPanel{
 		this.add(btnSalvar);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(130,120,90,30);
 		btnCancelar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -267,6 +254,37 @@ public class CadastrarProdutoView extends JPanel{
 			}
 		});
 		this.add(btnCancelar);
+		
+		geraBounds();
+	}
+	
+	private void geraBounds(){
+		
+		int altura = 10;
+		
+		lblNomePagina.setBounds(10,altura,170,25);
+		
+		lblTipo.setBounds(20, altura+=40, 70, 20);
+		comboTipo.setBounds(100,altura,130,20);
+		
+		lblSabor.setBounds(20, altura+=30, 70, 20);
+		txtSabor.setBounds(100,altura,130,20);
+		
+		lblMaterias.setBounds(20,altura+=30, 120, 20);
+		
+		scrollPaneMat.setBounds(20, altura+=20, 550, 150);
+		
+		lblQtd.setBounds(20,altura+=160,150,20);
+		txtQtd.setBounds(165, altura, 70, 20);
+		btnAdicionarItemMateria.setBounds(240, altura, 25, 25);
+		
+		lblReceita.setBounds(20,altura+=40,120, 20);
+		btnRemoverItemMateria.setBounds(350, altura-10, 200, 25);
+		
+		scrollPaneRec.setBounds(20, altura+=20, 550, 150);
+		
+		btnSalvar.setBounds(210,altura+=160,90,30);
+		btnCancelar.setBounds(320,altura,90,30);
 		
 	}
 	
@@ -308,7 +326,7 @@ public class CadastrarProdutoView extends JPanel{
 		}			
 		
 		tabelaMaterias.setModel(dtm);
-		scrollPane.setViewportView(tabelaMaterias);
+		scrollPaneMat.setViewportView(tabelaMaterias);
 		
 	}
 	
@@ -356,7 +374,7 @@ public class CadastrarProdutoView extends JPanel{
 		}			
 		
 		tabelaReceita.setModel(dtm);
-		scrollPane.setViewportView(tabelaReceita);
+		scrollPaneRec.setViewportView(tabelaReceita);
 		
 	}
 	

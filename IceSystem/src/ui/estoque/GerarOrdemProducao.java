@@ -30,11 +30,11 @@ public class GerarOrdemProducao extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
 	private JTable table;
-	private JLabel lblProduzir;
+	private JLabel lblGerarOrdem;
 	private JLabel lblQuantidade;
 	private JTextField txtQuantidade;
 	private JButton btnVerReceita;
-	private JButton btnProduzir;
+	private JButton btnGerarOrdem;
 	private JScrollPane scrollPane;
 	private DefaultTableModel dtm;
 	private ProdutoBO produtoBo;
@@ -58,9 +58,9 @@ public class GerarOrdemProducao extends JPanel{
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
 		
-		lblProduzir = new JLabel("Produzir");
-		lblProduzir.setBounds(10, 11, 430, 14);
-		this.add(lblProduzir);
+		lblGerarOrdem = new JLabel("Gerar Ordem");
+		lblGerarOrdem.setBounds(10, 11, 430, 14);
+		this.add(lblGerarOrdem);
 		
 		table = new JTable();
 		
@@ -96,9 +96,9 @@ public class GerarOrdemProducao extends JPanel{
 		});
 		this.add(btnVerReceita);
 		
-		btnProduzir = new JButton("Produzir");
-		btnProduzir.setBounds(255, 490, 90, 23);
-		btnProduzir.addActionListener(new ActionListener() {
+		btnGerarOrdem = new JButton("Gerar Ordem");
+		btnGerarOrdem.setBounds(255, 490, 90, 23);
+		btnGerarOrdem.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -108,7 +108,7 @@ public class GerarOrdemProducao extends JPanel{
 			}
 			
 		});
-		this.add(btnProduzir);
+		this.add(btnGerarOrdem);
 		
 	}
 	

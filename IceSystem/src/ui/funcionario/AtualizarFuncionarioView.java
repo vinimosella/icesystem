@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -92,15 +93,11 @@ public class AtualizarFuncionarioView extends JPanel{
 		comboCidade = new JComboBox<String>();
 	}
 	
-	public AtualizarFuncionarioView(FuncionarioVO funcionario, Byte codUser){
-		
-		listaEmails = funcionario.getListaEmails();
-		listaTelefones = funcionario.getListaTelefones();
+	public AtualizarFuncionarioView(FuncionarioVO funcionario){
 		
 		this.funcionario = funcionario;
-		
-		listaEmails = funcionario.getListaEmails();
-		listaTelefones = funcionario.getListaTelefones();
+
+		carregaListasEmailETelefones();
 		
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
@@ -160,7 +157,6 @@ public class AtualizarFuncionarioView extends JPanel{
 		this.add(comboTelefone);
 		
 		txtTelefone = new JTextField();
-		txtTelefone.setText(listaTelefones.get(0).getDdd()+listaTelefones.get(0).getNumero());
 		this.add(txtTelefone);
 		
 		btnAtualizarTelefone = new JButton(new ImageIcon(getClass().getResource("/img/update.png")));
@@ -282,7 +278,6 @@ public class AtualizarFuncionarioView extends JPanel{
 		this.add(comboEmail);
 		
 		txtEmail = new JTextField();
-		txtEmail.setText(listaEmails.get(0).getEmail());
 		this.add(txtEmail);
 		
 		btnAtualizarEmail = new JButton(new ImageIcon(getClass().getResource("/img/update.png")));
@@ -522,7 +517,7 @@ public class AtualizarFuncionarioView extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				
 				List<List<EmailVO>> listaListaEmail = bo.gerenciaMudancasEmails(AtualizarFuncionarioView.this.funcionario.getListaEmails(), listaEmails);
 				List<List<TelefoneVO>> listaListaTelefone = bo.gerenciaMudancasTelefones(AtualizarFuncionarioView.this.funcionario.getListaTelefones(), listaTelefones);
 				
@@ -552,6 +547,7 @@ public class AtualizarFuncionarioView extends JPanel{
 	private void carregaTelefone(){
 		
 		it = listaTelefones.iterator();
+		contadorTelefones = 0;
 		
 		while (it.hasNext()) {
 			comboTelefone.addItem(++contadorTelefones);
@@ -563,6 +559,7 @@ public class AtualizarFuncionarioView extends JPanel{
 	private void carregaEmail(){
 		
 		it = listaEmails.iterator();
+		contadorEmails = 0;
 		
 		while(it.hasNext()){
 			comboEmail.addItem(++contadorEmails);
@@ -577,7 +574,7 @@ public class AtualizarFuncionarioView extends JPanel{
 		funcionario.setCpf(txtCpf.getText());
 		funcionario.setRg(txtRg.getText());
 		
-		endereco = new EnderecoVO();
+		endereco = funcionario.getEndereco();
 		
 		endereco.setLogradouro(txtLogradouro.getText());
 		endereco.setNumero(Integer.parseInt(txtNumero.getText()));
@@ -652,6 +649,37 @@ public class AtualizarFuncionarioView extends JPanel{
 		txtCep.setBounds(lblDirX,distY+distEntre*12,200,alturaCampo);
 		comboCargo.setBounds(lblDirX,distY+distEntre*13,200,alturaCampo);
 		btnAtualizar.setBounds(245,(distY+distEntre*14)+5,120,alturaCampo);
+		
+	}
+	
+	private void carregaListasEmailETelefones(){
+		
+		listaEmails = new ArrayList<EmailVO>();
+		EmailVO email;
+		
+		for(EmailVO e : funcionario.getListaEmails()){
+			
+			email = new EmailVO();
+			email.setEmail(e.getEmail());
+			email.setIdEmail(e.getIdEmail());
+			email.setFuncionario(e.getFuncionario());
+			listaEmails.add(email);
+			
+		}
+		
+		listaTelefones = new ArrayList<TelefoneVO>();
+		TelefoneVO telefone;
+		
+		for(TelefoneVO t : funcionario.getListaTelefones()){
+			
+			telefone = new TelefoneVO();
+			telefone.setDdd(t.getDdd());
+			telefone.setNumero(t.getNumero());
+			telefone.setIdTelefone(t.getIdTelefone());
+			telefone.setFuncionario(t.getFuncionario());
+			listaTelefones.add(telefone);
+			
+		}
 		
 	}
 	

@@ -15,6 +15,7 @@ import vo.EmailVO;
 import vo.EnderecoVO;
 import vo.EstadoVO;
 import vo.FuncionarioVO;
+import vo.StatusVO;
 import vo.TelefoneVO;
 
 public class FuncionarioDAO {
@@ -44,7 +45,7 @@ public class FuncionarioDAO {
 			pstm.setString(2, funcionario.getNome());
 			pstm.setString(3, funcionario.getRg());
 			pstm.setString(4, funcionario.getCpf());
-			pstm.setInt(1, funcionario.getIdFuncionario());
+			pstm.setInt(5, funcionario.getIdFuncionario());
 			
 			//Executa uma atualização no banco
 			pstm.executeUpdate();
@@ -575,6 +576,8 @@ public class FuncionarioDAO {
 				funcionario.setCargo(new CargoVO());
 				funcionario.getCargo().setIdCargo(rs.getByte("id_cargo"));
 				funcionario.getCargo().setFuncao(rs.getString("funcao"));
+				funcionario.setStatus(new StatusVO());
+				funcionario.getStatus().setIdStatus(rs.getInt("id_status"));
 				
 				listaFuncionarios.add(funcionario);
 			}
@@ -794,7 +797,7 @@ public class FuncionarioDAO {
 			}			
 		
 		}
-		
+				
 		return funcionario;
 	}
 	
@@ -813,9 +816,10 @@ public class FuncionarioDAO {
 			Connection conexaoLocal = conexao;
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexaoLocal.prepareStatement("select id_email, email, id_funcionario from Email where id_funcionario = ?");
+			pstm = conexaoLocal.prepareStatement("select id_email, email, id_funcionario from Email where id_funcionario = ? and id_status = ?");
 			
 			pstm.setInt(1, idFuncionario);
+			pstm.setInt(2, Utilidades.STATUS_ATIVO.getIdStatus());
 			
 			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
@@ -867,10 +871,11 @@ public class FuncionarioDAO {
 			Connection conexaoLocal = conexao;
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexaoLocal.prepareStatement("select id_telefone, ddd, numero, id_funcionario from Telefone where id_funcionario = ?");
+			pstm = conexaoLocal.prepareStatement("select id_telefone, ddd, numero, id_funcionario from Telefone where id_funcionario = ? and id_status = ?");
 			
 			//Executa uma pesquisa no banco
 			pstm.setInt(1, idFuncionario);
+			pstm.setInt(2, Utilidades.STATUS_ATIVO.getIdStatus());
 			
 			rs = pstm.executeQuery();
 			
@@ -924,7 +929,7 @@ public class FuncionarioDAO {
 				pstm.setInt(3, funcionario.getStatus().getIdStatus());
 				
 				//Executa o insert
-				rs = pstm.executeQuery();
+				pstm.executeUpdate();
 			}
 			
 	}
@@ -945,7 +950,7 @@ public class FuncionarioDAO {
 				pstm.setInt(2, email.getIdEmail());
 				
 				//Executa o update
-				rs = pstm.executeQuery();
+				pstm.executeUpdate();
 			}
 			
 	}
@@ -966,7 +971,7 @@ public class FuncionarioDAO {
 				pstm.setInt(2, email.getIdEmail());
 				
 				//Executa o update
-				rs = pstm.executeQuery();
+				pstm.executeUpdate();
 			}
 			
 	}
@@ -989,7 +994,7 @@ public class FuncionarioDAO {
 				pstm.setInt(4, funcionario.getStatus().getIdStatus());
 				
 				//Executa o insert
-				rs = pstm.executeQuery();
+				pstm.executeUpdate();
 			}
 			
 	}
@@ -1011,7 +1016,7 @@ public class FuncionarioDAO {
 				pstm.setInt(3, telefone.getIdTelefone());
 				
 				//Executa o insert
-				rs = pstm.executeQuery();
+				pstm.executeUpdate();
 			}
 			
 	}
@@ -1031,14 +1036,13 @@ public class FuncionarioDAO {
 				pstm.setInt(1, Utilidades.STATUS_INATIVO.getIdStatus());
 				pstm.setInt(2, telefone.getIdTelefone());
 				
-				//Executa o insert
-				rs = pstm.executeQuery();
+				pstm.executeUpdate();
 			}
 			
 	}
 	
 	private boolean alterarEnderecoFuncionario(EnderecoVO endereco) throws SQLException{
-		
+				
 		rs = null;
 		
 		pstm = null;
@@ -1055,8 +1059,7 @@ public class FuncionarioDAO {
 		pstm.setString(6, endereco.getComplemento());
 		pstm.setInt(7, endereco.getIdEndereco());
 		
-		//Executa o update
-		rs = pstm.executeQuery();
+		pstm.executeUpdate();
 		
 		return true;	
 	}

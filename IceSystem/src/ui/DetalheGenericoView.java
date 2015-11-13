@@ -157,23 +157,23 @@ public abstract class DetalheGenericoView extends JDialog{
 	private void detalheEndereco() {
 		
 		lblEstado = new JLabel("Estado: " + endereco.getCidade().getEstado().getNome());
-		lblEstado.setBounds(40, 200, 150, 60);
+		lblEstado.setBounds(40, 200, 500, 60);
 		contentPane.add(lblEstado);
 			
 		lblCidade = new JLabel("Cidade: "+ endereco.getCidade().getNome());
-		lblCidade.setBounds(40,240,150,60);
+		lblCidade.setBounds(40,240,500,60);
 		contentPane.add(lblCidade);
 			
 		lblCep = new JLabel("CEP: " + endereco.getCep());
-		lblCep.setBounds(40, 280, 300, 60);
+		lblCep.setBounds(40, 280, 500, 60);
 		contentPane.add(lblCep);
 			
 		lblBairro = new JLabel("Bairro: " + endereco.getBairro());
-		lblBairro.setBounds(40, 320, 300, 60);
+		lblBairro.setBounds(40, 320, 500, 60);
 		contentPane.add(lblBairro);
 			
 		lblLogradouro = new JLabel("Logradouro: " + endereco.getLogradouro() + ", " + endereco.getComplemento() + " - " + endereco.getNumero());
-		lblLogradouro.setBounds(40, 360, 300, 60);
+		lblLogradouro.setBounds(40, 360, 500, 60);
 		contentPane.add(lblLogradouro);			
 		
 	}

@@ -42,6 +42,8 @@ public class AtualizarClienteView extends AtualizarPessoaJuridicaView{
 		
 		cliente = new ClienteVO();
 		
+		cliente.setStatus(Utilidades.STATUS_ATIVO);
+		cliente.setIdPessoaJuridica(pj.getIdPessoaJuridica());
 		cliente.setRazaoSocial(pj.getRazaoSocial());
 		cliente.setCnpj(pj.getCnpj());
 		cliente.setListaEmails(pj.getListaEmails());

@@ -14,6 +14,7 @@ import vo.EmailVO;
 import vo.EnderecoVO;
 import vo.EstadoVO;
 import vo.FornecedorVO;
+import vo.StatusVO;
 import vo.TelefoneVO;
 import daoservice.IFornecedorDAO;
 
@@ -372,6 +373,8 @@ public class FornecedorDAO implements IFornecedorDAO{
 				fornecedor.setEndereco(new EnderecoVO());
 				fornecedor.getEndereco().setIdEndereco(rs.getInt("id_endereco"));
 				fornecedor.setRazaoSocial(rs.getString("razao_social"));
+				fornecedor.setStatus(new StatusVO());
+				fornecedor.getStatus().setIdStatus(rs.getInt("id_status"));
 				fornecedor.setListaEmails(consultarEmailFornecedor(idFornecedor, conexao));
 				fornecedor.setListaTelefones(consultarTelefoneFornecedor(idFornecedor, conexao));
 				
@@ -438,9 +441,10 @@ public class FornecedorDAO implements IFornecedorDAO{
 			Connection conexaoLocal = conexao;
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexaoLocal.prepareStatement("select id_email, email, id_pessoa_juridica from Email where id_pessoa_juridica = ?");
+			pstm = conexaoLocal.prepareStatement("select id_email, email, id_pessoa_juridica from Email where id_pessoa_juridica = ? and id_status = ?");
 			
 			pstm.setInt(1, idFornecedor);
+			pstm.setInt(2, Utilidades.STATUS_ATIVO.getIdStatus());
 			
 			//Executa uma pesquisa no banco
 			rs = pstm.executeQuery();
@@ -492,10 +496,11 @@ public class FornecedorDAO implements IFornecedorDAO{
 			Connection conexaoLocal = conexao;
 			
 			//Cria o [select] que sera executado no banco
-			pstm = conexaoLocal.prepareStatement("select id_telefone, ddd, numero, id_pessoa_juridica from Telefone where id_pessoa_juridica = ?");
+			pstm = conexaoLocal.prepareStatement("select id_telefone, ddd, numero, id_pessoa_juridica from Telefone where id_pessoa_juridica = ? and id_status=?");
 			
 			//Executa uma pesquisa no banco
 			pstm.setInt(1, idFornecedor);
+			pstm.setInt(2, Utilidades.STATUS_ATIVO.getIdStatus());
 			
 			rs = pstm.executeQuery();
 			
@@ -725,7 +730,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 				pstm.setInt(4, fornecedor.getStatus().getIdStatus());
 				
 				//Executa o insert
-				rs = pstm.executeQuery();
+				pstm.executeUpdate();
 			}
 			
 	}
@@ -747,7 +752,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 				pstm.setInt(3, telefone.getIdTelefone());
 				
 				//Executa o insert
-				rs = pstm.executeQuery();
+				pstm.executeUpdate();
 			}
 			
 	}
@@ -768,7 +773,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 				pstm.setInt(2, telefone.getIdTelefone());
 				
 				//Executa o insert
-				rs = pstm.executeQuery();
+				pstm.executeUpdate();
 			}
 			
 	}
@@ -790,7 +795,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 				pstm.setInt(3, fornecedor.getStatus().getIdStatus());
 				
 				//Executa o insert
-				rs = pstm.executeQuery();
+				pstm.executeUpdate();
 			}
 			
 	}
@@ -811,7 +816,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 				pstm.setInt(2, email.getIdEmail());
 				
 				//Executa o update
-				rs = pstm.executeQuery();
+				pstm.executeUpdate();
 			}
 			
 	}
@@ -832,7 +837,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 				pstm.setInt(2, email.getIdEmail());
 				
 				//Executa o update
-				rs = pstm.executeQuery();
+				pstm.executeUpdate();
 			}
 			
 	}
@@ -856,7 +861,7 @@ public class FornecedorDAO implements IFornecedorDAO{
 		pstm.setInt(7, endereco.getIdEndereco());
 		
 		//Executa o update
-		rs = pstm.executeQuery();
+		pstm.executeUpdate();
 		
 		return true;	
 	}

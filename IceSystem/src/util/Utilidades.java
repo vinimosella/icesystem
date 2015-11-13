@@ -114,14 +114,18 @@ public class Utilidades {
 	}
 	
 	public static List<List<EmailVO>> gerenciaMudancasEmails(List<EmailVO>listaOriginal, List<EmailVO> listaMudada){
-		
+				
 		List<EmailVO> listaExcluidos = new ArrayList<EmailVO>();
 		List<EmailVO> listaIncluidos = new ArrayList<EmailVO>();
 		List<EmailVO> listaAlterados = new ArrayList<EmailVO>();
+		boolean flgEstaNaOriginal = false;
+		boolean flgEstaNaExcluida = false;
+		boolean contem = false;
 		
 		for(EmailVO emailOri : listaOriginal){
 				
-			boolean contem = false;
+			contem = false;
+			
 			for(EmailVO  emailMud: listaMudada){
 				
 				//se o id do email for null, ele n veio do banco, portanto deve ser incluido, porém se for incluido na lista aqui
@@ -136,16 +140,15 @@ public class Utilidades {
 					
 					contem = true;
 					
-					//se o email for diferente, mas for do mesmo id, foi alterado
 					if(!emailMud.getEmail().trim().equals(emailOri.getEmail().trim())){
 						
 						listaAlterados.add(emailMud);
 					}
 					
 				}
-				
+								
 			}
-			
+						
 			//se o email da original não estiver na mudada
 			if(!contem){
 				
@@ -157,7 +160,13 @@ public class Utilidades {
 		//adiciona se foi incluido REALMENTE
 		for(EmailVO  emailMud: listaMudada){
 			
-			boolean flgEstaNaOriginal = false;
+			if(emailMud.getIdEmail()!=null){
+				
+				continue;
+			}
+			
+			flgEstaNaOriginal = false;
+			flgEstaNaExcluida = false;
 			
 			for(EmailVO emailOrig : listaOriginal){
 				
@@ -168,7 +177,18 @@ public class Utilidades {
 				
 			}
 			
-			if(!flgEstaNaOriginal){
+			for(int x=0; x<listaExcluidos.size(); x++){
+				
+				if(listaExcluidos.get(x).getEmail().trim().equals(emailMud.getEmail().trim())){
+					
+					flgEstaNaExcluida = true;
+					listaExcluidos.remove(x);
+				}
+				
+			}
+			
+			if(!flgEstaNaOriginal && !flgEstaNaExcluida){
+
 				listaIncluidos.add(emailMud);
 			}
 		}
@@ -182,10 +202,12 @@ public class Utilidades {
 	}
 	
 	public static List<List<TelefoneVO>> gerenciaMudancasTelefones(List<TelefoneVO>listaOriginal, List<TelefoneVO> listaMudada){
-		
+				
 		List<TelefoneVO> listaExcluidos = new ArrayList<TelefoneVO>();
 		List<TelefoneVO> listaIncluidos = new ArrayList<TelefoneVO>();
 		List<TelefoneVO> listaAlterados = new ArrayList<TelefoneVO>();
+		boolean flgEstaNaOriginal = false;
+		boolean flgEstaNaExcluida = true;
 		
 		for(TelefoneVO telefoneOri : listaOriginal){
 				
@@ -210,7 +232,7 @@ public class Utilidades {
 						listaAlterados.add(telefoneMud);
 					}
 					//se o numero for diferente, mas for do mesmo id, foi alterado
-					else if(!telefoneMud.getDdd().trim().equals(telefoneOri.getDdd().trim())){
+					else if(!telefoneMud.getNumero().trim().equals(telefoneOri.getNumero().trim())){
 						
 						listaAlterados.add(telefoneMud);
 					}
@@ -230,22 +252,38 @@ public class Utilidades {
 		//adiciona se foi incluido REALMENTE
 		for(TelefoneVO  telefoneMud: listaMudada){
 			
-			boolean flgEstaNaOriginal = false;
+			if(telefoneMud.getIdTelefone()!=null){
+				
+				continue;
+			}
+			
+			flgEstaNaOriginal = false;
+			flgEstaNaExcluida = false;
 			
 			for(TelefoneVO telefoneOrig : listaOriginal){
 				
-				if(telefoneMud.getIdTelefone()==null && 
-						(telefoneOrig.getNumero().trim().equals(telefoneMud.getNumero().trim()) && 
-								telefoneOrig.getDdd().trim().equals(telefoneMud.getDdd().trim()))){
+				if(telefoneOrig.getNumero().trim().equals(telefoneMud.getNumero().trim()) && 
+						telefoneOrig.getDdd().trim().equals(telefoneMud.getDdd().trim())){
 					
 					flgEstaNaOriginal = true;
 				}
 				
 			}
 			
-			if(!flgEstaNaOriginal){
+			for(int x = 0; x < listaExcluidos.size(); x++){
+				
+				if(listaExcluidos.get(x).getDdd().trim().equals(telefoneMud.getDdd().trim())&& listaExcluidos.get(x).getNumero().trim().equals(telefoneMud.getNumero().trim())){
+					
+					flgEstaNaExcluida = true;
+					listaExcluidos.remove(x);
+				}
+				
+			}
+			
+			if(!flgEstaNaOriginal && !flgEstaNaExcluida){
 				listaIncluidos.add(telefoneMud);
 			}
+			
 		}
 		
 		List<List<TelefoneVO>> listaListaTelefones = new ArrayList<List<TelefoneVO>>();

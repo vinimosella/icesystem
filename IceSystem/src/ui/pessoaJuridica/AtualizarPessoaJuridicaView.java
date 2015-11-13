@@ -3,6 +3,7 @@ package ui.pessoaJuridica;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -88,8 +89,8 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 	public AtualizarPessoaJuridicaView(PessoaJuridicaVO pj, String titulo) {
 
 		this.pj = pj;
-		listaTelefones = pj.getListaTelefones();
-		listaEmails = pj.getListaEmails();
+		
+		carregaListasEmailETelefones();
 
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
@@ -487,6 +488,7 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 	private void carregaTelefone(){
 
 		it = listaTelefones.iterator();
+		contadorTelefones = 0;
 
 		while (it.hasNext()) {
 			comboTelefone.addItem(++contadorTelefones);
@@ -498,6 +500,7 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 	private void carregaEmail(){
 		
 		it = listaEmails.iterator();
+		contadorEmails = 0;
 		
 		while(it.hasNext()){
 			comboEmail.addItem(++contadorEmails);
@@ -554,11 +557,11 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 	}
 	
 	private PessoaJuridicaVO validaPessoaJuridica(){
-				
+						
 		pj.setRazaoSocial(txtRazaoSocial.getText());
 		pj.setCnpj(txtCnpj.getText());
 		
-		endereco = new EnderecoVO();
+		endereco = pj.getEndereco();
 		
 		endereco.setLogradouro(txtLogradouro.getText());
 		endereco.setNumero(Integer.parseInt(txtNumero.getText()));
@@ -582,4 +585,35 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 	
 	public abstract void btnAtualizar(PessoaJuridicaVO pj, List<TelefoneVO> listaTelefones, List<EmailVO> listaEmails);
 
+	private void carregaListasEmailETelefones(){
+		
+		listaEmails = new ArrayList<EmailVO>();
+		EmailVO email;
+		
+		for(EmailVO e : pj.getListaEmails()){
+			
+			email = new EmailVO();
+			email.setEmail(e.getEmail());
+			email.setIdEmail(e.getIdEmail());
+			email.setPessoaJuridica(e.getPessoaJuridica());
+			listaEmails.add(email);
+			
+		}
+		
+		listaTelefones = new ArrayList<TelefoneVO>();
+		TelefoneVO telefone;
+		
+		for(TelefoneVO t : pj.getListaTelefones()){
+			
+			telefone = new TelefoneVO();
+			telefone.setDdd(t.getDdd());
+			telefone.setNumero(t.getNumero());
+			telefone.setIdTelefone(t.getIdTelefone());
+			telefone.setPessoaJuridica(t.getPessoaJuridica());
+			listaTelefones.add(telefone);
+			
+		}
+		
+	}
+	
 }
