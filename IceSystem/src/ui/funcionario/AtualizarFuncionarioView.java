@@ -648,7 +648,8 @@ public class AtualizarFuncionarioView extends JPanel{
 		txtBairro.setBounds(lblDirX,distY+distEntre*11,200,alturaCampo);
 		txtCep.setBounds(lblDirX,distY+distEntre*12,200,alturaCampo);
 		comboCargo.setBounds(lblDirX,distY+distEntre*13,200,alturaCampo);
-		btnAtualizar.setBounds(245,(distY+distEntre*14)+5,120,alturaCampo);
+		btnCancelar.setBounds(180, (distY+distEntre*14)+5, 120,alturaCampo);
+		btnAtualizar.setBounds(320, (distY+distEntre*14)+5, 120, alturaCampo);
 		
 	}
 	

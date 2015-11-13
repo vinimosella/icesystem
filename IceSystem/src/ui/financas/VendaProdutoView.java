@@ -31,6 +31,7 @@ import bo.VendaBO;
 public class VendaProdutoView extends JPanel{
 
 	private static final long serialVersionUID = 1L;
+	private JLabel lblCadastrarVenda;
 	private ClienteBO clienteBo;
 	private ProdutoBO produtoBo;
 	private VendaBO vendaBo;
@@ -72,9 +73,11 @@ public class VendaProdutoView extends JPanel{
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
 
+		lblCadastrarVenda = new JLabel("Cadastrar Venda");
+		this.add(lblCadastrarVenda);
+		
 		// COMBO CLIENTE
 		comboCliente = new JComboBox<String>();
-		comboCliente.setBounds(30, 30, 300, 25);
 		comboCliente.addItem("Selecione um cliente");
 
 		listaClientes = clienteBo.consultarClientes();
@@ -90,7 +93,6 @@ public class VendaProdutoView extends JPanel{
 
 		// COMBO PRODUTOS
 		comboProduto = new JComboBox<String>();
-		comboProduto.setBounds(30, 75, 300, 25);
 		comboProduto.addItem("Selecione o Produto");
 		
 		listaProdutos = produtoBo.consultarProdutos();
@@ -109,25 +111,20 @@ public class VendaProdutoView extends JPanel{
 
 		// CAMPO QUANTIDADE
 		lblQuantidade = new JLabel("Quantidade: ");
-		lblQuantidade.setBounds(30,120,100,25);
 		this.add(lblQuantidade);
 
 		txtQuantidade = new JTextField();
-		txtQuantidade.setBounds(120,120,60,25);
 		this.add(txtQuantidade);
 
 		// CAMPO VALOR
 		lblValor = new JLabel("Valor Unitário: ");
-		lblValor.setBounds(220,120,100,25);
 		this.add(lblValor);
 
 		txtValor = new JTextField();
-		txtValor.setBounds(310,120,60,25);
 		this.add(txtValor);
 
 		// BOTAO ADICIONAR
 		btnAdicionar = new JButton(new ImageIcon(getClass().getResource("/img/addLista.png")));
-		btnAdicionar.setBounds(400,120,26,27);
 		btnAdicionar.addActionListener(new ActionListener() {
 
 			@Override
@@ -155,12 +152,10 @@ public class VendaProdutoView extends JPanel{
 
 		// LABEL TABELA ITENS VENDA
 		lblItensVenda = new JLabel("Itens da venda: ");
-		lblItensVenda.setBounds(20,165,100,25);
 		this.add(lblItensVenda);
 
 		// BOTÃO REMOVER ITEM DA VENDA
 		btnRemover = new JButton("Remover item selecionado", new ImageIcon(getClass().getResource("/img/remover.png")));
-		btnRemover.setBounds(359,165,210,25);
 		btnRemover.addActionListener(new ActionListener() {
 
 			@Override
@@ -187,19 +182,16 @@ public class VendaProdutoView extends JPanel{
 		tabela = new JTable();
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 200, 550, 300);
 		this.add(scrollPane);
 		carregaDtm();
 		scrollPane.setViewportView(tabela);
 
 		// LABEL TOTAL DA VENDA
 		lblTotal = new JLabel("Total: 0");
-		lblTotal.setBounds(20,510, 100, 25);
 		this.add(lblTotal);
 
 		// BOTÃO CADASTRAR VENDA
 		btnCadastrar = new JButton("Cadastrar Venda");
-		btnCadastrar.setBounds(200,510,160,25);
 		btnCadastrar.addActionListener(new ActionListener() {
 
 			@Override
@@ -217,6 +209,7 @@ public class VendaProdutoView extends JPanel{
 		btnCadastrar.setEnabled(false);
 		this.add(btnCadastrar);
 
+		gerarBounds();
 	}
 
 	protected void devolveEstoque() {
@@ -278,6 +271,32 @@ public class VendaProdutoView extends JPanel{
 
 		tabela.setModel(dtm);
 
+	}
+	
+	private void gerarBounds(){
+		
+		int altura = 5;
+		
+		lblCadastrarVenda.setBounds(10,altura,300,20);
+		
+		comboCliente.setBounds(30,altura+=30,300,25);
+		
+		comboProduto.setBounds(30,altura+=45,300,25);
+		
+		lblQuantidade.setBounds(30,altura+=40,100,25);
+		txtQuantidade.setBounds(120,altura,60,25);
+		lblValor.setBounds(220,altura,100,25);
+		txtValor.setBounds(310,altura,60,25);
+		btnAdicionar.setBounds(400,altura,26,27);
+		
+		lblItensVenda.setBounds(20,altura+=45,100,25);
+		btnRemover.setBounds(359,altura,210,25);
+		
+		scrollPane.setBounds(20, altura+=35, 550, 300);
+		
+		lblTotal.setBounds(20,altura+=310, 100, 25);
+		btnCadastrar.setBounds(200,altura,160,25);
+		
 	}
 	
 	private boolean validaCamposPraAdicionarItem(){

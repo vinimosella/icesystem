@@ -552,7 +552,8 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 		txtComplemento.setBounds(camposDirX,distY+distEntre*9,200,20);
 		txtBairro.setBounds(camposDirX,distY+distEntre*10,200,20);
 		txtCep.setBounds(camposDirX,distY+distEntre*11,200,20);
-		btnAtualizar.setBounds(245, (distY+distEntre*12)+5, 120, 20);
+		btnCancelar.setBounds(180, (distY+distEntre*12)+5, 120,20);
+		btnAtualizar.setBounds(320, (distY+distEntre*12)+5, 120, 20);
 		
 	}
 	
