@@ -187,5 +187,28 @@ public abstract class ConsultaGenericaView extends JPanel{
 	public void setBtnCadastrar(JButton btnCadastrar) {
 		this.btnCadastrar = btnCadastrar;
 	}
+	
+	public JScrollPane getScrollPane() {
+		return scrollPane;
+	}
+
+	public void setScrollPane(JScrollPane scrollPane) {
+		this.scrollPane = scrollPane;
+	}
+	public JTable getTable() {
+		return table;
+	}
+
+	public void setTable(JTable table) {
+		this.table = table;
+	}
+
+	public DefaultTableModel getDtm() {
+		return dtm;
+	}
+
+	public void setDtm(DefaultTableModel dtm) {
+		this.dtm = dtm;
+	}
 
 }

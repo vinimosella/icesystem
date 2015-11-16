@@ -1,10 +1,16 @@
 package ui.financas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,12 +25,116 @@ public class ConsultarVendasView extends ConsultaGenericaView{
 	private VendaBO bo;
 	private List<VendaVO> listaVendas;
 	private VendaVO venda;
+	private JLabel lblTodas;
+	private JRadioButton radioTodas;
+	private JLabel lblSolicitado;
+	private JRadioButton radioSolicitado;
+	private JLabel lblCancelado;
+	private JRadioButton radioCancelado;
+	private JLabel lblFinalizado;
+	private JRadioButton radioFinalizado;
+	private ButtonGroup grupoRadio;
 	
 	public ConsultarVendasView() {
 		super(Utilidades.CONSULTA_VENDAS);
 		
 		super.getBtnRemover().setVisible(false);
 		super.boundsBtn();
+		
+		super.getScrollPane().setBounds(20, 70, 550, 400);
+		
+		//RADIOS
+		grupoRadio = new ButtonGroup();
+		
+		lblTodas = new JLabel("Todas");
+		this.add(lblTodas);
+		
+		radioTodas = new JRadioButton();
+		radioTodas.setBackground(Color.decode("#F0F8FF"));
+		radioTodas.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listaVendas = bo.consultarVendas();
+				carregaDtm();
+			}
+		});
+		this.add(radioTodas);
+		grupoRadio.add(radioTodas);
+		
+		lblSolicitado = new JLabel("Solicitadas");
+		this.add(lblSolicitado);
+		
+		radioSolicitado = new JRadioButton();
+		radioSolicitado.setBackground(Color.decode("#F0F8FF"));
+		radioSolicitado.setSelected(true);
+		radioSolicitado.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listaVendas = bo.consultarSolicitadas();
+				carregaDtm();
+			}
+		});
+		this.add(radioSolicitado);
+		grupoRadio.add(radioSolicitado);
+		
+		lblFinalizado = new JLabel("Finalizadas");
+		this.add(lblFinalizado);
+		
+		radioFinalizado = new JRadioButton();
+		radioFinalizado.setBackground(Color.decode("#F0F8FF"));
+		radioFinalizado.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listaVendas = bo.consultarFinalizadas();
+				carregaDtm();
+			}
+		});
+		this.add(radioFinalizado);
+		grupoRadio.add(radioFinalizado);
+		
+		lblCancelado = new JLabel("Canceladas");
+		this.add(lblCancelado);
+				
+		radioCancelado = new JRadioButton();
+		radioCancelado.setBackground(Color.decode("#F0F8FF"));
+		radioCancelado.addActionListener(new ActionListener() {
+					
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listaVendas = bo.consultarCanceladas();
+				carregaDtm();
+			}
+		});
+		this.add(radioCancelado);
+		grupoRadio.add(radioCancelado);
+		
+		gerarBoundsRadios();
+	}
+	
+	private void carregaDtm(){
+		
+		carregaDtm(super.getTable(), super.getDtm());
+	}
+	
+	private void gerarBoundsRadios(){
+		
+		int x = 60;
+		
+		lblTodas.setBounds(x, 37, 40,17);
+		radioTodas.setBounds(x+=40, 37, 20, 20);
+		
+		lblSolicitado.setBounds(x+=60,37, 70,17);
+		radioSolicitado.setBounds(x+=70,37, 20, 20);
+		
+		lblFinalizado.setBounds(x+=60,37, 70,17);
+		radioFinalizado.setBounds(x+=70,37, 20, 20);
+		
+		lblCancelado.setBounds(x+=60,37, 70,17);
+		radioCancelado.setBounds(x+=70,37, 20, 20);
+		
 	}
 
 	@Override
@@ -86,10 +196,13 @@ public class ConsultarVendasView extends ConsultaGenericaView{
 			
 		};
 		
-		bo = new VendaBO();
+		if(bo==null){
+			bo = new VendaBO();
+		}
+		if(listaVendas==null){
+			listaVendas = bo.consultarSolicitadas();
+		}
 		
-		listaVendas = bo.consultarVendas();
-
 		Iterator<VendaVO> it = listaVendas.iterator();
 				
 		while(it.hasNext()){

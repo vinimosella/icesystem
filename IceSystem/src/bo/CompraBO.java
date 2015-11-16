@@ -19,6 +19,21 @@ public class CompraBO {
 
 		return dao.consultarCompras();
 	}
+	
+	public List<CompraVO> consultarFinalizadas() {
+
+		return dao.consultarComprasFinalizadas();
+	}
+	
+	public List<CompraVO> consultarCanceladas() {
+
+		return dao.consultarComprasCanceladas();
+	}
+	
+	public List<CompraVO> consultarSolicitadas() {
+
+		return dao.consultarComprasSolicitadas();
+	}
 
 	public boolean atualizarCompra(CompraVO compra) {
 

@@ -24,6 +24,21 @@ public class VendaBO {
 
 		return dao.consultarVendas();
 	}
+	
+	public List<VendaVO> consultarFinalizadas() {
+
+		return dao.consultarVendasFinalizadas();
+	}
+	
+	public List<VendaVO> consultarCanceladas() {
+
+		return dao.consultarVendasCanceladas();
+	}
+	
+	public List<VendaVO> consultarSolicitadas() {
+
+		return dao.consultarVendasSolicitadas();
+	}
 
 	public boolean AtualizarVenda(VendaVO venda) {
 		

@@ -414,5 +414,251 @@ public class VendaDAO implements IVendaDAO{
 		
 		return true;
 	}
+
+	public List<VendaVO> consultarVendasFinalizadas() {
+		
+		VendaVO venda = null;
+		
+		List<VendaVO> listaVendas = null;
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			
+			//Cria um [select] que sera executado no banco
+			pstm = conexao.prepareStatement("select v.id_venda, v.data_venda, s.descricao, s.id_situacao, pj.razao_social from Venda v"
+						                    + " inner join Situacao s on v.id_situacao = s.id_situacao"
+						                    + " inner join Cliente c on v.id_cliente_pj = c.id_cliente_pj"
+						                    + " inner join Pessoa_Juridica pj on pj.id_pessoa_juridica = c.id_cliente_pj"
+						                    + " where s.descricao = 'Finalizado'");
+			
+			//Executa uma pesquisa no banco
+			rs = pstm.executeQuery();
+			
+			listaVendas = new ArrayList<VendaVO>();
+			
+			//Carrega a listaOP
+			while(rs.next()){
+				
+				venda = new VendaVO();
+				
+				venda.setIdVenda(rs.getLong("id_venda"));
+				venda.setDataVenda(rs.getDate("data_venda"));
+				venda.setSituacao(new SituacaoVO());
+				venda.getSituacao().setDescricao(rs.getString("descricao"));
+				venda.getSituacao().setIdSituacao(rs.getInt("id_situacao"));
+				venda.setCliente(new ClienteVO());
+				venda.getCliente().setRazaoSocial(rs.getString("razao_social"));
+				
+				listaVendas.add(venda);
+				
+			}
+			
+		} catch (SQLException sql) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			listaVendas = null;
+			
+		} catch (ClassNotFoundException cnf) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			listaVendas = null;
+			
+		} finally {
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+				if(rs != null){
+					
+					rs.close();
+				}
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+
+				listaVendas = null;
+				
+			}			
+		
+		}
+		
+		return listaVendas;
+	}
+
+	public List<VendaVO> consultarVendasCanceladas() {
+
+		VendaVO venda = null;
+		
+		List<VendaVO> listaVendas = null;
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			
+			//Cria um [select] que sera executado no banco
+			pstm = conexao.prepareStatement("select v.id_venda, v.data_venda, s.descricao, s.id_situacao, pj.razao_social from Venda v"
+						                    + " inner join Situacao s on v.id_situacao = s.id_situacao"
+						                    + " inner join Cliente c on v.id_cliente_pj = c.id_cliente_pj"
+						                    + " inner join Pessoa_Juridica pj on pj.id_pessoa_juridica = c.id_cliente_pj"
+						                    + " where s.descricao = 'Cancelado'");
+			
+			//Executa uma pesquisa no banco
+			rs = pstm.executeQuery();
+			
+			listaVendas = new ArrayList<VendaVO>();
+			
+			//Carrega a listaOP
+			while(rs.next()){
+				
+				venda = new VendaVO();
+				
+				venda.setIdVenda(rs.getLong("id_venda"));
+				venda.setDataVenda(rs.getDate("data_venda"));
+				venda.setSituacao(new SituacaoVO());
+				venda.getSituacao().setDescricao(rs.getString("descricao"));
+				venda.getSituacao().setIdSituacao(rs.getInt("id_situacao"));
+				venda.setCliente(new ClienteVO());
+				venda.getCliente().setRazaoSocial(rs.getString("razao_social"));
+				
+				listaVendas.add(venda);
+				
+			}
+			
+		} catch (SQLException sql) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			listaVendas = null;
+			
+		} catch (ClassNotFoundException cnf) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			listaVendas = null;
+			
+		} finally {
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+				if(rs != null){
+					
+					rs.close();
+				}
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+
+				listaVendas = null;
+				
+			}			
+		
+		}
+		
+		return listaVendas;
+	}
+
+	public List<VendaVO> consultarVendasSolicitadas() {
+
+		VendaVO venda = null;
+		
+		List<VendaVO> listaVendas = null;
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			
+			//Cria um [select] que sera executado no banco
+			pstm = conexao.prepareStatement("select v.id_venda, v.data_venda, s.descricao, s.id_situacao, pj.razao_social from Venda v"
+						                    + " inner join Situacao s on v.id_situacao = s.id_situacao"
+						                    + " inner join Cliente c on v.id_cliente_pj = c.id_cliente_pj"
+						                    + " inner join Pessoa_Juridica pj on pj.id_pessoa_juridica = c.id_cliente_pj"
+						                    + " where s.descricao = 'Solicitado'");
+			
+			//Executa uma pesquisa no banco
+			rs = pstm.executeQuery();
+			
+			listaVendas = new ArrayList<VendaVO>();
+			
+			//Carrega a listaOP
+			while(rs.next()){
+				
+				venda = new VendaVO();
+				
+				venda.setIdVenda(rs.getLong("id_venda"));
+				venda.setDataVenda(rs.getDate("data_venda"));
+				venda.setSituacao(new SituacaoVO());
+				venda.getSituacao().setDescricao(rs.getString("descricao"));
+				venda.getSituacao().setIdSituacao(rs.getInt("id_situacao"));
+				venda.setCliente(new ClienteVO());
+				venda.getCliente().setRazaoSocial(rs.getString("razao_social"));
+				
+				listaVendas.add(venda);
+				
+			}
+			
+		} catch (SQLException sql) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			listaVendas = null;
+			
+		} catch (ClassNotFoundException cnf) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			listaVendas = null;
+			
+		} finally {
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+				if(rs != null){
+					
+					rs.close();
+				}
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+
+				listaVendas = null;
+				
+			}			
+		
+		}
+		
+		return listaVendas;
+	}
 	
 }

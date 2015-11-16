@@ -434,5 +434,251 @@ public class CompraDAO implements ICompraDAO{
 		
 		return true;
 	}
+
+	public List<CompraVO> consultarComprasFinalizadas() {
+
+		CompraVO compra = null;
+		
+		List<CompraVO> listaCompras = null;
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			
+			//Cria um [select] que sera executado no banco
+			pstm = conexao.prepareStatement("select c.id_compra, c.data_compra, c.id_funcionario, c.id_situacao, s.descricao, f.nome from Compra c"
+											+ " inner join Funcionario f on c.id_funcionario = f.id_funcionario"
+											+ " inner join Situacao s on s.id_situacao = c.id_situacao"
+											+ " where s.descricao = 'Finalizado'");
+			
+			//Executa uma pesquisa no banco
+			rs = pstm.executeQuery();
+			
+			listaCompras = new ArrayList<CompraVO>();
+			
+			//Carrega a listaOP
+			while(rs.next()){
+				
+				compra = new CompraVO();
+				
+				compra.setIdCompra(rs.getLong("id_compra"));
+				compra.setDataCompra(rs.getDate("data_compra"));
+				compra.setFuncionario(new FuncionarioVO());
+				compra.getFuncionario().setIdFuncionario(rs.getInt("id_funcionario"));
+				compra.getFuncionario().setNome(rs.getString("nome"));
+				compra.setSituacao(new SituacaoVO());
+				compra.getSituacao().setIdSituacao(rs.getInt("id_situacao"));
+				compra.getSituacao().setDescricao(rs.getString("descricao"));
+				
+				listaCompras.add(compra);
+				
+			}
+			
+		} catch (SQLException sql) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			listaCompras = null;
+			
+		} catch (ClassNotFoundException cnf) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			listaCompras = null;
+			
+		} finally {
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+				if(rs != null){
+					
+					rs.close();
+				}
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+
+				listaCompras = null;
+				
+			}			
+		
+		}
+		
+		return listaCompras;
+	}
+
+	public List<CompraVO> consultarComprasCanceladas() {
+
+		CompraVO compra = null;
+		
+		List<CompraVO> listaCompras = null;
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			
+			//Cria um [select] que sera executado no banco
+			pstm = conexao.prepareStatement("select c.id_compra, c.data_compra, c.id_funcionario, c.id_situacao, s.descricao, f.nome from Compra c"
+											+ " inner join Funcionario f on c.id_funcionario = f.id_funcionario"
+											+ " inner join Situacao s on s.id_situacao = c.id_situacao"
+											+ " where s.descricao = 'Cancelado'");
+			
+			//Executa uma pesquisa no banco
+			rs = pstm.executeQuery();
+			
+			listaCompras = new ArrayList<CompraVO>();
+			
+			//Carrega a listaOP
+			while(rs.next()){
+				
+				compra = new CompraVO();
+				
+				compra.setIdCompra(rs.getLong("id_compra"));
+				compra.setDataCompra(rs.getDate("data_compra"));
+				compra.setFuncionario(new FuncionarioVO());
+				compra.getFuncionario().setIdFuncionario(rs.getInt("id_funcionario"));
+				compra.getFuncionario().setNome(rs.getString("nome"));
+				compra.setSituacao(new SituacaoVO());
+				compra.getSituacao().setIdSituacao(rs.getInt("id_situacao"));
+				compra.getSituacao().setDescricao(rs.getString("descricao"));
+				
+				listaCompras.add(compra);
+				
+			}
+			
+		} catch (SQLException sql) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			listaCompras = null;
+			
+		} catch (ClassNotFoundException cnf) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			listaCompras = null;
+			
+		} finally {
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+				if(rs != null){
+					
+					rs.close();
+				}
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+
+				listaCompras = null;
+				
+			}			
+		
+		}
+		
+		return listaCompras;
+	}
+
+	public List<CompraVO> consultarComprasSolicitadas() {
+
+		CompraVO compra = null;
+		
+		List<CompraVO> listaCompras = null;
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			
+			//Cria um [select] que sera executado no banco
+			pstm = conexao.prepareStatement("select c.id_compra, c.data_compra, c.id_funcionario, c.id_situacao, s.descricao, f.nome from Compra c"
+											+ " inner join Funcionario f on c.id_funcionario = f.id_funcionario"
+											+ " inner join Situacao s on s.id_situacao = c.id_situacao"
+											+ " where s.descricao = 'Solicitado'");
+			
+			//Executa uma pesquisa no banco
+			rs = pstm.executeQuery();
+			
+			listaCompras = new ArrayList<CompraVO>();
+			
+			//Carrega a listaOP
+			while(rs.next()){
+				
+				compra = new CompraVO();
+				
+				compra.setIdCompra(rs.getLong("id_compra"));
+				compra.setDataCompra(rs.getDate("data_compra"));
+				compra.setFuncionario(new FuncionarioVO());
+				compra.getFuncionario().setIdFuncionario(rs.getInt("id_funcionario"));
+				compra.getFuncionario().setNome(rs.getString("nome"));
+				compra.setSituacao(new SituacaoVO());
+				compra.getSituacao().setIdSituacao(rs.getInt("id_situacao"));
+				compra.getSituacao().setDescricao(rs.getString("descricao"));
+				
+				listaCompras.add(compra);
+				
+			}
+			
+		} catch (SQLException sql) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			listaCompras = null;
+			
+		} catch (ClassNotFoundException cnf) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			listaCompras = null;
+			
+		} finally {
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+				if(rs != null){
+					
+					rs.close();
+				}
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+
+				listaCompras = null;
+				
+			}			
+		
+		}
+		
+		return listaCompras;
+	}
 	
 }
