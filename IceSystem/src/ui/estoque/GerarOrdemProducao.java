@@ -79,7 +79,7 @@ public class GerarOrdemProducao extends JPanel{
 		this.add(txtQuantidade);
 				
 		btnVerReceita = new JButton("Visualizar Receita");
-		btnVerReceita.setBounds(380, 490, 140, 23);
+		btnVerReceita.setBounds(410, 490, 140, 23);
 		btnVerReceita.addActionListener(new ActionListener() {
 			
 			@Override
@@ -97,7 +97,7 @@ public class GerarOrdemProducao extends JPanel{
 		this.add(btnVerReceita);
 		
 		btnGerarOrdem = new JButton("Gerar Ordem");
-		btnGerarOrdem.setBounds(255, 490, 90, 23);
+		btnGerarOrdem.setBounds(255, 490, 120, 23);
 		btnGerarOrdem.addActionListener(new ActionListener() {
 			
 			@Override

@@ -47,7 +47,7 @@ public class OrdemDeProducaoView extends JPanel{
 	{
 		
 		bo = new OrdemProducaoBO();
-		listaOps = bo.consultarTodas();
+		listaOps = bo.consultarSolicitadas();
 		
 	}
 	
@@ -65,13 +65,10 @@ public class OrdemDeProducaoView extends JPanel{
 		grupoRadio = new ButtonGroup();
 		
 		lblTodas = new JLabel("Todas");
-		lblTodas.setBounds(20, 37, 70,17);
 		this.add(lblTodas);
 		
 		radioTodas = new JRadioButton();
-		radioTodas.setBounds(80, 37, 20, 20);
 		radioTodas.setBackground(Color.decode("#F0F8FF"));
-		radioTodas.setSelected(true);
 		radioTodas.addActionListener(new ActionListener() {
 			
 			@Override
@@ -86,12 +83,11 @@ public class OrdemDeProducaoView extends JPanel{
 		grupoRadio.add(radioTodas);
 		
 		lblSolicitado = new JLabel("Solicitadas");
-		lblSolicitado.setBounds(120,37, 70,17);
 		this.add(lblSolicitado);
 		
 		radioSolicitado = new JRadioButton();
-		radioSolicitado.setBounds(180,37, 20, 20);
 		radioSolicitado.setBackground(Color.decode("#F0F8FF"));
+		radioSolicitado.setSelected(true);
 		radioSolicitado.addActionListener(new ActionListener() {
 			
 			@Override
@@ -106,11 +102,9 @@ public class OrdemDeProducaoView extends JPanel{
 		grupoRadio.add(radioSolicitado);
 		
 		lblFinalizado = new JLabel("Finalizadas");
-		lblFinalizado.setBounds(220,37, 70,17);
 		this.add(lblFinalizado);
 		
 		radioFinalizado = new JRadioButton();
-		radioFinalizado.setBounds(280,37, 20, 20);
 		radioFinalizado.setBackground(Color.decode("#F0F8FF"));
 		radioFinalizado.addActionListener(new ActionListener() {
 			
@@ -126,11 +120,9 @@ public class OrdemDeProducaoView extends JPanel{
 		grupoRadio.add(radioFinalizado);
 		
 		lblCancelado = new JLabel("Canceladas");
-		lblCancelado.setBounds(320,37, 70,17);
 		this.add(lblCancelado);
 		
 		radioCancelado = new JRadioButton();
-		radioCancelado.setBounds(380,37, 20, 20);
 		radioCancelado.setBackground(Color.decode("#F0F8FF"));
 		radioCancelado.addActionListener(new ActionListener() {
 			
@@ -144,6 +136,8 @@ public class OrdemDeProducaoView extends JPanel{
 		});
 		this.add(radioCancelado);
 		grupoRadio.add(radioCancelado);
+		
+		gerarBoundsRadios();
 		
 		//TABELA
 		table = new JTable();
@@ -247,6 +241,24 @@ public class OrdemDeProducaoView extends JPanel{
 			atualizarOp.setVisible(true);	
 			
 		}
+		
+	}
+	
+	private void gerarBoundsRadios(){
+		
+		int x = 60;
+		
+		lblTodas.setBounds(x, 37, 40,17);
+		radioTodas.setBounds(x+=40, 37, 20, 20);
+		
+		lblSolicitado.setBounds(x+=60,37, 70,17);
+		radioSolicitado.setBounds(x+=70,37, 20, 20);
+		
+		lblFinalizado.setBounds(x+=60,37, 70,17);
+		radioFinalizado.setBounds(x+=70,37, 20, 20);
+		
+		lblCancelado.setBounds(x+=60,37, 70,17);
+		radioCancelado.setBounds(x+=70,37, 20, 20);
 		
 	}
 	
