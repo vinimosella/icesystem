@@ -29,7 +29,7 @@ public class FuncionarioDAO {
 		fabrica = ConnectionFactory.getInstance();		
 	}
 	
-	//[] = {listaInclusao,listaAlteracao,listaExclusao}
+	//{listaInclusao,listaAlteracao,listaExclusao}
 	public boolean alterarFuncionario(FuncionarioVO funcionario, List<List<EmailVO>> listaListaEmail, List<List<TelefoneVO>> listaListaTelefone){
 		
 		try {
@@ -85,7 +85,7 @@ public class FuncionarioDAO {
 			}
 			
 			//Em caso de sucesso, executa o commit do update no banco
-			conexao.commit(); 
+			conexao.commit();
 	
 		} catch (ClassNotFoundException cnf) {
 			
