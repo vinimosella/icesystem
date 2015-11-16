@@ -39,13 +39,15 @@ public class FuncionarioDAO {
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [update] que sera executado no banco
-			pstm = conexao.prepareStatement("update Funcionario set id_cargo=?, nome=?, rg=?, cpf=? where id_funcionario=?");
+			pstm = conexao.prepareStatement("update Funcionario set id_cargo=?, nome=?, rg=?, cpf=?, usuario=?, senha=? where id_funcionario=?");
 			
 			pstm.setInt(1, funcionario.getCargo().getIdCargo());
 			pstm.setString(2, funcionario.getNome());
 			pstm.setString(3, funcionario.getRg());
 			pstm.setString(4, funcionario.getCpf());
-			pstm.setInt(5, funcionario.getIdFuncionario());
+			pstm.setString(5, funcionario.getLogin());
+			pstm.setString(6, funcionario.getSenha());
+			pstm.setInt(7, funcionario.getIdFuncionario());
 			
 			//Executa uma atualização no banco
 			pstm.executeUpdate();
