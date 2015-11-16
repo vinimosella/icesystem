@@ -14,8 +14,8 @@ import vo.FuncionarioVO;
 import vo.SituacaoVO;
 import vo.StatusVO;
 import vo.TelefoneVO;
-import daoimpl.SituacaoDAO;
-import daoimpl.StatusDAO;
+import dao.SituacaoDAO;
+import dao.StatusDAO;
 
 public class Utilidades {
 	
