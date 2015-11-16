@@ -135,9 +135,6 @@ public class LoginView extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
-				txtUser.setText("admin");
-				txtPassword.setText("admin");
 								
 				Utilidades.funcionarioLogado = bo.verificaLogin(txtUser.getText(), new String(txtPassword.getPassword()));
 				
@@ -212,19 +209,21 @@ public class LoginView extends JPanel{
 		mnPessoas = new JMenu("Pessoas");
 		menuBar.add(mnPessoas);
 		
-		//ITEM FUNCIONARIO
-		mntmFuncionario = new JMenuItem("Funcionário");
-		mntmFuncionario.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				Utilidades.frmHome.getContentPane().removeAll();
-				ManterFuncionarioView consultarFuncionario = new ManterFuncionarioView();
-				Utilidades.frmHome.getContentPane().add(consultarFuncionario, BorderLayout.CENTER);
-				Utilidades.frmHome.getContentPane().revalidate();				
-			}
-		});
-		mnPessoas.add(mntmFuncionario);
+		if(Utilidades.funcionarioLogado.getCargo().getFuncao().trim().equals(Utilidades.CARGO_ACESSO_ADMIN)){
+			//ITEM FUNCIONARIO
+			mntmFuncionario = new JMenuItem("Funcionário");
+			mntmFuncionario.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					Utilidades.frmHome.getContentPane().removeAll();
+					ManterFuncionarioView consultarFuncionario = new ManterFuncionarioView();
+					Utilidades.frmHome.getContentPane().add(consultarFuncionario, BorderLayout.CENTER);
+					Utilidades.frmHome.getContentPane().revalidate();				
+				}
+			});
+			mnPessoas.add(mntmFuncionario);
+		}
 		
 		//ITEM CLIENTE
 		mntmCliente = new JMenuItem("Cliente");

@@ -68,7 +68,17 @@ public class FuncionarioBO {
 	}
 	
 	public boolean atualizarFuncionario(FuncionarioVO funcionario, List<List<EmailVO>> listaListaEmail, List<List<TelefoneVO>> listaListaTelefone){
-				
+		
+		//se for administrador ou secretario gera usuario/senha
+		if(funcionario.getCargo().getFuncao().equals(Utilidades.CARGO_ACESSO_ADMIN) || funcionario.getCargo().getFuncao().equals(Utilidades.CARGO_ACESSO_SECRETARIO)
+				&& funcionario.getSenha() == null){
+		
+			String userAndPass = Utilidades.trocaEspacoPorPonto(funcionario.getNome().trim().toLowerCase());
+			
+			funcionario.setLogin(userAndPass);
+			funcionario.setSenha(Utilidades.criptografarMd5(userAndPass));
+		}
+		
 		return dao.alterarFuncionario(funcionario, listaListaEmail, listaListaTelefone);
 	}
 	
