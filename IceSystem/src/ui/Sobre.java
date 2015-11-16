@@ -21,7 +21,7 @@ public class Sobre extends JFrame {
 		contentPane.setLayout(null);
 		this.setLocationRelativeTo(null);
 		
-		JLabel lblSobre = new JLabel("Projeto desenvolvido por: Leandro, Thiago e Vinicius. Data: XX/XX/2015");
+		JLabel lblSobre = new JLabel("Projeto desenvolvido por: Leandro, Thiago e Vinicius. Data: 23/11/2015");
 		lblSobre.setBounds(20, 20, 500, 14);
 		contentPane.add(lblSobre);
 	}
