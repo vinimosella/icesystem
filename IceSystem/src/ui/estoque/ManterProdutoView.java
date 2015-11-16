@@ -1,11 +1,16 @@
 package ui.estoque;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import ui.ManterGenericoView;
@@ -21,14 +26,54 @@ public class ManterProdutoView extends ManterGenericoView{
 	private List<ProdutoVO> listaProdutos;
 	private ProdutoVO produto;
 	private Iterator<?> it;
+	private JLabel lblTipo;
+	private JTextField txtTipo;
+	private JLabel lblSabor;
+	private JTextField txtSabor;
+	private JButton btnFiltrar;
 	
 	public ManterProdutoView() {
 		
 		super(Utilidades.CONSULTA_PRODUTOS);
 
 		super.getBtnDetalhar().setVisible(false);
-		super.boundsBtn();
+		super.getScrollPane().setBounds(20, 70, 550, 400);
+		super.boundsBtn(500);
+		
+		lblTipo = new JLabel("Tipo:");
+		lblTipo.setBounds(20,40,50,20);
+		this.add(lblTipo);
+		
+		txtTipo = new JTextField();
+		txtTipo.setBounds(70,40,130,20);
+		this.add(txtTipo);
+		
+		lblSabor = new JLabel("Sabor:");
+		lblSabor.setBounds(230,40,70,20);
+		this.add(lblSabor);
+		
+		txtSabor = new JTextField();
+		txtSabor.setBounds(280,40,130,20);
+		this.add(txtSabor);
+		
+		btnFiltrar = new JButton("Filtrar");
+		btnFiltrar.setBounds(430,40,70,20);
+		btnFiltrar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
 
+				listaProdutos = bo.filtrarBusca(txtTipo.getText(), txtSabor.getText());
+				carregaDtm();
+			}
+		});
+		this.add(btnFiltrar);
+
+	}
+	
+	private void carregaDtm(){
+		
+		carregaDtm(super.getTable(), super.getDtm());
 	}
 
 	@Override

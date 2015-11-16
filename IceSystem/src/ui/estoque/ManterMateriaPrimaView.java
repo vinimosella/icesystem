@@ -1,10 +1,15 @@
 package ui.estoque;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import ui.ManterGenericoView;
@@ -20,13 +25,53 @@ public class ManterMateriaPrimaView extends ManterGenericoView{
 	private List<MateriaPrimaVO> listaMaterias;
 	private MateriaPrimaVO materia;
 	private Iterator<?> it;
+	private JLabel lblNome;
+	private JTextField txtNome;
+	private JLabel lblSabor;
+	private JTextField txtSabor;
+	private JButton btnFiltrar;
 	
 	public ManterMateriaPrimaView() {
 		super(Utilidades.CONSULTA_MATERIAS_PRIMAS);
 
 		super.getBtnDetalhar().setVisible(false);
-		super.boundsBtn();
+		super.getScrollPane().setBounds(20, 70, 550, 400);
+		super.boundsBtn(500);
 		
+		lblNome = new JLabel("Nome:");
+		lblNome.setBounds(20,40,50,20);
+		this.add(lblNome);
+		
+		txtNome = new JTextField();
+		txtNome.setBounds(70,40,130,20);
+		this.add(txtNome);
+		
+		lblSabor = new JLabel("Sabor:");
+		lblSabor.setBounds(230,40,70,20);
+		this.add(lblSabor);
+		
+		txtSabor = new JTextField();
+		txtSabor.setBounds(280,40,130,20);
+		this.add(txtSabor);
+		
+		btnFiltrar = new JButton("Filtrar");
+		btnFiltrar.setBounds(430,40,70,20);
+		btnFiltrar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				listaMaterias = bo.filtrarBusca(txtNome.getText(), txtSabor.getText());
+				carregaDtm();
+			}
+		});
+		this.add(btnFiltrar);
+		
+	}
+	
+	private void carregaDtm(){
+		
+		carregaDtm(super.getTable(), super.getDtm());
 	}
 
 	@Override
@@ -52,10 +97,14 @@ public class ManterMateriaPrimaView extends ManterGenericoView{
 			
 		};
 		
-		bo = new MateriaPrimaBO();
+		if(bo == null){
+			bo = new MateriaPrimaBO();
+		}
 		
-		listaMaterias = bo.consultarMateriasPrimas();
-
+		if(listaMaterias==null){
+			listaMaterias = bo.consultarMateriasPrimas();
+		}
+		
 		it = listaMaterias.iterator();
 				
 		while(it.hasNext()){

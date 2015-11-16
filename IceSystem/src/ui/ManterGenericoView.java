@@ -146,6 +146,41 @@ public abstract class ManterGenericoView extends JPanel{
 		
 	}
 	
+	public void boundsBtn(int altura){
+		
+		int distanciaInicial, distanciaEntre;
+		
+		if(btnDetalhar.isVisible() && btnRemover.isVisible()){
+			
+			distanciaInicial = 100; distanciaEntre = 100;
+			
+			btnCadastrar.setBounds(distanciaInicial, altura, 91, 23);
+			btnDetalhar.setBounds(distanciaInicial+distanciaEntre, altura, 91, 23);
+			btnAtualizar.setBounds(distanciaInicial+distanciaEntre*2, altura, 91, 23);
+			btnRemover.setBounds(distanciaInicial+distanciaEntre*3, altura, 91, 23);
+			
+		}
+		else if(!btnDetalhar.isVisible()){
+			
+			distanciaInicial = 150; distanciaEntre = 100;
+			
+			btnCadastrar.setBounds(distanciaInicial, altura, 91, 23);
+			btnAtualizar.setBounds(distanciaInicial+distanciaEntre, altura, 91, 23);
+			btnRemover.setBounds(distanciaInicial+distanciaEntre*2, altura, 91, 23);
+			
+		}
+		else if(!btnRemover.isVisible()){
+			
+			distanciaInicial = 150; distanciaEntre = 100;
+			
+			btnCadastrar.setBounds(distanciaInicial, altura, 91, 23);
+			btnDetalhar.setBounds(distanciaInicial+distanciaEntre, altura, 91, 23);
+			btnAtualizar.setBounds(distanciaInicial+distanciaEntre*2, altura, 91, 23);
+			
+		}
+		
+	}
+	
 	public abstract void btnCadastrar();
 
 	public abstract void carregaDtm(JTable table, DefaultTableModel dtm);

@@ -207,6 +207,101 @@ public class MateriaPrimaDAO{
 		
 		return listaMP;
 	}
+	
+	public List<MateriaPrimaVO> consultarTodasMPPorNomeESabor(String nome, String sabor) {
+		
+		MateriaPrimaVO mp = null;
+		StatusVO st = null;
+		
+		List<MateriaPrimaVO> listaMP = null;
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			
+			//Cria o [select] que sera executado no banco
+			pstm = conexao.prepareStatement("select mp.id_materia_prima, mp.quantidade_disponivel, mp.nome, mp.sabor, pj.razao_social, st.id_status, st.descricao from Materia_Prima mp"
+					                       + " inner join Fornecedor f on mp.id_fornecedor_pj = f.id_fornecedor_pj"
+					                       + " inner join Pessoa_Juridica pj on pj.id_pessoa_juridica = f.id_fornecedor_pj"
+					                       + " inner join Status st on st.id_status = mp.id_status"
+					                       + " where mp.id_status = ? and mp.nome like ? and mp.sabor like ?");
+			
+			pstm.setInt(1, 1);
+			pstm.setString(2, '%'+nome+'%');
+			pstm.setString(3, '%'+sabor+'%');
+			
+			//Executa uma pesquisa no banco
+			rs = pstm.executeQuery();
+			
+			listaMP = new ArrayList<MateriaPrimaVO>();
+			
+			//Carregando a listaCompras
+			while(rs.next()){
+				
+				mp = new MateriaPrimaVO();
+				st = new StatusVO();
+				
+				st.setDescricao(rs.getString("descricao"));
+				st.setIdStatus(rs.getInt("id_status"));
+					
+				mp.setIdMateriaPrima(rs.getInt("id_materia_prima"));
+				mp.setQuantidadeDisponivel(rs.getDouble("quantidade_disponivel"));
+				mp.setNome(rs.getString("nome"));
+				mp.setSabor(rs.getString("sabor"));
+				mp.setFornecedor(new FornecedorVO());
+				mp.getFornecedor().setRazaoSocial(rs.getString("razao_social"));
+				mp.setStatus(new StatusVO());
+				mp.getStatus().setIdStatus(rs.getInt("id_status"));
+				mp.setStatus(st);
+				
+				listaMP.add(mp);
+				
+			}
+			
+		} catch (SQLException sql) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			listaMP = null;
+			
+		} catch (ClassNotFoundException cnf) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			listaMP = null;
+			
+		} finally {
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+				if(rs != null){
+					
+					rs.close();
+				}
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+
+				sql.printStackTrace();
+				
+				listaMP = null;
+				
+			}			
+		
+		}
+		
+		return listaMP;
+	}
 
 	public boolean alterarMP(MateriaPrimaVO mp) {
 		

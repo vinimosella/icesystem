@@ -13,6 +13,11 @@ public class ProdutoBO {
 	{
 		dao = new ProdutoDAO();
 	}
+	
+	public List<ProdutoVO> filtrarBusca(String tipo, String sabor){
+		
+		return dao.consultarTodosProdutosPorTipoESabor(tipo, sabor);
+	}
 
 	public List<ProdutoVO> consultarProdutos(){
 		

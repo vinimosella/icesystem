@@ -104,6 +104,90 @@ public class  ProdutoDAO{
 		return listaProdutos;
 	}
 	
+	public List<ProdutoVO> consultarTodosProdutosPorTipoESabor(String tipo, String sabor) {
+		
+		ProdutoVO p = null;
+		
+		List<ProdutoVO> listaProdutos = null;
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			
+			//Cria o [select] que sera executado no banco
+			pstm = conexao.prepareStatement("select id_produto, quantidade_estoque, tipo, sabor from Produto"
+										  + " where id_status = ? and tipo like ? and sabor like ?");
+			
+			pstm.setInt(1, 1);
+			pstm.setString(2, '%'+tipo+'%');
+			pstm.setString(3, '%'+sabor+'%');
+			
+			//Executa a pesquisa no banco
+			rs = pstm.executeQuery();
+			
+			pstm.setInt(1, Utilidades.STATUS_ATIVO.getIdStatus());
+			
+			listaProdutos = new ArrayList<ProdutoVO>();
+			
+			//Carrega a listaProdutos
+			while(rs.next()){
+				
+				p = new ProdutoVO();
+					
+				p.setIdProduto(rs.getInt("id_produto"));
+				p.setTipo(rs.getString("tipo"));
+				p.setQuantidadeEstoque(rs.getInt("quantidade_estoque"));
+				p.setSabor(rs.getString("sabor"));
+				
+				listaProdutos.add(p);
+				
+			}
+			
+		} catch (SQLException sql) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			listaProdutos = null;
+			
+		} catch (ClassNotFoundException cnf) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			listaProdutos = null;
+			
+		} finally {
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+				if(rs != null){
+					
+					rs.close();
+				}
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
+
+				listaProdutos = null;
+				
+			}			
+		
+		}
+		
+		return listaProdutos;
+	}
+	
 	public ProdutoVO consultarProduto(ProdutoVO produto){
 				
 		try {

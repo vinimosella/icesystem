@@ -19,6 +19,11 @@ public class MateriaPrimaBO {
 		dao = new MateriaPrimaDAO();
 	}
 
+	public List<MateriaPrimaVO> filtrarBusca(String nome, String sabor){
+		
+		return dao.consultarTodasMPPorNomeESabor(nome, sabor);
+	}
+	
 	public List<MateriaPrimaVO> consultarMateriasPrimas(FornecedorVO fornecedor){
 		
 		return dao.consultarMPFornecedor(fornecedor);
