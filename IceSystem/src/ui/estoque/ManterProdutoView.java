@@ -99,10 +99,14 @@ public class ManterProdutoView extends ManterGenericoView{
 			
 		};
 		
-		bo = new ProdutoBO();
+		if(bo==null){
+			bo = new ProdutoBO();
+		}
 		
-		listaProdutos = bo.consultarProdutos();
-
+		if(listaProdutos==null){
+			listaProdutos = bo.consultarProdutos();
+		}
+		
 		it = listaProdutos.iterator();
 				
 		while(it.hasNext()){
