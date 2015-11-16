@@ -8,12 +8,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import ui.ConsultaGenericaView;
+import ui.ManterGenericoView;
 import util.Utilidades;
 import vo.FuncionarioVO;
 import bo.FuncionarioBO;
 
-public class ConsultarFuncionarioView extends ConsultaGenericaView{
+public class ManterFuncionarioView extends ManterGenericoView{
 	
 	private static final long serialVersionUID = 1L;
 	private DefaultTableModel dtm;
@@ -22,7 +22,7 @@ public class ConsultarFuncionarioView extends ConsultaGenericaView{
 	
 	private FuncionarioBO bo;
 
-	public ConsultarFuncionarioView() {
+	public ManterFuncionarioView() {
 		super(Utilidades.CONSULTA_FUNCIONARIOS);
 
 	}
@@ -89,7 +89,7 @@ public class ConsultarFuncionarioView extends ConsultaGenericaView{
 
 		bo = new FuncionarioBO();
 		Utilidades.frmHome.getContentPane().removeAll();
-		AtualizarFuncionarioView atualizar = new AtualizarFuncionarioView(bo.detalharFuncionario(listaFuncionarios.get(linhaSelecionada)));
+		AlterarFuncionarioView atualizar = new AlterarFuncionarioView(bo.detalharFuncionario(listaFuncionarios.get(linhaSelecionada)));
 		Utilidades.frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
 		Utilidades.frmHome.getContentPane().revalidate();
 		

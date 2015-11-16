@@ -12,7 +12,7 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
-public abstract class ConsultaGenericaView extends JPanel{
+public abstract class ManterGenericoView extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -26,7 +26,7 @@ public abstract class ConsultaGenericaView extends JPanel{
 	private DefaultTableModel dtm;
 
 	//é necessario o codUser pra criar o botao da tela de alterar/delete apenas se for userAdmin
-	public ConsultaGenericaView(String lblConsulta){
+	public ManterGenericoView(String lblConsulta){
 		
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));

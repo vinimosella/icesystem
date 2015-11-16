@@ -1,18 +1,18 @@
 package ui.estoque;
 
-import ui.AtualizarSituacaoView;
+import ui.AlterarSituacaoView;
 import util.Utilidades;
 import vo.OrdemProducaoVO;
 import vo.SituacaoVO;
 import bo.OrdemProducaoBO;
 
-public class AtualizarOrdemProducaoView extends AtualizarSituacaoView{
+public class AlterarOrdemProducaoView extends AlterarSituacaoView{
 
 	private static final long serialVersionUID = 1L;
 	
 	private OrdemProducaoBO bo;
 
-	public AtualizarOrdemProducaoView(OrdemProducaoVO op) {
+	public AlterarOrdemProducaoView(OrdemProducaoVO op) {
 		super(op.getSituacao(), Utilidades.ATUALIZAR_ORDEM_PRODUCAO, op);
 
 	}
@@ -29,7 +29,7 @@ public class AtualizarOrdemProducaoView extends AtualizarSituacaoView{
 		bo.alterarOrdemProducaoEControlaEstoque(op);
 		
 		Utilidades.frmHome.getContentPane().removeAll();
-		OrdemDeProducaoView consultaOp = new OrdemDeProducaoView();
+		ManterOrdemDeProducaoView consultaOp = new ManterOrdemDeProducaoView();
 		Utilidades.frmHome.add(consultaOp);
 		Utilidades.frmHome.revalidate();
 		

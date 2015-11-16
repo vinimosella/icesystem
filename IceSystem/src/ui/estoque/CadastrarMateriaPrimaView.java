@@ -116,7 +116,7 @@ public class CadastrarMateriaPrimaView extends JDialog{
 					bo.cadastrarMateriaPrima(materiaPrima);
 					
 					Utilidades.frmHome.getContentPane().removeAll();
-					ConsultaMateriaPrimaView consulta = new ConsultaMateriaPrimaView();
+					ManterMateriaPrimaView consulta = new ManterMateriaPrimaView();
 					Utilidades.frmHome.add(consulta);
 					Utilidades.frmHome.revalidate();
 					CadastrarMateriaPrimaView.this.dispose();

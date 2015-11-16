@@ -529,7 +529,7 @@ public class CadastrarFuncionarioView extends JPanel{
 				if(bo.cadastrarFuncionario(validaFuncionario())){
 					
 					Utilidades.frmHome.getContentPane().removeAll();
-					ConsultarFuncionarioView consultarFuncionario = new ConsultarFuncionarioView();
+					ManterFuncionarioView consultarFuncionario = new ManterFuncionarioView();
 					Utilidades.frmHome.getContentPane().add(consultarFuncionario, BorderLayout.CENTER);
 					Utilidades.frmHome.getContentPane().revalidate();	
 					

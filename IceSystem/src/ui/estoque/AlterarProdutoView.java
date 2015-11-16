@@ -225,7 +225,7 @@ public class AlterarProdutoView extends JPanel{
 					bo.atualizarProduto(AlterarProdutoView.this.produto);
 					
 					Utilidades.frmHome.getContentPane().removeAll();
-					ConsultaProdutoView consulta = new ConsultaProdutoView();
+					ManterProdutoView consulta = new ManterProdutoView();
 					Utilidades.frmHome.add(consulta);
 					Utilidades.frmHome.revalidate();
 					
@@ -248,7 +248,7 @@ public class AlterarProdutoView extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 
 				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultaProdutoView consulta = new ConsultaProdutoView();
+				ManterProdutoView consulta = new ManterProdutoView();
 				Utilidades.frmHome.add(consulta);
 				Utilidades.frmHome.revalidate();
 				

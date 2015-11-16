@@ -128,7 +128,7 @@ public class AlterarMateriaPrimaView extends JDialog{
 					bo.alterarMateriaPrima(AlterarMateriaPrimaView.this.materiaPrima);
 					
 					Utilidades.frmHome.getContentPane().removeAll();
-					ConsultaMateriaPrimaView consulta = new ConsultaMateriaPrimaView();
+					ManterMateriaPrimaView consulta = new ManterMateriaPrimaView();
 					Utilidades.frmHome.add(consulta);
 					Utilidades.frmHome.revalidate();
 					AlterarMateriaPrimaView.this.dispose();

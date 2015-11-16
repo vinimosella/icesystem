@@ -214,7 +214,7 @@ public class GerarOrdemProducao extends JPanel{
 				materiaBo.alterarMateriaPrimaReceita(listaReceitas, qtdProduto, produto);
 									
 				Utilidades.frmHome.getContentPane().removeAll();
-				OrdemDeProducaoView opv = new OrdemDeProducaoView();
+				ManterOrdemDeProducaoView opv = new ManterOrdemDeProducaoView();
 				Utilidades.frmHome.getContentPane().add(opv, BorderLayout.CENTER);
 				Utilidades.frmHome.getContentPane().revalidate();									
 				

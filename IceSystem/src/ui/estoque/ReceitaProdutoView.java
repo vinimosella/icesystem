@@ -15,7 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import ui.financas.CompraMateriaPrimaView;
+import ui.financas.ComprarMateriaPrimaView;
 import util.Utilidades;
 import vo.IngredienteReceitaProdutoVO;
 import vo.ProdutoVO;
@@ -74,7 +74,7 @@ public class ReceitaProdutoView extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 
 				if(table.getSelectedRow()!=-1){
-					CompraMateriaPrimaView comprar = new CompraMateriaPrimaView(listaIngredientes.get(table.getSelectedRow()).getMateriaPrima());
+					ComprarMateriaPrimaView comprar = new ComprarMateriaPrimaView(listaIngredientes.get(table.getSelectedRow()).getMateriaPrima());
 					Utilidades.frmHome.getContentPane().removeAll();
 					Utilidades.frmHome.add(comprar);
 					Utilidades.frmHome.revalidate();

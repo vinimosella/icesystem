@@ -8,12 +8,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import ui.ConsultaGenericaView;
+import ui.ManterGenericoView;
 import util.Utilidades;
 import vo.ClienteVO;
 import bo.ClienteBO;
 
-public class ConsultarClienteView extends ConsultaGenericaView{
+public class ManterClienteView extends ManterGenericoView{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -23,7 +23,7 @@ public class ConsultarClienteView extends ConsultaGenericaView{
 	
 	private ClienteBO bo;
 	
-	public ConsultarClienteView() {
+	public ManterClienteView() {
 		super(Utilidades.CONSULTA_CLIENTES);
 
 	}
@@ -88,7 +88,7 @@ public class ConsultarClienteView extends ConsultaGenericaView{
 		bo = new ClienteBO();
 		
 		Utilidades.frmHome.getContentPane().removeAll();
-		AtualizarClienteView atualizar = new AtualizarClienteView(bo.detalharCliente(listaClientes.get(linhaSelecionada)));
+		AlterarClienteView atualizar = new AlterarClienteView(bo.detalharCliente(listaClientes.get(linhaSelecionada)));
 		Utilidades.frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
 		Utilidades.frmHome.getContentPane().revalidate();
 		

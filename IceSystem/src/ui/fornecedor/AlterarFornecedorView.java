@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import ui.pessoaJuridica.AtualizarPessoaJuridicaView;
+import ui.pessoaJuridica.AlterarPessoaJuridicaView;
 import util.Utilidades;
 import vo.EmailVO;
 import vo.FornecedorVO;
@@ -13,14 +13,14 @@ import vo.PessoaJuridicaVO;
 import vo.TelefoneVO;
 import bo.FornecedorBO;
 
-public class AtualizarFornecedorView extends AtualizarPessoaJuridicaView{
+public class AlterarFornecedorView extends AlterarPessoaJuridicaView{
 
 	private static final long serialVersionUID = 1L;
 	
 	private FornecedorBO bo;
 	private FornecedorVO fornecedor;
 
-	public AtualizarFornecedorView(PessoaJuridicaVO pj) {
+	public AlterarFornecedorView(PessoaJuridicaVO pj) {
 		super(pj, "Atualizar Fornecedor");
 	}
 
@@ -28,7 +28,7 @@ public class AtualizarFornecedorView extends AtualizarPessoaJuridicaView{
 	public void btnCancelar() {
 		
 		Utilidades.frmHome.getContentPane().removeAll();
-		ConsultarFornecedorView consulta = new ConsultarFornecedorView();
+		ManterFornecedorView consulta = new ManterFornecedorView();
 		Utilidades.frmHome.getContentPane().add(consulta, BorderLayout.CENTER);
 		Utilidades.frmHome.getContentPane().revalidate();
 		
@@ -56,7 +56,7 @@ public class AtualizarFornecedorView extends AtualizarPessoaJuridicaView{
 			
 			JOptionPane.showMessageDialog(Utilidades.frmHome, "   Fornecedor atualizado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
 			Utilidades.frmHome.getContentPane().removeAll();
-			ConsultarFornecedorView consulta = new ConsultarFornecedorView();
+			ManterFornecedorView consulta = new ManterFornecedorView();
 			Utilidades.frmHome.getContentPane().add(consulta, BorderLayout.CENTER);
 			Utilidades.frmHome.getContentPane().revalidate();	
 		}

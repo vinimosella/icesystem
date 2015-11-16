@@ -14,17 +14,17 @@ import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import ui.ConsultaGenericaView;
+import ui.ManterGenericoView;
 import util.Utilidades;
-import vo.CompraVO;
-import bo.CompraBO;
+import vo.VendaVO;
+import bo.VendaBO;
 
-public class ConsultarComprasView extends ConsultaGenericaView{
+public class ManterVendasView extends ManterGenericoView{
 
 	private static final long serialVersionUID = 1L;
-	private CompraBO bo;
-	private List<CompraVO> listaCompras;
-	private CompraVO compra;
+	private VendaBO bo;
+	private List<VendaVO> listaVendas;
+	private VendaVO venda;
 	private JLabel lblTodas;
 	private JRadioButton radioTodas;
 	private JLabel lblSolicitado;
@@ -35,8 +35,8 @@ public class ConsultarComprasView extends ConsultaGenericaView{
 	private JRadioButton radioFinalizado;
 	private ButtonGroup grupoRadio;
 	
-	public ConsultarComprasView() {
-		super(Utilidades.CONSULTA_COMPRAS);
+	public ManterVendasView() {
+		super(Utilidades.CONSULTA_VENDAS);
 		
 		super.getBtnRemover().setVisible(false);
 		super.boundsBtn();
@@ -55,7 +55,7 @@ public class ConsultarComprasView extends ConsultaGenericaView{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				listaCompras = bo.consultarCompras();
+				listaVendas = bo.consultarVendas();
 				carregaDtm();
 			}
 		});
@@ -72,7 +72,7 @@ public class ConsultarComprasView extends ConsultaGenericaView{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				listaCompras = bo.consultarSolicitadas();
+				listaVendas = bo.consultarSolicitadas();
 				carregaDtm();
 			}
 		});
@@ -88,7 +88,7 @@ public class ConsultarComprasView extends ConsultaGenericaView{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				listaCompras = bo.consultarFinalizadas();
+				listaVendas = bo.consultarFinalizadas();
 				carregaDtm();
 			}
 		});
@@ -104,7 +104,7 @@ public class ConsultarComprasView extends ConsultaGenericaView{
 					
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				listaCompras = bo.consultarCanceladas();
+				listaVendas = bo.consultarCanceladas();
 				carregaDtm();
 			}
 		});
@@ -136,20 +136,20 @@ public class ConsultarComprasView extends ConsultaGenericaView{
 		radioCancelado.setBounds(x+=70,37, 20, 20);
 		
 	}
-	
+
 	@Override
 	public void btnAtualizar(Integer linhaSelecionada) {
 		
 		//se ja estiver cancelada ou finalizada...
-		if(listaCompras.get(linhaSelecionada).getSituacao().getDescricao().equals(Utilidades.CANCELADO) || listaCompras.get(linhaSelecionada).getSituacao().getDescricao().equals(Utilidades.FINALIZADO)){
+		if(listaVendas.get(linhaSelecionada).getSituacao().getDescricao().equals(Utilidades.CANCELADO) || listaVendas.get(linhaSelecionada).getSituacao().getDescricao().equals(Utilidades.FINALIZADO)){
 			
 			JOptionPane.showMessageDialog(Utilidades.frmHome, "Não é possível alterar itens finalizados ou cancelados!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 			
 		}
 		else{
 			
-			AtualizarComprasView atualizarCompras = new AtualizarComprasView(listaCompras.get(linhaSelecionada));
-			atualizarCompras.setVisible(true);
+			AlterarVendasView atualizarVendas = new AlterarVendasView(listaVendas.get(linhaSelecionada));
+			atualizarVendas.setVisible(true);
 			
 		}
 		
@@ -158,17 +158,17 @@ public class ConsultarComprasView extends ConsultaGenericaView{
 	@Override
 	public void btnDetalhar(Integer linhaSelecionada) {
 
-		DetalharCompraView detalharCompra = new DetalharCompraView(listaCompras.get(linhaSelecionada));
-		detalharCompra.setVisible(true);
+		DetalharVendaView detalharVenda = new DetalharVendaView(listaVendas.get(linhaSelecionada));
+		detalharVenda.setVisible(true);
 		
 	}
 
 	@Override
 	public void btnCadastrar() {
-
+		
 		Utilidades.frmHome.getContentPane().removeAll();
-		CompraMateriaPrimaView efetCompras = new CompraMateriaPrimaView(null);
-		Utilidades.frmHome.getContentPane().add(efetCompras, BorderLayout.CENTER);
+		VenderProdutoView efetVendas = new VenderProdutoView();
+		Utilidades.frmHome.getContentPane().add(efetVendas, BorderLayout.CENTER);
 		Utilidades.frmHome.getContentPane().revalidate();
 		
 	}
@@ -182,7 +182,7 @@ public class ConsultarComprasView extends ConsultaGenericaView{
 						
 				},
 				new String[] {
-					"ID", "Situação", "Data", "Funcionario"
+					"ID", "Situação", "Data", "Cliente"
 				}				
 		){
 		
@@ -197,25 +197,23 @@ public class ConsultarComprasView extends ConsultaGenericaView{
 		};
 		
 		if(bo==null){
-			
-			bo = new CompraBO();
+			bo = new VendaBO();
+		}
+		if(listaVendas==null){
+			listaVendas = bo.consultarSolicitadas();
 		}
 		
-		if(listaCompras==null){
-			
-			listaCompras = bo.consultarSolicitadas();
-		}
-		Iterator<CompraVO> it = listaCompras.iterator();
+		Iterator<VendaVO> it = listaVendas.iterator();
 				
 		while(it.hasNext()){
 				
-			compra = it.next();
+			venda = it.next();
 				
 			dtm.addRow(new Object[] {
-					compra.getIdCompra(),
-					compra.getSituacao().getDescricao(),
-					compra.getDataCompra().toString(),
-					compra.getFuncionario().getNome()
+					venda.getIdVenda(),
+					venda.getSituacao().getDescricao(),
+					venda.getDataVenda().toString(),
+					venda.getCliente().getRazaoSocial()
 			});
 			
 		}			
@@ -224,11 +222,11 @@ public class ConsultarComprasView extends ConsultaGenericaView{
 		
 	}
 
-	//NAO TERÁ ESSE BOTÃO NESSA TELA
+	//ESSA TELA NÃO POSSUI ESSE BOTAO
 	@Override
 	public void btnRemover(Integer linhaSelecionada) {
 		
 	}
-
-
+	
+	
 }

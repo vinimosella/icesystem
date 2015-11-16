@@ -8,12 +8,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import ui.ConsultaGenericaView;
+import ui.ManterGenericoView;
 import util.Utilidades;
 import vo.FornecedorVO;
 import bo.FornecedorBO;
 
-public class ConsultarFornecedorView extends ConsultaGenericaView{
+public class ManterFornecedorView extends ManterGenericoView{
 
 	private DefaultTableModel dtm;
 	private FornecedorVO fornecedor;
@@ -21,7 +21,7 @@ public class ConsultarFornecedorView extends ConsultaGenericaView{
 	
 	private FornecedorBO bo;
 	
-	public ConsultarFornecedorView() {
+	public ManterFornecedorView() {
 		super(Utilidades.CONSULTA_FORNECEDORES);
 
 	}
@@ -87,7 +87,7 @@ public class ConsultarFornecedorView extends ConsultaGenericaView{
 		bo = new FornecedorBO();
 		
 		Utilidades.frmHome.getContentPane().removeAll();
-		AtualizarFornecedorView atualizar = new AtualizarFornecedorView(bo.detalharFornecedor(listaFornecedores.get(linhaSelecionada)));
+		AlterarFornecedorView atualizar = new AlterarFornecedorView(bo.detalharFornecedor(listaFornecedores.get(linhaSelecionada)));
 		Utilidades.frmHome.getContentPane().add(atualizar,BorderLayout.CENTER);
 		Utilidades.frmHome.getContentPane().revalidate();
 		

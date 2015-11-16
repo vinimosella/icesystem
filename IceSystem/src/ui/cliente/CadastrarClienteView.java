@@ -37,7 +37,7 @@ public class CadastrarClienteView extends CadastrarPessoaJuridicaView{
 		if(bo.cadastrarCliente(cliente)){
 			
 			Utilidades.frmHome.getContentPane().removeAll();
-			ConsultarClienteView consultarCliente = new ConsultarClienteView();
+			ManterClienteView consultarCliente = new ManterClienteView();
 			Utilidades.frmHome.getContentPane().add(consultarCliente, BorderLayout.CENTER);
 			Utilidades.frmHome.getContentPane().revalidate();
 			

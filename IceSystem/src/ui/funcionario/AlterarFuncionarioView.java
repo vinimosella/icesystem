@@ -26,7 +26,7 @@ import vo.FuncionarioVO;
 import vo.TelefoneVO;
 import bo.FuncionarioBO;
 
-public class AtualizarFuncionarioView extends JPanel{
+public class AlterarFuncionarioView extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	private JLabel labelNomeTela;
@@ -93,7 +93,7 @@ public class AtualizarFuncionarioView extends JPanel{
 		comboCidade = new JComboBox<String>();
 	}
 	
-	public AtualizarFuncionarioView(FuncionarioVO funcionario){
+	public AlterarFuncionarioView(FuncionarioVO funcionario){
 		
 		this.funcionario = funcionario;
 
@@ -504,7 +504,7 @@ public class AtualizarFuncionarioView extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 
 				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultarFuncionarioView consulta = new ConsultarFuncionarioView();
+				ManterFuncionarioView consulta = new ManterFuncionarioView();
 				Utilidades.frmHome.getContentPane().add(consulta, BorderLayout.CENTER);
 				Utilidades.frmHome.getContentPane().revalidate();
 				
@@ -518,14 +518,14 @@ public class AtualizarFuncionarioView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				List<List<EmailVO>> listaListaEmail = bo.gerenciaMudancasEmails(AtualizarFuncionarioView.this.funcionario.getListaEmails(), listaEmails);
-				List<List<TelefoneVO>> listaListaTelefone = bo.gerenciaMudancasTelefones(AtualizarFuncionarioView.this.funcionario.getListaTelefones(), listaTelefones);
+				List<List<EmailVO>> listaListaEmail = bo.gerenciaMudancasEmails(AlterarFuncionarioView.this.funcionario.getListaEmails(), listaEmails);
+				List<List<TelefoneVO>> listaListaTelefone = bo.gerenciaMudancasTelefones(AlterarFuncionarioView.this.funcionario.getListaTelefones(), listaTelefones);
 				
 				if(bo.atualizarFuncionario(validaFuncionario(), listaListaEmail, listaListaTelefone)){
 					
 					JOptionPane.showMessageDialog(Utilidades.frmHome, "   Funcionário atualizado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
 					Utilidades.frmHome.getContentPane().removeAll();
-					ConsultarFuncionarioView consultarFuncionario = new ConsultarFuncionarioView();
+					ManterFuncionarioView consultarFuncionario = new ManterFuncionarioView();
 					Utilidades.frmHome.getContentPane().add(consultarFuncionario, BorderLayout.CENTER);
 					Utilidades.frmHome.getContentPane().revalidate();		
 					

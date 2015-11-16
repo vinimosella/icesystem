@@ -28,7 +28,7 @@ import bo.CompraBO;
 import bo.FornecedorBO;
 import bo.MateriaPrimaBO;
 
-public class CompraMateriaPrimaView extends JPanel{
+public class ComprarMateriaPrimaView extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	private JLabel lblCadastrarCompra;
@@ -68,7 +68,7 @@ public class CompraMateriaPrimaView extends JPanel{
 		listaItensCompra = new ArrayList<ItemCompraVO>();
 	}
 	
-	public CompraMateriaPrimaView(MateriaPrimaVO materiaPrima){
+	public ComprarMateriaPrimaView(MateriaPrimaVO materiaPrima){
 		
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
@@ -226,7 +226,7 @@ public class CompraMateriaPrimaView extends JPanel{
 				if(compraBo.cadastrarCompra(listaItensCompra)){
 					
 					Utilidades.frmHome.getContentPane().removeAll();
-					ConsultarComprasView consCompras = new ConsultarComprasView();
+					ManterComprasView consCompras = new ManterComprasView();
 					Utilidades.frmHome.getContentPane().add(consCompras, BorderLayout.CENTER);
 					Utilidades.frmHome.getContentPane().revalidate();
 					

@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import ui.pessoaJuridica.AtualizarPessoaJuridicaView;
+import ui.pessoaJuridica.AlterarPessoaJuridicaView;
 import util.Utilidades;
 import vo.ClienteVO;
 import vo.EmailVO;
@@ -13,14 +13,14 @@ import vo.PessoaJuridicaVO;
 import vo.TelefoneVO;
 import bo.ClienteBO;
 
-public class AtualizarClienteView extends AtualizarPessoaJuridicaView{
+public class AlterarClienteView extends AlterarPessoaJuridicaView{
 
 	private static final long serialVersionUID = 1L;
 
 	private ClienteBO bo;
 	private ClienteVO cliente;
 	
-	public AtualizarClienteView(PessoaJuridicaVO pj) {
+	public AlterarClienteView(PessoaJuridicaVO pj) {
 		super(pj,"Atualizar Cliente");
 
 	}
@@ -29,7 +29,7 @@ public class AtualizarClienteView extends AtualizarPessoaJuridicaView{
 	public void btnCancelar() {
 
 		Utilidades.frmHome.getContentPane().removeAll();
-		ConsultarClienteView consulta = new ConsultarClienteView();
+		ManterClienteView consulta = new ManterClienteView();
 		Utilidades.frmHome.getContentPane().add(consulta, BorderLayout.CENTER);
 		Utilidades.frmHome.getContentPane().revalidate();
 		
@@ -57,7 +57,7 @@ public class AtualizarClienteView extends AtualizarPessoaJuridicaView{
 			
 			JOptionPane.showMessageDialog(Utilidades.frmHome, "   Cliente atualizado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
 			Utilidades.frmHome.getContentPane().removeAll();
-			ConsultarClienteView consulta = new ConsultarClienteView();
+			ManterClienteView consulta = new ManterClienteView();
 			Utilidades.frmHome.getContentPane().add(consulta, BorderLayout.CENTER);
 			Utilidades.frmHome.getContentPane().revalidate();		
 		}

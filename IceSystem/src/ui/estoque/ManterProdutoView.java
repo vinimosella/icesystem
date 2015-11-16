@@ -8,12 +8,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import ui.ConsultaGenericaView;
+import ui.ManterGenericoView;
 import util.Utilidades;
 import vo.ProdutoVO;
 import bo.ProdutoBO;
 
-public class ConsultaProdutoView extends ConsultaGenericaView{
+public class ManterProdutoView extends ManterGenericoView{
 
 	private static final long serialVersionUID = 1L;
 	private DefaultTableModel dtm;
@@ -22,7 +22,7 @@ public class ConsultaProdutoView extends ConsultaGenericaView{
 	private ProdutoVO produto;
 	private Iterator<?> it;
 	
-	public ConsultaProdutoView() {
+	public ManterProdutoView() {
 		
 		super(Utilidades.CONSULTA_PRODUTOS);
 

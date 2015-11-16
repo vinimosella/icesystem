@@ -21,7 +21,7 @@ import util.Utilidades;
 import vo.OrdemProducaoVO;
 import bo.OrdemProducaoBO;
 
-public class OrdemDeProducaoView extends JPanel{
+public class ManterOrdemDeProducaoView extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	private JTable table;
@@ -52,7 +52,7 @@ public class OrdemDeProducaoView extends JPanel{
 	}
 	
 	//é necessario o codUser pra criar o botao da tela de alterar/delete apenas se for userAdmin
-	public OrdemDeProducaoView(){
+	public ManterOrdemDeProducaoView(){
 		
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
@@ -237,7 +237,7 @@ public class OrdemDeProducaoView extends JPanel{
 		}
 		else{
 			
-			AtualizarOrdemProducaoView atualizarOp = new AtualizarOrdemProducaoView(listaOps.get(table.getSelectedRow()));
+			AlterarOrdemProducaoView atualizarOp = new AlterarOrdemProducaoView(listaOps.get(table.getSelectedRow()));
 			atualizarOp.setVisible(true);	
 			
 		}

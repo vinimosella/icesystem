@@ -37,7 +37,7 @@ public class CadastrarFornecedorView extends CadastrarPessoaJuridicaView{
 		if(bo.cadastrarFornecedor(fornecedor)){
 			
 			Utilidades.frmHome.getContentPane().removeAll();
-			ConsultarFornecedorView consultarFornecedor = new ConsultarFornecedorView();
+			ManterFornecedorView consultarFornecedor = new ManterFornecedorView();
 			Utilidades.frmHome.getContentPane().add(consultarFornecedor, BorderLayout.CENTER);
 			Utilidades.frmHome.getContentPane().revalidate();
 			

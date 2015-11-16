@@ -225,7 +225,7 @@ public class CadastrarProdutoView extends JPanel{
 					recBo.cadastrarReceitas(listaReceita, produto);
 					
 					Utilidades.frmHome.getContentPane().removeAll();
-					ConsultaProdutoView consulta = new ConsultaProdutoView();
+					ManterProdutoView consulta = new ManterProdutoView();
 					Utilidades.frmHome.add(consulta);
 					Utilidades.frmHome.revalidate();
 					
@@ -247,7 +247,7 @@ public class CadastrarProdutoView extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 
 				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultaProdutoView consulta = new ConsultaProdutoView();
+				ManterProdutoView consulta = new ManterProdutoView();
 				Utilidades.frmHome.add(consulta);
 				Utilidades.frmHome.revalidate();
 				

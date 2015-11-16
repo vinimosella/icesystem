@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import ui.AtualizarSituacaoView;
+import ui.AlterarSituacaoView;
 import util.Utilidades;
 import vo.CompraVO;
 import vo.ItemCompraVO;
@@ -13,12 +13,12 @@ import vo.SituacaoVO;
 import bo.CompraBO;
 import bo.MateriaPrimaBO;
 
-public class AtualizarComprasView extends AtualizarSituacaoView{
+public class AlterarComprasView extends AlterarSituacaoView{
 	
 	private static final long serialVersionUID = 1L;
 	private CompraBO bo;
 	
-	public AtualizarComprasView(CompraVO compra){
+	public AlterarComprasView(CompraVO compra){
 		
 		super(compra.getSituacao(),Utilidades.ATUALIZAR_COMPRAS, compra);
 	}
@@ -58,7 +58,7 @@ public class AtualizarComprasView extends AtualizarSituacaoView{
 		}
 		
 		Utilidades.frmHome.getContentPane().removeAll();
-		ConsultarComprasView consulta = new ConsultarComprasView();
+		ManterComprasView consulta = new ManterComprasView();
 		Utilidades.frmHome.add(consulta);
 		Utilidades.frmHome.revalidate();
 		

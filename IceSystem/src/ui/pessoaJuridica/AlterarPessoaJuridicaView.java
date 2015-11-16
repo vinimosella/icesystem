@@ -24,7 +24,7 @@ import vo.PessoaJuridicaVO;
 import vo.TelefoneVO;
 import bo.PessoaJuridicaBO;
 
-public abstract class AtualizarPessoaJuridicaView extends JPanel{
+public abstract class AlterarPessoaJuridicaView extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -86,7 +86,7 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 		
 	}
 	
-	public AtualizarPessoaJuridicaView(PessoaJuridicaVO pj, String titulo) {
+	public AlterarPessoaJuridicaView(PessoaJuridicaVO pj, String titulo) {
 
 		this.pj = pj;
 		
@@ -164,7 +164,7 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 				}				
 				else{
 					
-					JOptionPane.showMessageDialog(AtualizarPessoaJuridicaView.this.frmHome, "   Telefone não modificado ou já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(AlterarPessoaJuridicaView.this.frmHome, "   Telefone não modificado ou já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -196,7 +196,7 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 				}
 				else{
 					
-					JOptionPane.showMessageDialog(AtualizarPessoaJuridicaView.this.frmHome, "   Telefone já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(AlterarPessoaJuridicaView.this.frmHome, "   Telefone já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -283,7 +283,7 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 				}				
 				else{
 					
-					JOptionPane.showMessageDialog(AtualizarPessoaJuridicaView.this.frmHome, "   Email não modificado ou já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(AlterarPessoaJuridicaView.this.frmHome, "   Email não modificado ou já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -313,7 +313,7 @@ public abstract class AtualizarPessoaJuridicaView extends JPanel{
 				}
 				else{
 					
-					JOptionPane.showMessageDialog(AtualizarPessoaJuridicaView.this.frmHome, "   Email já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(AlterarPessoaJuridicaView.this.frmHome, "   Email já cadastrado!", "Alerta!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}

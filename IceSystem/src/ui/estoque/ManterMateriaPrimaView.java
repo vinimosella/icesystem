@@ -7,12 +7,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import ui.ConsultaGenericaView;
+import ui.ManterGenericoView;
 import util.Utilidades;
 import vo.MateriaPrimaVO;
 import bo.MateriaPrimaBO;
 
-public class ConsultaMateriaPrimaView extends ConsultaGenericaView{
+public class ManterMateriaPrimaView extends ManterGenericoView{
 
 	private static final long serialVersionUID = 1L;
 	private DefaultTableModel dtm;
@@ -21,7 +21,7 @@ public class ConsultaMateriaPrimaView extends ConsultaGenericaView{
 	private MateriaPrimaVO materia;
 	private Iterator<?> it;
 	
-	public ConsultaMateriaPrimaView() {
+	public ManterMateriaPrimaView() {
 		super(Utilidades.CONSULTA_MATERIAS_PRIMAS);
 
 		super.getBtnDetalhar().setVisible(false);

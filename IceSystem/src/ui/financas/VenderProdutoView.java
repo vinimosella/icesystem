@@ -28,7 +28,7 @@ import bo.ClienteBO;
 import bo.ProdutoBO;
 import bo.VendaBO;
 
-public class VendaProdutoView extends JPanel{
+public class VenderProdutoView extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	private JLabel lblCadastrarVenda;
@@ -68,7 +68,7 @@ public class VendaProdutoView extends JPanel{
 		listaItensVenda = new ArrayList<ItemVendaVO>();		
 	}
 	
-	public VendaProdutoView(){
+	public VenderProdutoView(){
 		
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
@@ -200,7 +200,7 @@ public class VendaProdutoView extends JPanel{
 				if(vendaBo.cadastrarVenda(venda,listaItensVenda)){
 					
 					Utilidades.frmHome.getContentPane().removeAll();
-					ConsultarVendasView consVendas = new ConsultarVendasView();
+					ManterVendasView consVendas = new ManterVendasView();
 					Utilidades.frmHome.getContentPane().add(consVendas, BorderLayout.CENTER);
 					Utilidades.frmHome.getContentPane().revalidate();
 				}

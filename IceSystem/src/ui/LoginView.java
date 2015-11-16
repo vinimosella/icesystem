@@ -25,14 +25,14 @@ import javax.swing.event.CaretListener;
 
 import org.jdesktop.swingx.prompt.PromptSupport;
 
-import ui.cliente.ConsultarClienteView;
-import ui.estoque.ConsultaMateriaPrimaView;
-import ui.estoque.ConsultaProdutoView;
-import ui.estoque.OrdemDeProducaoView;
-import ui.financas.ConsultarComprasView;
-import ui.financas.ConsultarVendasView;
-import ui.fornecedor.ConsultarFornecedorView;
-import ui.funcionario.ConsultarFuncionarioView;
+import ui.cliente.ManterClienteView;
+import ui.estoque.ManterMateriaPrimaView;
+import ui.estoque.ManterProdutoView;
+import ui.estoque.ManterOrdemDeProducaoView;
+import ui.financas.ManterComprasView;
+import ui.financas.ManterVendasView;
+import ui.fornecedor.ManterFornecedorView;
+import ui.funcionario.ManterFuncionarioView;
 import util.Utilidades;
 import bo.LoginBO;
 
@@ -218,7 +218,7 @@ public class LoginView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultarFuncionarioView consultarFuncionario = new ConsultarFuncionarioView();
+				ManterFuncionarioView consultarFuncionario = new ManterFuncionarioView();
 				Utilidades.frmHome.getContentPane().add(consultarFuncionario, BorderLayout.CENTER);
 				Utilidades.frmHome.getContentPane().revalidate();				
 			}
@@ -232,7 +232,7 @@ public class LoginView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultarClienteView consultarCliente = new ConsultarClienteView();
+				ManterClienteView consultarCliente = new ManterClienteView();
 				Utilidades.frmHome.getContentPane().add(consultarCliente, BorderLayout.CENTER);
 				Utilidades.frmHome.getContentPane().revalidate();
 			}
@@ -246,7 +246,7 @@ public class LoginView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultarFornecedorView consultarFornecedor = new ConsultarFornecedorView();
+				ManterFornecedorView consultarFornecedor = new ManterFornecedorView();
 				Utilidades.frmHome.getContentPane().add(consultarFornecedor, BorderLayout.CENTER);
 				Utilidades.frmHome.getContentPane().revalidate();
 			}
@@ -262,7 +262,7 @@ public class LoginView extends JPanel{
 		mntmMateriaPrima.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultaMateriaPrimaView materiaPrima = new ConsultaMateriaPrimaView();
+				ManterMateriaPrimaView materiaPrima = new ManterMateriaPrimaView();
 				Utilidades.frmHome.getContentPane().add(materiaPrima,BorderLayout.CENTER);
 				Utilidades.frmHome.getContentPane().revalidate();
 			}
@@ -274,7 +274,7 @@ public class LoginView extends JPanel{
 		mntmProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultaProdutoView produto = new ConsultaProdutoView();
+				ManterProdutoView produto = new ManterProdutoView();
 				Utilidades.frmHome.getContentPane().add(produto,BorderLayout.CENTER);
 				Utilidades.frmHome.getContentPane().revalidate();
 			}
@@ -289,7 +289,7 @@ public class LoginView extends JPanel{
 		mntmOrdensProducao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Utilidades.frmHome.getContentPane().removeAll();
-				OrdemDeProducaoView op = new OrdemDeProducaoView();
+				ManterOrdemDeProducaoView op = new ManterOrdemDeProducaoView();
 				Utilidades.frmHome.getContentPane().add(op,BorderLayout.CENTER);
 				Utilidades.frmHome.getContentPane().revalidate();
 			}
@@ -308,7 +308,7 @@ public class LoginView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultarComprasView consCompras = new ConsultarComprasView();
+				ManterComprasView consCompras = new ManterComprasView();
 				Utilidades.frmHome.getContentPane().add(consCompras, BorderLayout.CENTER);
 				Utilidades.frmHome.getContentPane().revalidate();
 			}
@@ -325,7 +325,7 @@ public class LoginView extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Utilidades.frmHome.getContentPane().removeAll();
-				ConsultarVendasView consVendas = new ConsultarVendasView();
+				ManterVendasView consVendas = new ManterVendasView();
 				Utilidades.frmHome.getContentPane().add(consVendas, BorderLayout.CENTER);
 				Utilidades.frmHome.getContentPane().revalidate();
 			}

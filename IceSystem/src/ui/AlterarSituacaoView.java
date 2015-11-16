@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import vo.SituacaoVO;
 import bo.SituacaoBO;
 
-public abstract class AtualizarSituacaoView extends JDialog {
+public abstract class AlterarSituacaoView extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -33,7 +33,7 @@ public abstract class AtualizarSituacaoView extends JDialog {
 		bo = new SituacaoBO();
 	}
 
-	public AtualizarSituacaoView(SituacaoVO situacaoEntrada, String titulo, Object o) {
+	public AlterarSituacaoView(SituacaoVO situacaoEntrada, String titulo, Object o) {
 		this.o = o;
 		
 		setTitle(titulo);
@@ -73,9 +73,9 @@ public abstract class AtualizarSituacaoView extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				actionBtnSalvar(listaSituacoes.get(comboSituacao.getSelectedIndex()), AtualizarSituacaoView.this.o);
+				actionBtnSalvar(listaSituacoes.get(comboSituacao.getSelectedIndex()), AlterarSituacaoView.this.o);
 				
-				AtualizarSituacaoView.this.dispose();
+				AlterarSituacaoView.this.dispose();
 				
 			}
 		});
@@ -88,7 +88,7 @@ public abstract class AtualizarSituacaoView extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				AtualizarSituacaoView.this.dispose();
+				AlterarSituacaoView.this.dispose();
 			}
 		});
 		contentPane.add(btnCancelar);
