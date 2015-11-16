@@ -16,9 +16,8 @@ import vo.EstadoVO;
 import vo.FornecedorVO;
 import vo.StatusVO;
 import vo.TelefoneVO;
-import daoservice.IFornecedorDAO;
 
-public class FornecedorDAO implements IFornecedorDAO{
+public class FornecedorDAO{
 	
 	private Connection conexao;
 	private PreparedStatement pstm;
@@ -335,7 +334,6 @@ public class FornecedorDAO implements IFornecedorDAO{
 		return true;
 	}
 	
-	@Override
 	public List<FornecedorVO> consultarFornecedores() {
 		
 		FornecedorVO fornecedor = null;

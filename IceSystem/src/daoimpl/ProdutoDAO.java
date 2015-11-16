@@ -10,9 +10,8 @@ import java.util.List;
 import util.LogFactory;
 import util.Utilidades;
 import vo.ProdutoVO;
-import daoservice.IProdutoDAO;
 
-public class  ProdutoDAO implements IProdutoDAO{
+public class  ProdutoDAO{
 
 	private Connection conexao;
 	private PreparedStatement pstm;
@@ -23,7 +22,6 @@ public class  ProdutoDAO implements IProdutoDAO{
 		fabrica = ConnectionFactory.getInstance();		
 	}
 	
-	@Override
 	public List<ProdutoVO> consultarTodosProdutos() {
 		
 		ProdutoVO p = null;
@@ -106,7 +104,6 @@ public class  ProdutoDAO implements IProdutoDAO{
 		return listaProdutos;
 	}
 	
-	@Override
 	public ProdutoVO consultarProduto(ProdutoVO produto){
 				
 		try {
@@ -176,7 +173,6 @@ public class  ProdutoDAO implements IProdutoDAO{
 		return produto;
 	}
 
-	@Override
 	public boolean alterarProduto(ProdutoVO produto) {
 		
 		try {
@@ -282,7 +278,6 @@ public class  ProdutoDAO implements IProdutoDAO{
 		return true;
 	}
 
-	@Override
 	public ProdutoVO cadastrarProduto(ProdutoVO produto) {
 		
 			try {
@@ -399,7 +394,6 @@ public class  ProdutoDAO implements IProdutoDAO{
 		return produto;
 	}
 
-	@Override
 	public boolean excluirProduto(ProdutoVO produto) {
 		
 		try {

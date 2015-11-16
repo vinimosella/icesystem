@@ -12,9 +12,8 @@ import vo.FornecedorVO;
 import vo.IngredienteReceitaProdutoVO;
 import vo.MateriaPrimaVO;
 import vo.ProdutoVO;
-import daoservice.IIngredienteReceitaProdutoDAO;
 
-public class IngredienteReceitaProdutoDAO implements IIngredienteReceitaProdutoDAO{
+public class IngredienteReceitaProdutoDAO{
 
 	private Connection conexao;
 	private PreparedStatement pstm;
@@ -24,8 +23,7 @@ public class IngredienteReceitaProdutoDAO implements IIngredienteReceitaProdutoD
 	{
 		fabrica = ConnectionFactory.getInstance();		
 	}
-	
-	@Override
+
 	public List<IngredienteReceitaProdutoVO> consultarIngredientesReceita(ProdutoVO produto) {
 		
 		IngredienteReceitaProdutoVO irp = null;
@@ -114,7 +112,6 @@ public class IngredienteReceitaProdutoDAO implements IIngredienteReceitaProdutoD
 		return listaIRP;
 	}
 
-	@Override
 	public boolean cadastrarIngredientesReceita(List<IngredienteReceitaProdutoVO> listaIRP, ProdutoVO produto) {
 		
 		try {
@@ -214,10 +211,9 @@ public class IngredienteReceitaProdutoDAO implements IIngredienteReceitaProdutoD
 			}
 		}
 	
-	return true;
-}
+		return true;
+	}
 
-	@Override
 	public boolean excluirIngredientesReceita(IngredienteReceitaProdutoVO irp) {
 		
 		try {

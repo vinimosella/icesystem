@@ -7,9 +7,8 @@ import java.sql.SQLException;
 
 import util.LogFactory;
 import vo.StatusVO;
-import daoservice.IStatusDAO;
 
-public class StatusDAO implements IStatusDAO{
+public class StatusDAO{
 	
 	private Connection conexao;
 	private PreparedStatement pstm;
@@ -20,7 +19,6 @@ public class StatusDAO implements IStatusDAO{
 		fabrica = ConnectionFactory.getInstance();		
 	}
 	
-	@Override
 	public StatusVO consultarPorDescricao(String descricao) {
 		
 		StatusVO status = null;

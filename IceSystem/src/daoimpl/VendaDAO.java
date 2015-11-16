@@ -13,9 +13,8 @@ import vo.ItemVendaVO;
 import vo.ProdutoVO;
 import vo.SituacaoVO;
 import vo.VendaVO;
-import daoservice.IVendaDAO;
 
-public class VendaDAO implements IVendaDAO{
+public class VendaDAO{
 
 	private Connection conexao;
 	private PreparedStatement pstm;
@@ -26,7 +25,6 @@ public class VendaDAO implements IVendaDAO{
 		fabrica = ConnectionFactory.getInstance();	
 	}
 	
-	@Override
 	public List<VendaVO> consultarVendas(){
 		
 		VendaVO v = null;
@@ -105,7 +103,6 @@ public class VendaDAO implements IVendaDAO{
 		return listaVendas;
 	}
 	
-	@Override
 	public boolean cadastrarVenda(VendaVO venda, List<ItemVendaVO> listaItensVenda){
 		
 		try {
@@ -313,7 +310,6 @@ public class VendaDAO implements IVendaDAO{
 		return listaItensVenda;
 	}
 
-	@Override
 	public boolean atualizarVenda(VendaVO venda) {
 
 		try {

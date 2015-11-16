@@ -11,9 +11,8 @@ import util.LogFactory;
 import vo.OrdemProducaoVO;
 import vo.ProdutoVO;
 import vo.SituacaoVO;
-import daoservice.IOrdemDeProducaoDAO;
 
-public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
+public class OrdemDeProducaoDAO{
 
 	private Connection conexao;
 	private PreparedStatement pstm;
@@ -24,7 +23,6 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 		fabrica = ConnectionFactory.getInstance();	
 	}
 	
-	@Override
 	public List<OrdemProducaoVO> consultarTodasOP() {
 		
 		OrdemProducaoVO op = null;
@@ -111,7 +109,6 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 		return listaOP;
 	}
 
-	@Override
 	public List<OrdemProducaoVO> consultarOPSolicitado() {
 		
 		OrdemProducaoVO op = null;
@@ -196,7 +193,6 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 		return listaOP;
 	}
 
-	@Override
 	public List<OrdemProducaoVO> consultarOPFinalizado() {
 		
 		OrdemProducaoVO op = null;
@@ -282,7 +278,6 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 		return listaOP;
 	}
 
-	@Override
 	public List<OrdemProducaoVO> consultarOPCancelado() {
 		
 		OrdemProducaoVO op = null;
@@ -368,7 +363,6 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 		return listaOP;
 	}
 
-	@Override
 	public boolean alterarOrdemProducao(OrdemProducaoVO op) {
 		
 		try {
@@ -474,7 +468,6 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 		return true;
 	}
 
-	@Override
 	public boolean cadastrarOP(OrdemProducaoVO op) {
 		
 		try {
@@ -546,7 +539,6 @@ public class OrdemDeProducaoDAO implements IOrdemDeProducaoDAO{
 		return true;
 	}
 
-	@Override
 	public boolean excluirOP(OrdemProducaoVO op) {
 
 		try {

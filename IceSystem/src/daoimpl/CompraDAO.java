@@ -14,9 +14,8 @@ import vo.FuncionarioVO;
 import vo.ItemCompraVO;
 import vo.MateriaPrimaVO;
 import vo.SituacaoVO;
-import daoservice.ICompraDAO;
 
-public class CompraDAO implements ICompraDAO{
+public class CompraDAO{
 
 	private Connection conexao;
 	private PreparedStatement pstm;
@@ -27,7 +26,6 @@ public class CompraDAO implements ICompraDAO{
 		fabrica = ConnectionFactory.getInstance();	
 	}
 	
-	@Override
 	public List<CompraVO> consultarCompras() {
 		
 		CompraVO c = null;
@@ -111,7 +109,6 @@ public class CompraDAO implements ICompraDAO{
 		return listaCompras;
 	}
 
-	@Override
 	public List<ItemCompraVO> detalharCompra(CompraVO compra) {
 		
 		ItemCompraVO item = null;
@@ -195,7 +192,6 @@ public class CompraDAO implements ICompraDAO{
 		return listaItens;
 	}
 	
-	@Override
 	public boolean cadastrarCompra(CompraVO compra, List<ItemCompraVO> listaItensCompra){
 				
 		try {
@@ -333,7 +329,6 @@ public class CompraDAO implements ICompraDAO{
 		return true;
 	}
 	
-	@Override
 	public boolean atualizarCompra(CompraVO compra) {
 
 		try {

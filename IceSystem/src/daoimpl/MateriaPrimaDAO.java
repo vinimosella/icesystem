@@ -12,9 +12,8 @@ import util.Utilidades;
 import vo.FornecedorVO;
 import vo.MateriaPrimaVO;
 import vo.StatusVO;
-import daoservice.IMateriaPrimaDAO;
 
-public class MateriaPrimaDAO implements IMateriaPrimaDAO{
+public class MateriaPrimaDAO{
 
 	private Connection conexao;
 	private PreparedStatement pstm;
@@ -25,7 +24,6 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 		fabrica = ConnectionFactory.getInstance();		
 	}
 	
-	@Override
 	public List<MateriaPrimaVO> consultarMPFornecedor(FornecedorVO fornecedor){
 		
 		List<MateriaPrimaVO> listaMP = null;
@@ -117,7 +115,6 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 		return listaMP;
 	}
 
-	@Override
 	public List<MateriaPrimaVO> consultarTodasMP() {
 		
 		MateriaPrimaVO mp = null;
@@ -211,7 +208,6 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 		return listaMP;
 	}
 
-	@Override
 	public boolean alterarMP(MateriaPrimaVO mp) {
 		
 		try {
@@ -318,7 +314,6 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 		return true;
 	}
 
-	@Override
 	public boolean excluirMP(MateriaPrimaVO mp) {
 		
 		try {
@@ -422,7 +417,6 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 		return true;
 	}
 
-	@Override
 	public boolean cadastrarMP(MateriaPrimaVO mp) {
 		
 		try {
@@ -533,7 +527,6 @@ public class MateriaPrimaDAO implements IMateriaPrimaDAO{
 	
 	}
 
-	@Override
 	public boolean alterarEstoqueMaterias(List<MateriaPrimaVO> listaMaterias) {
 		
 		try {

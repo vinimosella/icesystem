@@ -9,9 +9,8 @@ import java.util.List;
 
 import util.LogFactory;
 import vo.SituacaoVO;
-import daoservice.ISituacaoDAO;
 
-public class SituacaoDAO implements ISituacaoDAO{
+public class SituacaoDAO{
 	
 	private Connection conexao;
 	private PreparedStatement pstm;
@@ -22,7 +21,6 @@ public class SituacaoDAO implements ISituacaoDAO{
 		fabrica = ConnectionFactory.getInstance();		
 	}
 	
-	@Override
 	public List<SituacaoVO> consultarSituacoes() {
 		
 		SituacaoVO situacao = null;

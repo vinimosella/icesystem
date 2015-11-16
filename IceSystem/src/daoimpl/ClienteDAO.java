@@ -16,9 +16,8 @@ import vo.EnderecoVO;
 import vo.EstadoVO;
 import vo.StatusVO;
 import vo.TelefoneVO;
-import daoservice.IClienteDAO;
 
-public class ClienteDAO implements IClienteDAO{
+public class ClienteDAO{
 
 	private Connection conexao;
 	private PreparedStatement pstm;
@@ -335,7 +334,6 @@ public class ClienteDAO implements IClienteDAO{
 		return true;
 	}
 	
-	@Override
 	public List<ClienteVO> consultarTodosClientes() {
 		
 		ClienteVO cli = null;
