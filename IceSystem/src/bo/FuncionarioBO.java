@@ -29,6 +29,11 @@ public class FuncionarioBO {
 		cargDao = new CargoDAO();
 	}
 	
+	public List<FuncionarioVO> filtrar(String nome, String cargo){
+		
+		return dao.consultarFuncionariosFiltro(nome, cargo);
+	}
+	
 	public List<List<EmailVO>> gerenciaMudancasEmails(List<EmailVO>listaOriginal, List<EmailVO> listaMudada){
 		
 		return Utilidades.gerenciaMudancasEmails(listaOriginal, listaMudada);

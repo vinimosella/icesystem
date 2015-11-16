@@ -24,6 +24,11 @@ public class FornecedorBO {
 		dao = new FornecedorDAO();
 	}
 	
+	public List<FornecedorVO> filtrar(String razao, String cnpj){
+		
+		return dao.consultarFornecedoresFiltro(razao, cnpj);
+	}
+	
 	public List<List<EmailVO>> gerenciaMudancasEmails(List<EmailVO>listaOriginal, List<EmailVO> listaMudada){
 		
 		return Utilidades.gerenciaMudancasEmails(listaOriginal, listaMudada);

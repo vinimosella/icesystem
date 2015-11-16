@@ -1,11 +1,16 @@
 package ui.funcionario;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import ui.ManterGenericoView;
@@ -19,12 +24,52 @@ public class ManterFuncionarioView extends ManterGenericoView{
 	private DefaultTableModel dtm;
 	private FuncionarioVO funcionario;
 	private List<FuncionarioVO> listaFuncionarios;
-	
 	private FuncionarioBO bo;
+	private JLabel lblNome;
+	private JTextField txtNome;
+	private JLabel lblCargo;
+	private JTextField txtCargo;
+	private JButton btnFiltrar;
 
 	public ManterFuncionarioView() {
 		super(Utilidades.CONSULTA_FUNCIONARIOS);
+		super.getScrollPane().setBounds(20, 70, 550, 400);
+		super.boundsBtn(500);
+		
+		lblNome = new JLabel("Nome:");
+		lblNome.setBounds(20,40,50,20);
+		this.add(lblNome);
+		
+		txtNome = new JTextField();
+		txtNome.setBounds(70,40,130,20);
+		this.add(txtNome);
+		
+		lblCargo = new JLabel("Cargo:");
+		lblCargo.setBounds(230,40,70,20);
+		this.add(lblCargo);
+		
+		txtCargo = new JTextField();
+		txtCargo.setBounds(280,40,130,20);
+		this.add(txtCargo);
+		
+		btnFiltrar = new JButton("Filtrar");
+		btnFiltrar.setBounds(430,40,70,20);
+		btnFiltrar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
 
+				listaFuncionarios = bo.filtrar(txtNome.getText(), txtCargo.getText());
+				carregaDtm();
+			}
+		});
+		this.add(btnFiltrar);
+
+	}
+	
+	private void carregaDtm(){
+		
+		carregaDtm(super.getTable(), super.getDtm());
 	}
 
 	@Override
@@ -50,10 +95,14 @@ public class ManterFuncionarioView extends ManterGenericoView{
 			
 		};
 		
-		bo = new FuncionarioBO();
+		if(bo==null){
+			bo = new FuncionarioBO();
+		}
 		
-		listaFuncionarios = bo.consultarFuncionarios();
-
+		if(listaFuncionarios==null){
+			listaFuncionarios = bo.consultarFuncionarios();
+		}
+		
 		Iterator<FuncionarioVO> it = listaFuncionarios.iterator();
 			
 		while(it.hasNext()){

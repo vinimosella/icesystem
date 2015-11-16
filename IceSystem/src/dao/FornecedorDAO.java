@@ -424,6 +424,98 @@ public class FornecedorDAO{
 		return listaFornecedores;
 	}
 	
+	public List<FornecedorVO> consultarFornecedoresFiltro(String razao, String cnpj) {
+		
+		FornecedorVO fornecedor = null;
+		
+		List<FornecedorVO> listaFornecedores = null;
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			
+			//Cria o [select] que sera executado no banco
+			pstm = conexao.prepareStatement("select f.id_fornecedor_pj, pj.cnpj, pj.id_endereco, pj.razao_social, st.id_status, st.descricao from Fornecedor f"
+					                       + " inner join Pessoa_Juridica pj on f.id_fornecedor_pj = pj.id_pessoa_juridica"
+					                       + " inner join Status st on f.id_status = st.id_status"
+					                       + " where f.id_status = ? and pj.cnpj like ? and upper(pj.razao_social) like upper(?)");
+			
+
+			pstm.setInt(1, Utilidades.STATUS_ATIVO.getIdStatus());
+			pstm.setString(2, '%'+cnpj+'%');
+			pstm.setString(3, '%'+razao+'%');
+			
+			//Executa uma pesquisa no banco
+			rs = pstm.executeQuery();
+			
+			listaFornecedores = new ArrayList<FornecedorVO>();
+			
+			//Caregga a listaFornecedores
+			while(rs.next()){
+			
+				Integer idFornecedor = rs.getInt("id_fornecedor_pj");
+				
+				fornecedor = new FornecedorVO();
+					
+				fornecedor.setIdPessoaJuridica(idFornecedor);
+				fornecedor.setCnpj(rs.getString("cnpj"));
+				fornecedor.setEndereco(new EnderecoVO());
+				fornecedor.getEndereco().setIdEndereco(rs.getInt("id_endereco"));
+				fornecedor.setRazaoSocial(rs.getString("razao_social"));
+				fornecedor.setStatus(new StatusVO());
+				fornecedor.getStatus().setIdStatus(rs.getInt("id_status"));
+				fornecedor.setListaEmails(consultarEmailFornecedor(idFornecedor, conexao));
+				fornecedor.setListaTelefones(consultarTelefoneFornecedor(idFornecedor, conexao));
+				
+				listaFornecedores.add(fornecedor);
+				
+			}
+			
+		} catch (SQLException sql) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			listaFornecedores = null;
+			
+		} catch (ClassNotFoundException cnf) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			listaFornecedores = null;
+			
+		} finally {
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+				if(rs != null){
+					
+					rs.close();
+				}
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
+
+				listaFornecedores = null;
+				
+			}			
+		
+		}
+		
+		return listaFornecedores;
+	}
+	
 	private List<EmailVO> consultarEmailFornecedor(Integer idFornecedor, Connection conexao) throws SQLException {
 		
 		EmailVO email = null;

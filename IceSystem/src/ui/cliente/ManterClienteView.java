@@ -1,11 +1,16 @@
 package ui.cliente;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import ui.ManterGenericoView;
@@ -20,13 +25,54 @@ public class ManterClienteView extends ManterGenericoView{
 	private DefaultTableModel dtm;
 	private ClienteVO cliente;
 	private List<ClienteVO> listaClientes;
-	
 	private ClienteBO bo;
+	private JLabel lblRazao;
+	private JTextField txtRazao;
+	private JLabel lblCnpj;
+	private JTextField txtCnpj;
+	private JButton btnFiltrar;
 	
 	public ManterClienteView() {
 		super(Utilidades.CONSULTA_CLIENTES);
+		super.getScrollPane().setBounds(20, 70, 550, 400);
+		super.boundsBtn(500);
+		
+		lblRazao = new JLabel("Razão Social:");
+		lblRazao.setBounds(20,40,100,20);
+		this.add(lblRazao);
+		
+		txtRazao = new JTextField();
+		txtRazao.setBounds(120,40,130,20);
+		this.add(txtRazao);
+		
+		lblCnpj = new JLabel("CNPJ:");
+		lblCnpj.setBounds(280,40,70,20);
+		this.add(lblCnpj);
+		
+		txtCnpj = new JTextField();
+		txtCnpj.setBounds(330,40,130,20);
+		this.add(txtCnpj);
+		
+		btnFiltrar = new JButton("Filtrar");
+		btnFiltrar.setBounds(480,40,70,20);
+		btnFiltrar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				listaClientes = bo.filtrar(txtRazao.getText(), txtCnpj.getText());
+				carregaDtm();
+			}
+		});
+		this.add(btnFiltrar);
 
 	}
+	
+	private void carregaDtm(){
+		
+		carregaDtm(super.getTable(), super.getDtm());
+	}
+
 
 	@Override
 	public void carregaDtm(JTable table, DefaultTableModel dtm) {
@@ -51,9 +97,13 @@ public class ManterClienteView extends ManterGenericoView{
 			
 		};
 		
-		bo = new ClienteBO();
+		if(bo == null){
+			bo = new ClienteBO();
+		}
 		
-		listaClientes = bo.consultarClientes();
+		if(listaClientes == null){
+			listaClientes = bo.consultarClientes();
+		}
 		
 		Iterator<ClienteVO> it = listaClientes.iterator();
 			

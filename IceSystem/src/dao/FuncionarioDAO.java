@@ -626,6 +626,97 @@ public class FuncionarioDAO {
 		return listaFuncionarios;
 	}
 	
+	public List<FuncionarioVO> consultarFuncionariosFiltro(String nome, String cargo){
+		
+		FuncionarioVO funcionario;
+		List<FuncionarioVO> listaFuncionarios = new ArrayList<FuncionarioVO>();
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			
+			//Cria o [select] que sera executado no banco
+			pstm = conexao.prepareStatement("select f.id_funcionario, f.nome, f.rg, f.cpf, f.usuario, f.senha, f.id_cargo, f.id_endereco, f.id_status,"
+										   + " st.id_status, st.descricao,"
+										   + " c.id_cargo, c.funcao"
+										   + " from Funcionario f"
+										   + " inner join Cargo c on f.id_cargo = c.id_cargo"
+					                       + " inner join Status st on f.id_status = st.id_status"
+					                       + " where f.id_status = ? and upper(f.nome) like upper(?) and upper(c.funcao) like upper(?)");			
+
+			pstm.setInt(1, Utilidades.STATUS_ATIVO.getIdStatus());
+			pstm.setString(2, '%'+nome+'%');
+			pstm.setString(3, '%'+cargo+'%');
+			
+			//Executa uma pesquisa no banco
+			rs = pstm.executeQuery();
+						
+			while(rs.next()){
+		
+				funcionario = new FuncionarioVO();
+				
+				funcionario.setIdFuncionario(rs.getInt("id_funcionario"));
+				funcionario.setNome(rs.getString("nome"));
+				funcionario.setRg(rs.getString("rg"));
+				funcionario.setCpf(rs.getString("cpf"));
+				funcionario.setLogin(rs.getString("usuario"));
+				funcionario.setSenha(rs.getString("senha"));
+				funcionario.setEndereco(new EnderecoVO());
+				funcionario.getEndereco().setIdEndereco(rs.getInt("id_endereco"));
+				funcionario.setCargo(new CargoVO());
+				funcionario.getCargo().setIdCargo(rs.getByte("id_cargo"));
+				funcionario.getCargo().setFuncao(rs.getString("funcao"));
+				funcionario.setStatus(new StatusVO());
+				funcionario.getStatus().setIdStatus(rs.getInt("id_status"));
+				
+				listaFuncionarios.add(funcionario);
+			}
+			
+		} catch (SQLException sql) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			listaFuncionarios = null;
+			
+		} catch (ClassNotFoundException cnf) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			listaFuncionarios = null;
+			
+		} finally {
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+				if(rs != null){
+					
+					rs.close();
+				}
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
+
+				listaFuncionarios = null;
+				
+			}			
+		
+		}
+		
+		return listaFuncionarios;
+	}
+	
 	public boolean excluirFuncionario(FuncionarioVO funcionario) {
 		
 		try {

@@ -423,6 +423,97 @@ public class ClienteDAO{
 		return listaClientes;
 	}
 	
+	public List<ClienteVO> consultarTodosClientesFiltro(String razao, String cnpj) {
+		
+		ClienteVO cli = null;
+		
+		List<ClienteVO> listaClientes = null;
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			
+			//Cria o [select] que sera executado no banco
+			pstm = conexao.prepareStatement("select c.id_cliente_pj, pj.cnpj, pj.id_endereco, pj.razao_social, st.id_status, st.descricao from Cliente c"
+					                       + " inner join Pessoa_Juridica pj on c.id_cliente_pj = pj.id_pessoa_juridica"
+										   + " inner join Status st on c.id_status = st.id_status"
+					                       + " where c.id_status = ? and pj.cnpj like ? and upper(pj.razao_social) like upper(?)");
+			
+			pstm.setInt(1, Utilidades.STATUS_ATIVO.getIdStatus());
+			pstm.setString(2, '%'+cnpj+'%');
+			pstm.setString(3, '%'+razao+'%');
+			
+			//Executa uma pesquisa no banco
+			rs = pstm.executeQuery();
+			
+			listaClientes = new ArrayList<ClienteVO>();
+			
+			//Carregando a listaClientes
+			while(rs.next()) {
+				
+				Integer idCliente = rs.getInt("id_cliente_pj");
+				
+				cli = new ClienteVO();
+				
+				cli.setIdPessoaJuridica(idCliente);
+				cli.setRazaoSocial(rs.getString("razao_social"));
+				cli.setStatus(new StatusVO());
+				cli.getStatus().setIdStatus(rs.getInt("id_status"));
+				cli.setCnpj(rs.getString("cnpj"));
+				cli.setEndereco(new EnderecoVO());
+				cli.getEndereco().setIdEndereco(rs.getInt("id_endereco"));
+				cli.setStatus(new StatusVO());
+				cli.getStatus().setIdStatus(rs.getInt("id_status"));
+				listaClientes.add(cli);
+
+			}				
+			
+			
+		} catch (SQLException sql) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			listaClientes = null;
+			
+		} catch (ClassNotFoundException cnf) {
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(),cnf.getMessage());
+			
+			cnf.printStackTrace();
+			
+			listaClientes = null;
+			
+		} finally {
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+				if(rs != null){
+					
+					rs.close();
+				}
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(),sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				listaClientes = null;
+				
+			}			
+		
+		}
+		
+		return listaClientes;
+	}
+	
 	private List<EmailVO> consultarEmailCliente(Integer idCliente, Connection conexao) throws SQLException {
 		
 		EmailVO email = null;

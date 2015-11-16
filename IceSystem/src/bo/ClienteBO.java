@@ -24,6 +24,11 @@ public class ClienteBO {
 		dao = new ClienteDAO();
 	}
 	
+	public List<ClienteVO> filtrar(String razao, String cnpj){
+		
+		return dao.consultarTodosClientesFiltro(razao, cnpj);
+	}
+	
 	public List<List<EmailVO>> gerenciaMudancasEmails(List<EmailVO>listaOriginal, List<EmailVO> listaMudada){
 		
 		return Utilidades.gerenciaMudancasEmails(listaOriginal, listaMudada);
