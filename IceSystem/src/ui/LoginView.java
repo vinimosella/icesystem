@@ -27,8 +27,8 @@ import org.jdesktop.swingx.prompt.PromptSupport;
 
 import ui.cliente.ManterClienteView;
 import ui.estoque.ManterMateriaPrimaView;
-import ui.estoque.ManterProdutoView;
 import ui.estoque.ManterOrdemDeProducaoView;
+import ui.estoque.ManterProdutoView;
 import ui.financas.ManterComprasView;
 import ui.financas.ManterVendasView;
 import ui.fornecedor.ManterFornecedorView;
@@ -46,7 +46,6 @@ public class LoginView extends JPanel{
 	private JMenu mnArquivo;
 	private JMenu mnPessoas;
 	private JMenu mnEstoque;
-	private JMenu mnFinancas;
 	private LoginBO bo;
 	private JMenuItem mntmAlterarSenha;
 	private JMenuItem mntmLogout;
@@ -189,7 +188,9 @@ public class LoginView extends JPanel{
 				
 			}
 		});
-		mnArquivo.add(mntmAlterarSenha,1);
+		mnArquivo.add(mntmAlterarSenha,2);
+		
+		mnArquivo.insertSeparator(3);
 		
 		//ITEM LOGOUT
 		mntmLogout = new JMenuItem("Logout");
@@ -205,7 +206,7 @@ public class LoginView extends JPanel{
 				Utilidades.frmHome.revalidate();
 			}
 		});
-		mnArquivo.add(mntmLogout,3);//coloca entre o sobre/sair e depois do separator
+		mnArquivo.add(mntmLogout,4);//coloca entre o sobre/sair e depois do separator
 		
 		// * -- MENU PESSOAS
 		mnPessoas = new JMenu("Pessoas");
@@ -257,6 +258,21 @@ public class LoginView extends JPanel{
 		mnEstoque = new JMenu("Estoque");
 		menuBar.add(mnEstoque);
 		
+		// ITEM CONSULTAR ORDEM PRODUCAO
+		mntmOrdensProducao = new JMenuItem("Ordem de Produção");
+		mntmOrdensProducao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Utilidades.frmHome.getContentPane().removeAll();
+				ManterOrdemDeProducaoView op = new ManterOrdemDeProducaoView();
+				Utilidades.frmHome.getContentPane().add(op,BorderLayout.CENTER);
+				Utilidades.frmHome.getContentPane().revalidate();
+			}
+		});
+
+		mnEstoque.add(mntmOrdensProducao);
+		
+		mnEstoque.addSeparator();
+		
 		// ITEM MATERIA PRIMA
 		mntmMateriaPrima = new JMenuItem("Matérias Primas");
 		mntmMateriaPrima.addActionListener(new ActionListener() {
@@ -281,26 +297,9 @@ public class LoginView extends JPanel{
 		});
 
 		mnEstoque.add(mntmProduto);
-
+		
 		mnEstoque.addSeparator();
-		
-		// ITEM CONSULTAR ORDEM PRODUCAO
-		mntmOrdensProducao = new JMenuItem("Ordem de Produção");
-		mntmOrdensProducao.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Utilidades.frmHome.getContentPane().removeAll();
-				ManterOrdemDeProducaoView op = new ManterOrdemDeProducaoView();
-				Utilidades.frmHome.getContentPane().add(op,BorderLayout.CENTER);
-				Utilidades.frmHome.getContentPane().revalidate();
-			}
-		});
-
-		mnEstoque.add(mntmOrdensProducao);
-		
-		// * -- MENU FINANÇAS
-		mnFinancas = new JMenu("Finanças");
-		menuBar.add(mnFinancas);
-		
+				
 		// ITEM CONSULTAR COMPRA
 		mntmCompra = new JMenuItem("Compras");
 		mntmCompra.addActionListener(new ActionListener() {
@@ -313,10 +312,7 @@ public class LoginView extends JPanel{
 				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
-		mnFinancas.add(mntmCompra);
-		
-		//SEPARADOR
-		mnFinancas.addSeparator();
+		mnEstoque.add(mntmCompra);
 		
 		// ITEM CONSULTAR VENDA
 		mntmVenda = new JMenuItem("Vendas");
@@ -330,7 +326,7 @@ public class LoginView extends JPanel{
 				Utilidades.frmHome.getContentPane().revalidate();
 			}
 		});
-		mnFinancas.add(mntmVenda);		
+		mnEstoque.add(mntmVenda);		
 		
 	}
 	
