@@ -7,8 +7,8 @@ import vo.CidadeVO;
 import vo.EmailVO;
 import vo.EstadoVO;
 import vo.TelefoneVO;
-import daoimpl.CidadeDAO;
-import daoimpl.EstadoDAO;
+import dao.CidadeDAO;
+import dao.EstadoDAO;
 
 public class PessoaJuridicaBO {
 

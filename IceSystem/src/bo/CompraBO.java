@@ -5,7 +5,7 @@ import java.util.List;
 import util.Utilidades;
 import vo.CompraVO;
 import vo.ItemCompraVO;
-import daoimpl.CompraDAO;
+import dao.CompraDAO;
 
 public class CompraBO {
 	

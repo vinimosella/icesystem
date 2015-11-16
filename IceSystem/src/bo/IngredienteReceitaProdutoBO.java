@@ -2,7 +2,7 @@ package bo;
 
 import java.util.List;
 
-import daoimpl.IngredienteReceitaProdutoDAO;
+import dao.IngredienteReceitaProdutoDAO;
 import vo.IngredienteReceitaProdutoVO;
 import vo.ProdutoVO;
 

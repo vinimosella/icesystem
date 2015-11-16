@@ -3,7 +3,7 @@ package bo;
 import java.util.List;
 
 import vo.SituacaoVO;
-import daoimpl.SituacaoDAO;
+import dao.SituacaoDAO;
 
 public class SituacaoBO {
 	

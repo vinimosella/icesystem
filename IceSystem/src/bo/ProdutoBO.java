@@ -4,7 +4,7 @@ import java.util.List;
 
 import util.Utilidades;
 import vo.ProdutoVO;
-import daoimpl.ProdutoDAO;
+import dao.ProdutoDAO;
 
 public class ProdutoBO {
 	

@@ -10,10 +10,10 @@ import vo.EmailVO;
 import vo.EstadoVO;
 import vo.FuncionarioVO;
 import vo.TelefoneVO;
-import daoimpl.CargoDAO;
-import daoimpl.CidadeDAO;
-import daoimpl.EstadoDAO;
-import daoimpl.FuncionarioDAO;
+import dao.CargoDAO;
+import dao.CidadeDAO;
+import dao.EstadoDAO;
+import dao.FuncionarioDAO;
 
 public class FuncionarioBO {
 	

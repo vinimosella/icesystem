@@ -2,7 +2,7 @@ package bo;
 
 import util.Utilidades;
 import vo.FuncionarioVO;
-import daoimpl.FuncionarioDAO;
+import dao.FuncionarioDAO;
 
 public class LoginBO {
 	

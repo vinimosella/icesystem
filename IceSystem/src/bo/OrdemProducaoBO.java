@@ -8,10 +8,10 @@ import util.Utilidades;
 import vo.IngredienteReceitaProdutoVO;
 import vo.MateriaPrimaVO;
 import vo.OrdemProducaoVO;
-import daoimpl.IngredienteReceitaProdutoDAO;
-import daoimpl.MateriaPrimaDAO;
-import daoimpl.OrdemDeProducaoDAO;
-import daoimpl.ProdutoDAO;
+import dao.IngredienteReceitaProdutoDAO;
+import dao.MateriaPrimaDAO;
+import dao.OrdemDeProducaoDAO;
+import dao.ProdutoDAO;
 
 public class OrdemProducaoBO {
 	

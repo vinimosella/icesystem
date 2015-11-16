@@ -7,8 +7,8 @@ import util.Utilidades;
 import vo.ItemVendaVO;
 import vo.ProdutoVO;
 import vo.VendaVO;
-import daoimpl.ProdutoDAO;
-import daoimpl.VendaDAO;
+import dao.ProdutoDAO;
+import dao.VendaDAO;
 
 public class VendaBO {
 	

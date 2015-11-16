@@ -8,9 +8,9 @@ import vo.EmailVO;
 import vo.EstadoVO;
 import vo.FornecedorVO;
 import vo.TelefoneVO;
-import daoimpl.CidadeDAO;
-import daoimpl.EstadoDAO;
-import daoimpl.FornecedorDAO;
+import dao.CidadeDAO;
+import dao.EstadoDAO;
+import dao.FornecedorDAO;
 
 public class FornecedorBO {
 	

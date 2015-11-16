@@ -9,7 +9,7 @@ import vo.FornecedorVO;
 import vo.IngredienteReceitaProdutoVO;
 import vo.MateriaPrimaVO;
 import vo.ProdutoVO;
-import daoimpl.MateriaPrimaDAO;
+import dao.MateriaPrimaDAO;
 
 public class MateriaPrimaBO {
 	
