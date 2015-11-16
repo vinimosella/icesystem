@@ -117,7 +117,7 @@ public class  ProdutoDAO{
 			
 			//Cria o [select] que sera executado no banco
 			pstm = conexao.prepareStatement("select id_produto, quantidade_estoque, tipo, sabor from Produto"
-										  + " where id_status = ? and tipo like ? and sabor like ?");
+										  + " where id_status = ? and upper(tipo) like upper(?) and upper(sabor) like upper(?)");
 			
 			pstm.setInt(1, 1);
 			pstm.setString(2, '%'+tipo+'%');

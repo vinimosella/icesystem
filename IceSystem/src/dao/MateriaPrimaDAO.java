@@ -225,7 +225,7 @@ public class MateriaPrimaDAO{
 					                       + " inner join Fornecedor f on mp.id_fornecedor_pj = f.id_fornecedor_pj"
 					                       + " inner join Pessoa_Juridica pj on pj.id_pessoa_juridica = f.id_fornecedor_pj"
 					                       + " inner join Status st on st.id_status = mp.id_status"
-					                       + " where mp.id_status = ? and mp.nome like ? and mp.sabor like ?");
+					                       + " where mp.id_status = ? and upper(mp.nome) like upper(?) and upper(mp.sabor) like upper(?)");
 			
 			pstm.setInt(1, 1);
 			pstm.setString(2, '%'+nome+'%');
