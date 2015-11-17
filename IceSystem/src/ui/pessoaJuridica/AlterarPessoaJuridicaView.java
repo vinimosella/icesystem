@@ -3,6 +3,7 @@ package ui.pessoaJuridica;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -10,12 +11,14 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import util.ValidatorZikaMemu;
 import vo.CidadeVO;
 import vo.EmailVO;
 import vo.EnderecoVO;
@@ -32,10 +35,10 @@ public abstract class AlterarPessoaJuridicaView extends JPanel{
 	private JLabel labelRazaoSocial;
 	private JTextField txtRazaoSocial;
 	private JLabel labelCnpj;
-	private JTextField txtCnpj;
+	private ValidatorZikaMemu txtCnpj;
 	private JLabel labelTelefone;
 	private JComboBox<Integer> comboTelefone;
-	private JTextField txtTelefone;
+	private ValidatorZikaMemu txtTelefone;
 	private JButton btnAtualizarTelefone;
 	private JButton btnAdicionarTelefone;
 	private JButton btnRemoverTelefone;
@@ -52,13 +55,13 @@ public abstract class AlterarPessoaJuridicaView extends JPanel{
 	private JLabel labelLogradouro;
 	private JTextField txtLogradouro;
 	private JLabel labelNumero;
-	private JTextField txtNumero;
+	private ValidatorZikaMemu txtNumero;
 	private JLabel labelComplemento;
 	private JTextField txtComplemento;
 	private JLabel labelBairro;
 	private JTextField txtBairro;
 	private JLabel labelCep;
-	private JTextField txtCep;
+	private ValidatorZikaMemu txtCep;
 	private List<TelefoneVO> listaTelefones;
 	private List<EmailVO> listaEmails;
 	private Integer contadorTelefones;
@@ -111,7 +114,11 @@ public abstract class AlterarPessoaJuridicaView extends JPanel{
 		labelCnpj.setText("CNPJ:");
 		this.add(labelCnpj);
 		
-		txtCnpj = new JTextField();
+		try {
+			txtCnpj = new ValidatorZikaMemu("##.###.###/####-##");
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		txtCnpj.setText(pj.getCnpj());
 		this.add(txtCnpj);
 		
@@ -133,14 +140,20 @@ public abstract class AlterarPessoaJuridicaView extends JPanel{
 				
 				if(comboTelefone.getSelectedIndex()!=-1){
 					txtTelefone.setText(listaTelefones.get(comboTelefone.getSelectedIndex()).getDdd()
-						+ listaTelefones.get(comboTelefone.getSelectedIndex()).getNumero());
+						+ listaTelefones.get(comboTelefone.getSelectedIndex()).getNumero().trim());
 				}
 				
 			}
 		});
 		this.add(comboTelefone);
 		
-		txtTelefone = new JTextField();
+		try {
+			txtTelefone = new ValidatorZikaMemu("(##)#########");
+		} catch (ParseException e1) {
+
+			e1.printStackTrace();
+		}
+		txtTelefone.setFocusLostBehavior(JFormattedTextField.COMMIT);
 		this.add(txtTelefone);
 		
 		btnAtualizarTelefone = new JButton(new ImageIcon(getClass().getResource("/img/update.png")));
@@ -155,8 +168,8 @@ public abstract class AlterarPessoaJuridicaView extends JPanel{
 				
 				if(!bo.isTelefoneExistenteLista(txtTelefone.getText(), listaTelefones)){
 				
-					listaTelefones.get(comboTelefone.getSelectedIndex()).setDdd(txtTelefone.getText().substring(0,2));
-					listaTelefones.get(comboTelefone.getSelectedIndex()).setNumero(txtTelefone.getText().substring(2));
+					listaTelefones.get(comboTelefone.getSelectedIndex()).setDdd(txtTelefone.getText().substring(1,3));
+					listaTelefones.get(comboTelefone.getSelectedIndex()).setNumero(txtTelefone.getText().substring(4).trim());
 					
 					comboTelefone.removeAllItems();
 					carregaTelefone();
@@ -181,8 +194,8 @@ public abstract class AlterarPessoaJuridicaView extends JPanel{
 				if(!bo.isTelefoneExistenteLista(txtTelefone.getText(), listaTelefones)){
 					
 					telefone = new TelefoneVO();
-					telefone.setDdd(txtTelefone.getText().substring(0, 2));
-					telefone.setNumero(txtTelefone.getText().substring(2));
+					telefone.setDdd(txtTelefone.getText().substring(1,3));
+					telefone.setNumero(txtTelefone.getText().substring(4).trim());
 					listaTelefones.add(telefone);
 					comboTelefone.addItem(++contadorTelefones);
 					comboTelefone.setSelectedItem(contadorTelefones);
@@ -428,7 +441,12 @@ public abstract class AlterarPessoaJuridicaView extends JPanel{
 		labelNumero.setText("Número:");
 		this.add(labelNumero);
 		
-		txtNumero = new JTextField();
+		try {
+			txtNumero = new ValidatorZikaMemu("######");
+		} catch (ParseException e2) {
+			e2.printStackTrace();
+		}
+		txtNumero.setFocusLostBehavior(JFormattedTextField.COMMIT);
 		txtNumero.setText(pj.getEndereco().getNumero().toString());
 		this.add(txtNumero);
 		
@@ -452,7 +470,11 @@ public abstract class AlterarPessoaJuridicaView extends JPanel{
 		labelCep.setText("CEP:");
 		this.add(labelCep);
 		
-		txtCep = new JTextField();
+		try {
+			txtCep = new ValidatorZikaMemu("##.###-###");
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		txtCep.setText(pj.getEndereco().getCep());
 		this.add(txtCep);
 		
@@ -565,7 +587,7 @@ public abstract class AlterarPessoaJuridicaView extends JPanel{
 		endereco = pj.getEndereco();
 		
 		endereco.setLogradouro(txtLogradouro.getText());
-		endereco.setNumero(Integer.parseInt(txtNumero.getText()));
+		endereco.setNumero(Integer.parseInt(txtNumero.getText().trim()));
 		endereco.setComplemento(txtComplemento.getText());
 		endereco.setBairro(txtBairro.getText());
 		endereco.setCep(txtCep.getText());

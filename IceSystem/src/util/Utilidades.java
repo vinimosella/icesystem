@@ -55,7 +55,6 @@ public class Utilidades {
 	
 	public static final String FINALIZADO = "Finalizado";
 	public static final String CANCELADO = "Cancelado";
-	public static final String ATIVO = "Ativo";
 	
 	public static final String CARGO_ACESSO_ADMIN = "Administrador";
 	public static final String CARGO_ACESSO_SECRETARIO = "Secretário";

@@ -3,6 +3,7 @@ package ui.pessoaJuridica;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -10,12 +11,14 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import util.Utilidades;
+import util.ValidatorZikaMemu;
 import vo.CidadeVO;
 import vo.EmailVO;
 import vo.EnderecoVO;
@@ -31,10 +34,10 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 	private JLabel lblRazaoSocial;
 	private JTextField txtRazaoSocial;
 	private JLabel lblCnpj;
-	private JTextField txtCnpj;
+	private ValidatorZikaMemu txtCnpj;
 	private JLabel lblTelefone;
 	private JComboBox<Integer> comboTelefone;
-	private JTextField txtTelefone;
+	private ValidatorZikaMemu txtTelefone;
 	private JButton btnAtualizarTelefone;
 	private JButton btnAdicionarTelefone;
 	private JButton btnRemoverTelefone;
@@ -51,13 +54,13 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 	private JLabel lblLogradouro;
 	private JTextField txtLogradouro;
 	private JLabel lblNumero;
-	private JTextField txtNumero;
+	private ValidatorZikaMemu txtNumero;
 	private JLabel lblComplemento;
 	private JTextField txtComplemento;
 	private JLabel lblBairro;
 	private JTextField txtBairro;
 	private JLabel lblCep;
-	private JTextField txtCep;
+	private ValidatorZikaMemu txtCep;
 	private List<TelefoneVO> listaTelefones;
 	private List<EmailVO> listaEmails;
 	private Integer contadorTelefones;
@@ -104,7 +107,11 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 		lblCnpj.setText("CNPJ:");
 		this.add(lblCnpj);
 		
-		txtCnpj = new JTextField();
+		try {
+			txtCnpj = new ValidatorZikaMemu("##.###.###/####-##");
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		this.add(txtCnpj);
 		
 		lblTelefone = new JLabel();
@@ -132,7 +139,13 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 		this.add(comboTelefone);
 		comboTelefone.setEnabled(false);
 		
-		txtTelefone = new JTextField();
+		try {
+			txtTelefone = new ValidatorZikaMemu("(##)#########");
+		} catch (ParseException e1) {
+
+			e1.printStackTrace();
+		}
+		txtTelefone.setFocusLostBehavior(JFormattedTextField.COMMIT);
 		this.add(txtTelefone);
 		
 		btnAtualizarTelefone = new JButton(new ImageIcon(getClass().getResource("/img/update.png")));
@@ -147,8 +160,8 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 				
 				if(!bo.isTelefoneExistenteLista(txtTelefone.getText(), listaTelefones)){
 				
-					listaTelefones.get(comboTelefone.getSelectedIndex()).setDdd(txtTelefone.getText().substring(0,2));
-					listaTelefones.get(comboTelefone.getSelectedIndex()).setNumero(txtTelefone.getText().substring(2));
+					listaTelefones.get(comboTelefone.getSelectedIndex()).setDdd(txtTelefone.getText().substring(1,3));
+					listaTelefones.get(comboTelefone.getSelectedIndex()).setNumero(txtTelefone.getText().substring(4).trim());
 					
 					comboTelefone.removeAllItems();
 					carregaTelefone();
@@ -184,8 +197,8 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 				if(!bo.isTelefoneExistenteLista(txtTelefone.getText(), listaTelefones)){
 					
 					telefone = new TelefoneVO();
-					telefone.setDdd(txtTelefone.getText().substring(0, 2));
-					telefone.setNumero(Utilidades.removePontoETraco(txtTelefone.getText().substring(2)));
+					telefone.setDdd(txtTelefone.getText().substring(1,3));
+					telefone.setNumero(Utilidades.removePontoETraco(txtTelefone.getText().substring(4).trim()));
 					listaTelefones.add(telefone);
 					comboTelefone.addItem(++contadorTelefones);
 					comboTelefone.setSelectedItem(contadorTelefones);
@@ -460,7 +473,12 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 		lblNumero.setText("Número:");
 		this.add(lblNumero);
 		
-		txtNumero = new JTextField();
+		try {
+			txtNumero = new ValidatorZikaMemu("######");
+		} catch (ParseException e2) {
+			e2.printStackTrace();
+		}
+		txtNumero.setFocusLostBehavior(JFormattedTextField.COMMIT);
 		this.add(txtNumero);
 		
 		lblComplemento = new JLabel();
@@ -481,7 +499,11 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 		lblCep.setText("CEP:");
 		this.add(lblCep);
 		
-		txtCep = new JTextField();
+		try {
+			txtCep = new ValidatorZikaMemu("##.###-###");
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		this.add(txtCep);
 		
 		btnCadastrar = new JButton("Cadastrar");
@@ -585,7 +607,7 @@ public abstract class CadastrarPessoaJuridicaView extends JPanel{
 		endereco = new EnderecoVO();
 		
 		endereco.setLogradouro(txtLogradouro.getText());
-		endereco.setNumero(Integer.parseInt(txtNumero.getText()));
+		endereco.setNumero(Integer.parseInt(txtNumero.getText().trim()));
 		endereco.setComplemento(txtComplemento.getText());
 		endereco.setBairro(txtBairro.getText());
 		endereco.setCep(Utilidades.removePontoETraco(txtCep.getText()));

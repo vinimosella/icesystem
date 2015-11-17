@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,12 +12,14 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import util.Utilidades;
+import util.ValidatorZikaMemu;
 import vo.CargoVO;
 import vo.CidadeVO;
 import vo.EmailVO;
@@ -33,12 +36,12 @@ public class AlterarFuncionarioView extends JPanel{
 	private JLabel labelNome;
 	private JTextField txtNome;
 	private JLabel labelCpf;
-	private JTextField txtCpf;
+	private ValidatorZikaMemu txtCpf;
 	private JLabel labelRg;
-	private JTextField txtRg;
+	private ValidatorZikaMemu txtRg;
 	private JLabel labelTelefone;
 	private JComboBox<Integer> comboTelefone;
-	private JTextField txtTelefone;
+	private ValidatorZikaMemu txtTelefone;
 	private JButton btnAtualizarTelefone;
 	private JButton btnAdicionarTelefone;
 	private JButton btnRemoverTelefone;
@@ -55,13 +58,13 @@ public class AlterarFuncionarioView extends JPanel{
 	private JLabel labelLogradouro;
 	private JTextField txtLogradouro;
 	private JLabel labelNumero;
-	private JTextField txtNumero;
+	private ValidatorZikaMemu txtNumero;
 	private JLabel labelComplemento;
 	private JTextField txtComplemento;
 	private JLabel labelBairro;
 	private JTextField txtBairro;
 	private JLabel labelCep;
-	private JTextField txtCep;
+	private ValidatorZikaMemu txtCep;
 	private JLabel labelCargo;
 	private JComboBox<String> comboCargo;
 	private List<TelefoneVO> listaTelefones;
@@ -118,7 +121,12 @@ public class AlterarFuncionarioView extends JPanel{
 		labelCpf.setText("CPF:");
 		this.add(labelCpf);
 		
-		txtCpf = new JTextField();
+		try {
+			txtCpf = new ValidatorZikaMemu("###.###.###-##");
+		} catch (ParseException e1) {
+
+			e1.printStackTrace();
+		}
 		txtCpf.setText(funcionario.getCpf());
 		this.add(txtCpf);
 		
@@ -126,7 +134,11 @@ public class AlterarFuncionarioView extends JPanel{
 		labelRg.setText("RG:");
 		this.add(labelRg);
 		
-		txtRg = new JTextField();
+		try {
+			txtRg = new ValidatorZikaMemu("##.###.###-*");
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		txtRg.setText(funcionario.getRg());
 		this.add(txtRg);
 		
@@ -149,14 +161,20 @@ public class AlterarFuncionarioView extends JPanel{
 				
 				if(comboTelefone.getSelectedIndex()!=-1){
 					txtTelefone.setText(listaTelefones.get(comboTelefone.getSelectedIndex()).getDdd()
-						+ listaTelefones.get(comboTelefone.getSelectedIndex()).getNumero());
+						+ listaTelefones.get(comboTelefone.getSelectedIndex()).getNumero().trim());
 				}
 				
 			}
 		});
 		this.add(comboTelefone);
 		
-		txtTelefone = new JTextField();
+		try {
+			txtTelefone = new ValidatorZikaMemu("(##)#########");
+		} catch (ParseException e1) {
+
+			e1.printStackTrace();
+		}
+		txtTelefone.setFocusLostBehavior(JFormattedTextField.COMMIT);
 		this.add(txtTelefone);
 		
 		btnAtualizarTelefone = new JButton(new ImageIcon(getClass().getResource("/img/update.png")));
@@ -171,8 +189,8 @@ public class AlterarFuncionarioView extends JPanel{
 				
 				if(!bo.isTelefoneExistenteLista(txtTelefone.getText(), listaTelefones)){
 				
-					listaTelefones.get(comboTelefone.getSelectedIndex()).setDdd(txtTelefone.getText().substring(0,2));
-					listaTelefones.get(comboTelefone.getSelectedIndex()).setNumero(txtTelefone.getText().substring(2));
+					listaTelefones.get(comboTelefone.getSelectedIndex()).setDdd(txtTelefone.getText().substring(1,3));
+					listaTelefones.get(comboTelefone.getSelectedIndex()).setNumero(txtTelefone.getText().substring(4).trim());
 					
 					comboTelefone.removeAllItems();
 					carregaTelefone();
@@ -197,8 +215,8 @@ public class AlterarFuncionarioView extends JPanel{
 				if(!bo.isTelefoneExistenteLista(txtTelefone.getText(), listaTelefones)){
 					
 					telefone = new TelefoneVO();
-					telefone.setDdd(txtTelefone.getText().substring(0, 2));
-					telefone.setNumero(txtTelefone.getText().substring(2));
+					telefone.setDdd(txtTelefone.getText().substring(1,3));
+					telefone.setNumero(txtTelefone.getText().substring(4).trim());
 					listaTelefones.add(telefone);
 					comboTelefone.addItem(++contadorTelefones);
 					comboTelefone.setSelectedItem(contadorTelefones);
@@ -450,7 +468,12 @@ public class AlterarFuncionarioView extends JPanel{
 		labelNumero.setText("Número:");
 		this.add(labelNumero);
 		
-		txtNumero = new JTextField();
+		try {
+			txtNumero = new ValidatorZikaMemu("######");
+		} catch (ParseException e2) {
+			e2.printStackTrace();
+		}
+		txtNumero.setFocusLostBehavior(JFormattedTextField.COMMIT);
 		txtNumero.setText(funcionario.getEndereco().getNumero().toString());
 		this.add(txtNumero);
 		
@@ -474,7 +497,11 @@ public class AlterarFuncionarioView extends JPanel{
 		labelCep.setText("CEP:");
 		this.add(labelCep);
 		
-		txtCep = new JTextField();
+		try {
+			txtCep = new ValidatorZikaMemu("##.###-###");
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		txtCep.setText(funcionario.getEndereco().getCep());
 		this.add(txtCep);
 		
@@ -577,7 +604,7 @@ public class AlterarFuncionarioView extends JPanel{
 		endereco = funcionario.getEndereco();
 		
 		endereco.setLogradouro(txtLogradouro.getText());
-		endereco.setNumero(Integer.parseInt(txtNumero.getText()));
+		endereco.setNumero(Integer.parseInt(txtNumero.getText().trim()));
 		endereco.setComplemento(txtComplemento.getText());
 		endereco.setBairro(txtBairro.getText());
 		endereco.setCep(txtCep.getText());
