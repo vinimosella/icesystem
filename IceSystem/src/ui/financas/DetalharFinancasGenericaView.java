@@ -19,8 +19,9 @@ public abstract class DetalharFinancasGenericaView extends JDialog{
 	private JTable table;
 	private JScrollPane scrollPane;
 	private JLabel lblTotal;
+	private JLabel lblIdFinanca;
 
-	public DetalharFinancasGenericaView(Object o, String titulo) {
+	public DetalharFinancasGenericaView(Object o, String titulo, Long id) {
 		setTitle(titulo);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 600, 500);
@@ -32,16 +33,20 @@ public abstract class DetalharFinancasGenericaView extends JDialog{
 		contentPane.setLayout(null);
 		this.setLocationRelativeTo(null);
 		
+		lblIdFinanca = new JLabel("Id "+titulo.substring(9)+": "+id);
+		lblIdFinanca.setBounds(20,20,500,20);
+		contentPane.add(lblIdFinanca);
+		
 		table = new JTable();
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 20, 555, 400);
+		scrollPane.setBounds(20, 50, 555, 370);
 		contentPane.add(scrollPane);
 		
 		table.setModel(montaDtm(o));
 		scrollPane.setViewportView(table);
 		
-		lblTotal = new JLabel("Total: "+Utilidades.FORMAT.format((valorTotal())));
+		lblTotal = new JLabel("Total da "+titulo.substring(9)+": "+Utilidades.FORMAT.format((valorTotal())));
 		lblTotal.setBounds(20, 440, 200, 14);
 		contentPane.add(lblTotal);
 	}

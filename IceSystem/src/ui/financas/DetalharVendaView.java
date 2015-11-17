@@ -22,7 +22,7 @@ public class DetalharVendaView extends DetalharFinancasGenericaView{
 	private Iterator<?> it;
 
 	public DetalharVendaView(VendaVO venda) {
-		super(venda, Utilidades.DETALHE_VENDAS);
+		super(venda, Utilidades.DETALHE_VENDAS, venda.getIdVenda());
 
 	}
 
@@ -40,7 +40,7 @@ public class DetalharVendaView extends DetalharFinancasGenericaView{
 						
 				},
 				new String[] {
-					"ID Venda", "ID Produto", "Tipo", "Sabor", "Quantidade", "Valor", "Total"
+					"ID Produto", "Tipo", "Sabor", "Quantidade", "Valor", "Total"
 				}				
 		){
 		
@@ -61,7 +61,6 @@ public class DetalharVendaView extends DetalharFinancasGenericaView{
 			itemVenda = (ItemVendaVO) it.next();
 
 			dtm.addRow(new Object[] {
-					venda.getIdVenda(),
 					itemVenda.getProduto().getIdProduto(),
 					itemVenda.getProduto().getTipo(),
 					(itemVenda.getProduto().getSabor()!=null) ? itemVenda.getProduto().getSabor() : "-",
