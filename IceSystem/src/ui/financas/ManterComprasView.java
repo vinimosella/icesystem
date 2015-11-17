@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 
@@ -206,7 +207,9 @@ public class ManterComprasView extends ManterGenericoView{
 			listaCompras = bo.consultarSolicitadas();
 		}
 		Iterator<CompraVO> it = listaCompras.iterator();
-				
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
 		while(it.hasNext()){
 				
 			compra = it.next();
@@ -214,7 +217,7 @@ public class ManterComprasView extends ManterGenericoView{
 			dtm.addRow(new Object[] {
 					compra.getIdCompra(),
 					compra.getSituacao().getDescricao(),
-					compra.getDataCompra().toString(),
+					sdf.format(compra.getDataCompra()),
 					compra.getFuncionario().getNome()
 			});
 			

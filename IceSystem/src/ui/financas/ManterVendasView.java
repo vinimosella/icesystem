@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 
@@ -204,7 +205,9 @@ public class ManterVendasView extends ManterGenericoView{
 		}
 		
 		Iterator<VendaVO> it = listaVendas.iterator();
-				
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
 		while(it.hasNext()){
 				
 			venda = it.next();
@@ -212,7 +215,7 @@ public class ManterVendasView extends ManterGenericoView{
 			dtm.addRow(new Object[] {
 					venda.getIdVenda(),
 					venda.getSituacao().getDescricao(),
-					venda.getDataVenda().toString(),
+					sdf.format(venda.getDataVenda()),
 					venda.getCliente().getRazaoSocial()
 			});
 			
