@@ -3,15 +3,19 @@ package bo;
 import java.util.List;
 
 import util.Utilidades;
+import vo.IngredienteReceitaProdutoVO;
 import vo.ProdutoVO;
+import dao.IngredienteReceitaProdutoDAO;
 import dao.ProdutoDAO;
 
 public class ProdutoBO {
 	
 	private ProdutoDAO dao;
+	private IngredienteReceitaProdutoDAO ingDao;
 	
 	{
 		dao = new ProdutoDAO();
+		ingDao = new IngredienteReceitaProdutoDAO();
 	}
 	
 	public List<ProdutoVO> filtrarBusca(String tipo, String sabor){
@@ -24,7 +28,13 @@ public class ProdutoBO {
 		return dao.consultarTodosProdutos();
 	}
 
-	public boolean atualizarProduto(ProdutoVO produto) {
+	public boolean atualizarProduto(ProdutoVO produto, List<IngredienteReceitaProdutoVO> listaIncluidos, List<IngredienteReceitaProdutoVO> listaExcluidos, List<IngredienteReceitaProdutoVO> listaAlterados){
+		
+		//adicionar o produto nas receitas antes
+		
+		ingDao.cadastrarIngredientesReceita(listaIncluidos, produto);
+		ingDao.alterarIngredientesReceita(listaAlterados);
+		ingDao.excluirIngredientesReceita(listaExcluidos);
 		
 		return dao.alterarProduto(produto);
 	}

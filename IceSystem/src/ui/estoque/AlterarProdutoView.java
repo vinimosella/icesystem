@@ -3,6 +3,7 @@ package ui.estoque;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -54,15 +55,23 @@ public class AlterarProdutoView extends JPanel{
 	private JLabel lblMaterias;
 	private JLabel lblReceita;
 	private IngredienteReceitaProdutoBO recBo;
+	private List<IngredienteReceitaProdutoVO> listaIncluidos;
+	private List<IngredienteReceitaProdutoVO> listaExcluidos;
+	private List<IngredienteReceitaProdutoVO> listaAlterados;
 	
 	{
 		bo = new ProdutoBO();
 		matBo = new MateriaPrimaBO();
 		recBo = new IngredienteReceitaProdutoBO();
 		listaMaterias = matBo.consultarMateriasPrimas();
+		listaIncluidos = new ArrayList<IngredienteReceitaProdutoVO>();
+		listaExcluidos = new ArrayList<IngredienteReceitaProdutoVO>();
+		listaAlterados = new ArrayList<IngredienteReceitaProdutoVO>();
 	}
 
 	public AlterarProdutoView(ProdutoVO produto) {
+		
+		this.produto = produto;
 		
 		this.setLayout(null);
 		this.setBackground(Color.decode("#F0F8FF"));
@@ -105,12 +114,12 @@ public class AlterarProdutoView extends JPanel{
 		this.add(scrollPane);
 		carregaDtmMateria();
 		
-		lblQtd = new JLabel("Quantidade Necessária");
-		lblQtd.setBounds(20,270,130,20);
+		lblQtd = new JLabel("Quantidade Necessária:");
+		lblQtd.setBounds(20,270,170,20);
 		this.add(lblQtd);
 		
 		txtQtd = new JTextField();
-		txtQtd.setBounds(160, 270, 70, 20);
+		txtQtd.setBounds(180, 270, 70, 20);
 		this.add(txtQtd);
 		
 		btnAdicionarItemMateria = new JButton(new ImageIcon(getClass().getResource("/img/down.png")));
@@ -148,6 +157,24 @@ public class AlterarProdutoView extends JPanel{
 							
 							//soma a qtdd que ele estava tentando add novamente no item da receita que ja esta na lista
 							itemReceita.setQuantidadeMateria(itemReceita.getQuantidadeMateria()+Double.parseDouble(txtQtd.getText()));
+							listaAlterados.add(itemReceita);
+						}
+						
+					}
+					
+					for (IngredienteReceitaProdutoVO exc : listaExcluidos) {
+						
+						//se estava na lista de excluidos.... 
+						if(exc.getMateriaPrima().getIdMateriaPrima() == listaMaterias.get(tabelaMaterias.getSelectedRow()).getIdMateriaPrima()){
+							
+							exc.setQuantidadeMateria(listaMaterias.get(tabelaMaterias.getSelectedRow()).getQuantidadeDisponivel());
+							listaAlterados.add(exc);
+							listaReceita.add(exc);
+							
+							flagEstaNaLista = true;
+							
+							//remove da lista, pois está adicionando novamente
+							listaExcluidos.remove(exc);
 						}
 						
 					}
@@ -157,9 +184,11 @@ public class AlterarProdutoView extends JPanel{
 						itemReceita = new IngredienteReceitaProdutoVO();
 						
 						itemReceita.setMateriaPrima(listaMaterias.get(tabelaMaterias.getSelectedRow()));
+						itemReceita.setProduto(AlterarProdutoView.this.produto);
 						itemReceita.setQuantidadeMateria(Double.parseDouble(txtQtd.getText()));
 						
 						listaReceita.add(itemReceita);
+						listaIncluidos.add(itemReceita);
 					}
 					
 					carregaDtmReceita();
@@ -193,6 +222,7 @@ public class AlterarProdutoView extends JPanel{
 
 				if(tabelaReceita.getSelectedRow()!=-1){
 					
+					listaExcluidos.add(listaReceita.get(tabelaReceita.getSelectedRow()));
 					listaReceita.remove(tabelaReceita.getSelectedRow());
 					carregaDtmReceita();
 					
@@ -204,7 +234,7 @@ public class AlterarProdutoView extends JPanel{
 		this.add(btnRemoverItemMateria);
 		
 		btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(30,120,90,30);
+		btnSalvar.setBounds(170,500,90,30);
 		btnSalvar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -222,7 +252,7 @@ public class AlterarProdutoView extends JPanel{
 										
 					AlterarProdutoView.this.produto.setTipo((String)comboTipo.getSelectedItem());
 					AlterarProdutoView.this.produto.setSabor(txtSabor.getText());
-					bo.atualizarProduto(AlterarProdutoView.this.produto);
+					bo.atualizarProduto(AlterarProdutoView.this.produto, listaIncluidos, listaExcluidos, listaAlterados);
 					
 					Utilidades.frmHome.getContentPane().removeAll();
 					ManterProdutoView consulta = new ManterProdutoView();
@@ -241,7 +271,7 @@ public class AlterarProdutoView extends JPanel{
 		this.add(btnSalvar);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(130,120,90,30);
+		btnCancelar.setBounds(300,500,90,30);
 		btnCancelar.addActionListener(new ActionListener() {
 			
 			@Override

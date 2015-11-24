@@ -35,7 +35,7 @@ public class ManterFornecedorView extends ManterGenericoView{
 		super.getScrollPane().setBounds(20, 70, 550, 400);
 		super.boundsBtn(500);
 		
-		if(!Utilidades.funcionarioLogado.getCargo().getFuncao().trim().equals(Utilidades.CARGO_ACESSO_ADMIN)){
+		if(!Utilidades.funcionarioLogado.getCargo().getFuncao().trim().equals(Utilidades.CARGO_ACESSO_GERENTE)){
 			super.getBtnAtualizar().setEnabled(false);
 			super.getBtnRemover().setEnabled(false);
 			super.getBtnCadastrar().setEnabled(false);

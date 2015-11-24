@@ -209,7 +209,7 @@ public class LoginView extends JPanel{
 		mnPessoas = new JMenu("Pessoas");
 		menuBar.add(mnPessoas);
 		
-		if(Utilidades.funcionarioLogado.getCargo().getFuncao().trim().equals(Utilidades.CARGO_ACESSO_ADMIN)){
+		if(Utilidades.funcionarioLogado.getCargo().getFuncao().trim().equals(Utilidades.CARGO_ACESSO_GERENTE)){
 			//ITEM FUNCIONARIO
 			mntmFuncionario = new JMenuItem("Funcionário");
 			mntmFuncionario.addActionListener(new ActionListener() {

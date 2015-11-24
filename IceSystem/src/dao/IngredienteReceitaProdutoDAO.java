@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import util.LogFactory;
+import util.Utilidades;
 import vo.FornecedorVO;
 import vo.IngredienteReceitaProdutoVO;
 import vo.MateriaPrimaVO;
@@ -40,9 +41,10 @@ public class IngredienteReceitaProdutoDAO{
 					                        + " inner join Materia_Prima mp on irp.id_materia_prima = mp.id_materia_prima"
 					                        + " inner join Fornecedor f on mp.id_fornecedor_pj = f.id_fornecedor_pj"
 					                        + " inner join Pessoa_Juridica pj on f.id_fornecedor_pj = pj.id_pessoa_juridica"
-					                        + " where irp.id_produto = ?");
+					                        + " where irp.id_produto = ? and irp.id_status = ?");
 			
 			pstm.setLong(1, produto.getIdProduto());
+			pstm.setLong(2, Utilidades.STATUS_ATIVO.getIdStatus());
 			
 			//Executa a pesquisa no banco
 			rs = pstm.executeQuery();
@@ -121,7 +123,7 @@ public class IngredienteReceitaProdutoDAO{
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [insert] que sera executado no banco
-			pstm = conexao.prepareStatement("insert into Ingrediente_Receita_Produto (id_produto, id_materia_prima, quantidade_materia) values (?, ?, ?)");
+			pstm = conexao.prepareStatement("insert into Ingrediente_Receita_Produto (id_produto, id_materia_prima, quantidade_materia, id_status) values (?, ?, ?, ?)");
 			
 			//Carrega a listaIRP
 			for (IngredienteReceitaProdutoVO irp : listaIRP) {
@@ -129,6 +131,7 @@ public class IngredienteReceitaProdutoDAO{
 				pstm.setInt(1, produto.getIdProduto());
 				pstm.setInt(2, irp.getMateriaPrima().getIdMateriaPrima());
 				pstm.setDouble(3, irp.getQuantidadeMateria());
+				pstm.setInt(4, Utilidades.STATUS_ATIVO.getIdStatus());
 				
 				//Executa uma atualização no banco
 				pstm.executeUpdate();
@@ -214,7 +217,7 @@ public class IngredienteReceitaProdutoDAO{
 		return true;
 	}
 
-	public boolean excluirIngredientesReceita(IngredienteReceitaProdutoVO irp) {
+	public boolean excluirIngredientesReceita(List<IngredienteReceitaProdutoVO> Listairp) {
 		
 		try {
 			
@@ -223,15 +226,127 @@ public class IngredienteReceitaProdutoDAO{
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [delete] que sera executado no banco
-			pstm = conexao.prepareStatement("delete from Ingrediente_Produto_Receita where id_produto = ? and id_materia_prima = ?");
+			pstm = conexao.prepareStatement("update INGREDIENTE_RECEITA_PRODUTO set id_status = ? where id_produto = ? and id_materia_prima = ?");
 			
-			pstm.setInt(1, irp.getProduto().getIdProduto());
+			for (IngredienteReceitaProdutoVO irp : Listairp) {
+				
+				pstm.setInt(1, Utilidades.STATUS_INATIVO.getIdStatus());
+				pstm.setInt(2, irp.getProduto().getIdProduto());
+				pstm.setInt(3, irp.getMateriaPrima().getIdMateriaPrima());
+				
+				
+				//Executa uma atualização no banco
+				pstm.executeUpdate();
 			
-			pstm.setInt(2, irp.getMateriaPrima().getIdMateriaPrima());
+			}
 			
+			//Em caso de sucesso, executa o commit da exclusão no banco
+			conexao.commit();
+						
+		} catch (ClassNotFoundException cnf) {
 			
-			//Executa uma atualização no banco
-			pstm.executeUpdate();
+			//Caso ocorra algum erro, executa o rollback da exclusão no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+				
+			}
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(), cnf.getMessage());
+			
+			cnf.printStackTrace();
+						
+			return false;
+			
+		} catch (SQLException sql) {
+			
+			//Caso ocorra algum erro, executa o rollback da exclusão no banco
+			try {
+				
+				conexao.rollback();
+				
+			} catch (SQLException sql2) {
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+				
+				sql2.printStackTrace();
+				
+				return false;
+				
+			}
+			
+			LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+			
+			sql.printStackTrace();
+			
+			return false;
+			
+		} finally{
+			
+			//Finalizando os recursos
+			try {
+				
+				conexao.close();
+				pstm.close();
+				
+			} catch (SQLException sql) {
+				
+				//Caso ocorra algum erro, executa o rollback da exclusão no banco
+				try {
+					
+					conexao.rollback();
+					
+				} catch (SQLException sql2) {
+					
+					LogFactory.getInstance().gerarLog(getClass().getName(), sql2.getMessage());
+					
+					sql2.printStackTrace();
+					
+					return false;
+				}
+				
+				LogFactory.getInstance().gerarLog(getClass().getName(), sql.getMessage());
+				
+				sql.printStackTrace();
+				
+				return false;
+			}
+			
+		}
+		
+		return true;
+	}
+	
+	public boolean alterarIngredientesReceita(List<IngredienteReceitaProdutoVO> Listairp) {
+		
+		try {
+			
+			//Cria a conexão com o banco
+			conexao = fabrica.getConexao();
+			conexao.setAutoCommit(false); //Inicia uma transação
+			
+			//Cria o [delete] que sera executado no banco
+			pstm = conexao.prepareStatement("update INGREDIENTE_RECEITA_PRODUTO set QUANTIDADE_MATERIA = ? where id_produto = ? and id_materia_prima = ?");
+			
+			for (IngredienteReceitaProdutoVO irp : Listairp) {
+				
+				pstm.setDouble(1, irp.getQuantidadeMateria());
+				pstm.setInt(2, irp.getProduto().getIdProduto());
+				pstm.setInt(3, irp.getMateriaPrima().getIdMateriaPrima());
+				
+				
+				//Executa uma atualização no banco
+				pstm.executeUpdate();
+			
+			}
 			
 			//Em caso de sucesso, executa o commit da exclusão no banco
 			conexao.commit();

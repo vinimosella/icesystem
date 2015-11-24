@@ -266,12 +266,11 @@ public class  ProdutoDAO{
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
 			//Cria o [alter] que sera executado no banco
-			pstm = conexao.prepareStatement("update Produto set quantidade_estoque=?, tipo=?, sabor=? where id_produto=?");
+			pstm = conexao.prepareStatement("update Produto set tipo=?, sabor=? where id_produto=?");
 			
-			pstm.setInt(1, produto.getQuantidadeEstoque());
-			pstm.setString(2, produto.getTipo());
-			pstm.setString(3, produto.getSabor());
-			pstm.setInt(4, produto.getIdProduto());
+			pstm.setString(1, produto.getTipo());
+			pstm.setString(2, produto.getSabor());
+			pstm.setInt(3, produto.getIdProduto());
 			
 			//Executa uma atualização no banco
 			pstm.executeUpdate();

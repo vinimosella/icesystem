@@ -4,6 +4,7 @@ public class ProdutoVO {
 
 	public ProdutoVO(){
 		
+		setQuantidadeEstoque(0);
 	}
 	
 	private Integer idProduto;

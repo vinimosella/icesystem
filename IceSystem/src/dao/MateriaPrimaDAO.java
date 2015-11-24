@@ -417,8 +417,18 @@ public class MateriaPrimaDAO{
 			conexao = fabrica.getConexao();
 			conexao.setAutoCommit(false); //Inicia uma transação
 			
-			//Cria o [delete] que sera executado no banco
+			//Cria o [update] que sera executado no banco
 			pstm = conexao.prepareStatement("update materia_prima set id_status = ? where id_materia_prima=?");
+			
+			pstm.setInt(1, mp.getStatus().getIdStatus());
+			
+			pstm.setInt(2, mp.getIdMateriaPrima());
+			
+			//Executa uma atualização no banco
+			pstm.executeUpdate();
+			
+			//Cria o [update] que sera executado no banco
+			pstm = conexao.prepareStatement("update INGREDIENTE_RECEITA_PRODUTO set id_status = ? where id_materia_prima=?");
 			
 			pstm.setInt(1, mp.getStatus().getIdStatus());
 			

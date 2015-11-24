@@ -49,7 +49,7 @@ public class FuncionarioBO {
 		funcionario.setStatus(Utilidades.STATUS_ATIVO);
 		
 		//se for administrador ou secretario gera usuario/senha
-		if(funcionario.getCargo().getFuncao().equals(Utilidades.CARGO_ACESSO_ADMIN) || funcionario.getCargo().getFuncao().equals(Utilidades.CARGO_ACESSO_SECRETARIO)){
+		if(funcionario.getCargo().getFuncao().equals(Utilidades.CARGO_ACESSO_GERENTE) || funcionario.getCargo().getFuncao().equals(Utilidades.CARGO_ACESSO_SECRETARIO)){
 			
 			String userAndPass = Utilidades.trocaEspacoPorPonto(funcionario.getNome().trim().toLowerCase());
 			
@@ -70,7 +70,7 @@ public class FuncionarioBO {
 	public boolean atualizarFuncionario(FuncionarioVO funcionario, List<List<EmailVO>> listaListaEmail, List<List<TelefoneVO>> listaListaTelefone){
 				
 		//se for administrador ou secretario gera usuario/senha
-		if(funcionario.getCargo().getFuncao().equals(Utilidades.CARGO_ACESSO_ADMIN) || funcionario.getCargo().getFuncao().equals(Utilidades.CARGO_ACESSO_SECRETARIO)
+		if(funcionario.getCargo().getFuncao().equals(Utilidades.CARGO_ACESSO_GERENTE) || funcionario.getCargo().getFuncao().equals(Utilidades.CARGO_ACESSO_SECRETARIO)
 				&& funcionario.getSenha() == null){
 					
 			String userAndPass = Utilidades.trocaEspacoPorPonto(funcionario.getNome().trim().toLowerCase());

@@ -56,7 +56,7 @@ public class Utilidades {
 	public static final String FINALIZADO = "Finalizado";
 	public static final String CANCELADO = "Cancelado";
 	
-	public static final String CARGO_ACESSO_ADMIN = "Administrador";
+	public static final String CARGO_ACESSO_GERENTE = "Gerente";
 	public static final String CARGO_ACESSO_SECRETARIO = "Secretário";
 	
 	public static final SituacaoVO SITUACAO_VENDA_DEFAULT = sitDao.consultarSituacaoPorDesc("Solicitado");
